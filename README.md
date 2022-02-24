@@ -1,5 +1,21 @@
-# 과제
+
+
+# Team Const
+- 기업협약프로젝트 
+
+## 기업협약 :날짜미정
+---   
+
+👨‍👩‍👦‍👦Member.  TeamConst(상태변수) 의 팀원들입니다
+
+
+- 한경현(kyunghyun Han):[깃허브](https://github.com/kyunghyunHan).     
+- 이소윤():[깃허브](https://github.com/jsoyun). 
+- 박정호():[깃허브](https://github.com/pjh94). 
 ---
+
+---
+# 과제 
 ## ERC-721 (NFT) Mint
 - [NFT 및 ERC-721 스마트 계약 발행 — 단계별로 쉽게!](https://medium.com/geekculture/mint-an-nft-and-erc-721-smart-contract-easy-step-by-step-4fafff151fbe)
 - [ERC-721 Token — Reference Implementation](https://github.com/nibbstack/erc721)
