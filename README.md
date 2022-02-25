@@ -36,6 +36,27 @@
 ---
 # 과제2
 ## 이더리움 기반의 NFT음악 스트리밍 플랫폼
+
+## 사용기술
+- Raact
+- JavaScript
+- NodeJs
+- Express
+- Solidity
+- Mysql
+- Truffle
+- Aws S3(image uploads)
+- Ipts.io(data uploads)
+- Metamask
+- AWS EC2
+
+## 개발환경
+|개발환경||
+|------|----|
+|개발환경|vscode, aws|
+|이슈관리|jira,Slack(계정생성공유,일간보고,주간보고(테크이슈 포함),분기보고(마일스톤 단위)|
+|문서관리|노션|
+|형상관리|깃허브|
 ## 참조
 Nft 발행부분
 - https://opensea.io/assets
