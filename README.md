@@ -60,7 +60,7 @@
 ## 참조
 Nft 발행부분
 - https://opensea.io/assets
-- https://www.krafrer.space/
+- https://www.krafter.space/
 
 음악플레이어
 - https://expore.spotify.com/us/pages/desktop-app
