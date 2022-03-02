@@ -26,7 +26,7 @@
 ## 게임 승리에 따른 보상지급
 - BEP-20 Token Minting
  [링크](https://blog.logrocket.com/how-to-create-deploy-bep-20-token-binance-smart-chain/)
-- 주간 순위 집계(Ranking)
+- 주간 순위 집계(Ranking)[링크](https://github.com/IAmJaysWay/Rarity-Ranking-NFT)
 - Token Clain Contract 구현
 - Token Clain Page 구현 (NFT Holder 지갑 주소로 자격확인)
 [링크](https://github.com/m1guelpf/nft-token-drop)
