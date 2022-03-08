@@ -1,7 +1,24 @@
-import '../styles/globals.css'
+import "../styles/globals.css";
 
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
-}
+import React from "react";
+import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
 
-export default MyApp
+import CssBaseline from "@mui/material/CssBaseline";
+
+const MyApp = ({ Component, pageProps }) => {
+  const [queryClient] = React.useState(() => new QueryClient());
+  const getLayout = Component.getLayout || ((page) => page);
+
+  return getLayout(
+    <QueryClientProvider client={queryClient}>
+      <Hydrate state={pageProps.dehydratedState}>
+        <CssBaseline />
+        <Component {...pageProps} />
+      </Hydrate>
+      <ReactQueryDevtools />
+    </QueryClientProvider>
+  );
+};
+
+export default MyApp;

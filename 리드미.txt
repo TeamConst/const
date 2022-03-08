@@ -1,0 +1,41 @@
+간단한 설명 2
+
+이번에 사용할 라이브러리
+
+상태 관리 : react-query
+폼 : react-hook-form
+디자인 : mui
+
+이해하기 쉽게 파일로 설명함
+
+1. 레이아웃을 여러개 사용할 경우를 생각해서 코드를 적어놈
+_app.js, index.js
+https://nextjs.org/docs/basic-features/layouts
+
+2. 기본 구조 layout, header, footer, (navbar) 컴포넌트 디렉에 넣어놈
+
+3. 상태관리 react-query로 하게 초기 설정 적어놈
+_app.js
+https://github.com/tannerlinsley/react-query/tree/master/examples/nextjs
+
+4. react-query + nextjs 예시 파일로 만들어놈
+페치할 때, 페치 없을 때
+
+5. signup 페이지 useForm으로 처리해놈
+signup.js
+
+6. 닉플레이스 첫 페이지 상품 나열들 컴포넌트 하나 예시로 만들어놈
+newworks.js 안에 SSR 코드로 넣어놨는데
+지금 드는 생각은 첫 화면에 여거래 컴포넌트들을 다 SSR로 받아오면 속도 이슈가 있지 않을까 생각 중
+어케 할지 고민중임
+
+7. 구매/판매, 유저 페이지 그리드 구성만 해놈
+market.js, mypage.js 
+2번 처럼 나중에 틀은 컴포넌트로 올리고 pages에서는 데이터 패치만 해서 연결지어줄 것임.
+일부러 그냥 냅뒀음 이해하기 쉬우라고
+
+
+Hydration도 설명해야하는 데 그건 나중에 적겠음
+https://helloinyong.tistory.com/315
+
+
