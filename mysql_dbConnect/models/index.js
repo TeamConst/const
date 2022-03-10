@@ -34,9 +34,10 @@ Artist.init(sequelize);
 Music.init(sequelize);
 // Like.init(sequelize);
 
-// User.associate(db);
-// Artist.associate(db);
-// Music.associate(db);
+User.associate(db);
+Artist.associate(db);
+Music.associate(db);
+
 // Like.associate(db);
 
 module.exports = db;

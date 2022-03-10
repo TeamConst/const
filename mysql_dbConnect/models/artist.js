@@ -17,6 +17,10 @@ module.exports = class Artist extends Sequelize.Model {
           type: Sequelize.STRING(45),
           allowNull: true,
         },
+        LikeArtist: {
+          type: Sequelize.INTEGER,
+          allowNull: true,
+        },
         user_idUser: {
           type: Sequelize.INTEGER,
           allowNull: true,
@@ -53,13 +57,15 @@ module.exports = class Artist extends Sequelize.Model {
     );
   }
   static associate(db) {
-    db.Artist.hasMany(db.Music, {
-      foreignKey: "artist_idArtist",
-      sourceKey: "musics",
-    });
-    db.Artist.belongsTo(db.User, {
+    Artist.belongsTo(db.User, {
       foreignKey: "user_idUser",
-      sourceKey: "user_idUser_user",
+      // sourceKey: "user_idUser_user",
+      sourceKey: "id",
+    });
+    Artist.hasMany(db.Music, {
+      foreignKey: "artist_idArtist",
+      // sourceKey: "musics",
+      // sourceKey: "id",
     });
   }
 };
