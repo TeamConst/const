@@ -1,4 +1,6 @@
 import "../styles/globals.css";
+import Navbar from '../components2/Layout/Navbar';
+import Main from '../components2/Content/Main';
 import web3 from '../connection/web3';
 import React, { useContext, useEffect } from 'react';
 import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
@@ -9,6 +11,8 @@ import CollectionContext from '../store/collection-context';
 import MarketplaceContext from '../store/marketplace-context'
 import NFTCollection from '../../abis/NFTCollection.json';
 import NFTMarketplace from '../../abis/NFTMarketplace.json';
+
+
 const MyApp = ({ Component, pageProps }) => {
   const [queryClient] = React.useState(() => new QueryClient());
   const getLayout = Component.getLayout || ((page) => page);
@@ -50,8 +54,8 @@ const MyApp = ({ Component, pageProps }) => {
 
       const mktDeployedNetwork = NFTMarketplace.networks[networkId];
       const mktContract = marketplaceCtx.loadContract(web3, NFTMarketplace, mktDeployedNetwork);
-
-      console.log(NFTCollection.networks)
+      
+      console.log(NFTCollection.networks[networkId])
       console.log(nftDeployedNetwork)
       console.log(networkId)
       console.log(mktDeployedNetwork)
@@ -142,17 +146,27 @@ console.log(nftContract)
     loadBlockchainData();
   }, []);
 
-  // const showNavbar = web3 && collectionCtx.contract && marketplaceCtx.contract;
-  // const showContent = web3 && collectionCtx.contract && marketplaceCtx.contract && web3Ctx.account;
+  const showNavbar = web3 && collectionCtx.contract && marketplaceCtx.contract;
+  const showContent = web3 && collectionCtx.contract && marketplaceCtx.contract && web3Ctx.account;
   return getLayout(
-    <QueryClientProvider client={queryClient}>
+   
+     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
-        <CssBaseline />
+     <CssBaseline />
         <Component {...pageProps} />
       </Hydrate>
-      <ReactQueryDevtools />
-    </QueryClientProvider>
+   <ReactQueryDevtools />
+     </QueryClientProvider>
+  //   <React.Fragment>
+  //   {showNavbar && <Navbar />}
+  //   {showContent && <Main />}
+  // </React.Fragment>
+ 
   );
+
 };
 
-export default MyApp;
+export default MyApp ;
+
+
+

@@ -3,8 +3,8 @@ import * as React from "react";
 import { useContext, useState } from 'react';
 import Web3Context from '../store/web3-context';
 import MarketplaceContext from '../store/marketplace-context';
-import web3 from "../connection/web3";
-import { formatPrice } from '../helpers/utils';
+import {web3} from "../connection/web3";
+import  formatPrice  from '../helpers/utils';
 //
 import CssBaseline from "@mui/material/CssBaseline";
 import Grid from "@mui/material/Grid";
@@ -224,4 +224,4 @@ console.log("dada")
   );
 };
 
-export default Mypage;
+export default {Mypage};

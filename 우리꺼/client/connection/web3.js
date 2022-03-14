@@ -16,4 +16,4 @@ if (typeof window !== "undefined" && typeof window.ethereum !== "undefined") {
   web3 = new Web3(provider);
 }
  
-export default web3;
+export default {web3};
