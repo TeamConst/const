@@ -47,8 +47,16 @@ server.prepare().then(() => {
   });
 
   //
-  app.post("api/signup", (req, res) => {
-    const firstName = req.body.firstName;
+  // app.post("api/signup", (req, res) => {
+  app.post("/signup", (req, res) => {
+    console.log("dfdfdfdf?????");
+    // console.log("레큐바디", JSON.parse(req.body));
+    // // const firstName22 = req.body.firstName;
+    // const firstName22 = JSON.parse(req.body.firstName);
+    // console.log("이름", firstName22);
+
+    const firstName = req.body.firstName || [];
+
     const genre = req.body.genre;
     const nation = req.body.nation;
     const radio = req.body.radio;
@@ -66,7 +74,7 @@ server.prepare().then(() => {
       .catch((err) => {
         console.error(err);
       });
-
+    ///////////////////
     // db.query(
     //   "INSERT INTO user (firstName,genre,nation,radio) VALUES (?,?,?,?)",
     //   [firstName, genre, nation, radio],
