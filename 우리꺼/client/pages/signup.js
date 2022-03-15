@@ -1,6 +1,7 @@
 import * as React from "react";
 import ReactDOM from "react-dom";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
 
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -19,6 +20,8 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 const theme = createTheme();
 
 const Signup = () => {
+  const [usernameReg, setUsernameReg] = useState("");
+  const [passwordReg, setPasswordReg] = useState("");
   const {
     register,
     formState: { errors },
@@ -30,7 +33,8 @@ const Signup = () => {
   console.log(errors);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    // <form onSubmit={handleSubmit(onSubmit)}>
+    <form>
       <ThemeProvider theme={theme}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />
@@ -51,7 +55,7 @@ const Signup = () => {
             <Box
               component="form"
               noValidate
-              onSubmit={handleSubmit}
+              // onSubmit={handleSubmit}
               sx={{ mt: 3 }}
             >
               <Grid container spacing={2}>
@@ -68,9 +72,10 @@ const Signup = () => {
                       required: true,
                       maxLength: 80,
                     })}
+                    onChange={(e) => setUsernameReg(e.target.value)}
                   />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                {/* <Grid item xs={12} sm={6}>
                   <TextField
                     required
                     fullWidth
@@ -82,6 +87,7 @@ const Signup = () => {
                       required: true,
                       maxLength: 100,
                     })}
+                   
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -98,7 +104,7 @@ const Signup = () => {
                         /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                     })}
                   />
-                </Grid>
+                </Grid> */}
                 <Grid item xs={12}>
                   <TextField
                     required
@@ -113,6 +119,7 @@ const Signup = () => {
                       pattern:
                         /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                     })}
+                    onChange={(e) => setPasswordReg(e.target.value)}
                     // 비번 유효성 안함
                   />
                 </Grid>
