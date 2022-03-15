@@ -8,6 +8,16 @@ const morgan = require("morgan");
 const path = require("path");
 
 const { sequelize } = require("./models");
+const mysql = require("mysql");
+const cors = require("cors");
+
+const db = mysql.createConnection({
+  /// 새로 추가된 부분
+  host: "localhost",
+  user: "root",
+  password: "1234",
+  database: "nodejs",
+});
 
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
@@ -36,12 +46,16 @@ server.prepare().then(() => {
 
   //
   app.post("/testregister", (req, res) => {
-    const username = req.body.user;
-    User.create({
-      name: req.body.data,
-    })
-      .then((result) => res.send(result))
-      .catch(err);
+    const username = req.body.username;
+    const password = req.body.password;
+
+    db.query(
+      "INSERT INTO user (username, password) VALUES (?,?)",
+      [username, password],
+      (err, result) => {
+        console.log(err);
+      }
+    );
   });
 
   // DB와 연결
