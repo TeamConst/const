@@ -6,6 +6,8 @@ import MarketplaceContext from '../store/marketplace-context';
 import web3 from "../connection/web3";
 import { formatPrice } from '../helpers/utils';
 //
+import Main from "../components/Content/Main"
+//
 import CssBaseline from "@mui/material/CssBaseline";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -28,39 +30,37 @@ const Mypage = () => {
     }
 
     // Load accounts
-    web3Ctx.loadBalance(web3);
-    web3Ctx.loadAccount(window.ethereum);
-    console.log(web3Ctx)
-     web3Ctx.loadBalance(window.ethereum); 
+    web3Ctx.loadAccount(web3);
+      web3Ctx.loadBalance(web3); 
   };
-  web3Ctx.loadAccount(web3);
+  // web3Ctx.loadAccount(web3);
   web3Ctx.loadBalance(web3);  
-  console.log(web3Ctx)
 
-  console.log("dada")
-  const claimFundsHandler = () => {
-    marketplaceCtx.contract.methods.claimFunds().send({ from: web3Ctx.account })
-    .on('transactionHash', (hash) => {
-      setFundsLoading(true);
-    })
-    .on('error', (error) => {
-      window.alert('Something went wrong when pushing to the blockchain');
-      setFundsLoading(false);
-    });
-  };
-  console.log("dada")
-  // 
-// 이벤트 ClaimFunds 구독
-console.log("dada")
-  marketplaceCtx.contract.events.ClaimFunds()
-  .on('data', (event) => {
-    console.log("dada")
-    marketplaceCtx.loadUserFunds(marketplaceCtx.contract, web3Ctx.account);
-    setFundsLoading(false);
-  })
-  .on('error', (error) => {
-    console.log(error);
-  });
+
+
+//   const claimFundsHandler = () => {
+//     marketplaceCtx.contract.methods.claimFunds().send({ from: web3Ctx.account })
+//     .on('transactionHash', (hash) => {
+//       setFundsLoading(true);
+//     })
+//     .on('error', (error) => {
+//       window.alert('Something went wrong when pushing to the blockchain');
+//       setFundsLoading(false);
+//     });
+//   };
+//   console.log("dada")
+//   // 
+// // 이벤트 ClaimFunds 구독
+// console.log("dada")
+//   marketplaceCtx.contract.events.ClaimFunds()
+//   .on('data', (event) => {
+//     console.log("dada")
+//     marketplaceCtx.loadUserFunds(marketplaceCtx.contract, web3Ctx.account);
+//     setFundsLoading(false);
+//   })
+//   .on('error', (error) => {
+//     console.log(error);
+//   });
 
   let etherscanUrl;
 
