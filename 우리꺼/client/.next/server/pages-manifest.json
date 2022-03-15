@@ -1,14 +1,6 @@
 {
   "/_app": "pages/_app.js",
-  "/aa": "pages/aa.js",
-  "/api/hello": "pages/api/hello.js",
-  "/": "pages/index.js",
-  "/market": "pages/market.js",
-  "/music": "pages/music.js",
-  "/mypage": "pages/mypage.js",
-  "/mypage2": "pages/mypage2.js",
-  "/newworks": "pages/newworks.js",
-  "/signup": "pages/signup.js",
   "/_error": "pages/_error.js",
-  "/_document": "pages/_document.js"
+  "/_document": "pages/_document.js",
+  "/signup": "pages/signup.js"
 }

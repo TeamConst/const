@@ -11,13 +11,15 @@ const { sequelize } = require("./models");
 const mysql = require("mysql");
 const cors = require("cors");
 
-const db = mysql.createConnection({
-  /// 새로 추가된 부분
-  host: "localhost",
-  user: "root",
-  password: "1234",
-  database: "nodejs",
-});
+const User = require("./models/user");
+
+// const db = mysql.createConnection({
+//   /// 새로 추가된 부분
+//   host: "localhost",
+//   user: "root",
+//   password: "1234",
+//   database: "nodejs",
+// });
 
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
@@ -45,17 +47,33 @@ server.prepare().then(() => {
   });
 
   //
-  app.post("/testregister", (req, res) => {
-    const username = req.body.username;
-    const password = req.body.password;
+  app.post("api/signup", (req, res) => {
+    const firstName = req.body.firstName;
+    const genre = req.body.genre;
+    const nation = req.body.nation;
+    const radio = req.body.radio;
 
-    db.query(
-      "INSERT INTO user (username, password) VALUES (?,?)",
-      [username, password],
-      (err, result) => {
-        console.log(err);
-      }
-    );
+    User.create({
+      id: radio,
+      name: firstName,
+      nation: nation,
+      favor_genre: genre,
+      //address:
+    })
+      .then((result) => {
+        res.json(result);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+
+    // db.query(
+    //   "INSERT INTO user (firstName,genre,nation,radio) VALUES (?,?,?,?)",
+    //   [firstName, genre, nation, radio],
+    //   (err, result) => {
+    //     console.log(err, "안들어감요");
+    //   }
+    // );
   });
 
   // DB와 연결
