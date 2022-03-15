@@ -2,6 +2,7 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import Axios from "axios";
 
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -16,12 +17,23 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { convertLength } from "@mui/material/styles/cssUtils";
 
 const theme = createTheme();
 
 const Signup = () => {
   const [usernameReg, setUsernameReg] = useState("");
   const [passwordReg, setPasswordReg] = useState("");
+
+  const testregister = () => {
+    Axios.post("http://localhost3001/register", {
+      username: usernameReg,
+      password: passwordReg,
+    }).then((response) => {
+      console.log("응답받음", response);
+    });
+  };
+
   const {
     register,
     formState: { errors },

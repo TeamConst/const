@@ -6,7 +6,7 @@
 .pnp.js
 /.next
 
-.next node_modules 
+.next 
 .env 
 
 # testing

@@ -35,9 +35,14 @@ server.prepare().then(() => {
   });
 
   //
-  // app.post("/signup",(req, res)=>{
-
-  // })
+  app.post("/testregister", (req, res) => {
+    const username = req.body.user;
+    User.create({
+      name: req.body.data,
+    })
+      .then((result) => res.send(result))
+      .catch(err);
+  });
 
   // DB와 연결
   sequelize
