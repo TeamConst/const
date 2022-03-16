@@ -7,7 +7,10 @@ const resolveWeb3 = (resolve) => {
 
   if (alreadyInjected) {
     console.log(`Injected web3 detected.`);
-    web3 = new Web3(web3.currentProvider);
+    // web3 = new Web3(web3.currentProvider);
+
+    window.ethereum.request({ method: "eth_requestAccounts" });
+    web3 = new Web3(window.ethereum);
   } else {
     console.log(`No web3 instance injected, using Local web3.`);
     const provider = new Web3.providers.HttpProvider(localProvider);

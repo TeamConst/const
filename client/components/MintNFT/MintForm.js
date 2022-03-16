@@ -16,7 +16,9 @@ const ipfs = ipfsClient.create({
 const MintForm = () => {
   let pra;
   let praaccounts;
+
   useEffect(async () => {
+    // 이해하기 쉬우라고 기본 코드로 썼음
     const web3 = await getWeb3();
     const accounts = await web3.eth.getAccounts();
     const networkId = await web3.eth.net.getId();
@@ -119,6 +121,7 @@ const MintForm = () => {
       //     collectionCtx.setNftIsLoading(false);
       //   });
       // praaccounts[0]
+
       pra.methods
         .safeMint(metadataAdded.path)
         .send({ from: praaccounts[0] })
