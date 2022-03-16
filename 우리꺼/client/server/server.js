@@ -13,14 +13,6 @@ const cors = require("cors");
 
 const User = require("./models/user");
 
-// const db = mysql.createConnection({
-//   /// 새로 추가된 부분
-//   host: "localhost",
-//   user: "root",
-//   password: "1234",
-//   database: "nodejs",
-// });
-
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 
@@ -28,18 +20,25 @@ const session = require("express-session");
 // const passportConfig = require("./passport");
 
 // 라우터 선언
-const indexRouter = require("./routers/index.js");
+//const indexRouter = require("./client/routers/index.js.js.js");
+const apiRouter = require("../routers/apiRouter.js");
+
 // const authRouter = require("./routers/auth");
 // const apisRouter = require("./routers/apis/index");
 // const blockRouter = require("./routers/apis/block");
 // 모든 URL에 대한 Router
-const otherRouter = require("./routers/other.js");
+const otherRouter = require("../routers/other.js");
 
-const server = next({});
+const dev = process.env.NODE_ENV !== "production";
+
+const server = next({ dev });
 const handle = server.getRequestHandler();
 
 server.prepare().then(() => {
   const app = express();
+
+  //
+  app.use("/api", apiRouter);
 
   // 여기 보면 된다
   app.get("/", (req, res) => {
@@ -54,16 +53,17 @@ server.prepare().then(() => {
     // const firstName22 = JSON.parse(req.body.firstName);
     // console.log("이름", firstName22);
     // console.log(req.body);
+    console.log("레큐바디", req.body);
 
-    const firstName = req.body.firstName || [];
-
-    const genre = req.body.data;
+    const artist = req.body.artist;
+    const name = req.body.name;
     const nation = req.body.nation;
-    const radio = req.body.radio;
+    const genre = req.body.genre;
+    // const radio = req.body.radio;
 
     User.create({
-      id: radio,
-      name: firstName,
+      id: artist,
+      name: name,
       nation: nation,
       favor_genre: genre,
       //address:
