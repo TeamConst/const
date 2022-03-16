@@ -6,17 +6,25 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useQuery } from "react-query";
 import { fetchLocals } from "../hooks/locals";
+import { useEffect } from "react";
+import web3 from "../components/connection/web3";
 
 const theme = createTheme();
 
-// const usePosts = (limit) => {
-//   return useQuery(["posts", limit], () => fetchPosts(limit));
-// };
-
 const Mypage1 = () => {
+  // const usePosts = (limit) => {
+  //   return useQuery(["posts", limit], () => fetchPosts(limit));
+  // };
   // const { data, isLoading, isFetching } = useQuery(["locals"], () =>
   //   fetchLocals()
   // );
+  useEffect(async () => {
+    const windowData = web3;
+    const account = await windowData.eth.getAccounts();
+    console.log(account);
+
+    // nft
+  });
 
   const { data, isLoading, isFetching } = useQuery("locals", fetchLocals);
 

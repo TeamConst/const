@@ -4,7 +4,7 @@ import { useQuery, dehydrate, QueryClient } from "react-query";
 import { fetchLocals } from "../hooks/locals";
 
 const Mypage = () => {
-  const localsQuery = useQuery("locals", fetchLocals);
+  // const localsQuery = useQuery("locals", fetchLocals);
   // console.log(localsQuery);
   return (
     <div>
