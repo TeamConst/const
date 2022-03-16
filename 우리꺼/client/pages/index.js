@@ -13,8 +13,6 @@ import Web3Context from "../store/web3-context";
 import CssBaseline from "@mui/material/CssBaseline";
 import CollectionContext from "../store/collection-context";
 import MarketplaceContext from "../store/marketplace-context";
-import NFTCollection from "../../abis/NFTCollection.json";
-import NFTMarketplace from "../../abis/NFTMarketplace.json";
 
 const Page = () => {};
 

@@ -12,10 +12,10 @@ import Web3Context from "../store/web3-context";
 import CssBaseline from "@mui/material/CssBaseline";
 import CollectionContext from "../store/collection-context";
 import MarketplaceContext from "../store/marketplace-context";
-import NFTCollection from "../../abis/NFTCollection.json";
-import NFTMarketplace from "../../abis/NFTMarketplace.json";
+import NFTCollection from "../../build/contracts/NFTCollection.json";
+import NFTMarketplace from "../../build/contracts/NFTMarketplace.json";
 
-const Aa = () => {
+const Mint = () => {
   const web3Ctx = useContext(Web3Context);
   //   console.log(web3);
   //   console.log(web3Ctx);
@@ -190,4 +190,4 @@ const Aa = () => {
   );
 };
 
-export default Aa;
+export default Mint;
