@@ -46,7 +46,7 @@ server.prepare().then(() => {
   });
 
   //
-  app.post("api/signup", (req, res) => {
+  app.post("/api/signup", (req, res) => {
     console.log("dfdfdfdf?????");
     // console.log("레큐바디", JSON.parse(req.body));
     // const firstName22 = req.body.data;
