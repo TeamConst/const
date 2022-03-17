@@ -5,9 +5,23 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
+import { useRouter } from "next/router";
+import { useQuery } from "react-query";
+import { fetchBestCollections } from "../hooks";
+import { fetchBuySell } from "../hooks";
+
 const theme = createTheme();
 
 const Market = () => {
+  const router = useRouter();
+  const { id } = router.query;
+
+  const { data, isLoading, isFetching } = useQuery(["buysell"], () =>
+    fetchBuySell(id)
+  );
+  // fetchBestCollections(id)
+  console.log(data);
+
   return (
     <div>
       <ThemeProvider theme={theme}>
