@@ -20,6 +20,8 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import countryList from "react-select-country-list";
 
+import web3 from "./connection/web3";
+
 const theme = createTheme();
 
 const Signup = () => {
@@ -30,8 +32,21 @@ const Signup = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    console.log(data);
-    const resuit = await axios.post("http://localhost:3000/api/signup", data);
+    try {
+      // 실제에서는 여기서 어드레스 받고 폼 데이터랑 같이 보내준다고 처리하자
+      // 우리는 truffle accounts로 계정은 이미 만든 상태다 가정하고 처리
+      // console.log(web3);
+      // const abc = web3.eth.accounts.create();
+      // console.log(abc);
+
+      const address = await web3.eth.getAccounts();
+      data.address = address[0];
+
+      const result = await axios.post("http://localhost:8080/api/signup", data);
+      console.log(result);
+    } catch (err) {
+      console.log("회원가입 오류에연");
+    }
   };
 
   const [value, setValue] = useState("");
@@ -102,7 +117,7 @@ const Signup = () => {
               <Grid item xs={12}>
                 <div>
                   <label>장르</label>
-                  <select {...register("genre", { required: true })}>
+                  <select {...register("favor_genre", { required: true })}>
                     <option value="Pop">팝</option>
                     <option value="Balad">발라드</option>
                     <option value="그 외 임시">등등</option>

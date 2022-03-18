@@ -8,7 +8,7 @@ dotenv.config();
 const morgan = require("morgan");
 const path = require("path");
 
-// const { sequelize } = require("./models/index.js");
+const { sequelize } = require("./models/index.js");
 
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
@@ -24,18 +24,17 @@ const indexRouter = require("./routers/index.js");
 // 모든 URL에 대한 Router
 const otherRouter = require("./routers/other.js");
 
-// 시퀄라이즈
-// // DB와 연결
-// sequelize
-//   // sync : MySQL에 테이블이 존재 하지 않을때 생성
-//   //      force: true   => 이미 테이블이 있으면 drop하고 다시 테이블 생성
-//   .sync({ force: false })
-//   .then(() => {
-//     console.log("Database connected successfully");
-//   })
-//   .catch((err) => {
-//     console.error(err);
-//   });
+// DB와 연결
+sequelize
+  // sync : MySQL에 테이블이 존재 하지 않을때 생성
+  //      force: true   => 이미 테이블이 있으면 drop하고 다시 테이블 생성
+  .sync({ force: false })
+  .then(() => {
+    console.log("Database connected successfully");
+  })
+  .catch((err) => {
+    console.error(err);
+  });
 
 // 나머지 설정들
 // req.session 객체 생성
@@ -204,9 +203,41 @@ app.prepare().then(() => {
     });
   });
 
-  server.post("/api/buysell", (req, res) => {
-    console.log(req.body);
+  const Music = require("./models/music");
+  const User = require("./models/user");
+
+  // 민트하고 나머지 정보 DB에 쏠 때
+  // 노래등록, 앨범등록으로 나누어야 겠다
+  server.post("/api/mint/gg", async (req, res) => {
+    await Music.create(req.body);
+    res.send("민트 mysql OK");
+  });
+
+  server.post("/api/mint/image", upload.single("image"), (req, res) => {
+    res.send("민트 S3 OK");
+  });
+
+  server.post("/api/mint/musics", async (req, res) => {
+    // await Music.create(req.body);
+    res.send("민트 ipfs OK");
+  });
+
+  // 구매, 판매 페이지 입장시
+  server.post("/api/buysell", async (req, res) => {
+    const data = await Music.findOne({ title: req.body.name });
+    console.log(data);
     res.send("ok");
+  });
+
+  // 회원가입 일단, 어드레스만 트러플에 넣고 나머지는 Mysql에 넣도록 하겠다
+  // 그리고 블록체인이니까 계정 중복 등의 고려는 우선 하지 않도록 하겠다
+  server.post("/api/signup", async (req, res) => {
+    try {
+      const data = await User.create(req.body);
+      res.send("회원가입 완료");
+    } catch (err) {
+      console.log("회원가입 오류");
+    }
   });
 
   // 여기 보면 된다
