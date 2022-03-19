@@ -224,9 +224,11 @@ app.prepare().then(() => {
 
   // 구매, 판매 페이지 입장시
   server.post("/api/buysell", async (req, res) => {
-    const data = await Music.findOne({ title: req.body.name });
-    console.log(data);
-    res.send("ok");
+    console.log(req.body);
+    console.log(req.body.name);
+    // const data = await Music.findOne({ title: req.body.name });
+    // res.json(data);
+    res.send("ook");
   });
 
   // 회원가입 일단, 어드레스만 트러플에 넣고 나머지는 Mysql에 넣도록 하겠다
