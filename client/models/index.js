@@ -9,6 +9,7 @@ const config = require("../config/config.json")[env];
 const User = require("./user");
 const Music = require("./music");
 const Artist = require("./artist");
+const Auction = require("./auction");
 // const Like = require("./like");
 
 const db = {};
@@ -26,17 +27,19 @@ db.sequelize = sequelize;
 db.User = User;
 db.Music = Music;
 db.Artist = Artist;
+db.Auction = Auction;
 
 // db.Like = Like;
 User.init(sequelize);
 Artist.init(sequelize);
 Music.init(sequelize);
+Auction.init(sequelize);
 // Like.init(sequelize);
 
 User.associate(db);
 Artist.associate(db);
 Music.associate(db);
-
+Auction.associate(db);
 // Like.associate(db);
 
 module.exports = db;

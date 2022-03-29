@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 
-import * as React from "react";
+import { useState } from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -27,19 +27,23 @@ const Music = () => {
     const image = data.image[0];
     const imageFormData = new FormData();
     imageFormData.append("image", image);
+    imageFormData.append("title", data.title);
+
     const resultImage = await axios.post(
       "http://localhost:8080/api/mint/image",
       imageFormData
     );
+    console.log(resultImage);
 
     // ipfs 처리부분
     const musics = data.musics[0];
     const musicsFormData = new FormData();
     musicsFormData.append("musics", musics);
-    const resultMusics = await axios.post(
-      "http://localhost:8080/api/mint/musics",
-      musicsFormData
-    );
+    // const resultMusics = await axios.post(
+    //   "http://localhost:8080/api/mint/musics",
+    //   musicsFormData
+    // );
+    // console.log(resultMusics);
 
     // 컨트랙트 처리부분
     const reader = new window.FileReader();
@@ -116,10 +120,27 @@ const Music = () => {
     gg.genre = data.genre;
     gg.title = data.title;
 
-    console.log(gg);
-    const resultGG = await axios.post("http://localhost:8080/api/mint/gg", gg);
+    // const resultGG = await axios.post("http://localhost:8080/api/mint/gg", gg);
+
+    // 한번에
+    const form = new FormData();
+    form.append("image", image);
+    form.append("musics", musics);
+    form.append("db", JSON.stringify(gg));
+
+    const rere = await axios.post("http://localhost:8080/api/mint", form);
   };
   // console.log(errors);
+
+  const [이미지, 이미지변경] = useState();
+  const changeImage = async (e) => {
+    const file = e.target.files;
+    const reader = new FileReader();
+    reader.onload = () => {
+      이미지변경(reader.result);
+    };
+    reader.readAsDataURL(file[0]);
+  };
 
   return (
     <div>
@@ -138,11 +159,22 @@ const Music = () => {
                   <Box bgcolor="info.main" color="info.contrastText" p={2}>
                     앨범커버 이미지 등록 이미지 첨부하면 렌더링하는 것까지
                     구현하자
+                    <img
+                      src={이미지}
+                      // alt={detailImageFile.name}
+                      loading="lazy"
+                      height="300"
+                      width="300"
+                    />
                     <input
                       {...register("image", {
                         required: true,
                       })}
+                      accept="image/*"
                       type="file"
+                      onChange={(e) => {
+                        changeImage(e);
+                      }}
                     ></input>
                   </Box>
                 </Grid>
@@ -151,12 +183,10 @@ const Music = () => {
                     <Grid item xs={12}>
                       <Box bgcolor="info.main" color="info.contrastText" p={2}>
                         <TextField
-                          autoComplete="given-name"
-                          name="Title"
+                          variant="outlined"
                           required
                           fullWidth
-                          id="Title"
-                          label="Title"
+                          label="제목"
                           autoFocus
                           {...register("title", {
                             required: true,
@@ -168,8 +198,7 @@ const Music = () => {
                     <Grid item xs={12}>
                       <Box bgcolor="info.main" color="info.contrastText" p={2}>
                         <TextField
-                          autoComplete="given-name"
-                          variant="standard"
+                          variant="outlined"
                           required
                           fullWidth
                           label="가수명"
@@ -184,8 +213,7 @@ const Music = () => {
                     <Grid item xs={12}>
                       <Box bgcolor="info.main" color="info.contrastText" p={2}>
                         <TextField
-                          autoComplete="given-name"
-                          variant="standard"
+                          variant="outlined"
                           required
                           fullWidth
                           label="앨범명"
@@ -200,8 +228,7 @@ const Music = () => {
                     <Grid item xs={12}>
                       <Box bgcolor="info.main" color="info.contrastText" p={2}>
                         <TextField
-                          autoComplete="given-name"
-                          variant="standard"
+                          variant="outlined"
                           required
                           fullWidth
                           label="발매년도"
@@ -216,8 +243,7 @@ const Music = () => {
                     <Grid item xs={12}>
                       <Box bgcolor="info.main" color="info.contrastText" p={2}>
                         <TextField
-                          autoComplete="given-name"
-                          variant="standard"
+                          variant="outlined"
                           required
                           fullWidth
                           label="장르"
@@ -232,8 +258,7 @@ const Music = () => {
                     <Grid item xs={12}>
                       <Box bgcolor="info.main" color="info.contrastText" p={2}>
                         <TextField
-                          autoComplete="given-name"
-                          variant="standard"
+                          variant="outlined"
                           required
                           fullWidth
                           label="작곡가"
@@ -248,8 +273,7 @@ const Music = () => {
                     <Grid item xs={12}>
                       <Box bgcolor="info.main" color="info.contrastText" p={2}>
                         <TextField
-                          autoComplete="given-name"
-                          variant="standard"
+                          variant="outlined"
                           required
                           fullWidth
                           label="작사가"

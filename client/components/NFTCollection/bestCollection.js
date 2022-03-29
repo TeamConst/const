@@ -47,6 +47,7 @@ const BestCollection = () => {
     pictures = data.data;
     a = 1;
   }
+  console.log(pictures);
   console.log(isLoading);
   console.log(isFetching);
 
