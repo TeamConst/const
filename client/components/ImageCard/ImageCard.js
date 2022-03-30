@@ -39,13 +39,13 @@ useEffect(() => {
 }, [])
 
 
-    let image = props.image;
-    let auction = props.Auction;
+    const image = props.image;
+    const auction = props.Auction;
     console.log("aucion",auction)
     console.log("props",props)
     console.log("endTime",auction.endTime)
     let isOwner = (props.image.currentOwner === props.accountAddress);
-    let leftTime = (auction.endTime - props.currentTime);
+    let leftTime = auction.endTime - props.currentTime;
     let status = image.status == 0 ? "경매종료" : image.status == 1 ? "경매중" : "청구 대기 중";
      
   

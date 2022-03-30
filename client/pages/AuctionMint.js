@@ -10,6 +10,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { TextField } from "@mui/material";
 //web3
 import Web3 from "web3";
+import Marketplace from  "../components/Marketplace"
 import MintedImages from "../components/MintedImages";
 // import web3 from "./connection/web3";
 // import contractJSON from "../../build/contracts/NFTCollection.json";
@@ -55,6 +56,7 @@ function AuctionMint() {
   const [ImageNumOfAccount, setImageNumOfAccount] = useState(0);
   const [lastMintTime, setLastMintTime] = useState(null);
   const [Auctions,setAuctions] = useState([]);
+  const [Auctions2,setAuctions2] = useState([]);
   const [currentTime, setCurrentTime] = useState(null);
   const [ready, setReady] = useState(false);
 
@@ -119,7 +121,10 @@ function AuctionMint() {
           let auction = await NFTMarketplaceInstance.methods
             .auctions(i)
             .call();
-          setAuctions(Auctions =>[...Auctions,auction]);
+          setAuctions(Auctions => [...Auctions,auction]);
+          setAuctions(Auctions => [...Auctions,auction]);
+          console.log("Auctions",Auctions)
+          console.log("Auctions",auction)
         }
         let ImageNumOfAccount = await NFTMarketplaceInstance.methods
           .getOwnedNumber(accounts[0])
@@ -358,6 +363,16 @@ function AuctionMint() {
           Contract={Contract}
           Auctions={Auctions}
           currentTime={currentTime}/>
+          <br/>
+            {/* <Marketplace
+          accountAddress={accountAddress}
+          Images={Images}
+          Contract={Contract}
+          Auctions={Auctions}
+          currentTime={currentTime}
+        /> */}
+   {/* <RenderMintedImages/> */}
+   {/* <RenderMarketplace/> */}
     </div>
   );
 };
