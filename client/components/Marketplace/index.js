@@ -16,11 +16,11 @@ function Marketplace ({
   Auctions2,
   currentTime,
 })  {
-  console.log(Auctions2);
+  
   const allImages = Images.filter(
     (image) => image.status != 0
   );
-  console.log(Auctions2);
+  
   let ImageCount = allImages.length;
   return (
     <div><br />
