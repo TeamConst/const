@@ -209,9 +209,9 @@ app.prepare().then(() => {
       host: "ipfs.infura.io",
       port: 5001,
       protocol: "https",
-      headers: {
-        authorization: auth,
-      },
+      // headers: {
+      //   authorization: auth,
+      // },
     });
 
     // console.log(req.files);
@@ -427,6 +427,18 @@ app.prepare().then(() => {
     const networkId = await web3.eth.net.getId();
     const deployedAddress = contractJSON.networks[networkId].address;
     const contract = new web3.eth.Contract(contractJSON.abi, deployedAddress);
+
+    const block = await web3.eth.getBlock();
+    const tr = await web3.eth.getTransaction();
+    const tra = await web3.eth.getTransaction(
+      "0x7dd2990185d801d8c4c87bc51264671161283c955860901bf71cae3fab2dfb38"
+    );
+    // console.log(block);
+    console.log(tr);
+    console.log(tra);
+    // 0x76534D3ED03b40D2B4BC9062Bc69db60672Ef836
+    // 블록이나 tr 불러오는거 한번 봐보면,
+    // 일단 해시값을 알거나, 아니면 블록에 대한 정보로 불어와야 할 것 같은데,
 
     // 컨트랙트 불러온 계정으로 나머지 정보들 불러오기
     // 그런데 지금 메타마스크 계정 바꿔논 걸 어떻게 불러오지
