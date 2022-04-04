@@ -1,4 +1,4 @@
-export * from "./locals";
+export * from "./mypages";
 export * from "./collections";
 export * from "./buysell";
 export * from "./bestCollections";

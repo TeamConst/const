@@ -1,7 +1,6 @@
 import Layout from "../components/layout";
 import Mypage1 from "../components/mypage";
 import { useQuery, dehydrate, QueryClient } from "react-query";
-import { fetchLocals } from "../hooks/locals";
 
 const Mypage = () => {
   // const localsQuery = useQuery("locals", fetchLocals);

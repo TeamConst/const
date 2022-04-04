@@ -189,6 +189,7 @@ app.prepare().then(() => {
   const Music = require("./models/music");
   const User = require("./models/user");
   const Auction = require("./models/auction");
+  const MyMusic = require("./models/mymusic");
 
   server.post("/api/mint", async (req, res) => {
     const parse = JSON.parse(req.body.db);
@@ -409,7 +410,49 @@ app.prepare().then(() => {
     res.json(result);
   });
 
-  // 음악 컴포넌트 음악 정보 불러오기
+  // 마이페이지 컴포넌트  정보 불러오기
+  server.get("/api/mypage", async (req, res) => {
+    // 그니까 가져올 곳이 세션, 블록, s3, ipfs 잖아 잘 맞춰보자
+    // 내 이름 : web3, 아니면 db에서 web3 검색해서 아이디 찾기?
+    // 생각했던 web3 연결을 여기서도 충분히 할 수 있잖아
+    // 여기서 하는 걸로 우선 써보자
+
+    // 우선, 컨트랙트 불러오기
+    // 서버에서 처리하는 걸로 한번 해봤다
+    //  NFT 관련 변수 한번 파악해야겠다
+    const web3 = require("./getWeb3");
+    const contractJSON = require("../build/contracts/ImageMarketplace.json");
+    // const contractJSON = require("../build/contracts/NFTCollection.json");
+    const accounts = await web3.eth.getAccounts();
+    const networkId = await web3.eth.net.getId();
+    const deployedAddress = contractJSON.networks[networkId].address;
+    const contract = new web3.eth.Contract(contractJSON.abi, deployedAddress);
+
+    // 컨트랙트 불러온 계정으로 나머지 정보들 불러오기
+    // 그런데 지금 메타마스크 계정 바꿔논 걸 어떻게 불러오지
+    // db 불러오기
+    const music = await Music.findOne({ title: req.body.name });
+    // const music = await Music.findAll();
+
+    // console.log(contract);
+    // console.log(abc.eth.accounts);
+
+    // 새로 만들어야할 컴포넌트
+    // 회원 정보 수정 컴포넌트 만들어야함
+    // 나의 NFT 컴포넌트 만들기
+
+    // Recently Palyed 등등
+
+    // 여러 곡에 대한 나의 정보도 db가 하나 더 있어야하겠네
+    // const mymusic = await MyMusic.findAll();
+
+    // res.json(data);
+
+    // res.json(result);
+    res.send("okok");
+  });
+
+  // 좋아요 수 처리
   server.post("/api/upLike", async (req, res) => {
     // const result = await Music.findAll();
     // const data = await Music.findOne({ title: req.body.name });
