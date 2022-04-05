@@ -51,6 +51,7 @@ const BestCollection = () => {
   console.log(pictures);
   console.log(isLoading);
   console.log(isFetching);
+  // console.log(a.key)
 
   return (
     <div>

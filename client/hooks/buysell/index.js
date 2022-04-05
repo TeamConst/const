@@ -10,6 +10,11 @@ const fetchBuySell = async (param) => {
   // const parsed = await ky("http://localhost:3000/api/collections").json();
   const data = await axios.post("http://localhost:8080/api/buysell", {
     name: param,
+  
+  });
+  const data2 = await axios.post("http://localhost:8080/api/buysell", {
+    name: param,
+  
   });
 
   // const data = await axios.get("http://localhost:8080/api/bestCollection");
@@ -22,7 +27,8 @@ const fetchBuySell = async (param) => {
   // console.log(parsed);
   // console.log(data);
 
-  return data;
+  return {data,data2};
+
 };
 
 // const fetchLocals = async (limit = 10) => {
