@@ -12,16 +12,27 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 
+import Link from "next/link";
+
+// 객체로 바꾸자
 const pages = [
-  "DIGITAL NFT",
-  "REAL PAINTING NFT",
-  "NIKPLAY",
-  "NIKPLACE",
-  "SUPPORT",
-  "SELL MY NFT",
-  "NIKHOLDER",
-  "회원가입",
+  ["BUY NOW", "buysell"],
+  ["AUCTION", "auction"],
+  ["이용권 구매", "buyticket"],
+  ["로그인", "login"],
+  ["회원가입", "signup"],
 ];
+
+// const pages = [
+//   "DIGITAL NFT",
+//   "REAL PAINTING NFT",
+//   "NIKPLAY",
+//   "NIKPLACE",
+//   "SUPPORT",
+//   "SELL MY NFT",
+//   "NIKHOLDER",
+//   "회원가입",
+// ];
 
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
@@ -96,22 +107,26 @@ const Navbar = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
+                <Link href={page[1]}>
+                  <MenuItem key={page[0]} onClick={handleCloseNavMenu}>
+                    <Typography textAlign="center">{page[0]}</Typography>
+                  </MenuItem>
+                </Link>
               ))}
             </Menu>
           </Box>
 
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {page}
-              </Button>
+              <Link href={page[1]}>
+                <Button
+                  key={page[0]}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                >
+                  {page[0]}
+                </Button>
+              </Link>
             ))}
           </Box>
 
@@ -139,7 +154,9 @@ const Navbar = () => {
             >
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+                  <Link href={setting}>
+                    <Typography textAlign="center">{setting}</Typography>
+                  </Link>
                 </MenuItem>
               ))}
             </Menu>

@@ -24,7 +24,7 @@ import web3 from "./connection/web3";
 
 const theme = createTheme();
 
-const SignupForm = () => {
+const LoginForm = () => {
   const {
     register,
     formState: { errors },
@@ -72,18 +72,9 @@ const SignupForm = () => {
               {/* <LockOutlinedIcon /> */}
             </Avatar>
             <Typography component="h1" variant="h5">
-              Sign up
+              Login
             </Typography>
-            <h3>아티스트는 경매 권한을 부여 받습니다</h3>
-
-            {/* radio */}
-            <div>
-              <label>아티스트</label>
-              <input {...register("artist")} type="radio" value="Artist" />
-              <label>일반 유저 </label>
-              <input {...register("artist")} type="radio" value="Normal" />
-            </div>
-            <br></br>
+            id하고 privateKey를 매칭을 시켜야하나?
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
@@ -94,69 +85,26 @@ const SignupForm = () => {
                   id="artistName"
                   label="Artist Name"
                   autoFocus
-                  {...register("name", {
+                  {...register("password", {
                     required: true,
                     maxLength: 80,
                   })}
                 />
               </Grid>
-
-              {/* 셀렉트 일부러 만들어놈 */}
-              <div>
-                <label>Nation</label>
-                <Select
-                  options={options}
-                  value={value}
-                  onChange={changeHandler}
-                />
-              </div>
-              <input
-                value={value.label}
-                {...register("nation", { required: true })}
-              ></input>
-              <Grid item xs={12}>
-                <div>
-                  <label>장르</label>
-                  <select {...register("favor_genre", { required: true })}>
-                    <option value="Pop">팝</option>
-                    <option value="Balad">발라드</option>
-                    <option value="그 외 임시">등등</option>
-                  </select>
-                </div>
-              </Grid>
-
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={
-                    <Checkbox value="allowExtraEmails" color="primary" />
-                  }
-                  label="Const 화이팅~"
-                />
-              </Grid>
             </Grid>
-
             <Button
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign Up
+              Login
             </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link href="#" variant="body2">
-                  클릭하면 메타마스크 연결하고 인덱스로 돌아가게 하겠음 Already
-                  have an account? Sign in
-                </Link>
-              </Grid>
-            </Grid>
           </Box>
-          {/* <Copyright sx={{ mt: 5 }} /> */}
         </Container>
       </ThemeProvider>
     </form>
   );
 };
 
-export default SignupForm;
+export default LoginForm;

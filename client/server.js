@@ -434,6 +434,7 @@ app.prepare().then(() => {
       "0x7dd2990185d801d8c4c87bc51264671161283c955860901bf71cae3fab2dfb38"
     );
     // console.log(block);
+    console.log(contract);
     console.log(tr);
     console.log(tra);
     // 0x76534D3ED03b40D2B4BC9062Bc69db60672Ef836
@@ -477,6 +478,23 @@ app.prepare().then(() => {
     );
 
     res.send("업하트 오케");
+  });
+
+  // 구매 첫 페이지
+  server.post("/api/buy", async (req, res) => {
+    // buy에 올라와 있는 것들을 가져와야 하는데
+    // 그걸 알려면 컨트랙트 불러와서
+    // buy 체크된거 분류하고
+    // 그거에 맞게 이미지, ipfs 불러오면 되겠네
+
+    // const contract =
+
+    // 경매 불러와야대
+    const mu = await Music.findOne({ where: { title: c } });
+    const ac = await Auction.findOne({ where: { title: c } });
+
+    // const data = await Music.findOne({ title: req.body.name });
+    res.json(result);
   });
 
   // 구매, 판매 페이지 입장시
