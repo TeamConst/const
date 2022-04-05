@@ -10,7 +10,8 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { TextField } from "@mui/material";
 
 import web3 from "./connection/web3";
-import contractJSON from "../../build/contracts/NFTCollection.json";
+import contractJSON from "../../build/contracts/ImageMarketplace.json";
+// import contractJSON2 from "../../build/contracts/ImageMarketplace.json";
 
 import axios from "axios";
 
@@ -66,7 +67,7 @@ const Music = () => {
       port: 5001,
       protocol: "https",
     });
-
+    const NFTName="";
     const fileAdded = await ipfs.add(capturedFileBuffer);
     if (!fileAdded) {
       console.error("Something went wrong when updloading the file");
@@ -99,7 +100,7 @@ const Music = () => {
     }
 
     pra.methods
-      .safeMint(metadataAdded.path)
+      .mintImageNFT(NFTName,metadataAdded.path)
       .send({ from: praaccounts[0] })
       .on("transactionHash", (hash) => {
         console.log(hash);

@@ -39,6 +39,7 @@ const BestCollection = () => {
   const { data, isLoading, isFetching } = useQuery(["bestCollections"], () =>
     fetchBestCollections()
   );
+  console.log(data)
 
   // prefetch 이슈가 있어서 일단 양념쳐서 되게 해놨다
   let pictures;

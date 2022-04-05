@@ -51,7 +51,7 @@ const ListenMusic = () => {
   const { data, isLoading, isFetching } = useQuery(["musics"], () =>
     fetchMusics()
   );
-
+  console.log(data)
   let musics;
   let a = 0;
   if (data) {
