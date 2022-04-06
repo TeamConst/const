@@ -10,20 +10,35 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "// SPDX-License-Identifier: MIT\n// OpenZeppelin Contracts v4.4.1 (utils/Context.sol)\n\npragma solidity ^0.8.0;\n\n/**\n * @dev Provides information about the current execution context, including the\n * sender of the transaction and its data. While these are generally available\n * via msg.sender and msg.data, they should not be accessed in such a direct\n * manner, since when dealing with meta-transactions the account sending and\n * paying for execution may not be the actual sender (as far as an application\n * is concerned).\n *\n * This contract is only required for intermediate, library-like contracts.\n */\nabstract contract Context {\n    function _msgSender() internal view virtual returns (address) {\n        return msg.sender;\n    }\n\n    function _msgData() internal view virtual returns (bytes calldata) {\n        return msg.data;\n    }\n}\n",
+<<<<<<< HEAD
   "sourcePath": "/Users/hangyeonghyeon/Desktop/const/node_modules/@openzeppelin/contracts/utils/Context.sol",
+=======
+  "sourcePath": "/home/park/a/const/node_modules/@openzeppelin/contracts/utils/Context.sol",
+>>>>>>> origin/pjh94-prototype
   "ast": {
     "absolutePath": "project:/node_modules/@openzeppelin/contracts/utils/Context.sol",
     "exportedSymbols": {
       "Context": [
+<<<<<<< HEAD
         2148
       ]
     },
     "id": 2149,
+=======
+        4597
+      ]
+    },
+    "id": 4598,
+>>>>>>> origin/pjh94-prototype
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
+<<<<<<< HEAD
         "id": 2128,
+=======
+        "id": 4577,
+>>>>>>> origin/pjh94-prototype
         "literals": [
           "solidity",
           "^",
@@ -31,7 +46,11 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
+<<<<<<< HEAD
         "src": "86:23:9"
+=======
+        "src": "86:23:23"
+>>>>>>> origin/pjh94-prototype
       },
       {
         "abstract": true,
@@ -40,6 +59,7 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "documentation": {
+<<<<<<< HEAD
           "id": 2129,
           "nodeType": "StructuredDocumentation",
           "src": "111:496:9",
@@ -52,41 +72,78 @@
         ],
         "name": "Context",
         "nameLocation": "626:7:9",
+=======
+          "id": 4578,
+          "nodeType": "StructuredDocumentation",
+          "src": "111:496:23",
+          "text": " @dev Provides information about the current execution context, including the\n sender of the transaction and its data. While these are generally available\n via msg.sender and msg.data, they should not be accessed in such a direct\n manner, since when dealing with meta-transactions the account sending and\n paying for execution may not be the actual sender (as far as an application\n is concerned).\n This contract is only required for intermediate, library-like contracts."
+        },
+        "fullyImplemented": true,
+        "id": 4597,
+        "linearizedBaseContracts": [
+          4597
+        ],
+        "name": "Context",
+        "nameLocation": "626:7:23",
+>>>>>>> origin/pjh94-prototype
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "body": {
+<<<<<<< HEAD
               "id": 2137,
               "nodeType": "Block",
               "src": "702:34:9",
+=======
+              "id": 4586,
+              "nodeType": "Block",
+              "src": "702:34:23",
+>>>>>>> origin/pjh94-prototype
               "statements": [
                 {
                   "expression": {
                     "expression": {
+<<<<<<< HEAD
                       "id": 2134,
+=======
+                      "id": 4583,
+>>>>>>> origin/pjh94-prototype
                       "name": "msg",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
                       "referencedDeclaration": 4294967281,
+<<<<<<< HEAD
                       "src": "719:3:9",
+=======
+                      "src": "719:3:23",
+>>>>>>> origin/pjh94-prototype
                       "typeDescriptions": {
                         "typeIdentifier": "t_magic_message",
                         "typeString": "msg"
                       }
                     },
+<<<<<<< HEAD
                     "id": 2135,
+=======
+                    "id": 4584,
+>>>>>>> origin/pjh94-prototype
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "memberName": "sender",
                     "nodeType": "MemberAccess",
+<<<<<<< HEAD
                     "src": "719:10:9",
+=======
+                    "src": "719:10:23",
+>>>>>>> origin/pjh94-prototype
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
                     }
                   },
+<<<<<<< HEAD
                   "functionReturnParameters": 2133,
                   "id": 2136,
                   "nodeType": "Return",
@@ -95,10 +152,21 @@
               ]
             },
             "id": 2138,
+=======
+                  "functionReturnParameters": 4582,
+                  "id": 4585,
+                  "nodeType": "Return",
+                  "src": "712:17:23"
+                }
+              ]
+            },
+            "id": 4587,
+>>>>>>> origin/pjh94-prototype
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "_msgSender",
+<<<<<<< HEAD
             "nameLocation": "649:10:9",
             "nodeType": "FunctionDefinition",
             "parameters": {
@@ -109,17 +177,38 @@
             },
             "returnParameters": {
               "id": 2133,
+=======
+            "nameLocation": "649:10:23",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 4579,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "659:2:23"
+            },
+            "returnParameters": {
+              "id": 4582,
+>>>>>>> origin/pjh94-prototype
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
+<<<<<<< HEAD
                   "id": 2132,
+=======
+                  "id": 4581,
+>>>>>>> origin/pjh94-prototype
                   "mutability": "mutable",
                   "name": "",
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
+<<<<<<< HEAD
                   "scope": 2138,
                   "src": "693:7:9",
+=======
+                  "scope": 4587,
+                  "src": "693:7:23",
+>>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -127,10 +216,17 @@
                     "typeString": "address"
                   },
                   "typeName": {
+<<<<<<< HEAD
                     "id": 2131,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "693:7:9",
+=======
+                    "id": 4580,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "693:7:23",
+>>>>>>> origin/pjh94-prototype
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -140,47 +236,77 @@
                   "visibility": "internal"
                 }
               ],
+<<<<<<< HEAD
               "src": "692:9:9"
             },
             "scope": 2148,
             "src": "640:96:9",
+=======
+              "src": "692:9:23"
+            },
+            "scope": 4597,
+            "src": "640:96:23",
+>>>>>>> origin/pjh94-prototype
             "stateMutability": "view",
             "virtual": true,
             "visibility": "internal"
           },
           {
             "body": {
+<<<<<<< HEAD
               "id": 2146,
               "nodeType": "Block",
               "src": "809:32:9",
+=======
+              "id": 4595,
+              "nodeType": "Block",
+              "src": "809:32:23",
+>>>>>>> origin/pjh94-prototype
               "statements": [
                 {
                   "expression": {
                     "expression": {
+<<<<<<< HEAD
                       "id": 2143,
+=======
+                      "id": 4592,
+>>>>>>> origin/pjh94-prototype
                       "name": "msg",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
                       "referencedDeclaration": 4294967281,
+<<<<<<< HEAD
                       "src": "826:3:9",
+=======
+                      "src": "826:3:23",
+>>>>>>> origin/pjh94-prototype
                       "typeDescriptions": {
                         "typeIdentifier": "t_magic_message",
                         "typeString": "msg"
                       }
                     },
+<<<<<<< HEAD
                     "id": 2144,
+=======
+                    "id": 4593,
+>>>>>>> origin/pjh94-prototype
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "memberName": "data",
                     "nodeType": "MemberAccess",
+<<<<<<< HEAD
                     "src": "826:8:9",
+=======
+                    "src": "826:8:23",
+>>>>>>> origin/pjh94-prototype
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes_calldata_ptr",
                       "typeString": "bytes calldata"
                     }
                   },
+<<<<<<< HEAD
                   "functionReturnParameters": 2142,
                   "id": 2145,
                   "nodeType": "Return",
@@ -189,10 +315,21 @@
               ]
             },
             "id": 2147,
+=======
+                  "functionReturnParameters": 4591,
+                  "id": 4594,
+                  "nodeType": "Return",
+                  "src": "819:15:23"
+                }
+              ]
+            },
+            "id": 4596,
+>>>>>>> origin/pjh94-prototype
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "_msgData",
+<<<<<<< HEAD
             "nameLocation": "751:8:9",
             "nodeType": "FunctionDefinition",
             "parameters": {
@@ -203,17 +340,38 @@
             },
             "returnParameters": {
               "id": 2142,
+=======
+            "nameLocation": "751:8:23",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 4588,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "759:2:23"
+            },
+            "returnParameters": {
+              "id": 4591,
+>>>>>>> origin/pjh94-prototype
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
+<<<<<<< HEAD
                   "id": 2141,
+=======
+                  "id": 4590,
+>>>>>>> origin/pjh94-prototype
                   "mutability": "mutable",
                   "name": "",
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
+<<<<<<< HEAD
                   "scope": 2147,
                   "src": "793:14:9",
+=======
+                  "scope": 4596,
+                  "src": "793:14:23",
+>>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "calldata",
                   "typeDescriptions": {
@@ -221,10 +379,17 @@
                     "typeString": "bytes"
                   },
                   "typeName": {
+<<<<<<< HEAD
                     "id": 2140,
                     "name": "bytes",
                     "nodeType": "ElementaryTypeName",
                     "src": "793:5:9",
+=======
+                    "id": 4589,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "793:5:23",
+>>>>>>> origin/pjh94-prototype
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes_storage_ptr",
                       "typeString": "bytes"
@@ -233,35 +398,62 @@
                   "visibility": "internal"
                 }
               ],
+<<<<<<< HEAD
               "src": "792:16:9"
             },
             "scope": 2148,
             "src": "742:99:9",
+=======
+              "src": "792:16:23"
+            },
+            "scope": 4597,
+            "src": "742:99:23",
+>>>>>>> origin/pjh94-prototype
             "stateMutability": "view",
             "virtual": true,
             "visibility": "internal"
           }
         ],
+<<<<<<< HEAD
         "scope": 2149,
         "src": "608:235:9",
         "usedErrors": []
       }
     ],
     "src": "86:758:9"
+=======
+        "scope": 4598,
+        "src": "608:235:23",
+        "usedErrors": []
+      }
+    ],
+    "src": "86:758:23"
+>>>>>>> origin/pjh94-prototype
   },
   "legacyAST": {
     "absolutePath": "project:/node_modules/@openzeppelin/contracts/utils/Context.sol",
     "exportedSymbols": {
       "Context": [
+<<<<<<< HEAD
         2148
       ]
     },
     "id": 2149,
+=======
+        4597
+      ]
+    },
+    "id": 4598,
+>>>>>>> origin/pjh94-prototype
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
+<<<<<<< HEAD
         "id": 2128,
+=======
+        "id": 4577,
+>>>>>>> origin/pjh94-prototype
         "literals": [
           "solidity",
           "^",
@@ -269,7 +461,11 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
+<<<<<<< HEAD
         "src": "86:23:9"
+=======
+        "src": "86:23:23"
+>>>>>>> origin/pjh94-prototype
       },
       {
         "abstract": true,
@@ -278,6 +474,7 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "documentation": {
+<<<<<<< HEAD
           "id": 2129,
           "nodeType": "StructuredDocumentation",
           "src": "111:496:9",
@@ -290,41 +487,78 @@
         ],
         "name": "Context",
         "nameLocation": "626:7:9",
+=======
+          "id": 4578,
+          "nodeType": "StructuredDocumentation",
+          "src": "111:496:23",
+          "text": " @dev Provides information about the current execution context, including the\n sender of the transaction and its data. While these are generally available\n via msg.sender and msg.data, they should not be accessed in such a direct\n manner, since when dealing with meta-transactions the account sending and\n paying for execution may not be the actual sender (as far as an application\n is concerned).\n This contract is only required for intermediate, library-like contracts."
+        },
+        "fullyImplemented": true,
+        "id": 4597,
+        "linearizedBaseContracts": [
+          4597
+        ],
+        "name": "Context",
+        "nameLocation": "626:7:23",
+>>>>>>> origin/pjh94-prototype
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "body": {
+<<<<<<< HEAD
               "id": 2137,
               "nodeType": "Block",
               "src": "702:34:9",
+=======
+              "id": 4586,
+              "nodeType": "Block",
+              "src": "702:34:23",
+>>>>>>> origin/pjh94-prototype
               "statements": [
                 {
                   "expression": {
                     "expression": {
+<<<<<<< HEAD
                       "id": 2134,
+=======
+                      "id": 4583,
+>>>>>>> origin/pjh94-prototype
                       "name": "msg",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
                       "referencedDeclaration": 4294967281,
+<<<<<<< HEAD
                       "src": "719:3:9",
+=======
+                      "src": "719:3:23",
+>>>>>>> origin/pjh94-prototype
                       "typeDescriptions": {
                         "typeIdentifier": "t_magic_message",
                         "typeString": "msg"
                       }
                     },
+<<<<<<< HEAD
                     "id": 2135,
+=======
+                    "id": 4584,
+>>>>>>> origin/pjh94-prototype
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "memberName": "sender",
                     "nodeType": "MemberAccess",
+<<<<<<< HEAD
                     "src": "719:10:9",
+=======
+                    "src": "719:10:23",
+>>>>>>> origin/pjh94-prototype
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
                     }
                   },
+<<<<<<< HEAD
                   "functionReturnParameters": 2133,
                   "id": 2136,
                   "nodeType": "Return",
@@ -333,10 +567,21 @@
               ]
             },
             "id": 2138,
+=======
+                  "functionReturnParameters": 4582,
+                  "id": 4585,
+                  "nodeType": "Return",
+                  "src": "712:17:23"
+                }
+              ]
+            },
+            "id": 4587,
+>>>>>>> origin/pjh94-prototype
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "_msgSender",
+<<<<<<< HEAD
             "nameLocation": "649:10:9",
             "nodeType": "FunctionDefinition",
             "parameters": {
@@ -347,17 +592,38 @@
             },
             "returnParameters": {
               "id": 2133,
+=======
+            "nameLocation": "649:10:23",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 4579,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "659:2:23"
+            },
+            "returnParameters": {
+              "id": 4582,
+>>>>>>> origin/pjh94-prototype
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
+<<<<<<< HEAD
                   "id": 2132,
+=======
+                  "id": 4581,
+>>>>>>> origin/pjh94-prototype
                   "mutability": "mutable",
                   "name": "",
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
+<<<<<<< HEAD
                   "scope": 2138,
                   "src": "693:7:9",
+=======
+                  "scope": 4587,
+                  "src": "693:7:23",
+>>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -365,10 +631,17 @@
                     "typeString": "address"
                   },
                   "typeName": {
+<<<<<<< HEAD
                     "id": 2131,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "693:7:9",
+=======
+                    "id": 4580,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "693:7:23",
+>>>>>>> origin/pjh94-prototype
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -378,47 +651,77 @@
                   "visibility": "internal"
                 }
               ],
+<<<<<<< HEAD
               "src": "692:9:9"
             },
             "scope": 2148,
             "src": "640:96:9",
+=======
+              "src": "692:9:23"
+            },
+            "scope": 4597,
+            "src": "640:96:23",
+>>>>>>> origin/pjh94-prototype
             "stateMutability": "view",
             "virtual": true,
             "visibility": "internal"
           },
           {
             "body": {
+<<<<<<< HEAD
               "id": 2146,
               "nodeType": "Block",
               "src": "809:32:9",
+=======
+              "id": 4595,
+              "nodeType": "Block",
+              "src": "809:32:23",
+>>>>>>> origin/pjh94-prototype
               "statements": [
                 {
                   "expression": {
                     "expression": {
+<<<<<<< HEAD
                       "id": 2143,
+=======
+                      "id": 4592,
+>>>>>>> origin/pjh94-prototype
                       "name": "msg",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
                       "referencedDeclaration": 4294967281,
+<<<<<<< HEAD
                       "src": "826:3:9",
+=======
+                      "src": "826:3:23",
+>>>>>>> origin/pjh94-prototype
                       "typeDescriptions": {
                         "typeIdentifier": "t_magic_message",
                         "typeString": "msg"
                       }
                     },
+<<<<<<< HEAD
                     "id": 2144,
+=======
+                    "id": 4593,
+>>>>>>> origin/pjh94-prototype
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "memberName": "data",
                     "nodeType": "MemberAccess",
+<<<<<<< HEAD
                     "src": "826:8:9",
+=======
+                    "src": "826:8:23",
+>>>>>>> origin/pjh94-prototype
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes_calldata_ptr",
                       "typeString": "bytes calldata"
                     }
                   },
+<<<<<<< HEAD
                   "functionReturnParameters": 2142,
                   "id": 2145,
                   "nodeType": "Return",
@@ -427,10 +730,21 @@
               ]
             },
             "id": 2147,
+=======
+                  "functionReturnParameters": 4591,
+                  "id": 4594,
+                  "nodeType": "Return",
+                  "src": "819:15:23"
+                }
+              ]
+            },
+            "id": 4596,
+>>>>>>> origin/pjh94-prototype
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "_msgData",
+<<<<<<< HEAD
             "nameLocation": "751:8:9",
             "nodeType": "FunctionDefinition",
             "parameters": {
@@ -441,17 +755,38 @@
             },
             "returnParameters": {
               "id": 2142,
+=======
+            "nameLocation": "751:8:23",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 4588,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "759:2:23"
+            },
+            "returnParameters": {
+              "id": 4591,
+>>>>>>> origin/pjh94-prototype
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
+<<<<<<< HEAD
                   "id": 2141,
+=======
+                  "id": 4590,
+>>>>>>> origin/pjh94-prototype
                   "mutability": "mutable",
                   "name": "",
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
+<<<<<<< HEAD
                   "scope": 2147,
                   "src": "793:14:9",
+=======
+                  "scope": 4596,
+                  "src": "793:14:23",
+>>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "calldata",
                   "typeDescriptions": {
@@ -459,10 +794,17 @@
                     "typeString": "bytes"
                   },
                   "typeName": {
+<<<<<<< HEAD
                     "id": 2140,
                     "name": "bytes",
                     "nodeType": "ElementaryTypeName",
                     "src": "793:5:9",
+=======
+                    "id": 4589,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "793:5:23",
+>>>>>>> origin/pjh94-prototype
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes_storage_ptr",
                       "typeString": "bytes"
@@ -471,29 +813,50 @@
                   "visibility": "internal"
                 }
               ],
+<<<<<<< HEAD
               "src": "792:16:9"
             },
             "scope": 2148,
             "src": "742:99:9",
+=======
+              "src": "792:16:23"
+            },
+            "scope": 4597,
+            "src": "742:99:23",
+>>>>>>> origin/pjh94-prototype
             "stateMutability": "view",
             "virtual": true,
             "visibility": "internal"
           }
         ],
+<<<<<<< HEAD
         "scope": 2149,
         "src": "608:235:9",
         "usedErrors": []
       }
     ],
     "src": "86:758:9"
+=======
+        "scope": 4598,
+        "src": "608:235:23",
+        "usedErrors": []
+      }
+    ],
+    "src": "86:758:23"
+>>>>>>> origin/pjh94-prototype
   },
   "compiler": {
     "name": "solc",
     "version": "0.8.13+commit.abaa5c0e.Emscripten.clang"
   },
   "networks": {},
+<<<<<<< HEAD
   "schemaVersion": "3.4.6",
   "updatedAt": "2022-04-04T05:32:53.897Z",
+=======
+  "schemaVersion": "3.4.5",
+  "updatedAt": "2022-03-30T06:36:21.675Z",
+>>>>>>> origin/pjh94-prototype
   "devdoc": {
     "details": "Provides information about the current execution context, including the sender of the transaction and its data. While these are generally available via msg.sender and msg.data, they should not be accessed in such a direct manner, since when dealing with meta-transactions the account sending and paying for execution may not be the actual sender (as far as an application is concerned). This contract is only required for intermediate, library-like contracts.",
     "kind": "dev",

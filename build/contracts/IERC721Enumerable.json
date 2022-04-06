@@ -1060,8 +1060,13 @@
     "version": "0.8.13+commit.abaa5c0e.Emscripten.clang"
   },
   "networks": {},
+<<<<<<< HEAD
   "schemaVersion": "3.4.6",
   "updatedAt": "2022-04-01T08:34:12.922Z",
+=======
+  "schemaVersion": "3.4.5",
+  "updatedAt": "2022-03-30T06:36:21.651Z",
+>>>>>>> origin/pjh94-prototype
   "devdoc": {
     "details": "See https://eips.ethereum.org/EIPS/eip-721",
     "kind": "dev",

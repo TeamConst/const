@@ -8511,8 +8511,13 @@
     "version": "0.8.13+commit.abaa5c0e.Emscripten.clang"
   },
   "networks": {},
+<<<<<<< HEAD
   "schemaVersion": "3.4.6",
   "updatedAt": "2022-04-01T08:34:12.902Z",
+=======
+  "schemaVersion": "3.4.5",
+  "updatedAt": "2022-03-30T06:36:21.644Z",
+>>>>>>> origin/pjh94-prototype
   "devdoc": {
     "details": "This implements an optional extension of {ERC721} defined in the EIP that adds enumerability of all the token ids in the contract as well as all token ids owned by each account.",
     "kind": "dev",
