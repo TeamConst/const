@@ -48,10 +48,10 @@ const BestCollection = () => {
     pictures = data.data;
     a = 1;
   }
-  console.log(pictures);
+  // console.log(pictures.map[0]);
   console.log(isLoading);
   console.log(isFetching);
-  // console.log(a.key)
+  // console.log(data.key)
 
   return (
     <div>

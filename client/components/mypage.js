@@ -13,6 +13,8 @@ import MintedImages from "./MintedImages";
 import { fetchMusics } from "../hooks";
 import axios from "axios";
 //
+import Link from "next/link";
+//
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -25,14 +27,18 @@ console.log("wev3",web3)
 
 const Mypage1 = () => {
   
- 
-  const { data, isLoading, isFetching } = useQuery(["musics"], () =>
+//   const { data2} = useQuery(["buysell"], () =>
+//   fetchBuySell(id)
+// );
+  const { music, isLoading, isFetching } = useQuery(["musics"], () =>
     fetchMusics()
   );
+  // console.log(data2)
+  console.log(music);
   let musics;
   let a = 0;
-  if (data) {
-    musics = data.data;
+  if (music) {
+    musics = music.data;
     a = 1;
   }
 
@@ -159,6 +165,7 @@ const Mypage1 = () => {
                 <TableCell>좋아요</TableCell>
               </TableRow>
             </TableHead>
+            <Link href={`/buysell/${encodeURIComponent(a.title)}`}>dd</Link>
             <TableBody>
               {a === 1 ? (
                 musics.map((a) => (

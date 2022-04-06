@@ -12,7 +12,7 @@ const fetchBuySell = async (param) => {
     name: param,
   
   });
-  const data2 = await axios.post("http://localhost:8080/api/buysell", {
+  const music = await axios.post("http://localhost:8080/api/buysell", {
     name: param,
   
   });
@@ -27,7 +27,7 @@ const fetchBuySell = async (param) => {
   // console.log(parsed);
   // console.log(data);
 
-  return {data,data2};
+  return music;
 
 };
 

@@ -47,6 +47,7 @@ const Music = () => {
     // console.log(resultMusics);
 
     // 컨트랙트 처리부분
+    console.log(musicsFormData);
     const reader = new window.FileReader();
     // reader.readAsArrayBuffer(data);
     const capturedFileBuffer = Buffer(JSON.stringify(data));
@@ -110,7 +111,7 @@ const Music = () => {
         window.alert("Something went wrong when pushing to the blockchain");
         // pra.setNftIsLoading(false);
       });
-
+     
     // 나머지 db처리부분
     let gg = {};
     gg.composer = data.albumGakkok;
@@ -120,7 +121,8 @@ const Music = () => {
     gg.artist = data.artist;
     gg.genre = data.genre;
     gg.title = data.title;
-
+    gg.cid = data.did;
+    console.log(gg);
     // const resultGG = await axios.post("http://localhost:8080/api/mint/gg", gg);
 
     // 한번에
@@ -130,6 +132,7 @@ const Music = () => {
     form.append("db", JSON.stringify(gg));
 
     const rere = await axios.post("http://localhost:8080/api/mint", form);
+    console.log(form);
   };
   // console.log(errors);
 
