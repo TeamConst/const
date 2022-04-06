@@ -62,15 +62,21 @@ const Music = () => {
     pra = contract;
     praaccounts = accounts;
 
-    const ipfsClient = require("ipfs-http-client");
-    const ipfs = ipfsClient.create({
-      host: "ipfs.infura.io",
-      port: 5001,
-      protocol: "https",
-    });
-    const NFTName="";
-    const fileAdded = await ipfs.add(capturedFileBuffer);
-    if (!fileAdded) {
+ // CID 처리
+ const ipfsClient = require("ipfs-http-client");
+ const ipfs = ipfsClient.create({
+   host: "ipfs.infura.io",
+   port: 5001,
+   protocol: "https",
+ });
+let NFTName = "";
+ // 이미지로 연습해봄
+ // const bu = await ipfs.add(이미지버퍼);
+
+ // 음원 버퍼
+ const bu = await ipfs.add(data.musics[0]);
+ console.log(bu)
+    if (!bu) {
       console.error("Something went wrong when updloading the file");
       return;
     }
@@ -89,7 +95,7 @@ const Music = () => {
         },
         image: {
           type: "string",
-          description: fileAdded.path,
+          description: bu.path,
         },
       },
     };

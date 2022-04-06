@@ -9,9 +9,9 @@ import axios from "axios";
 const fetchMusics = async () => {
   // const parsed = await ky("http://localhost:3000/api/collections").json();
 
-  const music = await axios.get("http://localhost:8080/api/getMusics");
+  const data = await axios.get("http://localhost:8080/api/getMusics");
 
-  return music;
+  return data;
 };
 
 // const fetchLocals = async (limit = 10) => {

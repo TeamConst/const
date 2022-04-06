@@ -296,24 +296,11 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "// SPDX-License-Identifier: MIT\n// OpenZeppelin Contracts v4.4.1 (token/ERC721/IERC721.sol)\n\npragma solidity ^0.8.0;\n\nimport \"../../utils/introspection/IERC165.sol\";\n\n/**\n * @dev Required interface of an ERC721 compliant contract.\n */\ninterface IERC721 is IERC165 {\n    /**\n     * @dev Emitted when `tokenId` token is transferred from `from` to `to`.\n     */\n    event Transfer(address indexed from, address indexed to, uint256 indexed tokenId);\n\n    /**\n     * @dev Emitted when `owner` enables `approved` to manage the `tokenId` token.\n     */\n    event Approval(address indexed owner, address indexed approved, uint256 indexed tokenId);\n\n    /**\n     * @dev Emitted when `owner` enables or disables (`approved`) `operator` to manage all of its assets.\n     */\n    event ApprovalForAll(address indexed owner, address indexed operator, bool approved);\n\n    /**\n     * @dev Returns the number of tokens in ``owner``'s account.\n     */\n    function balanceOf(address owner) external view returns (uint256 balance);\n\n    /**\n     * @dev Returns the owner of the `tokenId` token.\n     *\n     * Requirements:\n     *\n     * - `tokenId` must exist.\n     */\n    function ownerOf(uint256 tokenId) external view returns (address owner);\n\n    /**\n     * @dev Safely transfers `tokenId` token from `from` to `to`, checking first that contract recipients\n     * are aware of the ERC721 protocol to prevent tokens from being forever locked.\n     *\n     * Requirements:\n     *\n     * - `from` cannot be the zero address.\n     * - `to` cannot be the zero address.\n     * - `tokenId` token must exist and be owned by `from`.\n     * - If the caller is not `from`, it must be have been allowed to move this token by either {approve} or {setApprovalForAll}.\n     * - If `to` refers to a smart contract, it must implement {IERC721Receiver-onERC721Received}, which is called upon a safe transfer.\n     *\n     * Emits a {Transfer} event.\n     */\n    function safeTransferFrom(\n        address from,\n        address to,\n        uint256 tokenId\n    ) external;\n\n    /**\n     * @dev Transfers `tokenId` token from `from` to `to`.\n     *\n     * WARNING: Usage of this method is discouraged, use {safeTransferFrom} whenever possible.\n     *\n     * Requirements:\n     *\n     * - `from` cannot be the zero address.\n     * - `to` cannot be the zero address.\n     * - `tokenId` token must be owned by `from`.\n     * - If the caller is not `from`, it must be approved to move this token by either {approve} or {setApprovalForAll}.\n     *\n     * Emits a {Transfer} event.\n     */\n    function transferFrom(\n        address from,\n        address to,\n        uint256 tokenId\n    ) external;\n\n    /**\n     * @dev Gives permission to `to` to transfer `tokenId` token to another account.\n     * The approval is cleared when the token is transferred.\n     *\n     * Only a single account can be approved at a time, so approving the zero address clears previous approvals.\n     *\n     * Requirements:\n     *\n     * - The caller must own the token or be an approved operator.\n     * - `tokenId` must exist.\n     *\n     * Emits an {Approval} event.\n     */\n    function approve(address to, uint256 tokenId) external;\n\n    /**\n     * @dev Returns the account approved for `tokenId` token.\n     *\n     * Requirements:\n     *\n     * - `tokenId` must exist.\n     */\n    function getApproved(uint256 tokenId) external view returns (address operator);\n\n    /**\n     * @dev Approve or remove `operator` as an operator for the caller.\n     * Operators can call {transferFrom} or {safeTransferFrom} for any token owned by the caller.\n     *\n     * Requirements:\n     *\n     * - The `operator` cannot be the caller.\n     *\n     * Emits an {ApprovalForAll} event.\n     */\n    function setApprovalForAll(address operator, bool _approved) external;\n\n    /**\n     * @dev Returns if the `operator` is allowed to manage all of the assets of `owner`.\n     *\n     * See {setApprovalForAll}\n     */\n    function isApprovedForAll(address owner, address operator) external view returns (bool);\n\n    /**\n     * @dev Safely transfers `tokenId` token from `from` to `to`.\n     *\n     * Requirements:\n     *\n     * - `from` cannot be the zero address.\n     * - `to` cannot be the zero address.\n     * - `tokenId` token must exist and be owned by `from`.\n     * - If the caller is not `from`, it must be approved to move this token by either {approve} or {setApprovalForAll}.\n     * - If `to` refers to a smart contract, it must implement {IERC721Receiver-onERC721Received}, which is called upon a safe transfer.\n     *\n     * Emits a {Transfer} event.\n     */\n    function safeTransferFrom(\n        address from,\n        address to,\n        uint256 tokenId,\n        bytes calldata data\n    ) external;\n}\n",
-<<<<<<< HEAD
   "sourcePath": "/Users/hangyeonghyeon/Desktop/const/node_modules/@openzeppelin/contracts/token/ERC721/IERC721.sol",
-=======
-  "sourcePath": "/home/park/a/const/node_modules/@openzeppelin/contracts/token/ERC721/IERC721.sol",
->>>>>>> origin/pjh94-prototype
   "ast": {
     "absolutePath": "project:/node_modules/@openzeppelin/contracts/token/ERC721/IERC721.sol",
     "exportedSymbols": {
       "IERC165": [
-<<<<<<< HEAD
-        2387
-      ],
-      "IERC721": [
-        1658
-      ]
-    },
-    "id": 1659,
-=======
         4836
       ],
       "IERC721": [
@@ -321,16 +308,11 @@
       ]
     },
     "id": 4108,
->>>>>>> origin/pjh94-prototype
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-<<<<<<< HEAD
-        "id": 1544,
-=======
         "id": 3993,
->>>>>>> origin/pjh94-prototype
         "literals": [
           "solidity",
           "^",
@@ -338,30 +320,17 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
-<<<<<<< HEAD
-        "src": "93:23:4"
-=======
         "src": "93:23:18"
->>>>>>> origin/pjh94-prototype
       },
       {
         "absolutePath": "project:/node_modules/@openzeppelin/contracts/utils/introspection/IERC165.sol",
         "file": "../../utils/introspection/IERC165.sol",
-<<<<<<< HEAD
-        "id": 1545,
-        "nameLocation": "-1:-1:-1",
-        "nodeType": "ImportDirective",
-        "scope": 1659,
-        "sourceUnit": 2388,
-        "src": "118:47:4",
-=======
         "id": 3994,
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
         "scope": 4108,
         "sourceUnit": 4837,
         "src": "118:47:18",
->>>>>>> origin/pjh94-prototype
         "symbolAliases": [],
         "unitAlias": ""
       },
@@ -370,17 +339,6 @@
         "baseContracts": [
           {
             "baseName": {
-<<<<<<< HEAD
-              "id": 1547,
-              "name": "IERC165",
-              "nodeType": "IdentifierPath",
-              "referencedDeclaration": 2387,
-              "src": "256:7:4"
-            },
-            "id": 1548,
-            "nodeType": "InheritanceSpecifier",
-            "src": "256:7:4"
-=======
               "id": 3996,
               "name": "IERC165",
               "nodeType": "IdentifierPath",
@@ -390,28 +348,12 @@
             "id": 3997,
             "nodeType": "InheritanceSpecifier",
             "src": "256:7:18"
->>>>>>> origin/pjh94-prototype
           }
         ],
         "canonicalName": "IERC721",
         "contractDependencies": [],
         "contractKind": "interface",
         "documentation": {
-<<<<<<< HEAD
-          "id": 1546,
-          "nodeType": "StructuredDocumentation",
-          "src": "167:67:4",
-          "text": " @dev Required interface of an ERC721 compliant contract."
-        },
-        "fullyImplemented": false,
-        "id": 1658,
-        "linearizedBaseContracts": [
-          1658,
-          2387
-        ],
-        "name": "IERC721",
-        "nameLocation": "245:7:4",
-=======
           "id": 3995,
           "nodeType": "StructuredDocumentation",
           "src": "167:67:18",
@@ -425,26 +367,11 @@
         ],
         "name": "IERC721",
         "nameLocation": "245:7:18",
->>>>>>> origin/pjh94-prototype
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "anonymous": false,
             "documentation": {
-<<<<<<< HEAD
-              "id": 1549,
-              "nodeType": "StructuredDocumentation",
-              "src": "270:88:4",
-              "text": " @dev Emitted when `tokenId` token is transferred from `from` to `to`."
-            },
-            "eventSelector": "ddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
-            "id": 1557,
-            "name": "Transfer",
-            "nameLocation": "369:8:4",
-            "nodeType": "EventDefinition",
-            "parameters": {
-              "id": 1556,
-=======
               "id": 3998,
               "nodeType": "StructuredDocumentation",
               "src": "270:88:18",
@@ -457,21 +384,10 @@
             "nodeType": "EventDefinition",
             "parameters": {
               "id": 4005,
->>>>>>> origin/pjh94-prototype
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1551,
-                  "indexed": true,
-                  "mutability": "mutable",
-                  "name": "from",
-                  "nameLocation": "394:4:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1557,
-                  "src": "378:20:4",
-=======
                   "id": 4000,
                   "indexed": true,
                   "mutability": "mutable",
@@ -480,7 +396,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4006,
                   "src": "378:20:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -488,17 +403,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1550,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "378:7:4",
-=======
                     "id": 3999,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "378:7:18",
->>>>>>> origin/pjh94-prototype
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -509,16 +417,6 @@
                 },
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1553,
-                  "indexed": true,
-                  "mutability": "mutable",
-                  "name": "to",
-                  "nameLocation": "416:2:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1557,
-                  "src": "400:18:4",
-=======
                   "id": 4002,
                   "indexed": true,
                   "mutability": "mutable",
@@ -527,7 +425,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4006,
                   "src": "400:18:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -535,17 +432,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1552,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "400:7:4",
-=======
                     "id": 4001,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "400:7:18",
->>>>>>> origin/pjh94-prototype
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -556,16 +446,6 @@
                 },
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1555,
-                  "indexed": true,
-                  "mutability": "mutable",
-                  "name": "tokenId",
-                  "nameLocation": "436:7:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1557,
-                  "src": "420:23:4",
-=======
                   "id": 4004,
                   "indexed": true,
                   "mutability": "mutable",
@@ -574,7 +454,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4006,
                   "src": "420:23:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -582,17 +461,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1554,
-                    "name": "uint256",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "420:7:4",
-=======
                     "id": 4003,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "420:7:18",
->>>>>>> origin/pjh94-prototype
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -601,33 +473,13 @@
                   "visibility": "internal"
                 }
               ],
-<<<<<<< HEAD
-              "src": "377:67:4"
-            },
-            "src": "363:82:4"
-=======
               "src": "377:67:18"
             },
             "src": "363:82:18"
->>>>>>> origin/pjh94-prototype
           },
           {
             "anonymous": false,
             "documentation": {
-<<<<<<< HEAD
-              "id": 1558,
-              "nodeType": "StructuredDocumentation",
-              "src": "451:94:4",
-              "text": " @dev Emitted when `owner` enables `approved` to manage the `tokenId` token."
-            },
-            "eventSelector": "8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925",
-            "id": 1566,
-            "name": "Approval",
-            "nameLocation": "556:8:4",
-            "nodeType": "EventDefinition",
-            "parameters": {
-              "id": 1565,
-=======
               "id": 4007,
               "nodeType": "StructuredDocumentation",
               "src": "451:94:18",
@@ -640,21 +492,10 @@
             "nodeType": "EventDefinition",
             "parameters": {
               "id": 4014,
->>>>>>> origin/pjh94-prototype
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1560,
-                  "indexed": true,
-                  "mutability": "mutable",
-                  "name": "owner",
-                  "nameLocation": "581:5:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1566,
-                  "src": "565:21:4",
-=======
                   "id": 4009,
                   "indexed": true,
                   "mutability": "mutable",
@@ -663,7 +504,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4015,
                   "src": "565:21:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -671,17 +511,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1559,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "565:7:4",
-=======
                     "id": 4008,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "565:7:18",
->>>>>>> origin/pjh94-prototype
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -692,16 +525,6 @@
                 },
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1562,
-                  "indexed": true,
-                  "mutability": "mutable",
-                  "name": "approved",
-                  "nameLocation": "604:8:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1566,
-                  "src": "588:24:4",
-=======
                   "id": 4011,
                   "indexed": true,
                   "mutability": "mutable",
@@ -710,7 +533,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4015,
                   "src": "588:24:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -718,17 +540,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1561,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "588:7:4",
-=======
                     "id": 4010,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "588:7:18",
->>>>>>> origin/pjh94-prototype
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -739,16 +554,6 @@
                 },
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1564,
-                  "indexed": true,
-                  "mutability": "mutable",
-                  "name": "tokenId",
-                  "nameLocation": "630:7:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1566,
-                  "src": "614:23:4",
-=======
                   "id": 4013,
                   "indexed": true,
                   "mutability": "mutable",
@@ -757,7 +562,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4015,
                   "src": "614:23:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -765,17 +569,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1563,
-                    "name": "uint256",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "614:7:4",
-=======
                     "id": 4012,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "614:7:18",
->>>>>>> origin/pjh94-prototype
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -784,33 +581,13 @@
                   "visibility": "internal"
                 }
               ],
-<<<<<<< HEAD
-              "src": "564:74:4"
-            },
-            "src": "550:89:4"
-=======
               "src": "564:74:18"
             },
             "src": "550:89:18"
->>>>>>> origin/pjh94-prototype
           },
           {
             "anonymous": false,
             "documentation": {
-<<<<<<< HEAD
-              "id": 1567,
-              "nodeType": "StructuredDocumentation",
-              "src": "645:117:4",
-              "text": " @dev Emitted when `owner` enables or disables (`approved`) `operator` to manage all of its assets."
-            },
-            "eventSelector": "17307eab39ab6107e8899845ad3d59bd9653f200f220920489ca2b5937696c31",
-            "id": 1575,
-            "name": "ApprovalForAll",
-            "nameLocation": "773:14:4",
-            "nodeType": "EventDefinition",
-            "parameters": {
-              "id": 1574,
-=======
               "id": 4016,
               "nodeType": "StructuredDocumentation",
               "src": "645:117:18",
@@ -823,21 +600,10 @@
             "nodeType": "EventDefinition",
             "parameters": {
               "id": 4023,
->>>>>>> origin/pjh94-prototype
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1569,
-                  "indexed": true,
-                  "mutability": "mutable",
-                  "name": "owner",
-                  "nameLocation": "804:5:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1575,
-                  "src": "788:21:4",
-=======
                   "id": 4018,
                   "indexed": true,
                   "mutability": "mutable",
@@ -846,7 +612,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4024,
                   "src": "788:21:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -854,17 +619,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1568,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "788:7:4",
-=======
                     "id": 4017,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "788:7:18",
->>>>>>> origin/pjh94-prototype
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -875,16 +633,6 @@
                 },
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1571,
-                  "indexed": true,
-                  "mutability": "mutable",
-                  "name": "operator",
-                  "nameLocation": "827:8:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1575,
-                  "src": "811:24:4",
-=======
                   "id": 4020,
                   "indexed": true,
                   "mutability": "mutable",
@@ -893,7 +641,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4024,
                   "src": "811:24:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -901,17 +648,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1570,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "811:7:4",
-=======
                     "id": 4019,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "811:7:18",
->>>>>>> origin/pjh94-prototype
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -922,16 +662,6 @@
                 },
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1573,
-                  "indexed": false,
-                  "mutability": "mutable",
-                  "name": "approved",
-                  "nameLocation": "842:8:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1575,
-                  "src": "837:13:4",
-=======
                   "id": 4022,
                   "indexed": false,
                   "mutability": "mutable",
@@ -940,7 +670,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4024,
                   "src": "837:13:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -948,17 +677,10 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1572,
-                    "name": "bool",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "837:4:4",
-=======
                     "id": 4021,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
                     "src": "837:4:18",
->>>>>>> origin/pjh94-prototype
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -967,21 +689,6 @@
                   "visibility": "internal"
                 }
               ],
-<<<<<<< HEAD
-              "src": "787:64:4"
-            },
-            "src": "767:85:4"
-          },
-          {
-            "documentation": {
-              "id": 1576,
-              "nodeType": "StructuredDocumentation",
-              "src": "858:76:4",
-              "text": " @dev Returns the number of tokens in ``owner``'s account."
-            },
-            "functionSelector": "70a08231",
-            "id": 1583,
-=======
               "src": "787:64:18"
             },
             "src": "767:85:18"
@@ -995,35 +702,18 @@
             },
             "functionSelector": "70a08231",
             "id": 4032,
->>>>>>> origin/pjh94-prototype
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "balanceOf",
-<<<<<<< HEAD
-            "nameLocation": "948:9:4",
-            "nodeType": "FunctionDefinition",
-            "parameters": {
-              "id": 1579,
-=======
             "nameLocation": "948:9:18",
             "nodeType": "FunctionDefinition",
             "parameters": {
               "id": 4028,
->>>>>>> origin/pjh94-prototype
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1578,
-                  "mutability": "mutable",
-                  "name": "owner",
-                  "nameLocation": "966:5:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1583,
-                  "src": "958:13:4",
-=======
                   "id": 4027,
                   "mutability": "mutable",
                   "name": "owner",
@@ -1031,7 +721,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4032,
                   "src": "958:13:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1039,17 +728,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1577,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "958:7:4",
-=======
                     "id": 4026,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "958:7:18",
->>>>>>> origin/pjh94-prototype
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -1059,30 +741,14 @@
                   "visibility": "internal"
                 }
               ],
-<<<<<<< HEAD
-              "src": "957:15:4"
-            },
-            "returnParameters": {
-              "id": 1582,
-=======
               "src": "957:15:18"
             },
             "returnParameters": {
               "id": 4031,
->>>>>>> origin/pjh94-prototype
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1581,
-                  "mutability": "mutable",
-                  "name": "balance",
-                  "nameLocation": "1004:7:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1583,
-                  "src": "996:15:4",
-=======
                   "id": 4030,
                   "mutability": "mutable",
                   "name": "balance",
@@ -1090,7 +756,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4032,
                   "src": "996:15:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1098,17 +763,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1580,
-                    "name": "uint256",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "996:7:4",
-=======
                     "id": 4029,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "996:7:18",
->>>>>>> origin/pjh94-prototype
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -1117,32 +775,16 @@
                   "visibility": "internal"
                 }
               ],
-<<<<<<< HEAD
-              "src": "995:17:4"
-            },
-            "scope": 1658,
-            "src": "939:74:4",
-=======
               "src": "995:17:18"
             },
             "scope": 4107,
             "src": "939:74:18",
->>>>>>> origin/pjh94-prototype
             "stateMutability": "view",
             "virtual": false,
             "visibility": "external"
           },
           {
             "documentation": {
-<<<<<<< HEAD
-              "id": 1584,
-              "nodeType": "StructuredDocumentation",
-              "src": "1019:131:4",
-              "text": " @dev Returns the owner of the `tokenId` token.\n Requirements:\n - `tokenId` must exist."
-            },
-            "functionSelector": "6352211e",
-            "id": 1591,
-=======
               "id": 4033,
               "nodeType": "StructuredDocumentation",
               "src": "1019:131:18",
@@ -1150,35 +792,18 @@
             },
             "functionSelector": "6352211e",
             "id": 4040,
->>>>>>> origin/pjh94-prototype
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "ownerOf",
-<<<<<<< HEAD
-            "nameLocation": "1164:7:4",
-            "nodeType": "FunctionDefinition",
-            "parameters": {
-              "id": 1587,
-=======
             "nameLocation": "1164:7:18",
             "nodeType": "FunctionDefinition",
             "parameters": {
               "id": 4036,
->>>>>>> origin/pjh94-prototype
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1586,
-                  "mutability": "mutable",
-                  "name": "tokenId",
-                  "nameLocation": "1180:7:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1591,
-                  "src": "1172:15:4",
-=======
                   "id": 4035,
                   "mutability": "mutable",
                   "name": "tokenId",
@@ -1186,7 +811,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4040,
                   "src": "1172:15:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1194,17 +818,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1585,
-                    "name": "uint256",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "1172:7:4",
-=======
                     "id": 4034,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "1172:7:18",
->>>>>>> origin/pjh94-prototype
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -1213,30 +830,14 @@
                   "visibility": "internal"
                 }
               ],
-<<<<<<< HEAD
-              "src": "1171:17:4"
-            },
-            "returnParameters": {
-              "id": 1590,
-=======
               "src": "1171:17:18"
             },
             "returnParameters": {
               "id": 4039,
->>>>>>> origin/pjh94-prototype
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1589,
-                  "mutability": "mutable",
-                  "name": "owner",
-                  "nameLocation": "1220:5:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1591,
-                  "src": "1212:13:4",
-=======
                   "id": 4038,
                   "mutability": "mutable",
                   "name": "owner",
@@ -1244,7 +845,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4040,
                   "src": "1212:13:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1252,17 +852,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1588,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "1212:7:4",
-=======
                     "id": 4037,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "1212:7:18",
->>>>>>> origin/pjh94-prototype
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -1272,32 +865,16 @@
                   "visibility": "internal"
                 }
               ],
-<<<<<<< HEAD
-              "src": "1211:15:4"
-            },
-            "scope": 1658,
-            "src": "1155:72:4",
-=======
               "src": "1211:15:18"
             },
             "scope": 4107,
             "src": "1155:72:18",
->>>>>>> origin/pjh94-prototype
             "stateMutability": "view",
             "virtual": false,
             "visibility": "external"
           },
           {
             "documentation": {
-<<<<<<< HEAD
-              "id": 1592,
-              "nodeType": "StructuredDocumentation",
-              "src": "1233:690:4",
-              "text": " @dev Safely transfers `tokenId` token from `from` to `to`, checking first that contract recipients\n are aware of the ERC721 protocol to prevent tokens from being forever locked.\n Requirements:\n - `from` cannot be the zero address.\n - `to` cannot be the zero address.\n - `tokenId` token must exist and be owned by `from`.\n - If the caller is not `from`, it must be have been allowed to move this token by either {approve} or {setApprovalForAll}.\n - If `to` refers to a smart contract, it must implement {IERC721Receiver-onERC721Received}, which is called upon a safe transfer.\n Emits a {Transfer} event."
-            },
-            "functionSelector": "42842e0e",
-            "id": 1601,
-=======
               "id": 4041,
               "nodeType": "StructuredDocumentation",
               "src": "1233:690:18",
@@ -1305,35 +882,18 @@
             },
             "functionSelector": "42842e0e",
             "id": 4050,
->>>>>>> origin/pjh94-prototype
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "safeTransferFrom",
-<<<<<<< HEAD
-            "nameLocation": "1937:16:4",
-            "nodeType": "FunctionDefinition",
-            "parameters": {
-              "id": 1599,
-=======
             "nameLocation": "1937:16:18",
             "nodeType": "FunctionDefinition",
             "parameters": {
               "id": 4048,
->>>>>>> origin/pjh94-prototype
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1594,
-                  "mutability": "mutable",
-                  "name": "from",
-                  "nameLocation": "1971:4:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1601,
-                  "src": "1963:12:4",
-=======
                   "id": 4043,
                   "mutability": "mutable",
                   "name": "from",
@@ -1341,7 +901,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4050,
                   "src": "1963:12:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1349,17 +908,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1593,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "1963:7:4",
-=======
                     "id": 4042,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "1963:7:18",
->>>>>>> origin/pjh94-prototype
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -1370,15 +922,6 @@
                 },
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1596,
-                  "mutability": "mutable",
-                  "name": "to",
-                  "nameLocation": "1993:2:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1601,
-                  "src": "1985:10:4",
-=======
                   "id": 4045,
                   "mutability": "mutable",
                   "name": "to",
@@ -1386,7 +929,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4050,
                   "src": "1985:10:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1394,17 +936,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1595,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "1985:7:4",
-=======
                     "id": 4044,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "1985:7:18",
->>>>>>> origin/pjh94-prototype
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -1415,15 +950,6 @@
                 },
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1598,
-                  "mutability": "mutable",
-                  "name": "tokenId",
-                  "nameLocation": "2013:7:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1601,
-                  "src": "2005:15:4",
-=======
                   "id": 4047,
                   "mutability": "mutable",
                   "name": "tokenId",
@@ -1431,7 +957,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4050,
                   "src": "2005:15:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1439,17 +964,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1597,
-                    "name": "uint256",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "2005:7:4",
-=======
                     "id": 4046,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "2005:7:18",
->>>>>>> origin/pjh94-prototype
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -1458,18 +976,6 @@
                   "visibility": "internal"
                 }
               ],
-<<<<<<< HEAD
-              "src": "1953:73:4"
-            },
-            "returnParameters": {
-              "id": 1600,
-              "nodeType": "ParameterList",
-              "parameters": [],
-              "src": "2035:0:4"
-            },
-            "scope": 1658,
-            "src": "1928:108:4",
-=======
               "src": "1953:73:18"
             },
             "returnParameters": {
@@ -1480,22 +986,12 @@
             },
             "scope": 4107,
             "src": "1928:108:18",
->>>>>>> origin/pjh94-prototype
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "external"
           },
           {
             "documentation": {
-<<<<<<< HEAD
-              "id": 1602,
-              "nodeType": "StructuredDocumentation",
-              "src": "2042:504:4",
-              "text": " @dev Transfers `tokenId` token from `from` to `to`.\n WARNING: Usage of this method is discouraged, use {safeTransferFrom} whenever possible.\n Requirements:\n - `from` cannot be the zero address.\n - `to` cannot be the zero address.\n - `tokenId` token must be owned by `from`.\n - If the caller is not `from`, it must be approved to move this token by either {approve} or {setApprovalForAll}.\n Emits a {Transfer} event."
-            },
-            "functionSelector": "23b872dd",
-            "id": 1611,
-=======
               "id": 4051,
               "nodeType": "StructuredDocumentation",
               "src": "2042:504:18",
@@ -1503,35 +999,18 @@
             },
             "functionSelector": "23b872dd",
             "id": 4060,
->>>>>>> origin/pjh94-prototype
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "transferFrom",
-<<<<<<< HEAD
-            "nameLocation": "2560:12:4",
-            "nodeType": "FunctionDefinition",
-            "parameters": {
-              "id": 1609,
-=======
             "nameLocation": "2560:12:18",
             "nodeType": "FunctionDefinition",
             "parameters": {
               "id": 4058,
->>>>>>> origin/pjh94-prototype
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1604,
-                  "mutability": "mutable",
-                  "name": "from",
-                  "nameLocation": "2590:4:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1611,
-                  "src": "2582:12:4",
-=======
                   "id": 4053,
                   "mutability": "mutable",
                   "name": "from",
@@ -1539,7 +1018,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4060,
                   "src": "2582:12:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1547,17 +1025,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1603,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "2582:7:4",
-=======
                     "id": 4052,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "2582:7:18",
->>>>>>> origin/pjh94-prototype
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -1568,15 +1039,6 @@
                 },
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1606,
-                  "mutability": "mutable",
-                  "name": "to",
-                  "nameLocation": "2612:2:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1611,
-                  "src": "2604:10:4",
-=======
                   "id": 4055,
                   "mutability": "mutable",
                   "name": "to",
@@ -1584,7 +1046,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4060,
                   "src": "2604:10:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1592,17 +1053,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1605,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "2604:7:4",
-=======
                     "id": 4054,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "2604:7:18",
->>>>>>> origin/pjh94-prototype
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -1613,15 +1067,6 @@
                 },
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1608,
-                  "mutability": "mutable",
-                  "name": "tokenId",
-                  "nameLocation": "2632:7:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1611,
-                  "src": "2624:15:4",
-=======
                   "id": 4057,
                   "mutability": "mutable",
                   "name": "tokenId",
@@ -1629,7 +1074,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4060,
                   "src": "2624:15:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1637,17 +1081,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1607,
-                    "name": "uint256",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "2624:7:4",
-=======
                     "id": 4056,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "2624:7:18",
->>>>>>> origin/pjh94-prototype
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -1656,18 +1093,6 @@
                   "visibility": "internal"
                 }
               ],
-<<<<<<< HEAD
-              "src": "2572:73:4"
-            },
-            "returnParameters": {
-              "id": 1610,
-              "nodeType": "ParameterList",
-              "parameters": [],
-              "src": "2654:0:4"
-            },
-            "scope": 1658,
-            "src": "2551:104:4",
-=======
               "src": "2572:73:18"
             },
             "returnParameters": {
@@ -1678,22 +1103,12 @@
             },
             "scope": 4107,
             "src": "2551:104:18",
->>>>>>> origin/pjh94-prototype
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "external"
           },
           {
             "documentation": {
-<<<<<<< HEAD
-              "id": 1612,
-              "nodeType": "StructuredDocumentation",
-              "src": "2661:452:4",
-              "text": " @dev Gives permission to `to` to transfer `tokenId` token to another account.\n The approval is cleared when the token is transferred.\n Only a single account can be approved at a time, so approving the zero address clears previous approvals.\n Requirements:\n - The caller must own the token or be an approved operator.\n - `tokenId` must exist.\n Emits an {Approval} event."
-            },
-            "functionSelector": "095ea7b3",
-            "id": 1619,
-=======
               "id": 4061,
               "nodeType": "StructuredDocumentation",
               "src": "2661:452:18",
@@ -1701,35 +1116,18 @@
             },
             "functionSelector": "095ea7b3",
             "id": 4068,
->>>>>>> origin/pjh94-prototype
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "approve",
-<<<<<<< HEAD
-            "nameLocation": "3127:7:4",
-            "nodeType": "FunctionDefinition",
-            "parameters": {
-              "id": 1617,
-=======
             "nameLocation": "3127:7:18",
             "nodeType": "FunctionDefinition",
             "parameters": {
               "id": 4066,
->>>>>>> origin/pjh94-prototype
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1614,
-                  "mutability": "mutable",
-                  "name": "to",
-                  "nameLocation": "3143:2:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1619,
-                  "src": "3135:10:4",
-=======
                   "id": 4063,
                   "mutability": "mutable",
                   "name": "to",
@@ -1737,7 +1135,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4068,
                   "src": "3135:10:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1745,17 +1142,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1613,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "3135:7:4",
-=======
                     "id": 4062,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "3135:7:18",
->>>>>>> origin/pjh94-prototype
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -1766,15 +1156,6 @@
                 },
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1616,
-                  "mutability": "mutable",
-                  "name": "tokenId",
-                  "nameLocation": "3155:7:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1619,
-                  "src": "3147:15:4",
-=======
                   "id": 4065,
                   "mutability": "mutable",
                   "name": "tokenId",
@@ -1782,7 +1163,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4068,
                   "src": "3147:15:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1790,17 +1170,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1615,
-                    "name": "uint256",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "3147:7:4",
-=======
                     "id": 4064,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "3147:7:18",
->>>>>>> origin/pjh94-prototype
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -1809,18 +1182,6 @@
                   "visibility": "internal"
                 }
               ],
-<<<<<<< HEAD
-              "src": "3134:29:4"
-            },
-            "returnParameters": {
-              "id": 1618,
-              "nodeType": "ParameterList",
-              "parameters": [],
-              "src": "3172:0:4"
-            },
-            "scope": 1658,
-            "src": "3118:55:4",
-=======
               "src": "3134:29:18"
             },
             "returnParameters": {
@@ -1831,22 +1192,12 @@
             },
             "scope": 4107,
             "src": "3118:55:18",
->>>>>>> origin/pjh94-prototype
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "external"
           },
           {
             "documentation": {
-<<<<<<< HEAD
-              "id": 1620,
-              "nodeType": "StructuredDocumentation",
-              "src": "3179:139:4",
-              "text": " @dev Returns the account approved for `tokenId` token.\n Requirements:\n - `tokenId` must exist."
-            },
-            "functionSelector": "081812fc",
-            "id": 1627,
-=======
               "id": 4069,
               "nodeType": "StructuredDocumentation",
               "src": "3179:139:18",
@@ -1854,35 +1205,18 @@
             },
             "functionSelector": "081812fc",
             "id": 4076,
->>>>>>> origin/pjh94-prototype
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "getApproved",
-<<<<<<< HEAD
-            "nameLocation": "3332:11:4",
-            "nodeType": "FunctionDefinition",
-            "parameters": {
-              "id": 1623,
-=======
             "nameLocation": "3332:11:18",
             "nodeType": "FunctionDefinition",
             "parameters": {
               "id": 4072,
->>>>>>> origin/pjh94-prototype
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1622,
-                  "mutability": "mutable",
-                  "name": "tokenId",
-                  "nameLocation": "3352:7:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1627,
-                  "src": "3344:15:4",
-=======
                   "id": 4071,
                   "mutability": "mutable",
                   "name": "tokenId",
@@ -1890,7 +1224,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4076,
                   "src": "3344:15:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1898,17 +1231,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1621,
-                    "name": "uint256",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "3344:7:4",
-=======
                     "id": 4070,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "3344:7:18",
->>>>>>> origin/pjh94-prototype
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -1917,30 +1243,14 @@
                   "visibility": "internal"
                 }
               ],
-<<<<<<< HEAD
-              "src": "3343:17:4"
-            },
-            "returnParameters": {
-              "id": 1626,
-=======
               "src": "3343:17:18"
             },
             "returnParameters": {
               "id": 4075,
->>>>>>> origin/pjh94-prototype
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1625,
-                  "mutability": "mutable",
-                  "name": "operator",
-                  "nameLocation": "3392:8:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1627,
-                  "src": "3384:16:4",
-=======
                   "id": 4074,
                   "mutability": "mutable",
                   "name": "operator",
@@ -1948,7 +1258,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4076,
                   "src": "3384:16:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1956,17 +1265,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1624,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "3384:7:4",
-=======
                     "id": 4073,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "3384:7:18",
->>>>>>> origin/pjh94-prototype
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -1976,32 +1278,16 @@
                   "visibility": "internal"
                 }
               ],
-<<<<<<< HEAD
-              "src": "3383:18:4"
-            },
-            "scope": 1658,
-            "src": "3323:79:4",
-=======
               "src": "3383:18:18"
             },
             "scope": 4107,
             "src": "3323:79:18",
->>>>>>> origin/pjh94-prototype
             "stateMutability": "view",
             "virtual": false,
             "visibility": "external"
           },
           {
             "documentation": {
-<<<<<<< HEAD
-              "id": 1628,
-              "nodeType": "StructuredDocumentation",
-              "src": "3408:309:4",
-              "text": " @dev Approve or remove `operator` as an operator for the caller.\n Operators can call {transferFrom} or {safeTransferFrom} for any token owned by the caller.\n Requirements:\n - The `operator` cannot be the caller.\n Emits an {ApprovalForAll} event."
-            },
-            "functionSelector": "a22cb465",
-            "id": 1635,
-=======
               "id": 4077,
               "nodeType": "StructuredDocumentation",
               "src": "3408:309:18",
@@ -2009,35 +1295,18 @@
             },
             "functionSelector": "a22cb465",
             "id": 4084,
->>>>>>> origin/pjh94-prototype
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "setApprovalForAll",
-<<<<<<< HEAD
-            "nameLocation": "3731:17:4",
-            "nodeType": "FunctionDefinition",
-            "parameters": {
-              "id": 1633,
-=======
             "nameLocation": "3731:17:18",
             "nodeType": "FunctionDefinition",
             "parameters": {
               "id": 4082,
->>>>>>> origin/pjh94-prototype
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1630,
-                  "mutability": "mutable",
-                  "name": "operator",
-                  "nameLocation": "3757:8:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1635,
-                  "src": "3749:16:4",
-=======
                   "id": 4079,
                   "mutability": "mutable",
                   "name": "operator",
@@ -2045,7 +1314,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4084,
                   "src": "3749:16:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -2053,17 +1321,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1629,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "3749:7:4",
-=======
                     "id": 4078,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "3749:7:18",
->>>>>>> origin/pjh94-prototype
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -2074,15 +1335,6 @@
                 },
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1632,
-                  "mutability": "mutable",
-                  "name": "_approved",
-                  "nameLocation": "3772:9:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1635,
-                  "src": "3767:14:4",
-=======
                   "id": 4081,
                   "mutability": "mutable",
                   "name": "_approved",
@@ -2090,7 +1342,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4084,
                   "src": "3767:14:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -2098,17 +1349,10 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1631,
-                    "name": "bool",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "3767:4:4",
-=======
                     "id": 4080,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
                     "src": "3767:4:18",
->>>>>>> origin/pjh94-prototype
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -2117,18 +1361,6 @@
                   "visibility": "internal"
                 }
               ],
-<<<<<<< HEAD
-              "src": "3748:34:4"
-            },
-            "returnParameters": {
-              "id": 1634,
-              "nodeType": "ParameterList",
-              "parameters": [],
-              "src": "3791:0:4"
-            },
-            "scope": 1658,
-            "src": "3722:70:4",
-=======
               "src": "3748:34:18"
             },
             "returnParameters": {
@@ -2139,22 +1371,12 @@
             },
             "scope": 4107,
             "src": "3722:70:18",
->>>>>>> origin/pjh94-prototype
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "external"
           },
           {
             "documentation": {
-<<<<<<< HEAD
-              "id": 1636,
-              "nodeType": "StructuredDocumentation",
-              "src": "3798:138:4",
-              "text": " @dev Returns if the `operator` is allowed to manage all of the assets of `owner`.\n See {setApprovalForAll}"
-            },
-            "functionSelector": "e985e9c5",
-            "id": 1645,
-=======
               "id": 4085,
               "nodeType": "StructuredDocumentation",
               "src": "3798:138:18",
@@ -2162,35 +1384,18 @@
             },
             "functionSelector": "e985e9c5",
             "id": 4094,
->>>>>>> origin/pjh94-prototype
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "isApprovedForAll",
-<<<<<<< HEAD
-            "nameLocation": "3950:16:4",
-            "nodeType": "FunctionDefinition",
-            "parameters": {
-              "id": 1641,
-=======
             "nameLocation": "3950:16:18",
             "nodeType": "FunctionDefinition",
             "parameters": {
               "id": 4090,
->>>>>>> origin/pjh94-prototype
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1638,
-                  "mutability": "mutable",
-                  "name": "owner",
-                  "nameLocation": "3975:5:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1645,
-                  "src": "3967:13:4",
-=======
                   "id": 4087,
                   "mutability": "mutable",
                   "name": "owner",
@@ -2198,7 +1403,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4094,
                   "src": "3967:13:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -2206,17 +1410,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1637,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "3967:7:4",
-=======
                     "id": 4086,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "3967:7:18",
->>>>>>> origin/pjh94-prototype
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -2227,15 +1424,6 @@
                 },
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1640,
-                  "mutability": "mutable",
-                  "name": "operator",
-                  "nameLocation": "3990:8:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1645,
-                  "src": "3982:16:4",
-=======
                   "id": 4089,
                   "mutability": "mutable",
                   "name": "operator",
@@ -2243,7 +1431,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4094,
                   "src": "3982:16:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -2251,17 +1438,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1639,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "3982:7:4",
-=======
                     "id": 4088,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "3982:7:18",
->>>>>>> origin/pjh94-prototype
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -2271,37 +1451,21 @@
                   "visibility": "internal"
                 }
               ],
-<<<<<<< HEAD
-              "src": "3966:33:4"
-            },
-            "returnParameters": {
-              "id": 1644,
-=======
               "src": "3966:33:18"
             },
             "returnParameters": {
               "id": 4093,
->>>>>>> origin/pjh94-prototype
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1643,
-=======
                   "id": 4092,
->>>>>>> origin/pjh94-prototype
                   "mutability": "mutable",
                   "name": "",
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
-<<<<<<< HEAD
-                  "scope": 1645,
-                  "src": "4023:4:4",
-=======
                   "scope": 4094,
                   "src": "4023:4:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -2309,17 +1473,10 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1642,
-                    "name": "bool",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "4023:4:4",
-=======
                     "id": 4091,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
                     "src": "4023:4:18",
->>>>>>> origin/pjh94-prototype
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -2328,32 +1485,16 @@
                   "visibility": "internal"
                 }
               ],
-<<<<<<< HEAD
-              "src": "4022:6:4"
-            },
-            "scope": 1658,
-            "src": "3941:88:4",
-=======
               "src": "4022:6:18"
             },
             "scope": 4107,
             "src": "3941:88:18",
->>>>>>> origin/pjh94-prototype
             "stateMutability": "view",
             "virtual": false,
             "visibility": "external"
           },
           {
             "documentation": {
-<<<<<<< HEAD
-              "id": 1646,
-              "nodeType": "StructuredDocumentation",
-              "src": "4035:556:4",
-              "text": " @dev Safely transfers `tokenId` token from `from` to `to`.\n Requirements:\n - `from` cannot be the zero address.\n - `to` cannot be the zero address.\n - `tokenId` token must exist and be owned by `from`.\n - If the caller is not `from`, it must be approved to move this token by either {approve} or {setApprovalForAll}.\n - If `to` refers to a smart contract, it must implement {IERC721Receiver-onERC721Received}, which is called upon a safe transfer.\n Emits a {Transfer} event."
-            },
-            "functionSelector": "b88d4fde",
-            "id": 1657,
-=======
               "id": 4095,
               "nodeType": "StructuredDocumentation",
               "src": "4035:556:18",
@@ -2361,35 +1502,18 @@
             },
             "functionSelector": "b88d4fde",
             "id": 4106,
->>>>>>> origin/pjh94-prototype
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "safeTransferFrom",
-<<<<<<< HEAD
-            "nameLocation": "4605:16:4",
-            "nodeType": "FunctionDefinition",
-            "parameters": {
-              "id": 1655,
-=======
             "nameLocation": "4605:16:18",
             "nodeType": "FunctionDefinition",
             "parameters": {
               "id": 4104,
->>>>>>> origin/pjh94-prototype
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1648,
-                  "mutability": "mutable",
-                  "name": "from",
-                  "nameLocation": "4639:4:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1657,
-                  "src": "4631:12:4",
-=======
                   "id": 4097,
                   "mutability": "mutable",
                   "name": "from",
@@ -2397,7 +1521,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4106,
                   "src": "4631:12:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -2405,17 +1528,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1647,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "4631:7:4",
-=======
                     "id": 4096,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "4631:7:18",
->>>>>>> origin/pjh94-prototype
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -2426,15 +1542,6 @@
                 },
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1650,
-                  "mutability": "mutable",
-                  "name": "to",
-                  "nameLocation": "4661:2:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1657,
-                  "src": "4653:10:4",
-=======
                   "id": 4099,
                   "mutability": "mutable",
                   "name": "to",
@@ -2442,7 +1549,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4106,
                   "src": "4653:10:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -2450,17 +1556,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1649,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "4653:7:4",
-=======
                     "id": 4098,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "4653:7:18",
->>>>>>> origin/pjh94-prototype
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -2471,15 +1570,6 @@
                 },
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1652,
-                  "mutability": "mutable",
-                  "name": "tokenId",
-                  "nameLocation": "4681:7:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1657,
-                  "src": "4673:15:4",
-=======
                   "id": 4101,
                   "mutability": "mutable",
                   "name": "tokenId",
@@ -2487,7 +1577,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4106,
                   "src": "4673:15:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -2495,17 +1584,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1651,
-                    "name": "uint256",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "4673:7:4",
-=======
                     "id": 4100,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "4673:7:18",
->>>>>>> origin/pjh94-prototype
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -2515,15 +1597,6 @@
                 },
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1654,
-                  "mutability": "mutable",
-                  "name": "data",
-                  "nameLocation": "4713:4:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1657,
-                  "src": "4698:19:4",
-=======
                   "id": 4103,
                   "mutability": "mutable",
                   "name": "data",
@@ -2531,7 +1604,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4106,
                   "src": "4698:19:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "calldata",
                   "typeDescriptions": {
@@ -2539,17 +1611,10 @@
                     "typeString": "bytes"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1653,
-                    "name": "bytes",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "4698:5:4",
-=======
                     "id": 4102,
                     "name": "bytes",
                     "nodeType": "ElementaryTypeName",
                     "src": "4698:5:18",
->>>>>>> origin/pjh94-prototype
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes_storage_ptr",
                       "typeString": "bytes"
@@ -2558,18 +1623,6 @@
                   "visibility": "internal"
                 }
               ],
-<<<<<<< HEAD
-              "src": "4621:102:4"
-            },
-            "returnParameters": {
-              "id": 1656,
-              "nodeType": "ParameterList",
-              "parameters": [],
-              "src": "4732:0:4"
-            },
-            "scope": 1658,
-            "src": "4596:137:4",
-=======
               "src": "4621:102:18"
             },
             "returnParameters": {
@@ -2580,41 +1633,22 @@
             },
             "scope": 4107,
             "src": "4596:137:18",
->>>>>>> origin/pjh94-prototype
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "external"
           }
         ],
-<<<<<<< HEAD
-        "scope": 1659,
-        "src": "235:4500:4",
-        "usedErrors": []
-      }
-    ],
-    "src": "93:4643:4"
-=======
         "scope": 4108,
         "src": "235:4500:18",
         "usedErrors": []
       }
     ],
     "src": "93:4643:18"
->>>>>>> origin/pjh94-prototype
   },
   "legacyAST": {
     "absolutePath": "project:/node_modules/@openzeppelin/contracts/token/ERC721/IERC721.sol",
     "exportedSymbols": {
       "IERC165": [
-<<<<<<< HEAD
-        2387
-      ],
-      "IERC721": [
-        1658
-      ]
-    },
-    "id": 1659,
-=======
         4836
       ],
       "IERC721": [
@@ -2622,16 +1656,11 @@
       ]
     },
     "id": 4108,
->>>>>>> origin/pjh94-prototype
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-<<<<<<< HEAD
-        "id": 1544,
-=======
         "id": 3993,
->>>>>>> origin/pjh94-prototype
         "literals": [
           "solidity",
           "^",
@@ -2639,30 +1668,17 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
-<<<<<<< HEAD
-        "src": "93:23:4"
-=======
         "src": "93:23:18"
->>>>>>> origin/pjh94-prototype
       },
       {
         "absolutePath": "project:/node_modules/@openzeppelin/contracts/utils/introspection/IERC165.sol",
         "file": "../../utils/introspection/IERC165.sol",
-<<<<<<< HEAD
-        "id": 1545,
-        "nameLocation": "-1:-1:-1",
-        "nodeType": "ImportDirective",
-        "scope": 1659,
-        "sourceUnit": 2388,
-        "src": "118:47:4",
-=======
         "id": 3994,
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
         "scope": 4108,
         "sourceUnit": 4837,
         "src": "118:47:18",
->>>>>>> origin/pjh94-prototype
         "symbolAliases": [],
         "unitAlias": ""
       },
@@ -2671,17 +1687,6 @@
         "baseContracts": [
           {
             "baseName": {
-<<<<<<< HEAD
-              "id": 1547,
-              "name": "IERC165",
-              "nodeType": "IdentifierPath",
-              "referencedDeclaration": 2387,
-              "src": "256:7:4"
-            },
-            "id": 1548,
-            "nodeType": "InheritanceSpecifier",
-            "src": "256:7:4"
-=======
               "id": 3996,
               "name": "IERC165",
               "nodeType": "IdentifierPath",
@@ -2691,28 +1696,12 @@
             "id": 3997,
             "nodeType": "InheritanceSpecifier",
             "src": "256:7:18"
->>>>>>> origin/pjh94-prototype
           }
         ],
         "canonicalName": "IERC721",
         "contractDependencies": [],
         "contractKind": "interface",
         "documentation": {
-<<<<<<< HEAD
-          "id": 1546,
-          "nodeType": "StructuredDocumentation",
-          "src": "167:67:4",
-          "text": " @dev Required interface of an ERC721 compliant contract."
-        },
-        "fullyImplemented": false,
-        "id": 1658,
-        "linearizedBaseContracts": [
-          1658,
-          2387
-        ],
-        "name": "IERC721",
-        "nameLocation": "245:7:4",
-=======
           "id": 3995,
           "nodeType": "StructuredDocumentation",
           "src": "167:67:18",
@@ -2726,26 +1715,11 @@
         ],
         "name": "IERC721",
         "nameLocation": "245:7:18",
->>>>>>> origin/pjh94-prototype
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "anonymous": false,
             "documentation": {
-<<<<<<< HEAD
-              "id": 1549,
-              "nodeType": "StructuredDocumentation",
-              "src": "270:88:4",
-              "text": " @dev Emitted when `tokenId` token is transferred from `from` to `to`."
-            },
-            "eventSelector": "ddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
-            "id": 1557,
-            "name": "Transfer",
-            "nameLocation": "369:8:4",
-            "nodeType": "EventDefinition",
-            "parameters": {
-              "id": 1556,
-=======
               "id": 3998,
               "nodeType": "StructuredDocumentation",
               "src": "270:88:18",
@@ -2758,21 +1732,10 @@
             "nodeType": "EventDefinition",
             "parameters": {
               "id": 4005,
->>>>>>> origin/pjh94-prototype
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1551,
-                  "indexed": true,
-                  "mutability": "mutable",
-                  "name": "from",
-                  "nameLocation": "394:4:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1557,
-                  "src": "378:20:4",
-=======
                   "id": 4000,
                   "indexed": true,
                   "mutability": "mutable",
@@ -2781,7 +1744,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4006,
                   "src": "378:20:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -2789,17 +1751,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1550,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "378:7:4",
-=======
                     "id": 3999,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "378:7:18",
->>>>>>> origin/pjh94-prototype
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -2810,16 +1765,6 @@
                 },
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1553,
-                  "indexed": true,
-                  "mutability": "mutable",
-                  "name": "to",
-                  "nameLocation": "416:2:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1557,
-                  "src": "400:18:4",
-=======
                   "id": 4002,
                   "indexed": true,
                   "mutability": "mutable",
@@ -2828,7 +1773,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4006,
                   "src": "400:18:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -2836,17 +1780,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1552,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "400:7:4",
-=======
                     "id": 4001,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "400:7:18",
->>>>>>> origin/pjh94-prototype
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -2857,16 +1794,6 @@
                 },
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1555,
-                  "indexed": true,
-                  "mutability": "mutable",
-                  "name": "tokenId",
-                  "nameLocation": "436:7:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1557,
-                  "src": "420:23:4",
-=======
                   "id": 4004,
                   "indexed": true,
                   "mutability": "mutable",
@@ -2875,7 +1802,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4006,
                   "src": "420:23:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -2883,17 +1809,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1554,
-                    "name": "uint256",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "420:7:4",
-=======
                     "id": 4003,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "420:7:18",
->>>>>>> origin/pjh94-prototype
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -2902,33 +1821,13 @@
                   "visibility": "internal"
                 }
               ],
-<<<<<<< HEAD
-              "src": "377:67:4"
-            },
-            "src": "363:82:4"
-=======
               "src": "377:67:18"
             },
             "src": "363:82:18"
->>>>>>> origin/pjh94-prototype
           },
           {
             "anonymous": false,
             "documentation": {
-<<<<<<< HEAD
-              "id": 1558,
-              "nodeType": "StructuredDocumentation",
-              "src": "451:94:4",
-              "text": " @dev Emitted when `owner` enables `approved` to manage the `tokenId` token."
-            },
-            "eventSelector": "8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925",
-            "id": 1566,
-            "name": "Approval",
-            "nameLocation": "556:8:4",
-            "nodeType": "EventDefinition",
-            "parameters": {
-              "id": 1565,
-=======
               "id": 4007,
               "nodeType": "StructuredDocumentation",
               "src": "451:94:18",
@@ -2941,21 +1840,10 @@
             "nodeType": "EventDefinition",
             "parameters": {
               "id": 4014,
->>>>>>> origin/pjh94-prototype
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1560,
-                  "indexed": true,
-                  "mutability": "mutable",
-                  "name": "owner",
-                  "nameLocation": "581:5:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1566,
-                  "src": "565:21:4",
-=======
                   "id": 4009,
                   "indexed": true,
                   "mutability": "mutable",
@@ -2964,7 +1852,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4015,
                   "src": "565:21:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -2972,17 +1859,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1559,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "565:7:4",
-=======
                     "id": 4008,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "565:7:18",
->>>>>>> origin/pjh94-prototype
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -2993,16 +1873,6 @@
                 },
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1562,
-                  "indexed": true,
-                  "mutability": "mutable",
-                  "name": "approved",
-                  "nameLocation": "604:8:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1566,
-                  "src": "588:24:4",
-=======
                   "id": 4011,
                   "indexed": true,
                   "mutability": "mutable",
@@ -3011,7 +1881,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4015,
                   "src": "588:24:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -3019,17 +1888,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1561,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "588:7:4",
-=======
                     "id": 4010,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "588:7:18",
->>>>>>> origin/pjh94-prototype
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -3040,16 +1902,6 @@
                 },
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1564,
-                  "indexed": true,
-                  "mutability": "mutable",
-                  "name": "tokenId",
-                  "nameLocation": "630:7:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1566,
-                  "src": "614:23:4",
-=======
                   "id": 4013,
                   "indexed": true,
                   "mutability": "mutable",
@@ -3058,7 +1910,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4015,
                   "src": "614:23:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -3066,17 +1917,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1563,
-                    "name": "uint256",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "614:7:4",
-=======
                     "id": 4012,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "614:7:18",
->>>>>>> origin/pjh94-prototype
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -3085,33 +1929,13 @@
                   "visibility": "internal"
                 }
               ],
-<<<<<<< HEAD
-              "src": "564:74:4"
-            },
-            "src": "550:89:4"
-=======
               "src": "564:74:18"
             },
             "src": "550:89:18"
->>>>>>> origin/pjh94-prototype
           },
           {
             "anonymous": false,
             "documentation": {
-<<<<<<< HEAD
-              "id": 1567,
-              "nodeType": "StructuredDocumentation",
-              "src": "645:117:4",
-              "text": " @dev Emitted when `owner` enables or disables (`approved`) `operator` to manage all of its assets."
-            },
-            "eventSelector": "17307eab39ab6107e8899845ad3d59bd9653f200f220920489ca2b5937696c31",
-            "id": 1575,
-            "name": "ApprovalForAll",
-            "nameLocation": "773:14:4",
-            "nodeType": "EventDefinition",
-            "parameters": {
-              "id": 1574,
-=======
               "id": 4016,
               "nodeType": "StructuredDocumentation",
               "src": "645:117:18",
@@ -3124,21 +1948,10 @@
             "nodeType": "EventDefinition",
             "parameters": {
               "id": 4023,
->>>>>>> origin/pjh94-prototype
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1569,
-                  "indexed": true,
-                  "mutability": "mutable",
-                  "name": "owner",
-                  "nameLocation": "804:5:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1575,
-                  "src": "788:21:4",
-=======
                   "id": 4018,
                   "indexed": true,
                   "mutability": "mutable",
@@ -3147,7 +1960,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4024,
                   "src": "788:21:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -3155,17 +1967,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1568,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "788:7:4",
-=======
                     "id": 4017,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "788:7:18",
->>>>>>> origin/pjh94-prototype
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -3176,16 +1981,6 @@
                 },
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1571,
-                  "indexed": true,
-                  "mutability": "mutable",
-                  "name": "operator",
-                  "nameLocation": "827:8:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1575,
-                  "src": "811:24:4",
-=======
                   "id": 4020,
                   "indexed": true,
                   "mutability": "mutable",
@@ -3194,7 +1989,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4024,
                   "src": "811:24:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -3202,17 +1996,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1570,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "811:7:4",
-=======
                     "id": 4019,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "811:7:18",
->>>>>>> origin/pjh94-prototype
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -3223,16 +2010,6 @@
                 },
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1573,
-                  "indexed": false,
-                  "mutability": "mutable",
-                  "name": "approved",
-                  "nameLocation": "842:8:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1575,
-                  "src": "837:13:4",
-=======
                   "id": 4022,
                   "indexed": false,
                   "mutability": "mutable",
@@ -3241,7 +2018,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4024,
                   "src": "837:13:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -3249,17 +2025,10 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1572,
-                    "name": "bool",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "837:4:4",
-=======
                     "id": 4021,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
                     "src": "837:4:18",
->>>>>>> origin/pjh94-prototype
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -3268,21 +2037,6 @@
                   "visibility": "internal"
                 }
               ],
-<<<<<<< HEAD
-              "src": "787:64:4"
-            },
-            "src": "767:85:4"
-          },
-          {
-            "documentation": {
-              "id": 1576,
-              "nodeType": "StructuredDocumentation",
-              "src": "858:76:4",
-              "text": " @dev Returns the number of tokens in ``owner``'s account."
-            },
-            "functionSelector": "70a08231",
-            "id": 1583,
-=======
               "src": "787:64:18"
             },
             "src": "767:85:18"
@@ -3296,35 +2050,18 @@
             },
             "functionSelector": "70a08231",
             "id": 4032,
->>>>>>> origin/pjh94-prototype
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "balanceOf",
-<<<<<<< HEAD
-            "nameLocation": "948:9:4",
-            "nodeType": "FunctionDefinition",
-            "parameters": {
-              "id": 1579,
-=======
             "nameLocation": "948:9:18",
             "nodeType": "FunctionDefinition",
             "parameters": {
               "id": 4028,
->>>>>>> origin/pjh94-prototype
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1578,
-                  "mutability": "mutable",
-                  "name": "owner",
-                  "nameLocation": "966:5:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1583,
-                  "src": "958:13:4",
-=======
                   "id": 4027,
                   "mutability": "mutable",
                   "name": "owner",
@@ -3332,7 +2069,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4032,
                   "src": "958:13:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -3340,17 +2076,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1577,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "958:7:4",
-=======
                     "id": 4026,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "958:7:18",
->>>>>>> origin/pjh94-prototype
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -3360,30 +2089,14 @@
                   "visibility": "internal"
                 }
               ],
-<<<<<<< HEAD
-              "src": "957:15:4"
-            },
-            "returnParameters": {
-              "id": 1582,
-=======
               "src": "957:15:18"
             },
             "returnParameters": {
               "id": 4031,
->>>>>>> origin/pjh94-prototype
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1581,
-                  "mutability": "mutable",
-                  "name": "balance",
-                  "nameLocation": "1004:7:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1583,
-                  "src": "996:15:4",
-=======
                   "id": 4030,
                   "mutability": "mutable",
                   "name": "balance",
@@ -3391,7 +2104,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4032,
                   "src": "996:15:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -3399,17 +2111,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1580,
-                    "name": "uint256",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "996:7:4",
-=======
                     "id": 4029,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "996:7:18",
->>>>>>> origin/pjh94-prototype
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -3418,32 +2123,16 @@
                   "visibility": "internal"
                 }
               ],
-<<<<<<< HEAD
-              "src": "995:17:4"
-            },
-            "scope": 1658,
-            "src": "939:74:4",
-=======
               "src": "995:17:18"
             },
             "scope": 4107,
             "src": "939:74:18",
->>>>>>> origin/pjh94-prototype
             "stateMutability": "view",
             "virtual": false,
             "visibility": "external"
           },
           {
             "documentation": {
-<<<<<<< HEAD
-              "id": 1584,
-              "nodeType": "StructuredDocumentation",
-              "src": "1019:131:4",
-              "text": " @dev Returns the owner of the `tokenId` token.\n Requirements:\n - `tokenId` must exist."
-            },
-            "functionSelector": "6352211e",
-            "id": 1591,
-=======
               "id": 4033,
               "nodeType": "StructuredDocumentation",
               "src": "1019:131:18",
@@ -3451,35 +2140,18 @@
             },
             "functionSelector": "6352211e",
             "id": 4040,
->>>>>>> origin/pjh94-prototype
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "ownerOf",
-<<<<<<< HEAD
-            "nameLocation": "1164:7:4",
-            "nodeType": "FunctionDefinition",
-            "parameters": {
-              "id": 1587,
-=======
             "nameLocation": "1164:7:18",
             "nodeType": "FunctionDefinition",
             "parameters": {
               "id": 4036,
->>>>>>> origin/pjh94-prototype
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1586,
-                  "mutability": "mutable",
-                  "name": "tokenId",
-                  "nameLocation": "1180:7:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1591,
-                  "src": "1172:15:4",
-=======
                   "id": 4035,
                   "mutability": "mutable",
                   "name": "tokenId",
@@ -3487,7 +2159,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4040,
                   "src": "1172:15:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -3495,17 +2166,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1585,
-                    "name": "uint256",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "1172:7:4",
-=======
                     "id": 4034,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "1172:7:18",
->>>>>>> origin/pjh94-prototype
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -3514,30 +2178,14 @@
                   "visibility": "internal"
                 }
               ],
-<<<<<<< HEAD
-              "src": "1171:17:4"
-            },
-            "returnParameters": {
-              "id": 1590,
-=======
               "src": "1171:17:18"
             },
             "returnParameters": {
               "id": 4039,
->>>>>>> origin/pjh94-prototype
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1589,
-                  "mutability": "mutable",
-                  "name": "owner",
-                  "nameLocation": "1220:5:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1591,
-                  "src": "1212:13:4",
-=======
                   "id": 4038,
                   "mutability": "mutable",
                   "name": "owner",
@@ -3545,7 +2193,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4040,
                   "src": "1212:13:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -3553,17 +2200,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1588,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "1212:7:4",
-=======
                     "id": 4037,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "1212:7:18",
->>>>>>> origin/pjh94-prototype
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -3573,32 +2213,16 @@
                   "visibility": "internal"
                 }
               ],
-<<<<<<< HEAD
-              "src": "1211:15:4"
-            },
-            "scope": 1658,
-            "src": "1155:72:4",
-=======
               "src": "1211:15:18"
             },
             "scope": 4107,
             "src": "1155:72:18",
->>>>>>> origin/pjh94-prototype
             "stateMutability": "view",
             "virtual": false,
             "visibility": "external"
           },
           {
             "documentation": {
-<<<<<<< HEAD
-              "id": 1592,
-              "nodeType": "StructuredDocumentation",
-              "src": "1233:690:4",
-              "text": " @dev Safely transfers `tokenId` token from `from` to `to`, checking first that contract recipients\n are aware of the ERC721 protocol to prevent tokens from being forever locked.\n Requirements:\n - `from` cannot be the zero address.\n - `to` cannot be the zero address.\n - `tokenId` token must exist and be owned by `from`.\n - If the caller is not `from`, it must be have been allowed to move this token by either {approve} or {setApprovalForAll}.\n - If `to` refers to a smart contract, it must implement {IERC721Receiver-onERC721Received}, which is called upon a safe transfer.\n Emits a {Transfer} event."
-            },
-            "functionSelector": "42842e0e",
-            "id": 1601,
-=======
               "id": 4041,
               "nodeType": "StructuredDocumentation",
               "src": "1233:690:18",
@@ -3606,35 +2230,18 @@
             },
             "functionSelector": "42842e0e",
             "id": 4050,
->>>>>>> origin/pjh94-prototype
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "safeTransferFrom",
-<<<<<<< HEAD
-            "nameLocation": "1937:16:4",
-            "nodeType": "FunctionDefinition",
-            "parameters": {
-              "id": 1599,
-=======
             "nameLocation": "1937:16:18",
             "nodeType": "FunctionDefinition",
             "parameters": {
               "id": 4048,
->>>>>>> origin/pjh94-prototype
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1594,
-                  "mutability": "mutable",
-                  "name": "from",
-                  "nameLocation": "1971:4:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1601,
-                  "src": "1963:12:4",
-=======
                   "id": 4043,
                   "mutability": "mutable",
                   "name": "from",
@@ -3642,7 +2249,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4050,
                   "src": "1963:12:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -3650,17 +2256,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1593,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "1963:7:4",
-=======
                     "id": 4042,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "1963:7:18",
->>>>>>> origin/pjh94-prototype
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -3671,15 +2270,6 @@
                 },
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1596,
-                  "mutability": "mutable",
-                  "name": "to",
-                  "nameLocation": "1993:2:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1601,
-                  "src": "1985:10:4",
-=======
                   "id": 4045,
                   "mutability": "mutable",
                   "name": "to",
@@ -3687,7 +2277,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4050,
                   "src": "1985:10:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -3695,17 +2284,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1595,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "1985:7:4",
-=======
                     "id": 4044,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "1985:7:18",
->>>>>>> origin/pjh94-prototype
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -3716,15 +2298,6 @@
                 },
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1598,
-                  "mutability": "mutable",
-                  "name": "tokenId",
-                  "nameLocation": "2013:7:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1601,
-                  "src": "2005:15:4",
-=======
                   "id": 4047,
                   "mutability": "mutable",
                   "name": "tokenId",
@@ -3732,7 +2305,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4050,
                   "src": "2005:15:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -3740,17 +2312,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1597,
-                    "name": "uint256",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "2005:7:4",
-=======
                     "id": 4046,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "2005:7:18",
->>>>>>> origin/pjh94-prototype
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -3759,18 +2324,6 @@
                   "visibility": "internal"
                 }
               ],
-<<<<<<< HEAD
-              "src": "1953:73:4"
-            },
-            "returnParameters": {
-              "id": 1600,
-              "nodeType": "ParameterList",
-              "parameters": [],
-              "src": "2035:0:4"
-            },
-            "scope": 1658,
-            "src": "1928:108:4",
-=======
               "src": "1953:73:18"
             },
             "returnParameters": {
@@ -3781,22 +2334,12 @@
             },
             "scope": 4107,
             "src": "1928:108:18",
->>>>>>> origin/pjh94-prototype
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "external"
           },
           {
             "documentation": {
-<<<<<<< HEAD
-              "id": 1602,
-              "nodeType": "StructuredDocumentation",
-              "src": "2042:504:4",
-              "text": " @dev Transfers `tokenId` token from `from` to `to`.\n WARNING: Usage of this method is discouraged, use {safeTransferFrom} whenever possible.\n Requirements:\n - `from` cannot be the zero address.\n - `to` cannot be the zero address.\n - `tokenId` token must be owned by `from`.\n - If the caller is not `from`, it must be approved to move this token by either {approve} or {setApprovalForAll}.\n Emits a {Transfer} event."
-            },
-            "functionSelector": "23b872dd",
-            "id": 1611,
-=======
               "id": 4051,
               "nodeType": "StructuredDocumentation",
               "src": "2042:504:18",
@@ -3804,35 +2347,18 @@
             },
             "functionSelector": "23b872dd",
             "id": 4060,
->>>>>>> origin/pjh94-prototype
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "transferFrom",
-<<<<<<< HEAD
-            "nameLocation": "2560:12:4",
-            "nodeType": "FunctionDefinition",
-            "parameters": {
-              "id": 1609,
-=======
             "nameLocation": "2560:12:18",
             "nodeType": "FunctionDefinition",
             "parameters": {
               "id": 4058,
->>>>>>> origin/pjh94-prototype
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1604,
-                  "mutability": "mutable",
-                  "name": "from",
-                  "nameLocation": "2590:4:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1611,
-                  "src": "2582:12:4",
-=======
                   "id": 4053,
                   "mutability": "mutable",
                   "name": "from",
@@ -3840,7 +2366,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4060,
                   "src": "2582:12:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -3848,17 +2373,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1603,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "2582:7:4",
-=======
                     "id": 4052,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "2582:7:18",
->>>>>>> origin/pjh94-prototype
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -3869,15 +2387,6 @@
                 },
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1606,
-                  "mutability": "mutable",
-                  "name": "to",
-                  "nameLocation": "2612:2:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1611,
-                  "src": "2604:10:4",
-=======
                   "id": 4055,
                   "mutability": "mutable",
                   "name": "to",
@@ -3885,7 +2394,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4060,
                   "src": "2604:10:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -3893,17 +2401,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1605,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "2604:7:4",
-=======
                     "id": 4054,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "2604:7:18",
->>>>>>> origin/pjh94-prototype
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -3914,15 +2415,6 @@
                 },
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1608,
-                  "mutability": "mutable",
-                  "name": "tokenId",
-                  "nameLocation": "2632:7:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1611,
-                  "src": "2624:15:4",
-=======
                   "id": 4057,
                   "mutability": "mutable",
                   "name": "tokenId",
@@ -3930,7 +2422,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4060,
                   "src": "2624:15:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -3938,17 +2429,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1607,
-                    "name": "uint256",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "2624:7:4",
-=======
                     "id": 4056,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "2624:7:18",
->>>>>>> origin/pjh94-prototype
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -3957,18 +2441,6 @@
                   "visibility": "internal"
                 }
               ],
-<<<<<<< HEAD
-              "src": "2572:73:4"
-            },
-            "returnParameters": {
-              "id": 1610,
-              "nodeType": "ParameterList",
-              "parameters": [],
-              "src": "2654:0:4"
-            },
-            "scope": 1658,
-            "src": "2551:104:4",
-=======
               "src": "2572:73:18"
             },
             "returnParameters": {
@@ -3979,22 +2451,12 @@
             },
             "scope": 4107,
             "src": "2551:104:18",
->>>>>>> origin/pjh94-prototype
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "external"
           },
           {
             "documentation": {
-<<<<<<< HEAD
-              "id": 1612,
-              "nodeType": "StructuredDocumentation",
-              "src": "2661:452:4",
-              "text": " @dev Gives permission to `to` to transfer `tokenId` token to another account.\n The approval is cleared when the token is transferred.\n Only a single account can be approved at a time, so approving the zero address clears previous approvals.\n Requirements:\n - The caller must own the token or be an approved operator.\n - `tokenId` must exist.\n Emits an {Approval} event."
-            },
-            "functionSelector": "095ea7b3",
-            "id": 1619,
-=======
               "id": 4061,
               "nodeType": "StructuredDocumentation",
               "src": "2661:452:18",
@@ -4002,35 +2464,18 @@
             },
             "functionSelector": "095ea7b3",
             "id": 4068,
->>>>>>> origin/pjh94-prototype
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "approve",
-<<<<<<< HEAD
-            "nameLocation": "3127:7:4",
-            "nodeType": "FunctionDefinition",
-            "parameters": {
-              "id": 1617,
-=======
             "nameLocation": "3127:7:18",
             "nodeType": "FunctionDefinition",
             "parameters": {
               "id": 4066,
->>>>>>> origin/pjh94-prototype
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1614,
-                  "mutability": "mutable",
-                  "name": "to",
-                  "nameLocation": "3143:2:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1619,
-                  "src": "3135:10:4",
-=======
                   "id": 4063,
                   "mutability": "mutable",
                   "name": "to",
@@ -4038,7 +2483,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4068,
                   "src": "3135:10:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -4046,17 +2490,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1613,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "3135:7:4",
-=======
                     "id": 4062,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "3135:7:18",
->>>>>>> origin/pjh94-prototype
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -4067,15 +2504,6 @@
                 },
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1616,
-                  "mutability": "mutable",
-                  "name": "tokenId",
-                  "nameLocation": "3155:7:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1619,
-                  "src": "3147:15:4",
-=======
                   "id": 4065,
                   "mutability": "mutable",
                   "name": "tokenId",
@@ -4083,7 +2511,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4068,
                   "src": "3147:15:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -4091,17 +2518,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1615,
-                    "name": "uint256",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "3147:7:4",
-=======
                     "id": 4064,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "3147:7:18",
->>>>>>> origin/pjh94-prototype
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -4110,18 +2530,6 @@
                   "visibility": "internal"
                 }
               ],
-<<<<<<< HEAD
-              "src": "3134:29:4"
-            },
-            "returnParameters": {
-              "id": 1618,
-              "nodeType": "ParameterList",
-              "parameters": [],
-              "src": "3172:0:4"
-            },
-            "scope": 1658,
-            "src": "3118:55:4",
-=======
               "src": "3134:29:18"
             },
             "returnParameters": {
@@ -4132,22 +2540,12 @@
             },
             "scope": 4107,
             "src": "3118:55:18",
->>>>>>> origin/pjh94-prototype
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "external"
           },
           {
             "documentation": {
-<<<<<<< HEAD
-              "id": 1620,
-              "nodeType": "StructuredDocumentation",
-              "src": "3179:139:4",
-              "text": " @dev Returns the account approved for `tokenId` token.\n Requirements:\n - `tokenId` must exist."
-            },
-            "functionSelector": "081812fc",
-            "id": 1627,
-=======
               "id": 4069,
               "nodeType": "StructuredDocumentation",
               "src": "3179:139:18",
@@ -4155,35 +2553,18 @@
             },
             "functionSelector": "081812fc",
             "id": 4076,
->>>>>>> origin/pjh94-prototype
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "getApproved",
-<<<<<<< HEAD
-            "nameLocation": "3332:11:4",
-            "nodeType": "FunctionDefinition",
-            "parameters": {
-              "id": 1623,
-=======
             "nameLocation": "3332:11:18",
             "nodeType": "FunctionDefinition",
             "parameters": {
               "id": 4072,
->>>>>>> origin/pjh94-prototype
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1622,
-                  "mutability": "mutable",
-                  "name": "tokenId",
-                  "nameLocation": "3352:7:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1627,
-                  "src": "3344:15:4",
-=======
                   "id": 4071,
                   "mutability": "mutable",
                   "name": "tokenId",
@@ -4191,7 +2572,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4076,
                   "src": "3344:15:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -4199,17 +2579,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1621,
-                    "name": "uint256",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "3344:7:4",
-=======
                     "id": 4070,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "3344:7:18",
->>>>>>> origin/pjh94-prototype
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -4218,30 +2591,14 @@
                   "visibility": "internal"
                 }
               ],
-<<<<<<< HEAD
-              "src": "3343:17:4"
-            },
-            "returnParameters": {
-              "id": 1626,
-=======
               "src": "3343:17:18"
             },
             "returnParameters": {
               "id": 4075,
->>>>>>> origin/pjh94-prototype
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1625,
-                  "mutability": "mutable",
-                  "name": "operator",
-                  "nameLocation": "3392:8:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1627,
-                  "src": "3384:16:4",
-=======
                   "id": 4074,
                   "mutability": "mutable",
                   "name": "operator",
@@ -4249,7 +2606,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4076,
                   "src": "3384:16:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -4257,17 +2613,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1624,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "3384:7:4",
-=======
                     "id": 4073,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "3384:7:18",
->>>>>>> origin/pjh94-prototype
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -4277,32 +2626,16 @@
                   "visibility": "internal"
                 }
               ],
-<<<<<<< HEAD
-              "src": "3383:18:4"
-            },
-            "scope": 1658,
-            "src": "3323:79:4",
-=======
               "src": "3383:18:18"
             },
             "scope": 4107,
             "src": "3323:79:18",
->>>>>>> origin/pjh94-prototype
             "stateMutability": "view",
             "virtual": false,
             "visibility": "external"
           },
           {
             "documentation": {
-<<<<<<< HEAD
-              "id": 1628,
-              "nodeType": "StructuredDocumentation",
-              "src": "3408:309:4",
-              "text": " @dev Approve or remove `operator` as an operator for the caller.\n Operators can call {transferFrom} or {safeTransferFrom} for any token owned by the caller.\n Requirements:\n - The `operator` cannot be the caller.\n Emits an {ApprovalForAll} event."
-            },
-            "functionSelector": "a22cb465",
-            "id": 1635,
-=======
               "id": 4077,
               "nodeType": "StructuredDocumentation",
               "src": "3408:309:18",
@@ -4310,35 +2643,18 @@
             },
             "functionSelector": "a22cb465",
             "id": 4084,
->>>>>>> origin/pjh94-prototype
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "setApprovalForAll",
-<<<<<<< HEAD
-            "nameLocation": "3731:17:4",
-            "nodeType": "FunctionDefinition",
-            "parameters": {
-              "id": 1633,
-=======
             "nameLocation": "3731:17:18",
             "nodeType": "FunctionDefinition",
             "parameters": {
               "id": 4082,
->>>>>>> origin/pjh94-prototype
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1630,
-                  "mutability": "mutable",
-                  "name": "operator",
-                  "nameLocation": "3757:8:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1635,
-                  "src": "3749:16:4",
-=======
                   "id": 4079,
                   "mutability": "mutable",
                   "name": "operator",
@@ -4346,7 +2662,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4084,
                   "src": "3749:16:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -4354,17 +2669,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1629,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "3749:7:4",
-=======
                     "id": 4078,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "3749:7:18",
->>>>>>> origin/pjh94-prototype
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -4375,15 +2683,6 @@
                 },
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1632,
-                  "mutability": "mutable",
-                  "name": "_approved",
-                  "nameLocation": "3772:9:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1635,
-                  "src": "3767:14:4",
-=======
                   "id": 4081,
                   "mutability": "mutable",
                   "name": "_approved",
@@ -4391,7 +2690,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4084,
                   "src": "3767:14:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -4399,17 +2697,10 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1631,
-                    "name": "bool",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "3767:4:4",
-=======
                     "id": 4080,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
                     "src": "3767:4:18",
->>>>>>> origin/pjh94-prototype
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -4418,18 +2709,6 @@
                   "visibility": "internal"
                 }
               ],
-<<<<<<< HEAD
-              "src": "3748:34:4"
-            },
-            "returnParameters": {
-              "id": 1634,
-              "nodeType": "ParameterList",
-              "parameters": [],
-              "src": "3791:0:4"
-            },
-            "scope": 1658,
-            "src": "3722:70:4",
-=======
               "src": "3748:34:18"
             },
             "returnParameters": {
@@ -4440,22 +2719,12 @@
             },
             "scope": 4107,
             "src": "3722:70:18",
->>>>>>> origin/pjh94-prototype
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "external"
           },
           {
             "documentation": {
-<<<<<<< HEAD
-              "id": 1636,
-              "nodeType": "StructuredDocumentation",
-              "src": "3798:138:4",
-              "text": " @dev Returns if the `operator` is allowed to manage all of the assets of `owner`.\n See {setApprovalForAll}"
-            },
-            "functionSelector": "e985e9c5",
-            "id": 1645,
-=======
               "id": 4085,
               "nodeType": "StructuredDocumentation",
               "src": "3798:138:18",
@@ -4463,35 +2732,18 @@
             },
             "functionSelector": "e985e9c5",
             "id": 4094,
->>>>>>> origin/pjh94-prototype
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "isApprovedForAll",
-<<<<<<< HEAD
-            "nameLocation": "3950:16:4",
-            "nodeType": "FunctionDefinition",
-            "parameters": {
-              "id": 1641,
-=======
             "nameLocation": "3950:16:18",
             "nodeType": "FunctionDefinition",
             "parameters": {
               "id": 4090,
->>>>>>> origin/pjh94-prototype
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1638,
-                  "mutability": "mutable",
-                  "name": "owner",
-                  "nameLocation": "3975:5:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1645,
-                  "src": "3967:13:4",
-=======
                   "id": 4087,
                   "mutability": "mutable",
                   "name": "owner",
@@ -4499,7 +2751,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4094,
                   "src": "3967:13:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -4507,17 +2758,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1637,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "3967:7:4",
-=======
                     "id": 4086,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "3967:7:18",
->>>>>>> origin/pjh94-prototype
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -4528,15 +2772,6 @@
                 },
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1640,
-                  "mutability": "mutable",
-                  "name": "operator",
-                  "nameLocation": "3990:8:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1645,
-                  "src": "3982:16:4",
-=======
                   "id": 4089,
                   "mutability": "mutable",
                   "name": "operator",
@@ -4544,7 +2779,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4094,
                   "src": "3982:16:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -4552,17 +2786,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1639,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "3982:7:4",
-=======
                     "id": 4088,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "3982:7:18",
->>>>>>> origin/pjh94-prototype
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -4572,37 +2799,21 @@
                   "visibility": "internal"
                 }
               ],
-<<<<<<< HEAD
-              "src": "3966:33:4"
-            },
-            "returnParameters": {
-              "id": 1644,
-=======
               "src": "3966:33:18"
             },
             "returnParameters": {
               "id": 4093,
->>>>>>> origin/pjh94-prototype
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1643,
-=======
                   "id": 4092,
->>>>>>> origin/pjh94-prototype
                   "mutability": "mutable",
                   "name": "",
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
-<<<<<<< HEAD
-                  "scope": 1645,
-                  "src": "4023:4:4",
-=======
                   "scope": 4094,
                   "src": "4023:4:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -4610,17 +2821,10 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1642,
-                    "name": "bool",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "4023:4:4",
-=======
                     "id": 4091,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
                     "src": "4023:4:18",
->>>>>>> origin/pjh94-prototype
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -4629,32 +2833,16 @@
                   "visibility": "internal"
                 }
               ],
-<<<<<<< HEAD
-              "src": "4022:6:4"
-            },
-            "scope": 1658,
-            "src": "3941:88:4",
-=======
               "src": "4022:6:18"
             },
             "scope": 4107,
             "src": "3941:88:18",
->>>>>>> origin/pjh94-prototype
             "stateMutability": "view",
             "virtual": false,
             "visibility": "external"
           },
           {
             "documentation": {
-<<<<<<< HEAD
-              "id": 1646,
-              "nodeType": "StructuredDocumentation",
-              "src": "4035:556:4",
-              "text": " @dev Safely transfers `tokenId` token from `from` to `to`.\n Requirements:\n - `from` cannot be the zero address.\n - `to` cannot be the zero address.\n - `tokenId` token must exist and be owned by `from`.\n - If the caller is not `from`, it must be approved to move this token by either {approve} or {setApprovalForAll}.\n - If `to` refers to a smart contract, it must implement {IERC721Receiver-onERC721Received}, which is called upon a safe transfer.\n Emits a {Transfer} event."
-            },
-            "functionSelector": "b88d4fde",
-            "id": 1657,
-=======
               "id": 4095,
               "nodeType": "StructuredDocumentation",
               "src": "4035:556:18",
@@ -4662,35 +2850,18 @@
             },
             "functionSelector": "b88d4fde",
             "id": 4106,
->>>>>>> origin/pjh94-prototype
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "safeTransferFrom",
-<<<<<<< HEAD
-            "nameLocation": "4605:16:4",
-            "nodeType": "FunctionDefinition",
-            "parameters": {
-              "id": 1655,
-=======
             "nameLocation": "4605:16:18",
             "nodeType": "FunctionDefinition",
             "parameters": {
               "id": 4104,
->>>>>>> origin/pjh94-prototype
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1648,
-                  "mutability": "mutable",
-                  "name": "from",
-                  "nameLocation": "4639:4:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1657,
-                  "src": "4631:12:4",
-=======
                   "id": 4097,
                   "mutability": "mutable",
                   "name": "from",
@@ -4698,7 +2869,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4106,
                   "src": "4631:12:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -4706,17 +2876,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1647,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "4631:7:4",
-=======
                     "id": 4096,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "4631:7:18",
->>>>>>> origin/pjh94-prototype
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -4727,15 +2890,6 @@
                 },
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1650,
-                  "mutability": "mutable",
-                  "name": "to",
-                  "nameLocation": "4661:2:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1657,
-                  "src": "4653:10:4",
-=======
                   "id": 4099,
                   "mutability": "mutable",
                   "name": "to",
@@ -4743,7 +2897,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4106,
                   "src": "4653:10:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -4751,17 +2904,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1649,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "4653:7:4",
-=======
                     "id": 4098,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "4653:7:18",
->>>>>>> origin/pjh94-prototype
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -4772,15 +2918,6 @@
                 },
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1652,
-                  "mutability": "mutable",
-                  "name": "tokenId",
-                  "nameLocation": "4681:7:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1657,
-                  "src": "4673:15:4",
-=======
                   "id": 4101,
                   "mutability": "mutable",
                   "name": "tokenId",
@@ -4788,7 +2925,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4106,
                   "src": "4673:15:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -4796,17 +2932,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1651,
-                    "name": "uint256",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "4673:7:4",
-=======
                     "id": 4100,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "4673:7:18",
->>>>>>> origin/pjh94-prototype
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -4816,15 +2945,6 @@
                 },
                 {
                   "constant": false,
-<<<<<<< HEAD
-                  "id": 1654,
-                  "mutability": "mutable",
-                  "name": "data",
-                  "nameLocation": "4713:4:4",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1657,
-                  "src": "4698:19:4",
-=======
                   "id": 4103,
                   "mutability": "mutable",
                   "name": "data",
@@ -4832,7 +2952,6 @@
                   "nodeType": "VariableDeclaration",
                   "scope": 4106,
                   "src": "4698:19:18",
->>>>>>> origin/pjh94-prototype
                   "stateVariable": false,
                   "storageLocation": "calldata",
                   "typeDescriptions": {
@@ -4840,17 +2959,10 @@
                     "typeString": "bytes"
                   },
                   "typeName": {
-<<<<<<< HEAD
-                    "id": 1653,
-                    "name": "bytes",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "4698:5:4",
-=======
                     "id": 4102,
                     "name": "bytes",
                     "nodeType": "ElementaryTypeName",
                     "src": "4698:5:18",
->>>>>>> origin/pjh94-prototype
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes_storage_ptr",
                       "typeString": "bytes"
@@ -4859,18 +2971,6 @@
                   "visibility": "internal"
                 }
               ],
-<<<<<<< HEAD
-              "src": "4621:102:4"
-            },
-            "returnParameters": {
-              "id": 1656,
-              "nodeType": "ParameterList",
-              "parameters": [],
-              "src": "4732:0:4"
-            },
-            "scope": 1658,
-            "src": "4596:137:4",
-=======
               "src": "4621:102:18"
             },
             "returnParameters": {
@@ -4881,40 +2981,25 @@
             },
             "scope": 4107,
             "src": "4596:137:18",
->>>>>>> origin/pjh94-prototype
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "external"
           }
         ],
-<<<<<<< HEAD
-        "scope": 1659,
-        "src": "235:4500:4",
-        "usedErrors": []
-      }
-    ],
-    "src": "93:4643:4"
-=======
         "scope": 4108,
         "src": "235:4500:18",
         "usedErrors": []
       }
     ],
     "src": "93:4643:18"
->>>>>>> origin/pjh94-prototype
   },
   "compiler": {
     "name": "solc",
     "version": "0.8.13+commit.abaa5c0e.Emscripten.clang"
   },
   "networks": {},
-<<<<<<< HEAD
   "schemaVersion": "3.4.6",
-  "updatedAt": "2022-04-04T05:32:53.887Z",
-=======
-  "schemaVersion": "3.4.5",
-  "updatedAt": "2022-03-30T06:36:21.635Z",
->>>>>>> origin/pjh94-prototype
+  "updatedAt": "2022-04-06T05:48:21.702Z",
   "devdoc": {
     "details": "Required interface of an ERC721 compliant contract.",
     "events": {

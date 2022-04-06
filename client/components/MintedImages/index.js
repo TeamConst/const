@@ -10,24 +10,24 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 function MintedImages  ({
-  //  accountAddress,
-  // Images,
-  // ImageNumOfAccount,
-  // Contract,
-  // Auctions,
-  // currentTime
+   accountAddress,
+  Images,
+  ImageNumOfAccount,
+  Contract,
+  Auctions,
+  currentTime
 }
 
 )  {
-  // console.log(Images)
-  // Images=[];
-  // console.log("Auctions",Auctions)
-  // const myImages = Images.filter(
-  //   (image) => image.currentOwner === accountAddress
-  // );
+  console.log(Images)
+  Images=[];
+  console.log("Auctions",Auctions)
+  const myImages = Images.filter(
+    (image) => image.currentOwner === accountAddress
+  );
   return (
     <div><br />
-      {/* <h2>
+      <h2>
         
 소유한 NFTS의 총 수:{ImageNumOfAccount}
       </h2><hr /><br />
@@ -46,7 +46,7 @@ function MintedImages  ({
             </Item>
           );
         })}
-      </Stack> */}
+      </Stack>
     </div>
   );
 };

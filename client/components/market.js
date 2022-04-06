@@ -27,7 +27,7 @@ const Market = () => {
     fetchBuySell(id)
   );
   // fetchBestCollections(id)
-  
+  console.log(id)
   let abcd;
   let a;
   if (data) {
