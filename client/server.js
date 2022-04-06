@@ -294,7 +294,7 @@ app.prepare().then(() => {
     // 일단 jpg로 한정 짓지만 이에대한 정확한 설계가 필요하다
     let uploadParams = {
       Body: req.files.image.data,
-      Key: "image/" + req.body.title + ".jpg",
+      Key: "image/" + req.body.CID + ".jpg",
       ACL: "public-read",
     };
 

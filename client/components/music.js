@@ -65,11 +65,26 @@ const Music = () => {
     handleSubmit,
   } = useForm();
   const onSubmit = async (data) => {
+    // CID 처리
+    const ipfsClient = require("ipfs-http-client");
+    const ipfs = ipfsClient.create({
+      host: "ipfs.infura.io",
+      port: 5001,
+      protocol: "https",
+    });
+
+    // 이미지로 연습해봄
+    // const bu = await ipfs.add(이미지버퍼);
+
+    // 음원 버퍼
+    const bu = await ipfs.add(data.musics[0]);
+
     // S3 처리부분
     const image = data.image[0];
     const imageFormData = new FormData();
     imageFormData.append("image", image);
     imageFormData.append("title", data.title);
+    imageFormData.append("CID", bu.path);
 
     const resultImage = await axios.post(
       "http://localhost:8080/api/mint/image",
@@ -100,16 +115,6 @@ const Music = () => {
     // const resultGG = await axios.post("http://localhost:8080/api/mint/gg", gg);
 
     // 컨트랙트 처리부분
-
-    const ipfsClient = require("ipfs-http-client");
-    const ipfs = ipfsClient.create({
-      host: "ipfs.infura.io",
-      port: 5001,
-      protocol: "https",
-    });
-
-    const bu = await ipfs.add(이미지버퍼);
-    console.log(bu);
     // imageNFT로 변경 처리
     const Contract = await setupBlockchain();
     const accounts = await web3.eth.getAccounts();
@@ -125,6 +130,7 @@ const Music = () => {
     form.append("image", image);
     form.append("musics", musics);
     form.append("db", JSON.stringify(gg));
+    // form.append("CID", bu.path);
 
     const rere = await axios.post("http://localhost:8080/api/mint", form);
   };
