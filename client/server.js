@@ -189,6 +189,7 @@ app.prepare().then(() => {
   const Music = require("./models/music");
   const User = require("./models/user");
   const Auction = require("./models/auction");
+  const MyMusic = require("./models/mymusic");
 
   server.post("/api/mint", async (req, res) => {
     const parse = JSON.parse(req.body.db);
@@ -208,9 +209,9 @@ app.prepare().then(() => {
       host: "ipfs.infura.io",
       port: 5001,
       protocol: "https",
-      headers: {
-        authorization: auth,
-      },
+      // headers: {
+      //   authorization: auth,
+      // },
     });
 
     // console.log(req.files);
@@ -293,7 +294,7 @@ app.prepare().then(() => {
     // 일단 jpg로 한정 짓지만 이에대한 정확한 설계가 필요하다
     let uploadParams = {
       Body: req.files.image.data,
-      Key: "image/" + req.body.title + ".jpg",
+      Key: "image/" + req.body.CID + ".jpg",
       ACL: "public-read",
     };
 
@@ -409,7 +410,62 @@ app.prepare().then(() => {
     res.json(result);
   });
 
-  // 음악 컴포넌트 음악 정보 불러오기
+  // 마이페이지 컴포넌트  정보 불러오기
+  server.get("/api/mypage", async (req, res) => {
+    // 그니까 가져올 곳이 세션, 블록, s3, ipfs 잖아 잘 맞춰보자
+    // 내 이름 : web3, 아니면 db에서 web3 검색해서 아이디 찾기?
+    // 생각했던 web3 연결을 여기서도 충분히 할 수 있잖아
+    // 여기서 하는 걸로 우선 써보자
+
+    // 우선, 컨트랙트 불러오기
+    // 서버에서 처리하는 걸로 한번 해봤다
+    //  NFT 관련 변수 한번 파악해야겠다
+    const web3 = require("./getWeb3");
+    const contractJSON = require("../build/contracts/ImageMarketplace.json");
+    // const contractJSON = require("../build/contracts/NFTCollection.json");
+    const accounts = await web3.eth.getAccounts();
+    const networkId = await web3.eth.net.getId();
+    const deployedAddress = contractJSON.networks[networkId].address;
+    const contract = new web3.eth.Contract(contractJSON.abi, deployedAddress);
+
+    const block = await web3.eth.getBlock();
+    const tr = await web3.eth.getTransaction();
+    const tra = await web3.eth.getTransaction(
+      "0x7dd2990185d801d8c4c87bc51264671161283c955860901bf71cae3fab2dfb38"
+    );
+    // console.log(block);
+    console.log(contract);
+    console.log(tr);
+    console.log(tra);
+    // 0x76534D3ED03b40D2B4BC9062Bc69db60672Ef836
+    // 블록이나 tr 불러오는거 한번 봐보면,
+    // 일단 해시값을 알거나, 아니면 블록에 대한 정보로 불어와야 할 것 같은데,
+
+    // 컨트랙트 불러온 계정으로 나머지 정보들 불러오기
+    // 그런데 지금 메타마스크 계정 바꿔논 걸 어떻게 불러오지
+    // db 불러오기
+    const music = await Music.findOne({ title: req.body.name });
+    // const music = await Music.findAll();
+
+    // console.log(contract);
+    // console.log(abc.eth.accounts);
+
+    // 새로 만들어야할 컴포넌트
+    // 회원 정보 수정 컴포넌트 만들어야함
+    // 나의 NFT 컴포넌트 만들기
+
+    // Recently Palyed 등등
+
+    // 여러 곡에 대한 나의 정보도 db가 하나 더 있어야하겠네
+    // const mymusic = await MyMusic.findAll();
+
+    // res.json(data);
+
+    // res.json(result);
+    res.send("okok");
+  });
+
+  // 좋아요 수 처리
   server.post("/api/upLike", async (req, res) => {
     // const result = await Music.findAll();
     // const data = await Music.findOne({ title: req.body.name });
@@ -422,6 +478,23 @@ app.prepare().then(() => {
     );
 
     res.send("업하트 오케");
+  });
+
+  // 구매 첫 페이지
+  server.post("/api/buy", async (req, res) => {
+    // buy에 올라와 있는 것들을 가져와야 하는데
+    // 그걸 알려면 컨트랙트 불러와서
+    // buy 체크된거 분류하고
+    // 그거에 맞게 이미지, ipfs 불러오면 되겠네
+
+    // const contract =
+
+    // 경매 불러와야대
+    const mu = await Music.findOne({ where: { title: c } });
+    const ac = await Auction.findOne({ where: { title: c } });
+
+    // const data = await Music.findOne({ title: req.body.name });
+    res.json(result);
   });
 
   // 구매, 판매 페이지 입장시
@@ -454,6 +527,15 @@ app.prepare().then(() => {
     }
   });
 
+  server.get("/api/getNFT", async (req, res) => {
+    // const NFTInstance = await getNFT();
+    const abc = await getImage();
+    console.log(abc);
+    // console.log(ab);
+    // res.send("no");
+    res.json(abc);
+  });
+
   // 여기 보면 된다
   server.all("*", (req, res) => {
     return handle(req, res);
@@ -464,3 +546,69 @@ app.prepare().then(() => {
     console.log(`> Ready on http://localhost:${port}`);
   });
 });
+
+async function getNFT() {
+  // web3
+  const web3 = require("./getWeb3");
+
+  // contract
+  const contractabi = require("../build/contracts/ImageMarketplace.json");
+
+  // accounts
+  const accounts = await web3.eth.getAccounts();
+
+  // networkId
+  const networkId = await web3.eth.net.getId();
+  const deployedAddress = contractabi.networks[networkId].address;
+
+  // Instance
+  const NFTMarketplaceInstance = new web3.eth.Contract(
+    contractabi.abi,
+    deployedAddress
+  );
+
+  return NFTMarketplaceInstance;
+}
+
+async function getImage() {
+  const Instance = await getNFT();
+
+  if (Instance) {
+    // 클라이언트 변수 처리 부분
+    // const [accountAddress, setAccountAddress] = useState("");
+    // const [accountBalance, setAccountBalance] = useState("");
+    // const [Contract, setContract] = useState(null);
+    // const [ImageCount, setImageCount] = useState(0);
+    // const [Images, setImages] = useState([]);
+    // const [ImageNumOfAccount, setImageNumOfAccount] = useState(0);
+    // const [Auctions, setAuctions] = useState([]);
+    // // 얜 뭐 경매 시각 쓰려고 한건가
+    // const [lastMintTime, setLastMintTime] = useState(null);
+    // const [currentTime, setCurrentTime] = useState(null);
+
+    let data = [];
+
+    const ContractImageCount = await Instance.methods
+      .currentImageCount()
+      .call();
+    for (let i = 1; i <= ContractImageCount; i++) {
+      let image = await Instance.methods.imageStorage(i).call();
+      data = [...data, image];
+      // setImages((Images) => [...Images, image]);
+      // let auction = await NFTMarketplaceInstance.methods.auctions(i).call();
+      // setAuctions((Auctions) => [...Auctions, auction]);
+      // setAuctions((Auctions) => [...Auctions, auction]);
+      // console.log("Auctions", Auctions);
+      // console.log("Auctions", auction);
+    }
+    // let ContractImageNumOfAccount = await NFTMarketplaceInstance.methods
+    //   .getOwnedNumber(accounts[0])
+    //   .call();
+    // setContract(NFTMarketplaceInstance);
+    // setAccountAddress(accounts[0]);
+    // setAccountBalance(balance);
+    // setImageCount(ImageCount);
+    // setImageNumOfAccount(ContractImageNumOfAccount);
+    return data;
+  }
+}

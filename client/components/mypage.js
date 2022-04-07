@@ -9,10 +9,15 @@ import { fetchLocals } from "../hooks/locals";
 import { useEffect ,useState} from "react";
 import web3 from "../components/connection/web3";
 import MintedImages from "./MintedImages/index";
-import { fetchMusics } from "../hooks";
+import { fetchBestCollections } from "../hooks";
 import axios from "axios";
 //
+import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
+import CardActions from "@mui/material/CardActions";
+import Button from "@mui/material/Button";
 //
 import Link from "next/link";
 //
@@ -50,136 +55,24 @@ async function setupWeb3() {
 
 const Mypage1 = () => {
  
-  const [accountAddress, setAccountAddress] = useState("");
-  const [accountBalance, setAccountBalance] = useState("");
-  const [Contract, setContract] = useState(null);
-  const [ImageCount, setImageCount] = useState(0);
-  const [Images, setImages] = useState([]);
-  const [ImageNumOfAccount, setImageNumOfAccount] = useState(0);
-  const [lastMintTime, setLastMintTime] = useState(null);
-  const [Auctions,setAuctions] = useState([]);
-  const [currentTime, setCurrentTime] = useState(null);
-  // const [ready, setReady] = useState(false);
- const [d,setd]= useState(false)
-  let ImageNFTMarketplace = {};
-  try {
-    ImageNFTMarketplace = require("../../build/contracts/ImageMarketplace.json");
-  } catch (e) {
-    console.log(e);
-  }
-  console.log(ImageNFTMarketplace)
-  const { data, isLoading, isFetching } = useQuery(["musics"], () =>
-    fetchMusics()
-  );
-  
 
- 
-  
- 
+  const { data, isLoading, isFetching } = useQuery(["bestCollections"], () =>
+  fetchBestCollections()
+);
 
-  const [이미지, 이미지변경] = useState();
 
- 
+// prefetch 이슈가 있어서 일단 양념쳐서 되게 해놨다
+let pictures;
+let a = 0;
+if (data) {
+  pictures = data.data;
+  a = 1;
+}
+// console.log(pictures.map[0]);
+console.log(isLoading);
+console.log(isFetching);
+console.log(data)
 
-  console.log(data);
-  let musics;
-  let a = 0;
-  if (data) {
-    musics = data.data;
-    a = 1;
-  }
-  
-  const setupBlockchain = async () => {
-    seta(false);
-    let ImageNFTMarketplace = {};
-
-    try {
-      ImageNFTMarketplace = require("./build/contracts/ImageMarketplace.json");
-    } catch (e) {
-      console.log(e);
-    }
-    try {
-      // 네트워크 공급자 및 web3 인스턴스를 가져옵니다.
-      const web3 = window.web3;
-      const accounts = await web3.eth.getAccounts();
-
-      console.log(accounts);
-      // Get the contract instance.
-      let balance =
-        accounts.length > 0
-          ? await web3.eth.getBalance(accounts[0])
-          : await web3.utils.toWei("0");
-      balance = await web3.utils.fromWei(balance, "ether");
-
-      console.log("balance", balance);
-
-      const networkId = await web3.eth.net.getId();
-      let NFTMarketplaceInstance = null;
-      let deployedNetwork = null;
-
-      // Create instance of contracts
-
-      console.log("networkId", networkId);
-    
-
-      if (ImageNFTMarketplace.networks) {
-        deployedNetwork = ImageNFTMarketplace.networks[networkId];
-        if (deployedNetwork) {
-          NFTMarketplaceInstance = new web3.eth.Contract(
-            ImageNFTMarketplace.abi,
-            deployedNetwork.address
-          );
-        }
-      }
-      console.log("ImageNFTMarketplace", ImageNFTMarketplace);
-      console.log("deployedNetwork", deployedNetwork);
-	  console.log("NFTMarketplaceInstance", NFTMarketplaceInstance);
-      if (NFTMarketplaceInstance) {
-        const ImageCount = await NFTMarketplaceInstance.methods
-          .currentImageCount()
-          .call();
-        for (let i = 1; i <= ImageCount; i++) {
-          let image = await NFTMarketplaceInstance.methods
-            .imageStorage(i)
-            .call();
-          setImages(Images => [...Images, image] );
-          console.log(...Images,image)
-          let auction = await NFTMarketplaceInstance.methods
-            .auctions(i)
-            .call();
-          let auction2 =[...Auctions,auction];
-          console.log(auction2);
-          setAuctions(Auctions =>[...Auctions,auction]);
-          console.log(auction.endTime);
-          // console.log("auction",auction);
-          console.log("auctions",Auctions);
-        }
-       console.log(Auctions)
-        let ImageNumOfAccount = await NFTMarketplaceInstance.methods
-          .getOwnedNumber(accounts[0])
-          .call();
-        setContract(NFTMarketplaceInstance);
-        setAccountAddress(accounts[0]);
-        setAccountBalance(balance);
-        setImageCount(ImageCount);
-        setImageNumOfAccount(ImageNumOfAccount);
-        setReady(true)
-       
-      } else throw "스마트 연락처에 연결하지 못했습니다.";
-    } catch (error) {
-      // 위의 작업에 대한 오류를 포착합니다.
-      alert(
-        "web3, 계정 또는 계약을 로드하지 못했습니다. 자세한 내용은 콘솔을 확인하세요."
-      );
-      console.error(error);
-    }
-  };
-  (async function componentWillMount(){
-    if (d == true) {
-      setupWeb3();
-      setupBlockchain();
-      }
-  }());
  
 
   return (
@@ -292,83 +185,59 @@ const Mypage1 = () => {
       </ThemeProvider>
           <br/>
           <div>
-      <ThemeProvider theme={mdTheme}>
-        <Box sx={{ display: "flex" }}>
-          <CssBaseline />
-          {/* <Title>Recent Orders</Title> */}
-          <Table size="small">
-            <TableHead>
-              <TableRow>
-                <TableCell>순위</TableCell>
-                <TableCell>노래제목</TableCell>
-                <TableCell>좋아요</TableCell>
-              </TableRow>
-            </TableHead>
-            <Link href={`/buysell/${encodeURIComponent(a.id)}`}>dd</Link>
-        
-            <TableBody>
-              {a === 1 ? (
-                musics.map((a) => (
-                    
-                  
-                  <TableRow key={a.title}>
-       
-                    <TableCell>{a.title}</TableCell>
-                    {/* <img src={`https://const123.s3.ap-northeast-2.amazonaws.com/image/2.jpg`}/> */}
-                    <CardMedia
+          <div>
+      <ThemeProvider theme={theme}>
+        <Container sx={{ py: 8 }} maxWidth="md">
+          {/* End hero unit */}
+          <Grid container spacing={4}>
+            {a === 1 ? (
+              pictures.map((a) => (
+                // 아 이렇게 쓰는 거구나 씨발
+                <Link href={`/buysell/${encodeURIComponent(a.Key)}`}>
+                  <Grid item key={a.Key} xs={12} sm={6} md={4}>
+                    <Card
+                      sx={{
+                        height: "100%",
+                        display: "flex",
+                        flexDirection: "column",
+                      }}
+                    >
+                      <CardMedia
                         component="img"
                         sx={{
                           // 16:9
                           pt: "56.25%",
                         }}
-                        image={`https://const123.s3.ap-northeast-2.amazonaws.com/image/${a.id}.jpg`}
+                        image={a.URL}
                         alt="random"
                       />
-                 
-                    <TableCell
-                      // onClick={() => {
-                      //   changeMusic(a.CID);
-                      // }}
-                    >
-                      {a.id}
-                    </TableCell>
-                    <TableCell
-                      onClick={() => {
-                        upLike(a.title);
-                      }}
-                    >
-                      {a.LikeMusic}
-                    </TableCell>
-                  </TableRow>
-                ))
-              ) : (
-                <h1>아님</h1>
-              )}
-            </TableBody>
-          </Table>
-          
-        </Box>
+                      <CardContent sx={{ flexGrow: 1 }}>
+                        <Typography gutterBottom variant="h5" component="h2">
+                        {a.title}
+                        </Typography>
+                        <Typography>{a.Key}</Typography>
+                      </CardContent>
+                      <CardActions>
+                        <Button size="small">View</Button>
+                        <Button size="small">Edit</Button>
+                      </CardActions>
+                    </Card>
+                  </Grid>
+                </Link>
+              ))
+            ) : (
+              <h1>아님</h1>
+            )}
+          </Grid>
+        </Container>
+    
       </ThemeProvider>
+    </div>
 
-      {/* 테이블 나열하고 클릭시 */}
-      {/* AudioPlayer 실행 */}
-
-      {/* <AudioPlayer
-        autoPlay
-        // src="https://ipfs.io/ipfs/QmXmsjFBRPEeJ9US2QkNgrDmHgUb6ajSRrcfprSFuTyDoM"
-        src={음악}
-        onPlay={(e) => console.log("onPlay")}
-        // other props here
-      /> */}
+  
       
-    </div>  <MintedImages
-          accountAddress={accountAddress}
-          Images={Images}
-          ImageNumOfAccount={ImageNumOfAccount}
-          Contract={Contract}
-          Auctions={Auctions}
-          currentTime={currentTime}
-        />
+    </div> 
+        
     
     </div>
     

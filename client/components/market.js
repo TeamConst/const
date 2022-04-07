@@ -10,7 +10,7 @@ import { useQuery } from "react-query";
 import { fetchBestCollections } from "../hooks";
 import { fetchBuySell } from "../hooks";
 import { useState, useEffect } from "react";
-
+import AudioPlayer from "react-h5-audio-player";
 const theme = createTheme();
 
 const Market = () => {
@@ -27,16 +27,32 @@ const Market = () => {
     fetchBuySell(id)
   );
   // fetchBestCollections(id)
-  console.log(id)
+
+  console.log(id);
   let abcd;
   let a;
   if (data) {
     a = 1;
     abcd = data.data.dataValues;
     console.log(data.data.dataValues);
+
   }
-  console.log(abcd);
-  // console.log(data.title);
+
+  
+  const fromDb = id;
+  let str = fromDb || `${id}`;
+
+console.log(str.slice(6,52))
+str = str.slice(6,52)
+console.log(str)
+const [음악, 음악변경] = useState();
+const changeMusic = async (str) => {
+  console.log(str);
+  음악변경(`https://ipfs.io/ipfs/${str}`);
+  console.log(`https://ipfs.io/ipfs/${str}`);
+  
+};
+
 
   return (
     <div>
@@ -108,7 +124,15 @@ const Market = () => {
               <Grid item xs={6} sm={3}>
                 <Box bgcolor="info.main" color="info.contrastText" p={2}>
                   디테일 정보
+                  {str}
                 </Box>
+                <AudioPlayer
+        autoPlay
+        // src="https://ipfs.io/ipfs/QmXmsjFBRPEeJ9US2QkNgrDmHgUb6ajSRrcfprSFuTyDoM"
+        src={`https://ipfs.io/ipfs/${str}`}
+        onPlay={(e) => console.log("onPlay")}
+        // other props here
+      />
               </Grid>
               <Grid item xs={6} sm={3}>
                 <Box bgcolor="info.main" color="info.contrastText" p={2}>
@@ -134,6 +158,7 @@ const Market = () => {
             </Grid>
           </main>
         </Container>
+      
       </ThemeProvider>
     </div>
   );

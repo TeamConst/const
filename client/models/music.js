@@ -1,3 +1,5 @@
+
+   
 const Sequelize = require("sequelize");
 
 module.exports = class Music extends Sequelize.Model {
