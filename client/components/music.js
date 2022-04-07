@@ -14,6 +14,7 @@ import contractJSON from "../../build/contracts/NFTCollection.json";
 import ImageNFTMarketplace from "../../build/contracts/ImageMarketplace.json";
 
 import axios from "axios";
+import io from "socket.io-client";
 
 const theme = createTheme();
 
@@ -65,6 +66,15 @@ const Music = () => {
     handleSubmit,
   } = useForm();
   const onSubmit = async (data) => {
+    // 소켓 처리
+    const socketClient = io("http://localhost:3000");
+
+    socketClient.on("connect", () => {
+      console.log("쎾쓰");
+      console.log("connection server");
+    });
+    socketClient.emit("successAuction");
+
     // CID 처리
     const ipfsClient = require("ipfs-http-client");
     const ipfs = ipfsClient.create({

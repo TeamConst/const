@@ -7,7 +7,7 @@ module.exports = {
   networks: {
     development: {
       host: "127.0.0.1",
-      port: 9545,
+      port: 7545,
       network_id: "*", //match any network id
     },
 
@@ -22,6 +22,21 @@ module.exports = {
       gasPrice: 25000000000,
       network_id: 4,
     },
+
+    // ropsten: {
+    //   provider: function () {
+    //     return new HDWalletProvider(
+    //       mnemonic,
+    //       "https://ropsten.infura.io/v3/84bae3d7e7a745c5830e69ba34961d6f"
+    //     );
+    //   },
+    //   test: {
+    //     provider: function () {
+    //       return new HDWalletProvider(mnemonic, "http://127.0.0.1:8545/");
+    //     },
+    //     network_id: "*",
+    //   },
+    // },
   },
   contracts_directory: "./contracts",
   contracts_build_directory: "./build/contracts",

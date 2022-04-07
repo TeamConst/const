@@ -1,3 +1,5 @@
+const WebSocket = require("ws");
+
 const next = require("next");
 const { parse } = require("url");
 const express = require("express");
@@ -114,7 +116,47 @@ const app = next({ dev });
 const handle = app.getRequestHandler();
 
 app.prepare().then(() => {
+  // const webSocketServer = new WebSocket.Server({ port: 8880 });
+
+  // webSocketServer.on("connection", function (client, req) {
+  //   console.log("웹소켓 서버 연결");
+
+  //   client.on("message", async function (data) {
+  //     client.send("일단");
+  //   });
+  // });
+
   const server = express();
+
+  const ioServer = require("http").createServer(server);
+  const io = require("socket.io")(ioServer, {
+    cors: {
+      origin: "*",
+      methods: ["GET", "POST"],
+    },
+  });
+  io.on("connection", (client) => {
+    client.on("first Request", (req) => {
+      console.log(req);
+      client.emit("first Respond", { data: "firstRespond" });
+    });
+    client.on("successAuction", (req) => {
+      console.log(req);
+      console.log("나오면 성공");
+      client.broadcast.emit("refreshAuction", {});
+    });
+
+    client.on("event", (data) => {
+      /* … */
+      // client.broadcast.emit("이벤트이름", {
+      //   data: "나를 제외한 다른 클라이언트",
+      // });
+    });
+    client.on("disconnect", () => {
+      /* … */
+    });
+  });
+  ioServer.listen(3000);
 
   // 이거 어따씀?
   // app.use("/", express.static(path.join(__dirname, "./build")));
@@ -537,6 +579,10 @@ app.prepare().then(() => {
     res.json(abc);
   });
 
+  server.get("/api/getDate", (req, res) => {
+    const aba = new Date();
+    res.json(aba);
+  });
   // 여기 보면 된다
   server.all("*", (req, res) => {
     return handle(req, res);

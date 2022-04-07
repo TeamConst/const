@@ -2,7 +2,6 @@ import ky from "ky-universal";
 import { useQuery } from "react-query";
 import axios from "axios";
 
-import getWeb3 from "../../lib/getWeb3";
 // import contractJSON from "../../../build/contracts/NFTMarketplace.json";
 import contractJSON from "../../../build/contracts/NFTCollection.json";
 
