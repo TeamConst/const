@@ -2,7 +2,7 @@
   "development": {
     "username": "admin",
     "password": "Shine77!",
-    "database": "const2",
+    "database": "const5",
     "host": "const2.czrwqi8tcwio.ap-northeast-2.rds.amazonaws.com",
     "dialect": "mysql"
   },

@@ -10,6 +10,7 @@ const morgan = require("morgan");
 const path = require("path");
 
 const { sequelize } = require("./models/index.js");
+const User = require("./models/user");
 
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
@@ -187,7 +188,7 @@ app.prepare().then(() => {
   });
 
   const Music = require("./models/music");
-  const User = require("./models/user");
+  // const User = require("./models/user");
   const Auction = require("./models/auction");
   const MyMusic = require("./models/mymusic");
 
@@ -523,7 +524,7 @@ app.prepare().then(() => {
       const data = await User.create(req.body);
       res.send("회원가입 완료");
     } catch (err) {
-      console.log("회원가입 오류");
+      console.log(err);
     }
   });
 
