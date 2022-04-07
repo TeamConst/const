@@ -10,6 +10,7 @@ const User = require("./user");
 const Music = require("./music");
 const Artist = require("./artist");
 const Auction = require("./auction");
+const AuctionData =require("./auctiondata")
 // const Like = require("./like");
 
 const db = {};
@@ -28,18 +29,21 @@ db.User = User;
 db.Music = Music;
 db.Artist = Artist;
 db.Auction = Auction;
+db.AuctionData= AuctionData;
 
 // db.Like = Like;
 User.init(sequelize);
 Artist.init(sequelize);
 Music.init(sequelize);
 Auction.init(sequelize);
+AuctionData.init(sequelize);
 // Like.init(sequelize);
 
 User.associate(db);
 Artist.associate(db);
 Music.associate(db);
 Auction.associate(db);
+AuctionData.associate(db);
 // Like.associate(db);
 
 module.exports = db;

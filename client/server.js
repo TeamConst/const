@@ -189,6 +189,7 @@ app.prepare().then(() => {
   const Music = require("./models/music");
   const User = require("./models/user");
   const Auction = require("./models/auction");
+  const AuctionData =require("./models/auctiondata");
   const MyMusic = require("./models/mymusic");
 
   server.post("/api/mint", async (req, res) => {
@@ -479,7 +480,20 @@ app.prepare().then(() => {
 
     res.send("업하트 오케");
   });
+  //
+  server.post("/api/AuctionData", async (req, res) => {
+    // const result = await Music.findAll();
+    // const data = await Music.findOne({ title: req.body.name });
+    // res.json(data);
+    const title = Object.keys(req.body);
+    const read = await AuctionData.findOne({ where: { title: title } });
+    await AuctionData.update(
+      { Auction: read.Auction },
+      { where: { title: title } }
+    );
 
+    res.send("업하트 오케");
+  });
   // 구매 첫 페이지
   server.post("/api/buy", async (req, res) => {
     // buy에 올라와 있는 것들을 가져와야 하는데

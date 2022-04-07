@@ -10,7 +10,9 @@ import { useQuery, dehydrate, QueryClient } from "react-query";
 const BuySell = () => {
   const router = useRouter();
   const { id } = router.query;
-
+  console.log(id)
+  console.log(router)
+  
   return (
     <div>
       <p>BuySell 파라미터 : {id}</p>

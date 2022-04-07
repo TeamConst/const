@@ -4,18 +4,163 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-
+import Web3 from "web3";
 import { useRouter } from "next/router";
 import { useQuery } from "react-query";
 import { fetchBestCollections } from "../hooks";
 import { fetchBuySell } from "../hooks";
 import { useState, useEffect } from "react";
 import AudioPlayer from "react-h5-audio-player";
+import MintedImages from "../components/MintedImages"
+import { withRouter } from 'next/router';
+// import ImageCard from "./ImageCard/ImageCard";
 const theme = createTheme();
+async function setupWeb3() {
+  console.log("hihid");
+  if (window.ethereum) {
+    console.log("확인");
+    window.web3 = new Web3(window.ethereum);
+    // Request account access if needed
+    window.ethereum.send("eth_requestAccounts");
+  }
+  // Legacy dapp browsers...
+  else if (window.web3) {
+    // Use Mist/MetaMask's provider.
+    window.web3 = new Web3(window.web3.currentProvider);
+    console.log("주입된 web3가 감지되었습니다.");
+  }
+  // Fallback to localhost; use dev console port by default...
+  else {
+    console.alert(
+      "Infura/Local web3를 사용하여 주입된 web3 인스턴스가 없습니다."
+    );
+  }
+}
 
-const Market = () => {
-  const router = useRouter();
+const Market = (props) => {
+  const [accountAddress, setAccountAddress] = useState("");
+  const [accountBalance, setAccountBalance] = useState("");
+  const [Contract, setContract] = useState(null);
+  const [ImageCount, setImageCount] = useState(0);
+  const [Images, setImages] = useState([]);
+  const [ImageNumOfAccount, setImageNumOfAccount] = useState(0);
+  const [lastMintTime, setLastMintTime] = useState(null);
+  const [Auctions,setAuctions] = useState([]);
+  const [currentTime, setCurrentTime] = useState(null);
+  const [ready, setReady] = useState(false);
+
+  const [b, seta] = useState(true);
+
+  const setupBlockchain = async () => {
+    seta(false);
+    let ImageNFTMarketplace = {};
+
+    try {
+      ImageNFTMarketplace = require("../../build/contracts/ImageMarketplace.json");
+    } catch (e) {
+      console.log(e);
+    }
+    try {
+      // 네트워크 공급자 및 web3 인스턴스를 가져옵니다.
+      const web3 = window.web3;
+      const accounts = await web3.eth.getAccounts();
+      
+
+      console.log(accounts);
+      // Get the contract instance.
+      let balance =
+        accounts.length > 0
+          ? await web3.eth.getBalance(accounts[0])
+          : await web3.utils.toWei("0");
+      balance = await web3.utils.fromWei(balance, "ether");
+
+      console.log("balance", balance);
+
+      const networkId = await web3.eth.net.getId();
+      let NFTMarketplaceInstance = null;
+      let deployedNetwork = null;
+
+      // Create instance of contracts
+
+      console.log("networkId", networkId);
+    
+
+      if (ImageNFTMarketplace.networks) {
+        deployedNetwork = ImageNFTMarketplace.networks[networkId];
+        if (deployedNetwork) {
+          NFTMarketplaceInstance = new web3.eth.Contract(
+            ImageNFTMarketplace.abi,
+            deployedNetwork.address
+          );
+        }
+      }
+      console.log("ImageNFTMarketplace", ImageNFTMarketplace);
+      console.log("deployedNetwork", deployedNetwork);
+	  console.log("NFTMarketplaceInstance", NFTMarketplaceInstance);
+      if (NFTMarketplaceInstance) {
+        const ImageCount = await NFTMarketplaceInstance.methods
+          .currentImageCount()
+          .call();
+        for (let i = 1; i <= ImageCount; i++) {
+          let image = await NFTMarketplaceInstance.methods
+            .imageStorage(i)
+            .call();
+          setImages(Images => [...Images, image] );
+          console.log(...Images,image)
+          let auction = await NFTMarketplaceInstance.methods
+            .auctions(i)
+            .call();
+          let auction2 =[...Auctions,auction];
+          console.log(auction2);
+          setAuctions(Auctions =>[...Auctions,auction]);
+          console.log(auction.endTime);
+          // console.log("auction",auction);
+          console.log("auctions",Auctions);
+        }
+       console.log(Auctions)
+        let ImageNumOfAccount = await NFTMarketplaceInstance.methods
+          .getOwnedNumber(accounts[0])
+          .call();
+        setContract(NFTMarketplaceInstance);
+        setAccountAddress(accounts[0]);
+        setAccountBalance(balance);
+        setImageCount(ImageCount);
+        setImageNumOfAccount(ImageNumOfAccount);
+        // setReady(true)
+        
+       
+      } else throw "스마트 연락처에 연결하지 못했습니다.";
+    } catch (error) {
+      // 위의 작업에 대한 오류를 포착합니다.
+      alert(
+        "web3, 계정 또는 계약을 로드하지 못했습니다. 자세한 내용은 콘솔을 확인하세요."
+      );
+      console.error(error);
+    }
+  };
+
+
+
+(async function componentWillMount(){
+	if (b == true) {
+		setReady(false);
+		setupWeb3();
+		setupBlockchain();
+	  }
+}());
+ 
+
+//
+console.log(props)
+
+
+const router = useRouter()
+const { currentName } = router.query
+// const currentPost = JSON.parse(name)
+  console.log(currentName)
+
   const { id } = router.query;
+
 
   const [이미지, 이미지변경] = useState();
 
@@ -28,6 +173,7 @@ const Market = () => {
   );
   // fetchBestCollections(id)
 
+//  console.log(name)
   console.log(id);
   let abcd;
   let a;
@@ -52,8 +198,14 @@ const changeMusic = async (str) => {
   console.log(`https://ipfs.io/ipfs/${str}`);
   
 };
-
-
+const myImages = Images.filter(
+  (image) => image.currentOwner === accountAddress
+);
+ {myImages.map((image) => {
+  image.tokenID,
+  
+  console.log(image.tokenID)
+ })}
   return (
     <div>
       <ThemeProvider theme={theme}>
@@ -128,7 +280,6 @@ const changeMusic = async (str) => {
                 </Box>
                 <AudioPlayer
         autoPlay
-        // src="https://ipfs.io/ipfs/QmXmsjFBRPEeJ9US2QkNgrDmHgUb6ajSRrcfprSFuTyDoM"
         src={`https://ipfs.io/ipfs/${str}`}
         onPlay={(e) => console.log("onPlay")}
         // other props here
@@ -149,7 +300,11 @@ const changeMusic = async (str) => {
                   빈칸
                 </Box>
               </Grid>
-
+              <Grid item xs={6} sm={3}>
+                <Box bgcolor="info.main" color="info.contrastText" p={2}>
+                  옥션
+                </Box>
+              </Grid>
               <Grid item xs={12}>
                 <Box bgcolor="info.main" color="info.contrastText" p={2}>
                   여기에 연관 상품들 나열할 건데 이건 data fetch 하는 식이 날듯?
@@ -160,8 +315,11 @@ const changeMusic = async (str) => {
         </Container>
       
       </ThemeProvider>
+      <div>
+   
+      </div>
     </div>
   );
 };
 
-export default Market;
+export default withRouter(Market);
