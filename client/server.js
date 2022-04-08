@@ -523,40 +523,23 @@ app.prepare().then(() => {
     res.send("업하트 오케");
   });
 
-  // 구매 첫 페이지
-  server.post("/api/buy", async (req, res) => {
-    // buy에 올라와 있는 것들을 가져와야 하는데
-    // 그걸 알려면 컨트랙트 불러와서
-    // buy 체크된거 분류하고
-    // 그거에 맞게 이미지, ipfs 불러오면 되겠네
-
-    // const contract =
-
-    // 경매 불러와야대
-    const mu = await Music.findOne({ where: { title: c } });
-    const ac = await Auction.findOne({ where: { title: c } });
-
-    // const data = await Music.findOne({ title: req.body.name });
-    res.json(result);
-  });
-
   // 구매, 판매 페이지 입장시
-  server.post("/api/buysell", async (req, res) => {
-    console.log(req.body);
-    console.log(req.body.name);
+  server.post("/api/buydetail", async (req, res) => {
     const a = req.body.name.split("/");
     const b = a[1];
     const c = b.split(".");
+    const d = c[0];
 
     // 경매 불러와야대
-    const mu = await Music.findOne({ where: { title: c } });
-    const ac = await Auction.findOne({ where: { title: c } });
+    const mu = await Music.findOne({ where: { CID: d } });
+    // const ac = await Auction.findOne({ where: { CID: d } });
 
-    console.log(mu, ac);
-    const result = { ...mu, ...ac };
+    // console.log(mu, ac);
+    // const result = { ...mu, ...ac };
 
     // const data = await Music.findOne({ title: req.body.name });
-    res.json(result);
+
+    res.json(mu);
   });
 
   // 회원가입 일단, 어드레스만 트러플에 넣고 나머지는 Mysql에 넣도록 하겠다
@@ -570,6 +553,12 @@ app.prepare().then(() => {
     }
   });
 
+  // 구매 첫 페이지
+  server.get("/api/getBuy", async (req, res) => {
+    const abc = await getBuy();
+    res.json(abc);
+  });
+
   server.get("/api/getNFT", async (req, res) => {
     // const NFTInstance = await getNFT();
     const abc = await getImage();
@@ -577,6 +566,20 @@ app.prepare().then(() => {
     // console.log(ab);
     // res.send("no");
     res.json(abc);
+  });
+
+  server.get("/api/getAuction", async (req, res) => {
+    // const NFTInstance = await getNFT();
+    const abc = await getAll();
+    res.json(abc);
+  });
+
+  server.get("/api/getContract", async (req, res) => {
+    const NFTInstance = await getNFT();
+
+    console.log(NFTInstance);
+    res.send("1");
+    // res.json(NFTInstance);
   });
 
   server.get("/api/getDate", (req, res) => {
@@ -662,5 +665,98 @@ async function getImage() {
     // setImageCount(ImageCount);
     // setImageNumOfAccount(ContractImageNumOfAccount);
     return auctionsArray;
+  }
+}
+
+async function getAll() {
+  const Instance = await getNFT();
+
+  if (Instance) {
+    // 클라이언트 변수 처리 부분
+    // const [accountAddress, setAccountAddress] = useState("");
+    // const [accountBalance, setAccountBalance] = useState("");
+    // const [Contract, setContract] = useState(null);
+
+    // const [ImageCount, setImageCount] = useState(0);
+    // const [Images, setImages] = useState([]);
+    // const [ImageNumOfAccount, setImageNumOfAccount] = useState(0);
+    // const [Auctions, setAuctions] = useState([]);
+    // // 얜 뭐 경매 시각 쓰려고 한건가
+    // const [lastMintTime, setLastMintTime] = useState(null);
+    // const [currentTime, setCurrentTime] = useState(null);
+
+    let imagesArray = [];
+    let auctionsArray = [];
+
+    const ContractImageCount = await Instance.methods
+      .currentImageCount()
+      .call();
+    for (let i = 1; i <= ContractImageCount; i++) {
+      let image = await Instance.methods.imageStorage(i).call();
+      imagesArray = [...imagesArray, image];
+      // setImages((Images) => [...Images, image]);
+      let auction = await Instance.methods.auctions(i).call();
+      auctionsArray = [...auctionsArray, auction];
+    }
+
+    let a = {};
+    a.image = imagesArray;
+    a.auction = auctionsArray;
+
+    // console.log(imagesArray);
+    // console.log(auctionsArray);
+    // console.log(Instance);
+
+    // 얘는 세션 처리가 날 것 같은데?
+    // let ContractImageNumOfAccount = await Instance.methods
+    //   .getOwnedNumber(accounts[0])
+    //   .call();
+
+    // setContract(NFTMarketplaceInstance);
+    // setAccountAddress(accounts[0]);
+    // setAccountBalance(balance);
+    // setImageCount(ImageCount);
+    // setImageNumOfAccount(ContractImageNumOfAccount);
+    return a;
+  }
+}
+
+async function getBuy() {
+  const Instance = await getNFT();
+
+  if (Instance) {
+    // 클라이언트 변수 처리 부분
+    // const [accountAddress, setAccountAddress] = useState("");
+    // const [accountBalance, setAccountBalance] = useState("");
+    // const [Contract, setContract] = useState(null);
+    // const [ImageCount, setImageCount] = useState(0);
+    // const [Images, setImages] = useState([]);
+    // const [ImageNumOfAccount, setImageNumOfAccount] = useState(0);
+    // const [Auctions, setAuctions] = useState([]);
+    // // 얜 뭐 경매 시각 쓰려고 한건가
+    // const [lastMintTime, setLastMintTime] = useState(null);
+    // const [currentTime, setCurrentTime] = useState(null);
+
+    let imagesArray = [];
+    let auctionsArray = [];
+
+    const ContractImageCount = await Instance.methods
+      .currentImageCount()
+      .call();
+    for (let i = 1; i <= ContractImageCount; i++) {
+      let image = await Instance.methods.imageStorage(i).call();
+      imagesArray = [...imagesArray, image];
+      // setImages((Images) => [...Images, image]);
+      let auction = await Instance.methods.auctions(i).call();
+      auctionsArray = [...auctionsArray, auction];
+    }
+
+    let a = {};
+    a.image = imagesArray;
+    a.auction = auctionsArray;
+
+    // 여기서 buy에 해당하는 것만 추려서 보내도 되겠는데?
+
+    return a;
   }
 }

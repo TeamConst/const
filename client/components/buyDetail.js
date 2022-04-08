@@ -13,7 +13,7 @@ import { useState, useEffect } from "react";
 
 const theme = createTheme();
 
-const Market = () => {
+const BuyDetail = () => {
   const router = useRouter();
   const { id } = router.query;
 
@@ -23,19 +23,17 @@ const Market = () => {
     이미지변경(`https://const123.s3.ap-northeast-2.amazonaws.com/${id}`);
   }, [id]);
 
-  const { data, isLoading, isFetching } = useQuery(["buysell"], () =>
+  const { data, isLoading, isFetching } = useQuery(["buyDetail"], () =>
     fetchBuySell(id)
   );
+
   // fetchBestCollections(id)
   let abcd;
   let a;
   if (data) {
+    abcd = data.data;
     a = 1;
-    abcd = data.data.dataValues;
-    console.log(data.data.dataValues);
   }
-  console.log(abcd);
-  // console.log(data.title);
 
   return (
     <div>
@@ -138,4 +136,4 @@ const Market = () => {
   );
 };
 
-export default Market;
+export default BuyDetail;

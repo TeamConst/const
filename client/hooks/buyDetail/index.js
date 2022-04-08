@@ -6,21 +6,11 @@ import axios from "axios";
 // import contractJSON from "../../../build/contracts/NFTMarketplace.json";
 // import contractJSON from "../../../build/contracts/NFTCollection.json";
 
-const fetchBuy = async (param) => {
+const fetchBuySell = async (param) => {
   // const parsed = await ky("http://localhost:3000/api/collections").json();
-  const data = await axios.post("http://localhost:8080/api/buy", {
+  const data = await axios.post("http://localhost:8080/api/buydetail", {
     name: param,
   });
-
-  // const data = await axios.get("http://localhost:8080/api/bestCollection");
-  // const parsed = await ky("https://jsonplaceholder.typicode.com/posts").json();
-
-  // const result = parsed.filter((x) => x.id <= limit);
-  // console.log(result);
-  // return result;
-
-  // console.log(parsed);
-  // console.log(data);
 
   return data;
 };
@@ -33,4 +23,4 @@ const fetchBuy = async (param) => {
 //   return result;
 // };
 
-export { fetchBuy };
+export { fetchBuySell };
