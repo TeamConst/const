@@ -10,7 +10,6 @@ module.exports = class MyMusic extends Sequelize.Model {
           allowNull: false,
           primaryKey: true,
         },
-
         // user, music 연동하고
         myplayTime: {
           type: Sequelize.INTEGER,

@@ -8,7 +8,6 @@ module.exports = class Artist extends Sequelize.Model {
           allowNull: false,
           primaryKey: true,
         },
-
         AuctionRight: {
           type: Sequelize.STRING(45),
           allowNull: true,

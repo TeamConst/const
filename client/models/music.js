@@ -57,6 +57,21 @@ module.exports = class Music extends Sequelize.Model {
           type: Sequelize.STRING(100),
           allowNull: true,
         },
+        sellCount: {
+          type: Sequelize.INTEGER,
+          allowNull: true,
+          defaultValue: 0,
+        },
+        sellComplete: {
+          type: Sequelize.BOOLEAN,
+          allowNull: false,
+          defaultValue: false,
+        },
+        auctionComplete: {
+          type: Sequelize.BOOLEAN,
+          allowNull: false,
+          defaultValue: false,
+        },
       },
       {
         sequelize,
