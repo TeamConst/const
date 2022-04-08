@@ -13,6 +13,13 @@ import { useState, useEffect } from "react";
 import AudioPlayer from "react-h5-audio-player";
 import MintedImages from "../components/MintedImages"
 import { withRouter } from 'next/router';
+import  DetailInfo from '../components/ImageCard/DetailInfo';
+import { Typography, Stack, Paper, styled } from '@mui/material';
+import {
+  Button, TextField, MenuItem, Select, InputLabel,
+  Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle
+} from '@mui/material';
+import AuctionMint from "./Auction/AuctionMint";
 // import ImageCard from "./ImageCard/ImageCard";
 const theme = createTheme();
 async function setupWeb3() {
@@ -48,6 +55,14 @@ const Market = (props) => {
   const [Auctions,setAuctions] = useState([]);
   const [currentTime, setCurrentTime] = useState(null);
   const [ready, setReady] = useState(false);
+
+  const [ownerShipTrans,setOwnerShipTrans]=useState([]);
+  const [currenciesIU,setCurrenciesIU]=useState(1);
+  const [timesIU,setTimesIU]=useState(1);
+  const [minBid,setMinBid]=useState(0);
+  const [duration,setDuration]=useState(0);
+  const [newBid,setNewBid]=useState(0);
+  const [open, setOpen] = useState(false);
 
   const [b, seta] = useState(true);
 
@@ -149,7 +164,7 @@ const Market = (props) => {
 	  }
 }());
  
-
+console.log("Auctions",Auctions)
 //
 console.log(props)
 
@@ -171,9 +186,6 @@ const { currentName } = router.query
   const { data, isLoading, isFetching } = useQuery(["buysell"], () =>
     fetchBuySell(id)
   );
-  // fetchBestCollections(id)
-
-//  console.log(name)
   console.log(id);
   let abcd;
   let a;
@@ -184,7 +196,6 @@ const { currentName } = router.query
 
   }
 
-  
   const fromDb = id;
   let str = fromDb || `${id}`;
 
@@ -198,15 +209,21 @@ const changeMusic = async (str) => {
   console.log(`https://ipfs.io/ipfs/${str}`);
   
 };
+console.log(Images)
 const myImages = Images.filter(
-  (image) => image.currentOwner === accountAddress
-);
- {myImages.map((image) => {
-  image.tokenID,
+  (image) => image.currentOwner === accountAddress && image.tokenURI === `https://ipfs.io/ipfs/${str}`
   
-  console.log(image.tokenID)
- })}
+);
+{/* 소유한 NFTS의 총 수:{ImageNumOfAccount} */}
+const Item = styled(Paper)(({ theme }) => ({
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  // color: theme.palette.text.secondary,
+}));
+
   return (
+    
     <div>
       <ThemeProvider theme={theme}>
         <CssBaseline />
@@ -217,7 +234,9 @@ const myImages = Images.filter(
                 <Box bgcolor="info.main" color="info.contrastText" p={2}>
                   사진
                   <img src={이미지} height="300" width="300"></img>
+              
                 </Box>
+                
               </Grid>
               {a === 1 ? (
                 <Grid item xs={6}>
@@ -301,9 +320,26 @@ const myImages = Images.filter(
                 </Box>
               </Grid>
               <Grid item xs={6} sm={3}>
-                <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                  옥션
-                </Box>
+               <Box  bgcolor="info.main" color="info.contrastText" p={2}>
+               <Stack elevation={12} spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }} >
+        {myImages.map((image) => {
+          return (
+            <Item key={image.tokenID}>
+              <AuctionMint
+                tokenID={image.tokenID}
+                image={image}
+                accountAddress={accountAddress}
+                Contract={Contract}
+                Auction={Auctions[parseInt(image.tokenID) - 1]}
+                currentTime={currentTime}
+              />
+                {/* <Market/> */}
+            </Item>
+        
+          );
+        })}
+      </Stack>
+               </Box>
               </Grid>
               <Grid item xs={12}>
                 <Box bgcolor="info.main" color="info.contrastText" p={2}>
@@ -316,7 +352,7 @@ const myImages = Images.filter(
       
       </ThemeProvider>
       <div>
-   
+    
       </div>
     </div>
   );

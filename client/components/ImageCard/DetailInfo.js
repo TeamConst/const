@@ -28,7 +28,7 @@ export default function DetailInfo({
 
   let onBid = (image.status == 1);
   let toBeClaim = (image.status == 2);
-
+  
   return (
     <div>
       <ButtonBase onClick={handleClickOpen} sx={{ width: 328, height: 226 }}>
@@ -41,7 +41,7 @@ export default function DetailInfo({
         <DialogContent>
           <Grid item xs container direction="column">
             <Grid item>
-              <Img alt="NFT Images" src={image.tokenURI} />
+              {/* <Img alt="NFT Images" src={image.tokenURI} /> */}
             </Grid>
             <Grid item>
               <Typography variant="h5">
@@ -52,7 +52,7 @@ export default function DetailInfo({
               <Typography variant="body2" color="text.secondary">
                 Name: {image.tokenName}
                 <br />
-                Highest Auction Price: {window.web3.utils.fromWei(`${image.highestBidPrice}`, 'ether')} ETH
+                {/* Highest Auction Price: {window.web3.utils.fromWei(`${image.highestBidPrice}`, 'ether')} ETH */}
                 <br />
                 Minted By: {image.mintedBy}
                 <br />
