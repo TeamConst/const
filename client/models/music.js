@@ -4,9 +4,8 @@ module.exports = class Music extends Sequelize.Model {
   static init(sequelize) {
     return super.init(
       {
-        id: {
-          autoIncrement: true,
-          type: Sequelize.INTEGER,
+        address: {
+          type: Sequelize.STRING(45),
           allowNull: false,
           primaryKey: true,
         },
@@ -84,14 +83,9 @@ module.exports = class Music extends Sequelize.Model {
     );
   }
   static associate(db) {
-    // Music.belongsTo(db.Artist, {
-    //   foreignKey: "artist_idArtist",
-    //   // sourceKey: "artist_idArtist_artist",
-    //   sourceKey: "id",
-    // });
-    // Music.belongsTo(db.User, {
-    //   foreignKey: "artist_idArtist",
-    //   sourceKey: "id",
-    // });
+    db.Music.belongsTo(db.User, {
+      foreignKey: "address",
+      targetKey: "address",
+    });
   }
 };

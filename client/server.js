@@ -236,6 +236,8 @@ app.prepare().then(() => {
 
   server.post("/api/mint", async (req, res) => {
     const parse = JSON.parse(req.body.db);
+
+    console.log(parse);
     await Music.create(parse);
 
     // ipfs-http-client 라이브러리 사용안하고 연결해도 됨. docs 참고
@@ -553,6 +555,18 @@ app.prepare().then(() => {
     }
   });
 
+  // 상품 주인 찾아내기
+  server.post("/api/getWho", async (req, res) => {
+    const a = req.body.name.split("/");
+    const b = a[1];
+    const c = b.split(".");
+    const d = c[0];
+
+    // CID로 검색을 해야되니까
+    const who = await Music.findOne({ where: { CID: d } });
+    res.json(who);
+  });
+
   // 구매 첫 페이지
   server.get("/api/getBuy", async (req, res) => {
     const abc = await getBuy();
@@ -737,26 +751,16 @@ async function getBuy() {
     // const [lastMintTime, setLastMintTime] = useState(null);
     // const [currentTime, setCurrentTime] = useState(null);
 
-    let imagesArray = [];
-    let auctionsArray = [];
+    let offersArray = [];
 
-    const ContractImageCount = await Instance.methods
-      .currentImageCount()
-      .call();
-    for (let i = 1; i <= ContractImageCount; i++) {
-      let image = await Instance.methods.imageStorage(i).call();
-      imagesArray = [...imagesArray, image];
-      // setImages((Images) => [...Images, image]);
-      let auction = await Instance.methods.auctions(i).call();
-      auctionsArray = [...auctionsArray, auction];
+    const ContractOfferCount = await Instance.methods.offerCount().call();
+
+    for (let i = 1; i <= ContractOfferCount; i++) {
+      // i인지 i+1인지 확인필요
+      let offer = await Instance.methods.imageStorage(i + 1).call();
+      offersArray = [...offersArray, offer];
     }
 
-    let a = {};
-    a.image = imagesArray;
-    a.auction = auctionsArray;
-
-    // 여기서 buy에 해당하는 것만 추려서 보내도 되겠는데?
-
-    return a;
+    return offersArray;
   }
 }

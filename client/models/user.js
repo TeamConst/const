@@ -3,9 +3,8 @@ module.exports = class User extends Sequelize.Model {
   static init(sequelize) {
     return super.init(
       {
-        id: {
-          autoIncrement: true,
-          type: Sequelize.INTEGER,
+        address: {
+          type: Sequelize.STRING(45),
           allowNull: false,
           primaryKey: true,
         },
@@ -25,10 +24,6 @@ module.exports = class User extends Sequelize.Model {
           type: Sequelize.STRING(45),
           allowNull: true,
         },
-        address: {
-          type: Sequelize.STRING(45),
-          allowNull: true,
-        },
       },
       {
         sequelize,
@@ -41,13 +36,17 @@ module.exports = class User extends Sequelize.Model {
     );
   }
   static associate(db) {
-    // User.hasMany(db.Artist, {
-    //   sourceKey: "id",
-    //   foreignKey: "user_idUser",
-    // });
-    // User.hasMany(db.Music, {
-    //   sourceKey: "id",
-    //   foreignKey: "user_idUser",
-    // });
+    db.User.hasMany(db.Music, {
+      foreignKey: "address",
+      sourceKey: "address",
+    });
+    db.User.hasMany(db.Mymusic, {
+      foreignKey: "address",
+      sourceKey: "address",
+    });
+    db.User.hasMany(db.Auction, {
+      foreignKey: "address",
+      sourceKey: "address",
+    });
   }
 };

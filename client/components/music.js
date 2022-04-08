@@ -10,8 +10,9 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { TextField } from "@mui/material";
 
 import web3 from "./connection/web3";
-import contractJSON from "../../build/contracts/NFTCollection.json";
-import ImageNFTMarketplace from "../../build/contracts/ImageMarketplace.json";
+// import contractJSON from "../../build/contracts/NFTCollection.json";
+// import ImageNFTMarketplace from "../../build/contracts/ImageMarketplace.json";
+import ImageNFTMarketplace from "../../build/contracts/ConstContract.json";
 
 import axios from "axios";
 import io from "socket.io-client";
@@ -121,6 +122,8 @@ const Music = () => {
     gg.artist = data.artist;
     gg.genre = data.genre;
     gg.title = data.title;
+    const qq = await web3.eth.getAccounts();
+    gg.address = qq[0];
 
     // const resultGG = await axios.post("http://localhost:8080/api/mint/gg", gg);
 
@@ -128,12 +131,12 @@ const Music = () => {
     // imageNFT로 변경 처리
     const Contract = await setupBlockchain();
     const accounts = await web3.eth.getAccounts();
-    // 일단 cid 들어가는데 cid를 만드는 방법을 자세히 알고 쓰자 지금 업로드가 제대로 안되잖아
+    // // 일단 cid 들어가는데 cid를 만드는 방법을 자세히 알고 쓰자 지금 업로드가 제대로 안되잖아
     await Contract.methods
       .mintImageNFT(data.title, bu.path)
       .send({ from: accounts[0] });
     console.log("=== Mint ===", data.title);
-    // window.location.reload(true);
+    window.location.reload(true);
 
     // 한번에
     const form = new FormData();

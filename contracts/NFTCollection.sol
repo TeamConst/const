@@ -27,6 +27,7 @@ contract NFTCollection is ERC721, ERC721Enumerable {
     return _tokenIdToTokenURI[tokenId];
   }
 
+
   function safeMint(string memory _tokenURI) public {
     require(!_tokenURIExists[_tokenURI], 'The token URI should be unique');
     tokenURIs.push(_tokenURI);    
