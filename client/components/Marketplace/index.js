@@ -13,7 +13,7 @@ function Marketplace ({
   accountAddress,
   Images,
   Contract,
-  Auctions2,
+  Auctions,
   currentTime,
 })  {
   

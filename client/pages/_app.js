@@ -15,6 +15,7 @@ const MyApp = ({ Component, pageProps }) => {
       <Hydrate state={pageProps.dehydratedState}>
         <CssBaseline />
         <Component {...pageProps} />
+        <div>dadada</div>
       </Hydrate>
       <ReactQueryDevtools />
     </QueryClientProvider>

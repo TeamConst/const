@@ -185,20 +185,7 @@ const [accountAddress, setAccountAddress] = useState("");
 // console.log(isLoading);
 // console.log(isFetching);
 // console.log(data)
-const renderMarketplace = () => {
-  
- 
-         
-        accountAddress={accountAddress}
-        Images={Images}
-        Contract={Contract}
-        Auctions={Auctions}
-        currentTime={currentTime}
-     
-  
-};
 
- 
 
   return (
     <div>
