@@ -573,7 +573,7 @@ app.prepare().then(() => {
   server.get("/api/getNFT", async (req, res) => {
     // const NFTInstance = await getNFT();
     const abc = await getImage();
-    console.log(abc);
+    // console.log(abc);
     // console.log(ab);
     // res.send("no");
     res.json(abc);
@@ -633,29 +633,34 @@ async function getImage() {
     // const [lastMintTime, setLastMintTime] = useState(null);
     // const [currentTime, setCurrentTime] = useState(null);
 
-    let data = [];
+    let imagesArray = [];
+    let auctionsArray = [];
 
     const ContractImageCount = await Instance.methods
       .currentImageCount()
       .call();
     for (let i = 1; i <= ContractImageCount; i++) {
       let image = await Instance.methods.imageStorage(i).call();
-      data = [...data, image];
+      imagesArray = [...imagesArray, image];
       // setImages((Images) => [...Images, image]);
-      // let auction = await NFTMarketplaceInstance.methods.auctions(i).call();
-      // setAuctions((Auctions) => [...Auctions, auction]);
-      // setAuctions((Auctions) => [...Auctions, auction]);
-      // console.log("Auctions", Auctions);
-      // console.log("Auctions", auction);
+      let auction = await Instance.methods.auctions(i).call();
+      auctionsArray = [...auctionsArray, auction];
     }
-    // let ContractImageNumOfAccount = await NFTMarketplaceInstance.methods
+
+    // console.log(imagesArray);
+    // console.log(auctionsArray);
+    // console.log(Instance);
+
+    // 얘는 세션 처리가 날 것 같은데?
+    // let ContractImageNumOfAccount = await Instance.methods
     //   .getOwnedNumber(accounts[0])
     //   .call();
+
     // setContract(NFTMarketplaceInstance);
     // setAccountAddress(accounts[0]);
     // setAccountBalance(balance);
     // setImageCount(ImageCount);
     // setImageNumOfAccount(ContractImageNumOfAccount);
-    return data;
+    return auctionsArray;
   }
 }

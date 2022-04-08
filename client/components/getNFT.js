@@ -5,11 +5,19 @@ import { fetchBestCollections, fetchNFT } from "../hooks";
 import web3 from "./connection/web3";
 
 import io from "socket.io-client";
-
-// import WebSocket from "ws";
 // import { Websocket } from "nextjs-websocket";
 
 const GetNFT = () => {
+  const queryClient = useQueryClient();
+  console.log(queryClient);
+
+  // 실시간 경매 Fetch
+  const { data, isLoading, isFetching } = useQuery(["getNFT"], () =>
+    fetchNFT()
+  );
+  console.log(isFetching);
+  console.log(data);
+
   // 여기에 이제 실시간 처리를 해야겠다
   const socketClient = io("http://localhost:3000");
   // socketClient.on("connect", (req) => {
@@ -29,91 +37,46 @@ const GetNFT = () => {
 
   // 경매 처리가 끝나면
   // 클라에서 서버로 보내기
-  socketClient.emit("successAuction", { data: "first Reuqest" });
+  // 지금은 주석처리해놈
+  // socketClient.emit("successAuction", { data: "first Reuqest" });
 
-  // useEffect(() => {
-  //   const WebSocket = require("ws");
-
-  //   const client = new WebSocket("ws://localhost:8880");
-  //   client.on("message", function (data) {
-  //     console.log("서버에서 클라로 보낸것");
-  //   });
-  // }, []);
-  // const ws = new WebSocket("ws://localhost:8880", {});
-
-  // ws.on("open", function open() {
-  //   ws.send("클라에서 서버로 보낸것");
-  // });
-
-  // ws.on("message", function message(data) {
-  //   console.log("서버에서 클라로 보낸것", data);
-  // });
-
-  const queryClient = useQueryClient();
-  console.log(queryClient);
-  // queryClient.invalidateQueries("repoData");
-
-  //  react-query http
-  // const { data, isLoading, isFetching } = useQuery(
-  //   ["getNFT"],
-  //   () => fetchNFT(),
-  //   {
-  //     staleTime: 5000,
-  //   }
+  // const { data2, isLoading2, isFetching2 } = useQuery(["bestCollections"], () =>
+  //   fetchBestCollections()
   // );
 
-  const { data2, isLoading2, isFetching2 } = useQuery(["bestCollections"], () =>
-    fetchBestCollections()
-  );
+  // const { isLoading, error, data, isFetching } = useQuery(
+  //   "repoData",
+  //   () =>
+  //     // axios.get('http')
+  //     fetch("http://localhost:8080/api/getDate")
+  //       .then((res) => {
+  //         console.log(res);
+  //         return res.json();
+  //       })
+  //       .then((json) => {
+  //         console.log(json);
+  //       }),
+  //   { staleTime: 100000 }
+  // );
 
-  const { isLoading, error, data, isFetching } = useQuery(
-    "repoData",
-    () =>
-      // axios.get('http')
-      fetch("http://localhost:8080/api/getDate")
-        .then((res) => {
-          console.log(res);
-          return res.json();
-        })
-        .then((json) => {
-          console.log(json);
-        }),
-    { staleTime: 100000 }
-  );
-
-  console.log(isFetching);
-
-  // console.log(data);
-  let images;
+  let auctions;
   let a = 0;
   if (data) {
-    images = data.data;
-    // a = 1;
+    auctions = data.data;
+    a = 1;
   }
-
-  // console.log("fetch");
-  // console.log(data);
-  //   react-query websocket
 
   //  클라이언트에서 그대로 불러오기
   const [이미지, 이미지변경] = useState([]);
-  //   이미지변경(getImage());
-  //   console.log(이미지);
-  //   console.log("hi");
-  //   useEffect(() => {
-  //     const abc = setupBlockchain();
-  //     console.log(abc);
-  //   }, []);
 
   return (
     <div>
       {a === 1 ? (
-        // images.map((a) => <div>{a.tokenURI}</div>)
-        <div>1</div>
+        auctions.map((a) => <div>{a.winner}</div>)
       ) : (
+        // <div>{JSON.stringify(data)}</div>
         <div>
           <h1>아님</h1>
-          {JSON.stringify(data)}
         </div>
       )}
     </div>
