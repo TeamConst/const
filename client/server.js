@@ -544,17 +544,6 @@ app.prepare().then(() => {
     res.json(mu);
   });
 
-  // 회원가입 일단, 어드레스만 트러플에 넣고 나머지는 Mysql에 넣도록 하겠다
-  // 그리고 블록체인이니까 계정 중복 등의 고려는 우선 하지 않도록 하겠다
-  server.post("/api/signup", async (req, res) => {
-    try {
-      const data = await User.create(req.body);
-      res.send("회원가입 완료");
-    } catch (err) {
-      console.log(err);
-    }
-  });
-
   // 상품 주인 찾아내기
   server.post("/api/getWho", async (req, res) => {
     const a = req.body.name.split("/");
@@ -565,6 +554,17 @@ app.prepare().then(() => {
     // CID로 검색을 해야되니까
     const who = await Music.findOne({ where: { CID: d } });
     res.json(who);
+  });
+
+  // 회원가입 일단, 어드레스만 트러플에 넣고 나머지는 Mysql에 넣도록 하겠다
+  // 그리고 블록체인이니까 계정 중복 등의 고려는 우선 하지 않도록 하겠다
+  server.post("/api/signup", async (req, res) => {
+    try {
+      const data = await User.create(req.body);
+      res.send("회원가입 완료");
+    } catch (err) {
+      console.log(err);
+    }
   });
 
   // 구매 첫 페이지

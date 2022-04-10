@@ -38,13 +38,16 @@ contract ConstContract is ImageMarketplace{
     emit Offer(offerCount, _id, msg.sender, _price, false, false);
   }
 
-  function fillOffer(uint _offerId) public payable {
+  function fillOffer(address to, uint _offerId) public payable {
     _Offer storage _offer = offers[_offerId];
     require(_offer.offerId == _offerId, 'The offer must exist');
     require(_offer.user != msg.sender, 'The owner of the offer cannot fill it');
     require(!_offer.fulfilled, 'An offer cannot be fulfilled twice');
     require(!_offer.cancelled, 'A cancelled offer cannot be fulfilled');
     require(msg.value == _offer.price, 'The ETH amount should match with the NFT Price');
+   
+
+   _tranfserfrom(to, msg.sender, _offerId,  _offer.id  )
     // nftCollection.transferFrom(address(this), msg.sender, _offer.id);
     _offer.fulfilled = true;
     userFunds[_offer.user] += msg.value;

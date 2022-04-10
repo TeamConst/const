@@ -89,14 +89,14 @@ const BuyDetail = () => {
 
   let abcd;
   let a;
-  if (data1) {
+  if (data1.data) {
     abcd = data1.data.data;
     a = 1;
   }
 
   let qwer;
   let b;
-  if (data2) {
+  if (data2.data) {
     qwer = data2.data.data;
     b = 1;
   }
@@ -118,37 +118,39 @@ const BuyDetail = () => {
 
     console.log(who);
     // 가격 임시 선언
-    const price = 1000;
+    const price = parseInt(1000);
+    console.log(price);
 
     // 시작전 승인 단계
-    await Contract.methods
-      .approve(Contract.options.address, who)
-      .send({ from: accounts[0] })
-      .on("transactionHash", (hash) => {
-        console.log("해시", hash);
-      })
-      .on("receipt", (receipt) => {
-        Contract.methods
-          .makeOffer(who, price)
-          .send({ from: accounts[0] })
-          .on("error", (error) => {
-            window.alert("Something went wrong when pushing to the blockchain");
-          });
-      });
+    // await Contract.methods
+    //   .approve(Contract.options.address, who)
+    //   .send({ from: accounts[0] })
+    //   .on("transactionHash", (hash) => {
+    //     console.log("해시", hash);
+    //   })
+    //   .on("receipt", (receipt) => {
+    //     Contract.methods
+    //       .makeOffer(who, price)
+    //       .send({ from: accounts[0] })
+    //       .on("error", (error) => {
+    //         window.alert("Something went wrong when pushing to the blockchain");
+    //       });
+    //   });
 
     // 사는 단계
-    // await Contract.methods
-    //   .fillOffer(who)
-    //   .send({
-    //     from: accounts[0],
-    //     value: price,
-    //   })
-    //   .on("transactionHash", (hash) => {
-    //     console.log("해시2", hash);
-    //   })
-    //   .on("error", (error) => {
-    //     window.alert("Something went wrong when pushing to the blockchain");
-    //   });
+    await Contract.methods
+      // .fillOffer(who)
+      .fillOffer("0xB252E5EA1dE3cA6f893fD157A06596026fB86488")
+      .send({
+        from: accounts[0],
+        value: price,
+      })
+      .on("transactionHash", (hash) => {
+        console.log("해시2", hash);
+      })
+      .on("error", (error) => {
+        window.alert("Something went wrong when pushing to the blockchain");
+      });
 
     // 취소 단계
     // await Contract.methods
