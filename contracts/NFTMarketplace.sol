@@ -31,9 +31,9 @@ contract NFTMarketplace {
   event OfferCancelled(uint offerId, uint id, address owner);
   event ClaimFunds(address user, uint amount);
 
-  // constructor(address _nftCollection) {
-  //   nftCollection = NFTCollection(_nftCollection);
-  // }
+  constructor(address _nftCollection) {
+    nftCollection = NFTCollection(_nftCollection);
+  }
   
   function makeOffer(uint _id, uint _price) public {
     nftCollection.transferFrom(msg.sender, address(this), _id);

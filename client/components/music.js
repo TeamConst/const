@@ -10,12 +10,15 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { TextField } from "@mui/material";
 
 import web3 from "./connection/web3";
-// import contractJSON from "../../build/contracts/NFTCollection.json";
+import contractJSON from "../../build/contracts/NFTCollection.json";
+
 // import ImageNFTMarketplace from "../../build/contracts/ImageMarketplace.json";
 import ImageNFTMarketplace from "../../build/contracts/ConstContract.json";
 
 import axios from "axios";
 import io from "socket.io-client";
+
+import { useQuery } from "react-query";
 
 const theme = createTheme();
 
@@ -136,7 +139,30 @@ const Music = () => {
       .mintImageNFT(data.title, bu.path)
       .send({ from: accounts[0] });
     console.log("=== Mint ===", data.title);
-    window.location.reload(true);
+    // window.location.reload(true);
+
+    // buy contract
+    let pra;
+    let praaccounts;
+    const accounts1 = await web3.eth.getAccounts();
+    const networkId1 = await web3.eth.net.getId();
+    const deployedAddress1 = contractJSON.networks[networkId1].address;
+    const contract1 = new web3.eth.Contract(contractJSON.abi, deployedAddress1);
+
+    pra = contract1;
+    praaccounts = accounts1;
+
+    pra.methods
+      .safeMint(bu.path)
+      .send({ from: praaccounts[0] })
+      .on("transactionHash", (hash) => {
+        console.log(hash);
+        // pra.setNftIsLoading(true);
+      })
+      .on("error", (e) => {
+        window.alert("Something went wrong when pushing to the blockchain");
+        // pra.setNftIsLoading(false);
+      });
 
     // 한번에
     const form = new FormData();

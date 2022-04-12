@@ -26,6 +26,8 @@ import React, { useState, useEffect } from "react";
 import { fetchBuy } from "../hooks";
 import io from "socket.io-client";
 
+import Link from "next/link";
+
 const theme = createTheme();
 
 const GetBuy = () => {
@@ -33,13 +35,13 @@ const GetBuy = () => {
     fetchBuy()
   );
 
-  const socketClient = io("http://localhost:3000");
+  // const socketClient = io("http://localhost:3000");
 
   // 서버에서 받기
-  socketClient.on("refreshAuction", (req) => {
-    console.log("서버에서 refreshAuction 받기 성공");
-    // queryClient.invalidateQueries("getAuctions");
-  });
+  // socketClient.on("refreshAuction", (req) => {
+  //   console.log("서버에서 refreshAuction 받기 성공");
+  //   // queryClient.invalidateQueries("getAuctions");
+  // });
 
   const [open, setOpen] = React.useState(false);
 
@@ -60,59 +62,55 @@ const GetBuy = () => {
   let b;
   let c;
   if (data) {
-    // 컨트랙트 자체를 수정해야 하긴 하는데
-    // 일단은 클라이언트에서 처리하는 식으로도 한번 해보겠음
-    images = data.data.image;
-    auctions = data.data.auction;
-    a = 1;
-
-    // console.log(data.data.image[0].tokenURI);
-    b = data.data.image[0].tokenURI.substring(
-      21,
-      data.data.image[0].tokenURI.length
-    );
-    c = `https://const123.s3.ap-northeast-2.amazonaws.com/image/${b}.jpg`;
-
-    let image = data.data.image[0];
-    let auction = data.data.auction[0];
-    console.log(image);
-    console.log(auction);
-    status =
-      image.status == 0
-        ? "경매종료"
-        : image.status == 1
-        ? "경매중"
-        : "청구 대기 중";
-
-    tokenID = image.tokenID;
-    let minBid2 = minBid * currenciesIU;
-    let duration2 = duration * timesIU;
-    let newBid2 = newBid * currenciesIU;
+    console.log(data);
+    //   // 컨트랙트 자체를 수정해야 하긴 하는데
+    //   // 일단은 클라이언트에서 처리하는 식으로도 한번 해보겠음
+    //   images = data.data.image;
+    //   auctions = data.data.auction;
+    //   a = 1;
+    //   // console.log(data.data.image[0].tokenURI);
+    //   b = data.data.image[0].tokenURI.substring(
+    //     21,
+    //     data.data.image[0].tokenURI.length
+    //   );
+    //   c = `https://const123.s3.ap-northeast-2.amazonaws.com/image/${b}.jpg`;
+    //   let image = data.data.image[0];
+    //   let auction = data.data.auction[0];
+    //   console.log(image);
+    //   console.log(auction);
+    //   status =
+    //     image.status == 0
+    //       ? "경매종료"
+    //       : image.status == 1
+    //       ? "경매중"
+    //       : "청구 대기 중";
+    //   tokenID = image.tokenID;
+    //   let minBid2 = minBid * currenciesIU;
+    //   let duration2 = duration * timesIU;
+    //   let newBid2 = newBid * currenciesIU;
+    // }
+    // const [minBid, setMinBid] = useState(0);
+    // const [currenciesIU, setCurrenciesIU] = useState(1);
+    // const [duration, setDuration] = useState(0);
+    // const [timesIU, setTimesIU] = useState(1);
+    // const [newBid, setNewBid] = useState(0);
+    // const putOnBid = async () => {
+    //   // let tokenID = props.tokenID;
+    //   console.log("=== tokenID ===", tokenID);
+    //   // let minBid = minBid * currenciesIU;
+    //   // let duration = duration * timesIU;
+    //   console.log("minBid", minBid);
+    //   /// 판매 개시(소유자라고도 하는 판매자)
+    //   await props.Contract.methods
+    //     .beginAuction(tokenID, minBid2, duration2)
+    //     .send({ from: props.accountAddress });
+    //   window.location.reload(true);
   }
-
-  const [minBid, setMinBid] = useState(0);
-  const [currenciesIU, setCurrenciesIU] = useState(1);
-  const [duration, setDuration] = useState(0);
-  const [timesIU, setTimesIU] = useState(1);
-  const [newBid, setNewBid] = useState(0);
-
-  const putOnBid = async () => {
-    // let tokenID = props.tokenID;
-    console.log("=== tokenID ===", tokenID);
-    // let minBid = minBid * currenciesIU;
-    // let duration = duration * timesIU;
-    console.log("minBid", minBid);
-
-    /// 판매 개시(소유자라고도 하는 판매자)
-    await props.Contract.methods
-      .beginAuction(tokenID, minBid2, duration2)
-      .send({ from: props.accountAddress });
-    window.location.reload(true);
-  };
 
   return (
     <div>
-      {a === 1 ? (
+      <Link href={`/buysell/${encodeURIComponent(a.Key)}`}></Link>
+      {/* {a === 1 ? (
         <ThemeProvider theme={theme}>
           <Container sx={{ py: 8 }} maxWidth="md">
             <Grid container spacing={4}>
@@ -155,7 +153,8 @@ const GetBuy = () => {
         <div>
           <h1>아님</h1>
         </div>
-      )}
+      )} */}
+      1
     </div>
   );
 

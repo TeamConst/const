@@ -570,11 +570,12 @@ app.prepare().then(() => {
   // 구매 첫 페이지
   server.get("/api/getBuy", async (req, res) => {
     const abc = await getBuy();
+
     res.json(abc);
   });
 
   server.get("/api/getNFT", async (req, res) => {
-    // const NFTInstance = await getNFT();
+    // const NFTInstance = await getAuctionContract();
     const abc = await getImage();
     // console.log(abc);
     // console.log(ab);
@@ -583,18 +584,24 @@ app.prepare().then(() => {
   });
 
   server.get("/api/getAuction", async (req, res) => {
-    // const NFTInstance = await getNFT();
+    // const NFTInstance = await getAuctionContract();
     const abc = await getAll();
     res.json(abc);
   });
 
   server.get("/api/getContract", async (req, res) => {
-    const NFTInstance = await getNFT();
+    const NFTInstance = await getAuctionContract();
 
     console.log(NFTInstance);
     res.send("1");
     // res.json(NFTInstance);
   });
+
+  // server.get("/api/getBuyDataContract", async (req, res) => {
+  //   const NFTInstance = await getBuyDataContract();
+
+  //   res.json(NFTInstance);
+  // });
 
   server.get("/api/getDate", (req, res) => {
     const aba = new Date();
@@ -611,7 +618,7 @@ app.prepare().then(() => {
   });
 });
 
-async function getNFT() {
+async function getAuctionContract() {
   // web3
   const web3 = require("./getWeb3");
 
@@ -634,8 +641,54 @@ async function getNFT() {
   return NFTMarketplaceInstance;
 }
 
+async function getBuyDataContract() {
+  // web3
+  const web3 = require("./getWeb3");
+
+  // contract
+  const contractabi = require("../build/contracts/NFTCollection.json");
+
+  // accounts
+  const accounts = await web3.eth.getAccounts();
+
+  // networkId
+  const networkId = await web3.eth.net.getId();
+  const deployedAddress = contractabi.networks[networkId].address;
+
+  // Instance
+  const NFTMarketplaceInstance = new web3.eth.Contract(
+    contractabi.abi,
+    deployedAddress
+  );
+
+  return NFTMarketplaceInstance;
+}
+
+async function getBuyMethodContract() {
+  // web3
+  const web3 = require("./getWeb3");
+
+  // contract
+  const contractabi = require("../build/contracts/NFTMarketplace.json");
+
+  // accounts
+  const accounts = await web3.eth.getAccounts();
+
+  // networkId
+  const networkId = await web3.eth.net.getId();
+  const deployedAddress = contractabi.networks[networkId].address;
+
+  // Instance
+  const NFTMarketplaceInstance = new web3.eth.Contract(
+    contractabi.abi,
+    deployedAddress
+  );
+
+  return NFTMarketplaceInstance;
+}
+
 async function getImage() {
-  const Instance = await getNFT();
+  const Instance = await getAuctionContract();
 
   if (Instance) {
     // 클라이언트 변수 처리 부분
@@ -683,7 +736,7 @@ async function getImage() {
 }
 
 async function getAll() {
-  const Instance = await getNFT();
+  const Instance = await getAuctionContract();
 
   if (Instance) {
     // 클라이언트 변수 처리 부분
@@ -735,8 +788,8 @@ async function getAll() {
   }
 }
 
-async function getBuy() {
-  const Instance = await getNFT();
+async function get옥션Buy() {
+  const Instance = await getAuctionContract();
 
   if (Instance) {
     // 클라이언트 변수 처리 부분
@@ -762,5 +815,98 @@ async function getBuy() {
     }
 
     return offersArray;
+  }
+}
+
+async function getBuy() {
+  const Instance = await getBuyDataContract();
+
+  if (Instance) {
+    // 클라이언트 변수 처리 부분
+    // const [accountAddress, setAccountAddress] = useState("");
+    // const [accountBalance, setAccountBalance] = useState("");
+    // const [Contract, setContract] = useState(null);
+    // const [ImageCount, setImageCount] = useState(0);
+    // const [Images, setImages] = useState([]);
+    // const [ImageNumOfAccount, setImageNumOfAccount] = useState(0);
+    // const [Auctions, setAuctions] = useState([]);
+    // // 얜 뭐 경매 시각 쓰려고 한건가
+    // const [lastMintTime, setLastMintTime] = useState(null);
+    // const [currentTime, setCurrentTime] = useState(null);
+
+    const totalSupply = await Instance.methods.totalSupply().call();
+    // 로드가 이게 끝인데, 왜 굳이 업데이트를 상태관리로 해놓은지 아직 이해가 안감
+    // 얼마나 더 나은 결과물이길래
+
+    let collection = [];
+    for (let i = 0; i < totalSupply; i++) {
+      const hash = await Instance.methods.tokenURIs(i).call();
+
+      try {
+        // 오류 핸들러니까 잠시 주석 처리
+        const response = await fetch(
+          `https://ipfs.infura.io/ipfs/${hash}?clear`
+        );
+        if (!response.ok) {
+          throw new Error("Something went wrong");
+        }
+
+        console.log(response);
+        // const metadata = await response.json();
+        const owner = await Instance.methods.ownerOf(i + 1).call();
+
+        collection = [
+          {
+            id: i + 1,
+            // title: metadata.properties.name.description,
+            // img: metadata.properties.image.description,
+            owner: owner,
+          },
+          ...collection,
+        ];
+      } catch {
+        console.error("Something went wrong");
+      }
+    }
+    return collection;
+  }
+}
+
+async function getOffer() {
+  const Instance = await getBuyMethodContract();
+
+  if (Instance) {
+    // 클라이언트 변수 처리 부분
+    // const [accountAddress, setAccountAddress] = useState("");
+    // const [accountBalance, setAccountBalance] = useState("");
+    // const [Contract, setContract] = useState(null);
+    // const [ImageCount, setImageCount] = useState(0);
+    // const [Images, setImages] = useState([]);
+    // const [ImageNumOfAccount, setImageNumOfAccount] = useState(0);
+    // const [Auctions, setAuctions] = useState([]);
+    // // 얜 뭐 경매 시각 쓰려고 한건가
+    // const [lastMintTime, setLastMintTime] = useState(null);
+    // const [currentTime, setCurrentTime] = useState(null);
+
+    const offerCount = await Instance.methods.offerCount().call();
+
+    let offers = [];
+    for (let i = 0; i < offerCount; i++) {
+      const offer = await Instance.methods.offers(i + 1).call();
+      offers.push(offer);
+
+      offers = offers
+        .map((offer) => {
+          offer.offerId = parseInt(offer.offerId);
+          offer.id = parseInt(offer.id);
+          offer.price = parseInt(offer.price);
+          return offer;
+        })
+        .filter(
+          (offer) => offer.fulfilled === false && offer.cancelled === false
+        );
+
+      return offers;
+    }
   }
 }
