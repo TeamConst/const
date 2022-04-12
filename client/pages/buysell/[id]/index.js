@@ -9,17 +9,21 @@ import { useQuery, dehydrate, QueryClient } from "react-query";
 
 const BuySell = () => {
   const router = useRouter();
+
   const { id } = router.query;
-  console.log(id)
-  console.log(router)
+  console.log({ id })
+  const { add } = router.query;
+  console.log({ add })
+//
+//
   
   return (
     <div>
-      <p>BuySell 파라미터 : {id}</p>
+      <p>BuySell 파라미터 : {id}{ add }</p>
 
       {/* 전체 css 이걸로 설정해 줄 것임 */}
       <Layout></Layout>
-      <Market></Market>
+      <Market/>
     </div>
   );
 };

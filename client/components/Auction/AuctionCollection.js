@@ -143,18 +143,15 @@ const [accountAddress, setAccountAddress] = useState("");
           const auction = await NFTMarketplaceInstance.methods
             .auctions(i)
             .call();
-         let auction2 = auction;
-
-         setAuctions(Images => [...Images, image] );
+         setAuctions(Auctions => [...Auctions, auction] );
           console.log("auctions",Auctions);
-          setAuc(Auc => [...Auc, "3131"])
-          console.log(Auc)
+          setContract(NFTMarketplaceInstance);
         }
-       console.log(Auctions)
+       console.log(Auctions[2])
         let ImageNumOfAccount = await NFTMarketplaceInstance.methods
           .getOwnedNumber(accounts[0])
           .call();
-        setContract(NFTMarketplaceInstance);
+       
         setAccountAddress(accounts[0]);
         setAccountBalance(balance);
         setImageCount(ImageCount);
@@ -182,7 +179,7 @@ const [accountAddress, setAccountAddress] = useState("");
 	  }
 }());
  
-
+console.log(Contract)
   return (
     <div>
       <ThemeProvider theme={theme}>

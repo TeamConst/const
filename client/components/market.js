@@ -20,7 +20,7 @@ import {
   Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle
 } from '@mui/material';
 import AuctionMint from "./Auction/AuctionMint";
-// import ImageCard from "./ImageCard/ImageCard";
+import Market2 from "./market2";
 const theme = createTheme();
 async function setupWeb3() {
   console.log("hihid");
@@ -55,17 +55,10 @@ const Market = (props) => {
   const [Auctions,setAuctions] = useState([]);
   const [currentTime, setCurrentTime] = useState(null);
   const [ready, setReady] = useState(false);
+  const [ImagesId, setImagesId] = useState([]);
 
-  const [ownerShipTrans,setOwnerShipTrans]=useState([]);
-  const [currenciesIU,setCurrenciesIU]=useState(1);
-  const [timesIU,setTimesIU]=useState(1);
-  const [minBid,setMinBid]=useState(0);
-  const [duration,setDuration]=useState(0);
-  const [newBid,setNewBid]=useState(0);
-  const [open, setOpen] = useState(false);
 
   const [b, seta] = useState(true);
-
   const setupBlockchain = async () => {
     seta(false);
     let ImageNFTMarketplace = {};
@@ -88,18 +81,11 @@ const Market = (props) => {
           ? await web3.eth.getBalance(accounts[0])
           : await web3.utils.toWei("0");
       balance = await web3.utils.fromWei(balance, "ether");
-
-      console.log("balance", balance);
-
       const networkId = await web3.eth.net.getId();
       let NFTMarketplaceInstance = null;
       let deployedNetwork = null;
 
       // Create instance of contracts
-
-      console.log("networkId", networkId);
-    
-
       if (ImageNFTMarketplace.networks) {
         deployedNetwork = ImageNFTMarketplace.networks[networkId];
         if (deployedNetwork) {
@@ -122,18 +108,14 @@ const Market = (props) => {
             .imageStorage(i)
             .call();
           setImages(Images => [...Images, image] );
-          console.log(...Images,image)
+          setImagesId(image[3])
+          console.log(...Images,image[3])
           let auction = await NFTMarketplaceInstance.methods
             .auctions(i)
             .call();
-          let auction2 =[...Auctions,auction];
-          console.log(auction2);
           setAuctions(Auctions =>[...Auctions,auction]);
           console.log(auction.endTime);
-          // console.log("auction",auction);
-          console.log("auctions",Auctions);
         }
-       console.log(Auctions)
         let ImageNumOfAccount = await NFTMarketplaceInstance.methods
           .getOwnedNumber(accounts[0])
           .call();
@@ -142,7 +124,7 @@ const Market = (props) => {
         setAccountBalance(balance);
         setImageCount(ImageCount);
         setImageNumOfAccount(ImageNumOfAccount);
-        // setReady(true)
+        
         
        
       } else throw "스마트 연락처에 연결하지 못했습니다.";
@@ -168,22 +150,13 @@ const Market = (props) => {
 		setupWeb3();
 		setupBlockchain();
     tick()
+    
 	  }
 }());
  
-console.log("Auctions",Auctions)
-//
-console.log(props)
-console.log(currentTime)
 
 const router = useRouter()
-const { currentName } = router.query
-// const currentPost = JSON.parse(name)
-  console.log(currentName)
-
   const { id } = router.query;
-
-
   const [이미지, 이미지변경] = useState();
 
   useEffect(() => {
@@ -193,7 +166,6 @@ const { currentName } = router.query
   const { data, isLoading, isFetching } = useQuery(["buysell"], () =>
     fetchBuySell(id)
   );
-  console.log(id);
   let abcd;
   let a;
   if (data) {
@@ -215,135 +187,45 @@ const changeMusic = async (str) => {
   음악변경(`https://ipfs.io/ipfs/${str}`);
   console.log(`https://ipfs.io/ipfs/${str}`);
   
-};
-console.log(Images)
+}
 
-const smilmingDays = Images.map(image => console.log(image.tokenURI));
-console.log(smilmingDays)
-const allImages = Images.filter(
-  (image) =>  image.currentOwner !==accountAddress &&accountAddress &&image.tokenURI === `https://ipfs.io/ipfs/${str}`
-);
-allImages.map((image)=>{console.log(image)} )
 const myImages = Images.filter(
   
-  (image) => image.currentOwner === accountAddress && image.tokenURI === `https://ipfs.io/ipfs/${str}`
+  (image) => image.currentOwner === accountAddress && image.tokenURI === `https://ipfs.io/ipfs/${str}`);
+  const allImages = Images.filter(
   
-);
-console.log(myImages)
-{/* 소유한 NFTS의 총 수:{ImageNumOfAccount} */}
+    (image) => image.currentOwner !== accountAddress &&accountAddress&& image.tokenURI === `https://ipfs.io/ipfs/${str}`);
+
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
   padding: theme.spacing(1),
   textAlign: 'center',
-  // color: theme.palette.text.secondary,
 }));
-if(1===1){
-  return (
-    
-    <div>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Container maxWidth="lg">
-          <main>
-            <Grid container spacing={5}>
-              <Grid item xs={6}>
-                <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                  사진
-                  <img src={이미지} height="300" width="300"></img>
-              
-                </Box>
-                
-              </Grid>
-              {a === 1 ? (
-                <Grid item xs={6}>
-                  <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                      <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                        제목{abcd.title}
-                      </Box>
-                    </Grid>
-                    <Grid item xs={4}>
-                      <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                        판매자{abcd.artist}
-                      </Box>
-                    </Grid>
-                    <Grid item xs={4}>
-                      <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                        조회수{abcd.playCount}
-                      </Box>
-                    </Grid>
-                    <Grid item xs={4}>
-                      <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                        좋아요{abcd.LikeMusic}
-                      </Box>
-                    </Grid>
-                    <Grid item xs={12}>
-                      <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                        에디션
-                      </Box>
-                    </Grid>
-                    <Grid item xs={12}>
-                      <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                        가격 옥션에 대한 db 추가해야함
-                      </Box>
-                    </Grid>
-                    <Grid item xs={4}>
-                      <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                        수량
-                      </Box>
-                    </Grid>
-                    <Grid item xs={4}>
-                      <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                        구매
-                      </Box>
-                    </Grid>
-                    <Grid item xs={4}>
-                      <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                        선물
-                      </Box>
-                    </Grid>
-                  </Grid>
-                </Grid>
-              ) : (
-                <h1>아님</h1>
-              )}
-               
-              <Grid item xs={6} sm={3}>
-                <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                  디테일 정보
-                  {str}
-                </Box>
-                <AudioPlayer
-        autoPlay
-        src={`https://ipfs.io/ipfs/${str}`}
-        onPlay={(e) => console.log("onPlay")}
-        // other props here
-      />
-              </Grid>
-              <Grid item xs={6} sm={3}>
-                <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                  저장 정보
-                </Box>
-              </Grid>
-              <Grid item xs={6} sm={3}>
-                <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                  가격 그래프
-                </Box>
-              </Grid>
-              <Grid item xs={6} sm={3}>
-                <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                  빈칸
-                </Box>
-              </Grid>
-              <Grid item xs={6} sm={3}>
-               <Box  bgcolor="info.main" color="info.contrastText" p={2}>
-               <Stack elevation={12} spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }} >
-               {
-        1 === 2
-        ? <p>   {myImages.map((image) => {
+const [ImagesId2, setImagesId2] = useState([]);
+useEffect(()=>{
+  
+  const Auction = Images.filter(
+  
+  (image) => {if(image){
+    setImagesId2(image.mintedBy)
+  }}
+  
+);
+  []})
+console.log(ImagesId2)
+  
+console.log(accountAddress)
+  if(accountAddress===ImagesId2){
+ return (   
+  <div>
+  <ThemeProvider theme={theme}>
+
+
+
+    <div>      {myImages.map((image) => {
           return (
             <Item key={image.tokenID}>
-              <AuctionMint
+              <Market2
                 tokenID={image.tokenID}
                 image={image}
                 accountAddress={accountAddress}
@@ -351,19 +233,28 @@ if(1===1){
                 Auction={Auctions[parseInt(image.tokenID) - 1]}
                 currentTime={currentTime}
               />
-                {/* <Market/> */}
+
             </Item>
         
           );
-        })}</p>
-        : <div>
-          dd
-        </div>
-      }
-        {myImages.map((image) => {
+        })}</div>
+
+  </ThemeProvider>
+  <div>    
+
+  </div>
+</div>)
+}else{
+return(
+  <div>
+  <ThemeProvider theme={theme}>
+
+
+
+    <div>      {allImages.map((image) => {
           return (
             <Item key={image.tokenID}>
-              <AuctionMint
+              <Market2
                 tokenID={image.tokenID}
                 image={image}
                 accountAddress={accountAddress}
@@ -371,170 +262,19 @@ if(1===1){
                 Auction={Auctions[parseInt(image.tokenID) - 1]}
                 currentTime={currentTime}
               />
-                {/* <Market/> */}
+
             </Item>
         
           );
-        })}
-      </Stack>
-               </Box>
-               <div></div>
-              </Grid>
-              <Grid item xs={12}>
-                <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                  여기에 연관 상품들 나열할 건데 이건 data fetch 하는 식이 날듯?
-                </Box>
-              </Grid>
-            </Grid>
-          </main>
-        </Container>
-      
-      </ThemeProvider>
-      <div>
-    
-      </div>
-    </div>
-  )}
-      return (   
-        <div>
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <Container maxWidth="lg">
-              <main>
-                <Grid container spacing={5}>
-                  <Grid item xs={6}>
-                    <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                      사진
-                      <img src={이미지} height="300" width="300"></img>
-                  
-                    </Box>
-                    
-                  </Grid>
-                  {a === 1 ? (
-                    <Grid item xs={6}>
-                      <Grid container spacing={2}>
-                        <Grid item xs={12}>
-                          <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                            제목{abcd.title}
-                          </Box>
-                        </Grid>
-                        <Grid item xs={4}>
-                          <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                            판매자{abcd.artist}
-                          </Box>
-                        </Grid>
-                        <Grid item xs={4}>
-                          <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                            조회수{abcd.playCount}
-                          </Box>
-                        </Grid>
-                        <Grid item xs={4}>
-                          <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                            좋아요{abcd.LikeMusic}
-                          </Box>
-                        </Grid>
-                        <Grid item xs={12}>
-                          <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                            에디션
-                          </Box>
-                        </Grid>
-                        <Grid item xs={12}>
-                          <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                            가격 옥션에 대한 db 추가해야함
-                          </Box>
-                        </Grid>
-                        <Grid item xs={4}>
-                          <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                            수량
-                          </Box>
-                        </Grid>
-                        <Grid item xs={4}>
-                          <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                            구매
-                          </Box>
-                        </Grid>
-                        <Grid item xs={4}>
-                          <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                            선물
-                          </Box>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                  ) : (
-                    <h1>아님</h1>
-                  )}
-                   
-                  <Grid item xs={6} sm={3}>
-                    <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                      디테일 정보
-                      {str}
-                    </Box>
-                    <AudioPlayer
-            autoPlay
-            src={`https://ipfs.io/ipfs/${str}`}
-            onPlay={(e) => console.log("onPlay")}
-            // other props here
-          />
-                  </Grid>
-                  <Grid item xs={6} sm={3}>
-                    <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                      저장 정보
-                    </Box>
-                  </Grid>
-                  <Grid item xs={6} sm={3}>
-                    <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                      가격 그래프
-                    </Box>
-                  </Grid>
-                  <Grid item xs={6} sm={3}>
-                    <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                      빈칸
-                    </Box>
-                  </Grid>
-                  <Grid item xs={6} sm={3}>
-                   <Box  bgcolor="info.main" color="info.contrastText" p={2}>
-                   <Stack elevation={12} spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }} >
-                   {
-            1 === 1
-            ? <p>           {allImages.map((image) => {
-              return (
-                <Item key={image.tokenID}>
-                  <AuctionMint
-                    tokenID={image.tokenID}
-                    image={image}
-                    accountAddress={accountAddress}
-                    Contract={Contract}
-                    Auction={Auctions[parseInt(image.tokenID) - 1]}
-                    currentTime={currentTime}
-                  />
-                    {/* <Market/> */}
-                </Item>
-            
-              );
-            })}</p>
-            : <div>
-              dd
-            </div>
-          }
-           
-          </Stack>
-                   </Box>
-                   <div></div>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                      여기에 연관 상품들 나열할 건데 이건 data fetch 하는 식이 날듯?
-                    </Box>
-                  </Grid>
-                </Grid>
-              </main>
-            </Container>
-          
-          </ThemeProvider>
-          <div>
-        
-          </div>
-        </div>);
-};
+        })}</div>
+
+  </ThemeProvider>
+  <div>    
+
+  </div>
+</div>
+)}
+
+}
 
 export default withRouter(Market);

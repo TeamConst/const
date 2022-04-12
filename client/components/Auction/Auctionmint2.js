@@ -106,26 +106,26 @@ useEffect(() => {
     //   <Box width={200}>
       <Grid container spacing={2}>
         <Grid item>
-          {/* <DetailInfo
+          <DetailInfo
             image={image}
             auction={auction}
             ownerShipTrans={ownerShipTrans}
-          /> */}
+          />
         </Grid>
         <Grid item xs={12} sm container>
           <Grid item xs container direction="column">
-            {/* <Grid item xs={2}>
+            <Grid item xs={2}>
               <br />
               <Typography gutterBottom variant="h5">
                 Token ID: {image.tokenID}
               </Typography>
-            </Grid> */}
-            {/* <Grid item xs={2}>
+            </Grid>
+            <Grid item xs={2}>
               <br />
               <Typography gutterBottom variant="h6" component="div">
                 Image Name: {image.tokenName}
               </Typography>
-            </Grid> */}
+            </Grid>
             <Grid item>
               <Typography gutterBottom variant="h6" component="div">
                 Status: {status}
