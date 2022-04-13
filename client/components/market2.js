@@ -8,7 +8,7 @@ import Web3 from "web3";
 import { useRouter } from "next/router";
 import { useQuery } from "react-query";
 import { fetchBestCollections } from "../hooks";
-import { fetchBuySell } from "../hooks";
+import { fetchAuctiondata } from "../hooks";
 import { useState, useEffect } from "react";
 import AudioPlayer from "react-h5-audio-player";
 import MintedImages from "../components/MintedImages"
@@ -20,7 +20,7 @@ import {
   Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle
 } from '@mui/material';
 import AuctionMint from "./Auction/AuctionMint";
-
+import axios from "axios";
 const theme = createTheme();
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -30,7 +30,7 @@ const Item = styled(Paper)(({ theme }) => ({
   }));
 
 const Market2 = (props) => {
-
+    
     console.log(props)
  
     // let accountAddress = props.accountAddress
@@ -38,23 +38,21 @@ const Market2 = (props) => {
     // 
     const router = useRouter()
     const { id } = router.query;
+    const { add } = router.query;
     const [이미지, 이미지변경] = useState();
   
     useEffect(() => {
       이미지변경(`https://const123.s3.ap-northeast-2.amazonaws.com/${id}`);
     }, [id]);
-  
-    const { data, isLoading, isFetching } = useQuery(["buysell"], () =>
-      fetchBuySell(id)
-    );
-    let abcd;
-    let a;
-    if (data) {
-      a = 1;
-      abcd = data.data.dataValues;
-      console.log(data.data.dataValues);
-  
-    }
+
+
+
+
+    console.log({ add })
+
+
+
+
     const fromDb = id;
     let str = fromDb || `${id}`;
   
@@ -68,7 +66,11 @@ const Market2 = (props) => {
     console.log(`https://ipfs.io/ipfs/${str}`);
     
   }
-  
+ 
+
+
+  let a = 0;
+
 //
 const [open, setOpen] = useState(false);
 
@@ -168,6 +170,22 @@ const  bid = async () => {
 //   let toBeClaim = (image.status == 2);
   console.log(currenciesIU)
   console.log(ownerShipTrans)
+
+  console.log(str)
+  const ondada=()=>{
+    console.log("dada")
+  }
+
+  const onSubmit = async () => {
+
+    const mintby =image.mintedBy
+    console.log(str)
+    const str2=str
+  const rere = await axios.post("http://localhost:8080/api/updateauction", {mintby:mintby,CID:str2});
+  console.log(rere)
+  // window.location.reload(true);
+  }
+
       return (   
         <div>
         <ThemeProvider theme={theme}>
@@ -181,29 +199,30 @@ const  bid = async () => {
                     <img src={이미지} height="300" width="300"></img>
                 
                   </Box>
-                  
+                  <form onSubmit={onSubmit}>    <Button onClick={()=>{ondada();onSubmit();}}>ds</Button></form>
+              
                 </Grid>
                 {a === 1 ? (
                   <Grid item xs={6}>
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
                         <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                          제목{abcd.title}
+                          {/* 제목{abcd.title} */}
                         </Box>
                       </Grid>
                       <Grid item xs={4}>
                         <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                          판매자{abcd.artist}
+                          {/* 판매자{abcd.artist} */}
                         </Box>
                       </Grid>
                       <Grid item xs={4}>
                         <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                          조회수{abcd.playCount}
+                          {/* 조회수{abcd.playCount} */}
                         </Box>
                       </Grid>
                       <Grid item xs={4}>
                         <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                          좋아요{abcd.LikeMusic}
+                          {/* 좋아요{abcd.LikeMusic} */}
                         </Box>
                       </Grid>
                       <Grid item xs={12}>
@@ -444,7 +463,7 @@ const  bid = async () => {
                       </Dialog>
                     </div>
                     : isOwner ?
-                      <Button onClick={endOnBid}>이제 끝낼 수 있습니다.</Button>
+                      <Button onClick={()=>{endOnBid();onSubmit()}}>이제 끝낼 수 있습니다.</Button>
                       : <Button>Time Up, 소유자가 종료하기를 기다리는 중.</Button>
                   : <Button onClick={claim}>To be claimed</Button>
               }

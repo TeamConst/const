@@ -85,7 +85,7 @@ const Music = () => {
     imageFormData.append("image", image);
     imageFormData.append("title", data.title);
     imageFormData.append("CID", bu.path);
-
+onSubmit
     const resultImage = await axios.post(
       "http://localhost:8080/api/mint/image",
       imageFormData
@@ -131,8 +131,13 @@ const Music = () => {
     form.append("musics", musics);
     form.append("db", JSON.stringify(gg));
     // form.append("CID", bu.path);
-
+  console.log(image.mintedBy)
     const rere = await axios.post("http://localhost:8080/api/mint", form);
+    const mintby =  accounts[0]
+    
+    console.log(mintby)
+      const rere2 = await axios.post("http://localhost:8080/api/auction", {mintby:mintby,CID: bu.path});
+      console.log(rere2)
   };
   // console.log(errors);
 

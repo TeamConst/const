@@ -530,6 +530,78 @@ app.prepare().then(() => {
     res.json(result);
   });
 
+  // 구매, 판매 페이지 입장시
+  server.post("/api/auction", async (req, res) => {
+     console.log(req.body)
+    try {
+      const data = await AuctionData.create({
+        mintby:req.body.mintby,
+        CID:req.body.CID
+      });
+      res.send("회원가입 완료");
+    } catch (err) {
+      console.log("회원가입 오류");
+    }
+  });
+  server.get("/api/getauction", async (req, res) => {
+    const result = await AuctionData.findAll();
+    // const data = await Music.findOne({ title: req.body.name });
+    // res.json(data);
+
+    res.json(result);
+  });
+  // models.User.update({password: '새로운 유저PW'}, {where: {userID: '유저ID'}})
+  // .then(result => {
+  //    res.json(result);
+  // })
+  // .catch(err => {
+  //    console.error(err);
+  // });
+  // server.post("/api/updateauction", async (req, res) => {
+  //   // const result = await Music.findAll();
+  //   // const data = await Music.findOne({ title: req.body.name });
+  //   // res.json(data);
+  //   const title = Object.keys(req.body.mintby);
+  //   const read = await AuctionData.findOne({ where: { title: title } });
+  //   await AuctionData.update(
+  //     { Auction: read.Auction },
+  //     { where: { title: title } }
+  //   );
+
+  //   res.send("업하트 오케");
+  // });
+  server.post("/api/updateauction", async (req, res) => {
+    console.log(req.body.mintby)
+    console.log(req.body.CID)
+
+    try {
+      const updateCondition = await AuctionData.update({
+        mintby: req.body.mintby
+      }, {
+        where: { CID: req.body.CID }
+      });
+  
+      res.status(200).json({ success: true, updateCondition });
+    } catch (error) {
+      console.error(error);
+      return res.status(400).send(err);
+    }
+  });
+  // server.post("/api/updateauction", async (req, res) => {
+  //   console.log(req.body.mintby)
+  //   console.log(req.body.CID)
+  //   const add = req.body.mintby
+  //   const add2 = req.body.CID
+  //   const read = await AuctionData.update({mintby: add}, {where: {CID: add2}})
+  //   // .then(result => {
+  //   //    res.json(result);
+  //   // })
+  //   // .catch(err => {
+  //   //    console.error(err);
+  //   // });
+  //   res.send("업하트시발");
+  // });
+
   // 회원가입 일단, 어드레스만 트러플에 넣고 나머지는 Mysql에 넣도록 하겠다
   // 그리고 블록체인이니까 계정 중복 등의 고려는 우선 하지 않도록 하겠다
   server.post("/api/signup", async (req, res) => {

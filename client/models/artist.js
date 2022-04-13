@@ -10,7 +10,7 @@ module.exports = class Artist extends Sequelize.Model {
         },
 
         AuctionRight: {
-          type: Sequelize.STRING(45),
+          type: Sequelize.INTEGER(45),
           allowNull: true,
         },
         LikeArtist: {

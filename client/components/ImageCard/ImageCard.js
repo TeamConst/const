@@ -14,6 +14,8 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
+import { useQuery } from "react-query";
+import { fetchAuctiondata } from '../../hooks'
 const theme = createTheme();
 
 function ImageCard (props) {
@@ -27,8 +29,8 @@ function ImageCard (props) {
   const handleClose = () => {
     setOpen(false);
   };
-
-      //
+ 
+    
      const [ownerShipTrans,setOwnerShipTrans]=useState([]);
      const [currenciesIU,setCurrenciesIU]=useState(1);
      const [timesIU,setTimesIU]=useState(1);
@@ -97,6 +99,26 @@ function ImageCard (props) {
 console.log(str.slice(21))
 str = str.slice(21)
 console.log(str)
+const {data ,isLoading, isFetching} = useQuery(["Auctiondata"], () =>
+fetchAuctiondata()
+);  const [musi,setMusi] = useState("");
+console.log(data)
+
+let musics;
+useEffect(()=>{
+  if (data) {
+    musics = data.data
+    console.log(musics)
+    
+    const newNotes = musics.filter((music) =>{if(music.CID ===str){
+    console.log(music.CID);
+    setMusi(music.CID)
+        }});
+    }
+    console.log(musi)
+},[])
+
+console.log(musi)
 
 let add ={
 

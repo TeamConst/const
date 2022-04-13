@@ -1,5 +1,3 @@
-
-   
 const Sequelize = require("sequelize");
 
 module.exports = class AuctionData extends Sequelize.Model {
@@ -12,31 +10,14 @@ module.exports = class AuctionData extends Sequelize.Model {
           allowNull: false,
           primaryKey: true,
         },
-        auction: {
-          type: Sequelize.STRING(45),
+        mintby: {
+          type: Sequelize.STRING(100),
+          allowNull: true,
+
+        },CID: {
+          type: Sequelize.STRING(100),
           allowNull: true,
         },
-        Contract: {
-          type: Sequelize.STRING(45),
-          allowNull: true,
-        },
-        tokenID: {
-          type: Sequelize.STRING(45),
-          allowNull: true,
-        },
-        accountAddress: {
-          type: Sequelize.STRING(45),
-          allowNull: true,
-        },
-        currentTime: {
-          type: Sequelize.STRING(45),
-          allowNull: true,
-        },
-        image: {
-          type: Sequelize.STRING(45),
-          allowNull: true,
-        },
-      
       },
       {
         sequelize,

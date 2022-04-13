@@ -8,7 +8,7 @@ import Web3 from "web3";
 import { useRouter } from "next/router";
 import { useQuery } from "react-query";
 import { fetchBestCollections } from "../hooks";
-import { fetchBuySell } from "../hooks";
+import { fetchAuctiondata } from "../hooks";
 import { useState, useEffect } from "react";
 import AudioPlayer from "react-h5-audio-player";
 import MintedImages from "../components/MintedImages"
@@ -144,36 +144,29 @@ const Market = (props) => {
 		
 	}
 
+
+      
 (async function componentWillMount(){
 	if (b == true) {
 		setReady(false);
 		setupWeb3();
 		setupBlockchain();
     tick()
-    
 	  }
 }());
  
 
 const router = useRouter()
   const { id } = router.query;
+  const { add } = router.query;
   const [이미지, 이미지변경] = useState();
-
+console.log({ id })
+console.log({add})
   useEffect(() => {
     이미지변경(`https://const123.s3.ap-northeast-2.amazonaws.com/${id}`);
+
+
   }, [id]);
-
-  const { data, isLoading, isFetching } = useQuery(["buysell"], () =>
-    fetchBuySell(id)
-  );
-  let abcd;
-  let a;
-  if (data) {
-    a = 1;
-    abcd = data.data.dataValues;
-    console.log(data.data.dataValues);
-
-  }
 
   const fromDb = id;
   let str = fromDb || `${id}`;
@@ -181,6 +174,31 @@ const router = useRouter()
 console.log(str.slice(6,52))
 str = str.slice(6,52)
 console.log(str)
+  // const [musi,setMusi] = useState("");
+
+  const {data ,isLoading, isFetching} = useQuery(["Auctiondata"], () =>
+  fetchAuctiondata()
+); 
+console.log(data)
+
+
+
+  
+// useEffect(()=>{
+//   let musics;
+   
+//   musics = data.data
+//   console.log(musics)
+  
+//     const newNotes = musics.filter((music) =>{if(music.CID ===str){
+//      console.log(music.CID);
+//          }});
+//     console.log(newNotes);   
+  
+//   console.log(musi)
+
+// },[])
+
 const [음악, 음악변경] = useState();
 const changeMusic = async (str) => {
   console.log(str);
@@ -201,21 +219,10 @@ const Item = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(1),
   textAlign: 'center',
 }));
-const [ImagesId2, setImagesId2] = useState([]);
-useEffect(()=>{
-  
-  const Auction = Images.filter(
-  
-  (image) => {if(image){
-    setImagesId2(image.mintedBy)
-  }}
-  
-);
-  []})
-console.log(ImagesId2)
-  
-console.log(accountAddress)
-  if(accountAddress===ImagesId2){
+
+
+console.log(musi)
+  if(accountAddress!==musi){
  return (   
   <div>
   <ThemeProvider theme={theme}>
