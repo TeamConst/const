@@ -57,15 +57,19 @@ const SetBuy = () => {
   }
 
   // 클라이언트 처리
-  let globalAccounts;
+  const [계정, 계정변경] = useState();
+
+  console.log(계정);
 
   async function getGlobalAccounts() {
     const accounts2 = await web3.eth.getAccounts();
     console.log("hi");
     console.log(accounts2[0]);
-    globalAccounts = accounts2[0];
+    계정번경(accounts2[0]);
   }
 
+  // if (data1.data && data2.data) {
+  // }
   useEffect(() => {
     getGlobalAccounts();
   }, []);
@@ -227,38 +231,41 @@ const SetBuy = () => {
   return (
     <div>
       1
-      <div className="row">
-        <div className="d-grid gap-2 col-5 mx-auto">
-          <button onClick={buyHandler} className="btn btn-success">
-            BUY
-          </button>
-        </div>
-        <div className="row">
-          <div className="d-grid gap-2 col-5 mx-auto">
-            <button onClick={cancelHandler} className="btn btn-danger">
-              CANCEL
+      {a === 1 && 계정 === buyData[0].owner ? (
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="col-5 d-grid gap-2">
+            <button type="submit" className="btn btn-secondary">
+              OFFER
             </button>
           </div>
+          <div className="col-7">
+            <input
+              {...register("price", {
+                required: true,
+              })}
+              type="number"
+              step="0.01"
+              placeholder="ETH..."
+              className="form-control"
+            ></input>
+          </div>
+        </form>
+      ) : (
+        <div className="row">
+          <div className="d-grid gap-2 col-5 mx-auto">
+            <button onClick={buyHandler} className="btn btn-success">
+              BUY
+            </button>
+          </div>
+          <div className="row">
+            <div className="d-grid gap-2 col-5 mx-auto">
+              <button onClick={cancelHandler} className="btn btn-danger">
+                CANCEL
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="col-5 d-grid gap-2">
-          <button type="submit" className="btn btn-secondary">
-            OFFER
-          </button>
-        </div>
-        <div className="col-7">
-          <input
-            {...register("price", {
-              required: true,
-            })}
-            type="number"
-            step="0.01"
-            placeholder="ETH..."
-            className="form-control"
-          ></input>
-        </div>
-      </form>
+      )}
       <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
         버튼버튼
       </Button>
