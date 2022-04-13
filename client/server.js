@@ -574,6 +574,36 @@ app.prepare().then(() => {
     res.json(abc);
   });
 
+  server.post("/api/setBuy", async (req, res) => {
+    const a = req.body.name;
+    // const b = a[1];
+    // const c = b.split(".");
+    // const d = c[0];
+
+    const abc = await setBuy(a);
+    res.json(abc);
+    // res.send("ok");
+  });
+
+  server.post("/api/getOffer", async (req, res) => {
+    const a = req.body.name;
+    const abc = await getOffer(a);
+
+    res.json(abc);
+  });
+
+  // server.post("/api/setBuy", async (req, res) => {
+  //   const a = req.body.name;
+  //   // const b = a[1];
+  //   // const c = b.split(".");
+  //   // const d = c[0];
+  //   console.log(a);
+
+  //   const abc = await setBuy(a);
+  //   res.json(abc);
+  //   // res.send("ok");
+  // });
+
   server.get("/api/getNFT", async (req, res) => {
     // const NFTInstance = await getAuctionContract();
     const abc = await getImage();
@@ -842,6 +872,7 @@ async function getBuy() {
     for (let i = 0; i < totalSupply; i++) {
       const hash = await Instance.methods.tokenURIs(i).call();
 
+      // console.log(hash);
       try {
         // 오류 핸들러니까 잠시 주석 처리
         const response = await fetch(
@@ -851,15 +882,16 @@ async function getBuy() {
           throw new Error("Something went wrong");
         }
 
-        console.log(response);
-        // const metadata = await response.json();
+        const metadata = await response.json();
         const owner = await Instance.methods.ownerOf(i + 1).call();
+
+        console.log(owner);
 
         collection = [
           {
             id: i + 1,
-            // title: metadata.properties.name.description,
-            // img: metadata.properties.image.description,
+            title: metadata.properties.name.description,
+            img: metadata.properties.image.description,
             owner: owner,
           },
           ...collection,
@@ -872,7 +904,54 @@ async function getBuy() {
   }
 }
 
-async function getOffer() {
+async function setBuy(param) {
+  const Instance = await getBuyDataContract();
+
+  if (Instance) {
+    const totalSupply = await Instance.methods.totalSupply().call();
+    // 로드가 이게 끝인데, 왜 굳이 업데이트를 상태관리로 해놓은지 아직 이해가 안감
+    // 얼마나 더 나은 결과물이길래
+
+    console.log(totalSupply);
+    let collection = [];
+    for (let i = 0; i < totalSupply; i++) {
+      const hash = await Instance.methods.tokenURIs(i).call();
+
+      // console.log(hash);
+      try {
+        // 오류 핸들러니까 잠시 주석 처리
+        const response = await fetch(
+          `https://ipfs.infura.io/ipfs/${hash}?clear`
+        );
+        if (!response.ok) {
+          throw new Error("Something went wrong");
+        }
+
+        const metadata = await response.json();
+        // console.log("ipfs 불러오기", metadata);
+        const owner = await Instance.methods.ownerOf(i + 1).call();
+        console.log(param);
+        if (metadata.properties.image.description == param) {
+          console.log("떠라");
+          collection = [
+            {
+              id: i + 1,
+              title: metadata.properties.name.description,
+              img: metadata.properties.image.description,
+              owner: owner,
+            },
+            ...collection,
+          ];
+        }
+      } catch {
+        console.error("Something went wrong");
+      }
+    }
+    return collection;
+  }
+}
+
+async function getOffer(param) {
   const Instance = await getBuyMethodContract();
 
   if (Instance) {
@@ -890,23 +969,22 @@ async function getOffer() {
 
     const offerCount = await Instance.methods.offerCount().call();
 
+    console.log(offerCount);
     let offers = [];
     for (let i = 0; i < offerCount; i++) {
       const offer = await Instance.methods.offers(i + 1).call();
       offers.push(offer);
 
-      offers = offers
-        .map((offer) => {
-          offer.offerId = parseInt(offer.offerId);
-          offer.id = parseInt(offer.id);
-          offer.price = parseInt(offer.price);
-          return offer;
-        })
-        .filter(
-          (offer) => offer.fulfilled === false && offer.cancelled === false
-        );
-
-      return offers;
+      offers.map((offer) => {
+        offer.offerId = parseInt(offer.offerId);
+        offer.id = parseInt(offer.id);
+        offer.price = parseInt(offer.price);
+      });
+      // .filter(
+      //   (offer) => offer.fulfilled === false && offer.cancelled === false
+      // );
     }
+
+    return offers;
   }
 }

@@ -4,6 +4,7 @@ export * from "./buyDetail";
 export * from "./bestCollections";
 export * from "./music";
 export * from "./getBuy";
+export * from "./setBuy";
 export * from "./getOffer";
 export * from "./getWho";
 export * from "./getNFT";

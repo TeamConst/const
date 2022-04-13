@@ -77,6 +77,7 @@ const BuyDetail = () => {
   const data1 = useUser1();
   const data2 = useUser2();
 
+  console.log(data1);
   // const { data, isLoading, isFetching } = useQuery(["buyDetail"], () =>
   //   fetchBuySell(id)
   // );

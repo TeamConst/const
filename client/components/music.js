@@ -152,8 +152,29 @@ const Music = () => {
     pra = contract1;
     praaccounts = accounts1;
 
+    const metadata = {
+      title: "Asset Metadata",
+      type: "object",
+      properties: {
+        name: {
+          type: "string",
+          // description: enteredName,
+        },
+        description: {
+          type: "string",
+          // description: enteredDescription,
+        },
+        image: {
+          type: "string",
+          description: bu.path,
+        },
+      },
+    };
+
+    const metadataAdded = await ipfs.add(JSON.stringify(metadata));
+
     pra.methods
-      .safeMint(bu.path)
+      .safeMint(metadataAdded.path)
       .send({ from: praaccounts[0] })
       .on("transactionHash", (hash) => {
         console.log(hash);

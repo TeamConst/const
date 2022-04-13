@@ -6,9 +6,9 @@ import axios from "axios";
 // import contractJSON from "../../../build/contracts/NFTMarketplace.json";
 // import contractJSON from "../../../build/contracts/NFTCollection.json";
 
-const fetchOffer = async (param) => {
+const fetchSetBuy = async (param) => {
   // const parsed = await ky("http://localhost:3000/api/collections").json();
-  const data = await axios.post("http://localhost:8080/api/getOffer", {
+  const data = await axios.post("http://localhost:8080/api/setBuy", {
     name: param,
   });
 
@@ -33,4 +33,4 @@ const fetchOffer = async (param) => {
 //   return result;
 // };
 
-export { fetchOffer };
+export { fetchSetBuy };

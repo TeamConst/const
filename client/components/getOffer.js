@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import { fetchBuy } from "../hooks";
+import { fetchOffer } from "../hooks";
 
 const GetOffer = () => {
   const { data, isLoading, isFetching } = useQuery(["getOffer"], () =>
@@ -10,4 +10,5 @@ const GetOffer = () => {
 
   return <div>1</div>;
 };
+
 export default GetOffer;

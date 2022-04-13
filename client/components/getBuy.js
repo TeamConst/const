@@ -53,16 +53,14 @@ const GetBuy = () => {
     setOpen(false);
   };
 
-  let images;
-  let auctions;
   let a = 0;
-  let tokenID;
-  let status;
-
+  let buyData;
   let b;
   let c;
   if (data) {
-    console.log(data);
+    buyData = data.data;
+    console.log(buyData);
+    a = 1;
     //   // 컨트랙트 자체를 수정해야 하긴 하는데
     //   // 일단은 클라이언트에서 처리하는 식으로도 한번 해보겠음
     //   images = data.data.image;
@@ -73,7 +71,7 @@ const GetBuy = () => {
     //     21,
     //     data.data.image[0].tokenURI.length
     //   );
-    //   c = `https://const123.s3.ap-northeast-2.amazonaws.com/image/${b}.jpg`;
+    // c = `https://const123.s3.ap-northeast-2.amazonaws.com/image/${b}.jpg`;
     //   let image = data.data.image[0];
     //   let auction = data.data.auction[0];
     //   console.log(image);
@@ -109,52 +107,54 @@ const GetBuy = () => {
 
   return (
     <div>
-      <Link href={`/buysell/${encodeURIComponent(a.Key)}`}></Link>
-      {/* {a === 1 ? (
-        <ThemeProvider theme={theme}>
-          <Container sx={{ py: 8 }} maxWidth="md">
-            <Grid container spacing={4}>
-              <Grid item key={a.Key} xs={12} sm={6} md={4}>
-                <Card
-                  sx={{
-                    height: "100%",
-                    display: "flex",
-                    flexDirection: "column",
-                  }}
-                >
-                  <CardMedia
-                    component="img"
-                    sx={{
-                      // 16:9
-                      pt: "56.25%",
-                    }}
-                    image={c}
-                    alt="random"
-                  />
-                  <CardContent sx={{ flexGrow: 1 }}>
-                    ID
-                    <Typography>{image.tokenID}</Typography>
-                    NAME
-                    <Typography>{image.tokenName}</Typography>
-                    현재 경매가
-                    <Typography>{auction.highestBid}</Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button size="small">View</Button>
-                    <Button size="small">Edit</Button>
-                  </CardActions>
-                </Card>
-              </Grid>
-            </Grid>
-          </Container>
-        </ThemeProvider>
-      ) : (
-        // <div>{JSON.stringify(data)}</div>
-        <div>
-          <h1>아님</h1>
-        </div>
-      )} */}
-      1
+      <ThemeProvider theme={theme}>
+        <Container sx={{ py: 8 }} maxWidth="md">
+          <Grid container spacing={4}>
+            {a === 1 ? (
+              buyData.map((a) => (
+                <Link href={`/buy/${encodeURIComponent(a.img)}`}>
+                  <Grid item key={a.img} xs={12} sm={6} md={4}>
+                    <Card
+                      sx={{
+                        height: "100%",
+                        display: "flex",
+                        flexDirection: "column",
+                      }}
+                    >
+                      <CardMedia
+                        component="img"
+                        sx={{
+                          // 16:9
+                          pt: "56.25%",
+                        }}
+                        image={c}
+                        alt="random"
+                      />
+                      <CardContent sx={{ flexGrow: 1 }}>
+                        ID
+                        <Typography>{a.id}</Typography>
+                        CID
+                        <Typography>{a.img}</Typography>
+                        Owner
+                        <Typography>{a.owner}</Typography>
+                      </CardContent>
+                      <CardActions>
+                        <Button size="small">View</Button>
+                        <Button size="small">Edit</Button>
+                      </CardActions>
+                    </Card>
+                  </Grid>
+                </Link>
+              ))
+            ) : (
+              // <div>{JSON.stringify(data)}</div>
+              <div>
+                <h1>아님</h1>
+              </div>
+            )}
+          </Grid>
+        </Container>
+      </ThemeProvider>
     </div>
   );
 
