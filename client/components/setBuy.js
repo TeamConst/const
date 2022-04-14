@@ -65,7 +65,7 @@ const SetBuy = () => {
     const accounts2 = await web3.eth.getAccounts();
     console.log("hi");
     console.log(accounts2[0]);
-    계정번경(accounts2[0]);
+    계정변경(accounts2[0]);
   }
 
   // if (data1.data && data2.data) {
@@ -106,11 +106,15 @@ const SetBuy = () => {
     // offerId : 전체 오퍼한 개수 중 내 작품의 순번
     // _id : 전체 상품들 나열 중 내 작품의 번호 가져옴
 
+    console.log("일단");
+    console.log(buyData[0].id);
     for (let i = 0; i < offerData.length; i++) {
+      console.log("여기");
       if (offerData[i].id == buyData[0].id) {
+        console.log("뜨나");
         console.log(offerData[i]);
         pra2.methods
-          .fillOffer(offerData[i].id)
+          .fillOffer(offerData[i].offerId)
           .send({
             from: praaccounts[0],
             value: offerData[i].price,
@@ -154,7 +158,7 @@ const SetBuy = () => {
       if (offerData[i].id == buyData[0].id) {
         console.log(offerData[i]);
         pra2.methods
-          .cancelOffer(offerData[i].id)
+          .cancelOffer(offerData[i].offerId)
           .send({
             from: praaccounts[0],
           })
@@ -166,6 +170,31 @@ const SetBuy = () => {
           });
       }
     }
+  };
+
+  const claimFundsHandler = async () => {
+    let pra2;
+    let praaccounts;
+    const accounts1 = await web3.eth.getAccounts();
+    const networkId1 = await web3.eth.net.getId();
+
+    const deployedAddress2 = marketContractJSON.networks[networkId1].address;
+    const contract2 = new web3.eth.Contract(
+      marketContractJSON.abi,
+      deployedAddress2
+    );
+    pra2 = contract2;
+    praaccounts = accounts1;
+
+    pra2.methods
+      .claimFunds()
+      .send({ from: praaccounts[0] })
+      .on("transactionHash", (hash) => {
+        console.log("해쉬해쉬", hash);
+      })
+      .on("error", (error) => {
+        window.alert("Something went wrong when pushing to the blockchain");
+      });
   };
 
   const {
@@ -231,6 +260,9 @@ const SetBuy = () => {
   return (
     <div>
       1
+      <button onClick={claimFundsHandler} className="btn btn-success">
+        느그 돈 받아가랑
+      </button>
       {a === 1 && 계정 === buyData[0].owner ? (
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="col-5 d-grid gap-2">
