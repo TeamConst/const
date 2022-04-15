@@ -193,6 +193,12 @@ const Music = () => {
     // form.append("CID", bu.path);
 
     const rere = await axios.post("http://localhost:8080/api/mint", form);
+
+    const mintby = accounts[0];
+    const rere2 = await axios.post("http://localhost:8080/api/auction", {
+      mintby: mintby,
+      CID: bu.path,
+    });
   };
   // console.log(errors);
 

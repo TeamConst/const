@@ -11,3 +11,5 @@ export * from "./getNFT";
 export * from "./getAuction";
 export * from "./getContract";
 export * from "./getBuyDataContract";
+export * from "./Auctiondata";
+export * from "./UdateAuc";

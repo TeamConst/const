@@ -232,6 +232,7 @@ app.prepare().then(() => {
   const Music = require("./models/music");
   // const User = require("./models/user");
   const Auction = require("./models/auction");
+  const AuctionData = require("./models/auctiondata");
   const MyMusic = require("./models/mymusic");
 
   server.post("/api/mint", async (req, res) => {
@@ -525,6 +526,20 @@ app.prepare().then(() => {
     res.send("업하트 오케");
   });
 
+  server.post("/api/AuctionData", async (req, res) => {
+    // const result = await Music.findAll();
+    // const data = await Music.findOne({ title: req.body.name });
+    // res.json(data);
+    const title = Object.keys(req.body);
+    const read = await AuctionData.findOne({ where: { title: title } });
+    await AuctionData.update(
+      { Auction: read.Auction },
+      { where: { title: title } }
+    );
+
+    res.send("옥션데이터 오케");
+  });
+
   // 구매, 판매 페이지 입장시
   server.post("/api/buydetail", async (req, res) => {
     const a = req.body.name.split("/");
@@ -613,10 +628,66 @@ app.prepare().then(() => {
     res.json(abc);
   });
 
-  server.get("/api/getAuction", async (req, res) => {
-    // const NFTInstance = await getAuctionContract();
-    const abc = await getAll();
-    res.json(abc);
+  // 구매, 판매 페이지 입장시
+  server.post("/api/buysell", async (req, res) => {
+    console.log(req.body);
+    console.log(req.body.name);
+    const a = req.body.name.split("/");
+    const b = a[1];
+    const c = b.split(".");
+
+    // 경매 불러와야대
+    const mu = await Music.findOne({ where: { title: c } });
+    const ac = await Auction.findOne({ where: { title: c } });
+
+    console.log(mu, ac);
+    const result = { ...mu, ...ac };
+
+    // const data = await Music.findOne({ title: req.body.name });
+    res.json(result);
+  });
+
+  // 구매, 판매 페이지 입장시
+  server.post("/api/auction", async (req, res) => {
+    console.log(req.body);
+    try {
+      const data = await AuctionData.create({
+        mintby: req.body.mintby,
+        CID: req.body.CID,
+      });
+      res.send("회원가입 완료");
+    } catch (err) {
+      console.log("회원가입 오류");
+    }
+  });
+
+  server.get("/api/getauction", async (req, res) => {
+    const result = await AuctionData.findAll();
+    // const data = await Music.findOne({ title: req.body.name });
+    // res.json(data);
+
+    res.json(result);
+  });
+
+  server.post("/api/updateauction", async (req, res) => {
+    console.log(req.body.mintby);
+    console.log(req.body.CID);
+
+    try {
+      const updateCondition = await AuctionData.update(
+        {
+          mintby: req.body.mintby,
+        },
+        {
+          where: { CID: req.body.CID },
+        }
+      );
+
+      res.status(200).json({ success: true, updateCondition });
+    } catch (error) {
+      console.error(error);
+      return res.status(400).send(err);
+    }
   });
 
   server.get("/api/getContract", async (req, res) => {
