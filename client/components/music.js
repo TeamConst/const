@@ -71,13 +71,13 @@ const Music = () => {
   } = useForm();
   const onSubmit = async (data) => {
     // 소켓 처리
-    const socketClient = io("http://localhost:3000");
+    // const socketClient = io("http://localhost:3000");
 
-    socketClient.on("connect", () => {
-      console.log("쎾쓰");
-      console.log("connection server");
-    });
-    socketClient.emit("successAuction");
+    // socketClient.on("connect", () => {
+    //   console.log("쎾쓰");
+    //   console.log("connection server");
+    // });
+    // socketClient.emit("successAuction");
 
     // CID 처리
     const ipfsClient = require("ipfs-http-client");
