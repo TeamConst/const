@@ -178,7 +178,7 @@ const  bid = async () => {
 
   const onSubmit = async () => {
 
-    const mintby =image.mintedBy
+    const mintby =image.currentOwner
     console.log(str)
     const str2=str
   const rere = await axios.post("http://localhost:8080/api/updateauction", {mintby:mintby,CID:str2});

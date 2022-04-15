@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 import { useQuery } from "react-query";
 import { fetchBestCollections } from "../hooks";
 import { fetchAuctiondata } from "../hooks";
-import { useState, useEffect } from "react";
+import { useState, useEffect,useCallback } from "react";
 import AudioPlayer from "react-h5-audio-player";
 import MintedImages from "../components/MintedImages"
 import { withRouter } from 'next/router';
@@ -54,7 +54,7 @@ const Market = (props) => {
   const [lastMintTime, setLastMintTime] = useState(null);
   const [Auctions,setAuctions] = useState([]);
   const [currentTime, setCurrentTime] = useState(null);
-  const [ready, setReady] = useState(false);
+  const [ready, setReady] = useState("");
   const [ImagesId, setImagesId] = useState([]);
 
 
@@ -107,13 +107,16 @@ const Market = (props) => {
           let image = await NFTMarketplaceInstance.methods
             .imageStorage(i)
             .call();
+            console.log(image)
+            console.log(image.mintedBy)
           setImages(Images => [...Images, image] );
-          setImagesId(image[3])
+        setImagesId(image.currentOwner)
           console.log(...Images,image[3])
           let auction = await NFTMarketplaceInstance.methods
             .auctions(i)
             .call();
-          setAuctions(Auctions =>[...Auctions,auction]);
+          setAuctions(Auctions =>[...Auctions,auction]); 
+           
           console.log(auction.endTime);
         }
         let ImageNumOfAccount = await NFTMarketplaceInstance.methods
@@ -144,61 +147,69 @@ const Market = (props) => {
 		
 	}
 
-
-      
-(async function componentWillMount(){
-	if (b == true) {
-		setReady(false);
-		setupWeb3();
-		setupBlockchain();
-    tick()
-	  }
-}());
- 
-
-const router = useRouter()
+ const router = useRouter()
   const { id } = router.query;
   const { add } = router.query;
   const [이미지, 이미지변경] = useState();
 console.log({ id })
 console.log({add})
-  useEffect(() => {
-    이미지변경(`https://const123.s3.ap-northeast-2.amazonaws.com/${id}`);
-
-
-  }, [id]);
-
+ 
   const fromDb = id;
   let str = fromDb || `${id}`;
 
 console.log(str.slice(6,52))
 str = str.slice(6,52)
 console.log(str)
-  // const [musi,setMusi] = useState("");
-
-  const {data ,isLoading, isFetching} = useQuery(["Auctiondata"], () =>
-  fetchAuctiondata()
-); 
-console.log(data)
-
-
-
+ 
+    const {data ,isLoading, isFetching} = useQuery(["Auctiondata"], () =>
+    fetchAuctiondata()
+  ); 
   
-// useEffect(()=>{
-//   let musics;
+useEffect(() => {
+    이미지변경(`https://const123.s3.ap-northeast-2.amazonaws.com/${id}`);
+
+
+  }, [id]);
+(async function componentWillMount(){
+	if (b == true) {
+		// setReady(false);
+		setupWeb3();
+		setupBlockchain();
+    tick()
+ 
    
-//   musics = data.data
-//   console.log(musics)
-  
-//     const newNotes = musics.filter((music) =>{if(music.CID ===str){
-//      console.log(music.CID);
-//          }});
-//     console.log(newNotes);   
-  
-//   console.log(musi)
 
-// },[])
+ 
 
+
+  
+
+
+    
+	  }
+}());
+ 
+
+// const router = useRouter()
+//   const { id } = router.query;
+//   const { add } = router.query;
+//   const [이미지, 이미지변경] = useState();
+// console.log({ id })
+// console.log({add})
+//   useEffect(() => {
+//     이미지변경(`https://const123.s3.ap-northeast-2.amazonaws.com/${id}`);
+
+
+//   }, [id]);
+//   const fromDb = id;
+//   let str = fromDb || `${id}`;
+
+// console.log(str.slice(6,52))
+// str = str.slice(6,52)
+// console.log(str)
+
+
+console.log(Auctions)
 const [음악, 음악변경] = useState();
 const changeMusic = async (str) => {
   console.log(str);
@@ -206,13 +217,30 @@ const changeMusic = async (str) => {
   console.log(`https://ipfs.io/ipfs/${str}`);
   
 }
+let musics;
+let a = 0;
+let mintby=[];
+console.log(data)
+if (data) {
+  a = 1;
+  musics = data.data;
+  console.log(musics)
+  for(let i=0; i < musics.length;i++){
+    if(musics[i].CID === str){
+      mintby[i] = musics[i].mintby
+    }
+  }
+}
 
+
+
+// console.log(musics2[0].mintedBy)
 const myImages = Images.filter(
   
   (image) => image.currentOwner === accountAddress && image.tokenURI === `https://ipfs.io/ipfs/${str}`);
   const allImages = Images.filter(
   
-    (image) => image.currentOwner !== accountAddress &&accountAddress&& image.tokenURI === `https://ipfs.io/ipfs/${str}`);
+    (image) =>  image.status != 0 && accountAddress&&image.tokenURI=== `https://ipfs.io/ipfs/${str}`);
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -220,9 +248,9 @@ const Item = styled(Paper)(({ theme }) => ({
   textAlign: 'center',
 }));
 
-
-console.log(musi)
-  if(accountAddress!==musi){
+console.log(ImagesId)
+// console.log(musi)
+  if(accountAddress===ImagesId){
  return (   
   <div>
   <ThemeProvider theme={theme}>
@@ -254,6 +282,7 @@ console.log(musi)
 }else{
 return(
   <div>
+    <div></div>
   <ThemeProvider theme={theme}>
 
 
@@ -261,6 +290,7 @@ return(
     <div>      {allImages.map((image) => {
           return (
             <Item key={image.tokenID}>
+              
               <Market2
                 tokenID={image.tokenID}
                 image={image}
