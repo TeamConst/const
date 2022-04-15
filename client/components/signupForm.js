@@ -126,6 +126,25 @@ const SignupForm = () => {
               </Grid>
 
               <Grid item xs={12}>
+                <TextField
+                  autoComplete="given-name"
+                  name="ArtistName"
+                  fullWidth
+                  id="artistName"
+                  label="Artist Name"
+                  autoFocus
+                  {...register("address", {
+                    required: true,
+                    maxLength: 80,
+                  })}
+                />
+                <Typography component="h1" variant="h5">
+                  메타마스크 계정이 있을 경우 입력해 주세요. 미입력시 메타마스크
+                  계정이 자동 생성되어 저장됩니다.
+                </Typography>
+              </Grid>
+
+              <Grid item xs={12}>
                 <FormControlLabel
                   control={
                     <Checkbox value="allowExtraEmails" color="primary" />

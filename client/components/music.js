@@ -359,6 +359,7 @@ const Music = () => {
                           {...register("musics", {
                             required: true,
                           })}
+                          accept="audio/*"
                           type="file"
                         ></input>
                       </Box>
