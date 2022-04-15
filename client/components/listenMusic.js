@@ -59,6 +59,7 @@ const ListenMusic = () => {
     a = 1;
   }
 
+  console.log(musics);
   useEffect(() => {}, []);
 
   const changeMusic = async (data) => {
@@ -75,6 +76,12 @@ const ListenMusic = () => {
       "http://localhost:8080/api/upLike",
       data
     );
+
+    const myPlayCount = await axios.post(
+      "http://localhost:8080/api/myPlayCount",
+      data
+    );
+
     console.log(upLikeResult);
   };
 
@@ -102,11 +109,11 @@ const ListenMusic = () => {
                         changeMusic(a.CID);
                       }}
                     >
-                      {a.title}
+                      {a.CID}
                     </TableCell>
                     <TableCell
                       onClick={() => {
-                        upLike(a.title);
+                        upLike(a.CID);
                       }}
                     >
                       {a.LikeMusic}

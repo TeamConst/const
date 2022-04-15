@@ -71,13 +71,13 @@ const Music = () => {
   } = useForm();
   const onSubmit = async (data) => {
     // 소켓 처리
-    const socketClient = io("http://localhost:3000");
+    // const socketClient = io("http://localhost:3000");
 
-    socketClient.on("connect", () => {
-      console.log("쎾쓰");
-      console.log("connection server");
-    });
-    socketClient.emit("successAuction");
+    // socketClient.on("connect", () => {
+    //   console.log("쎾쓰");
+    //   console.log("connection server");
+    // });
+    // socketClient.emit("successAuction");
 
     // CID 처리
     const ipfsClient = require("ipfs-http-client");
@@ -127,7 +127,6 @@ const Music = () => {
     gg.title = data.title;
     const qq = await web3.eth.getAccounts();
     gg.address = qq[0];
-
     // const resultGG = await axios.post("http://localhost:8080/api/mint/gg", gg);
 
     // 컨트랙트 처리부분
@@ -170,7 +169,6 @@ const Music = () => {
         },
       },
     };
-
     const metadataAdded = await ipfs.add(JSON.stringify(metadata));
 
     pra.methods
@@ -178,11 +176,9 @@ const Music = () => {
       .send({ from: praaccounts[0] })
       .on("transactionHash", (hash) => {
         console.log(hash);
-        // pra.setNftIsLoading(true);
       })
       .on("error", (e) => {
         window.alert("Something went wrong when pushing to the blockchain");
-        // pra.setNftIsLoading(false);
       });
 
     // 한번에
@@ -191,16 +187,15 @@ const Music = () => {
     form.append("musics", musics);
     form.append("db", JSON.stringify(gg));
     // form.append("CID", bu.path);
+    const allMinting = await axios.post("http://localhost:8080/api/mint", form);
 
-    const rere = await axios.post("http://localhost:8080/api/mint", form);
-
+    // 옥션 로컬 db 저장
     const mintby = accounts[0];
     const rere2 = await axios.post("http://localhost:8080/api/auction", {
       mintby: mintby,
       CID: bu.path,
     });
   };
-  // console.log(errors);
 
   // 이미지 변경에 대한 처리
   const [이미지, 이미지변경] = useState();

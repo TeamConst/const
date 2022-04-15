@@ -7,7 +7,10 @@ module.exports = class Music extends Sequelize.Model {
         address: {
           type: Sequelize.STRING(45),
           allowNull: false,
-          primaryKey: true,
+        },
+        s3: {
+          type: Sequelize.STRING(200),
+          allowNull: true,
         },
         title: {
           type: Sequelize.STRING(45),
@@ -54,22 +57,9 @@ module.exports = class Music extends Sequelize.Model {
         },
         CID: {
           type: Sequelize.STRING(100),
-          allowNull: true,
-        },
-        sellCount: {
-          type: Sequelize.INTEGER,
-          allowNull: true,
-          defaultValue: 0,
-        },
-        sellComplete: {
-          type: Sequelize.BOOLEAN,
           allowNull: false,
-          defaultValue: false,
-        },
-        auctionComplete: {
-          type: Sequelize.BOOLEAN,
-          allowNull: false,
-          defaultValue: false,
+          defaultValue: "NotYetUpdate",
+          primaryKey: true,
         },
       },
       {
@@ -86,6 +76,10 @@ module.exports = class Music extends Sequelize.Model {
     db.Music.belongsTo(db.User, {
       foreignKey: "address",
       targetKey: "address",
+    });
+    db.Music.hasMany(db.BuyMusic, {
+      foreignKey: "CID",
+      targetKey: "CID",
     });
   }
 };

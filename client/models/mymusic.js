@@ -7,7 +7,11 @@ module.exports = class MyMusic extends Sequelize.Model {
         address: {
           type: Sequelize.STRING(45),
           allowNull: false,
-          primaryKey: true,
+        },
+        CID: {
+          type: Sequelize.STRING(100),
+          allowNull: false,
+          defaultValue: "NotYetUpdate",
         },
         // user, music 연동하고
         myplayTime: {
@@ -19,6 +23,10 @@ module.exports = class MyMusic extends Sequelize.Model {
           type: Sequelize.INTEGER,
           allowNull: true,
           defaultValue: 0,
+        },
+        myfavoriteMusic: {
+          type: Sequelize.STRING(45),
+          allowNull: true,
         },
       },
       {

@@ -62,7 +62,7 @@ const style2 = {
   p: 4,
 };
 
-const ConfigBuy = () => {
+const ConfigBuy = (props) => {
   const [buy, setBuy] = React.useState(false);
 
   const buyOpen = () => setBuy(true);
@@ -103,18 +103,18 @@ const ConfigBuy = () => {
     const enteredPrice = web3.utils.toWei(data.price, "ether");
     console.log(praaccounts[0]);
     // 바이데이터아이디는 내 작품의 전체 순번
-    console.log(buyData[0].id);
+    // console.log(buyData[0].id);
     console.log(pra2.options.address);
 
     await pra.methods
-      .approve(pra2.options.address, buyData[0].id)
+      .approve(pra2.options.address, props.props.id)
       .send({ from: praaccounts[0] })
       .on("transactionHash", (hash) => {
         console.log("해시해시", hash);
       })
       .on("receipt", (receipt) => {
         pra2.methods
-          .makeOffer(buyData[0].id, enteredPrice)
+          .makeOffer(props.props.id, enteredPrice)
           .send({ from: praaccounts[0] })
           .on("transactionHash", (hash) => {
             console.log("해시해시", hash);
@@ -124,16 +124,12 @@ const ConfigBuy = () => {
           });
       });
 
-    // 바이
-
     // 캔슬
   };
 
   return (
     <div>
       <Button onClick={buyOpen}>판매 시작하기</Button>
-
-      {/* <Button onClick={endBuy}>판매 종료하기</Button> */}
 
       <Modal
         hideBackdrop
@@ -143,7 +139,7 @@ const ConfigBuy = () => {
         aria-describedby="child-modal-description"
       >
         <Box sx={{ ...style2, width: 200 }}>
-          <h2 id="child-modal-title">Text in a child modal</h2>
+          <h2 id="child-modal-title">구매구매 랄라</h2>
 
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="col-5 d-grid gap-2">
@@ -164,7 +160,7 @@ const ConfigBuy = () => {
             </div>
           </form>
 
-          <Button onClick={buyClose}>Close Child Modal</Button>
+          <Button onClick={buyClose}>닫기</Button>
         </Box>
       </Modal>
 
@@ -178,6 +174,84 @@ const ConfigBuy = () => {
     </div>
   );
 };
+
+// // 캔슬은 일단 주석
+// const ConfigEndBuy = (props) => {
+//   const [buy, setBuy] = React.useState(false);
+
+//   const buyOpen = () => setBuy(true);
+//   const buyClose = () => setBuy(false);
+
+//   // 캔슬은 일단 주석처리
+//   const cancelHandler = async (event) => {
+//     // 컨트랙트
+//     // buy contract
+
+//     let pra;
+//     let praaccounts;
+//     const accounts1 = await web3.eth.getAccounts();
+//     const networkId1 = await web3.eth.net.getId();
+//     const deployedAddress1 =
+//       collectionContractJSON.networks[networkId1].address;
+//     const contract1 = new web3.eth.Contract(
+//       collectionContractJSON.abi,
+//       deployedAddress1
+//     );
+//     pra = contract1;
+//     praaccounts = accounts1;
+//     let pra2;
+//     const deployedAddress2 = marketContractJSON.networks[networkId1].address;
+//     const contract2 = new web3.eth.Contract(
+//       marketContractJSON.abi,
+//       deployedAddress2
+//     );
+//     pra2 = contract2;
+//     for (let i = 0; i < offerData.length; i++) {
+//       if (offerData[i].id == buyData[0].id) {
+//         console.log(offerData[i]);
+//         pra2.methods
+//           .cancelOffer(offerData[i].offerId)
+//           .send({
+//             from: praaccounts[0],
+//           })
+//           .on("transactionHash", (hash) => {
+//             console.log("해시해시", hash);
+//           })
+//           .on("error", (error) => {
+//             window.alert("Something went wrong when pushing to the blockchain");
+//           });
+//       }
+//     }
+//   };
+
+//   return (
+//     <div>
+//       <Button onClick={buyOpen}>판매 종료하기</Button>
+
+//       <Modal
+//         hideBackdrop
+//         open={buy}
+//         onClose={buyClose}
+//         aria-labelledby="child-modal-title"
+//         aria-describedby="child-modal-description"
+//       >
+//         <Box sx={{ ...style2, width: 200 }}>
+//           <h2 id="child-modal-title">구매구매 끝 랄라</h2>
+
+//           <div className="row">
+//             <div className="d-grid gap-2 col-5 mx-auto">
+//               <button onClick={cancelHandler} className="btn btn-danger">
+//                 CANCEL
+//               </button>
+//             </div>
+//           </div>
+
+//           <Button onClick={buyClose}>닫기</Button>
+//         </Box>
+//       </Modal>
+//     </div>
+//   );
+// };
 
 const ConfigAuction = () => {
   const [auction, setAuction] = React.useState(false);
@@ -197,10 +271,10 @@ const ConfigAuction = () => {
       >
         <div>
           <Box sx={{ ...style, width: 200 }}>
-            <h2 id="child-modal-title">Text in a child modal</h2>
+            <h2 id="child-modal-title">라랄라</h2>
           </Box>
 
-          <Button onClick={auctionClose}></Button>
+          <Button onClick={auctionClose}>닫기</Button>
         </div>
       </Modal>
     </div>
@@ -239,50 +313,14 @@ const GetMyBuy = () => {
   }
 
   console.log(buyData);
-  // 캔슬은 일단 주석처리
-  const cancelHandler = async (event) => {
-    //   // 컨트랙트
-    //   // buy contract
-    //   let pra;
-    //   let praaccounts;
-    //   const accounts1 = await web3.eth.getAccounts();
-    //   const networkId1 = await web3.eth.net.getId();
-    //   const deployedAddress1 =
-    //     collectionContractJSON.networks[networkId1].address;
-    //   const contract1 = new web3.eth.Contract(
-    //     collectionContractJSON.abi,
-    //     deployedAddress1
-    //   );
-    //   pra = contract1;
-    //   praaccounts = accounts1;
-    //   let pra2;
-    //   const deployedAddress2 = marketContractJSON.networks[networkId1].address;
-    //   const contract2 = new web3.eth.Contract(
-    //     marketContractJSON.abi,
-    //     deployedAddress2
-    //   );
-    //   pra2 = contract2;
-    //   for (let i = 0; i < offerData.length; i++) {
-    //     if (offerData[i].id == buyData[0].id) {
-    //       console.log(offerData[i]);
-    //       pra2.methods
-    //         .cancelOffer(offerData[i].offerId)
-    //         .send({
-    //           from: praaccounts[0],
-    //         })
-    //         .on("transactionHash", (hash) => {
-    //           console.log("해시해시", hash);
-    //         })
-    //         .on("error", (error) => {
-    //           window.alert("Something went wrong when pushing to the blockchain");
-    //         });
-    //     }
-    //   }
-  };
 
   const [open, setOpen] = React.useState(false);
+  const [모달데이터, 모달데이터변경] = useState();
 
-  const handleOpen = () => setOpen(true);
+  const handleOpen = (data) => {
+    모달데이터변경(data);
+    setOpen(true);
+  };
   const handleClose = () => setOpen(false);
 
   return (
@@ -297,11 +335,12 @@ const GetMyBuy = () => {
       >
         <div>
           <Box>
-            <ConfigBuy></ConfigBuy>
+            <ConfigBuy props={모달데이터}></ConfigBuy>
           </Box>
-          {/* <Button onClick={buyOpen}>판매하기</Button> */}
-          {/* <Button onClick={auctionOpen}>경매하기</Button> */}
-          <Box width={800}>
+          {/* <Box>
+            <ConfigEndBuy></ConfigEndBuy>
+          </Box> */}
+          <Box>
             <ConfigAuction></ConfigAuction>
           </Box>
 
@@ -343,7 +382,7 @@ const GetMyBuy = () => {
                     <CardActions>
                       <Button size="small">View</Button>
                       <Button size="small">Edit</Button>
-                      <Button onClick={handleOpen}>Open modal</Button>
+                      <Button onClick={() => handleOpen(a)}>Open modal</Button>
                     </CardActions>
                   </Card>
                 </Grid>
@@ -361,11 +400,5 @@ const GetMyBuy = () => {
     </div>
   );
 };
-// const startBuy = () => {
-//   console.log("make offer");
-// };
-// const endBuy = () => {
-//   console.log("cancle offer");
-// };
 
 export default GetMyBuy;

@@ -8,13 +8,12 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useRouter } from "next/router";
 import { useQuery } from "react-query";
 import { useForm } from "react-hook-form";
-import { fetchBuyDB, fetchSetBuy, fetchOffer } from "../hooks";
+import { fetchSetBuy, fetchOffer } from "../hooks";
 import { useState, useEffect } from "react";
 
 import web3 from "./connection/web3";
 import collectionContractJSON from "../../build/contracts/NFTCollection.json";
 import marketContractJSON from "../../build/contracts/NFTMarketplace.json";
-import { ConfigService } from "aws-sdk";
 
 const theme = createTheme();
 
@@ -30,14 +29,9 @@ const SetBuy = () => {
     const result = useQuery(["getOffer"], () => fetchOffer(id));
     return result;
   };
-  const useUser3 = () => {
-    const result = useQuery(["getBuyDB"], () => fetchBuyDB(id));
-    return result;
-  };
 
   const data1 = useUser1();
   const data2 = useUser2();
-  const data3 = useUser3();
 
   const [이미지, 이미지변경] = useState();
 
@@ -62,14 +56,6 @@ const SetBuy = () => {
     offerData = data2.data.data;
   }
 
-  let c = 0;
-  let buyDB;
-  if (data3.data) {
-    c = 1;
-    buyDB = data3.data.data;
-  }
-
-  console.log(buyDB);
   // 클라이언트 처리
   const [계정, 계정변경] = useState();
 
@@ -82,6 +68,8 @@ const SetBuy = () => {
     계정변경(accounts2[0]);
   }
 
+  // if (data1.data && data2.data) {
+  // }
   useEffect(() => {
     getGlobalAccounts();
   }, []);
@@ -275,159 +263,180 @@ const SetBuy = () => {
       <button onClick={claimFundsHandler} className="btn btn-success">
         느그 돈 받아가랑
       </button>
-      얘는 취소 처리 할 수 있는 메서드
-      <div className="row">
-        <div className="d-grid gap-2 col-5 mx-auto">
-          <button onClick={cancelHandler} className="btn btn-danger">
-            CANCEL
-          </button>
+      {a === 1 && 계정 === buyData[0].owner ? (
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="col-5 d-grid gap-2">
+            <button type="submit" className="btn btn-secondary">
+              OFFER
+            </button>
+          </div>
+          <div className="col-7">
+            <input
+              {...register("price", {
+                required: true,
+              })}
+              type="number"
+              step="0.01"
+              placeholder="ETH..."
+              className="form-control"
+            ></input>
+          </div>
+        </form>
+      ) : (
+        <div className="row">
+          <div className="d-grid gap-2 col-5 mx-auto">
+            <button onClick={buyHandler} className="btn btn-success">
+              BUY
+            </button>
+          </div>
+          <div className="row">
+            <div className="d-grid gap-2 col-5 mx-auto">
+              <button onClick={cancelHandler} className="btn btn-danger">
+                CANCEL
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
+      )}
       <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
         버튼버튼
       </Button>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Container maxWidth="lg">
-          {a === 1 && c === 1 ? (
-            buyData.map((a) => (
-              <Grid container spacing={5}>
-                <Grid item xs={6}>
-                  <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                    사진
-                    <img src={이미지} height="300" width="300"></img>
-                  </Box>
-                </Grid>
+          <main>
+            <Grid container spacing={5}>
+              <Grid item xs={6}>
+                <Box bgcolor="info.main" color="info.contrastText" p={2}>
+                  사진
+                  <img src={이미지} height="300" width="300"></img>
+                </Box>
+              </Grid>
 
-                <Grid item xs={6}>
-                  <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                      <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                        제목{buyDB.title}
-                      </Box>
-                    </Grid>
-                    <Grid item xs={4}>
-                      <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                        판매자{a.owner}
-                      </Box>
-                    </Grid>
-                    <Grid item xs={4}>
-                      <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                        조회수{buyDB.playCount}
-                      </Box>
-                    </Grid>
-                    <Grid item xs={4}>
-                      <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                        좋아요{buyDB.LikeMusic}
-                      </Box>
-                    </Grid>
-                    <Grid item xs={12}>
-                      <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                        에디션
-                      </Box>
-                    </Grid>
-                    <Grid item xs={12}>
-                      <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                        가격
-                        {/* {buyDB.price} */}
-                      </Box>
-                    </Grid>
-                    <Grid item xs={4}>
-                      <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                        수량
-                      </Box>
-                    </Grid>
-
-                    {계정 === buyData[0].owner ? (
-                      <Grid item xs={4}>
-                        <form onSubmit={handleSubmit(onSubmit)}>
+              {a === 1 ? (
+                buyData.map((a) => (
+                  <div>
+                    <Grid item xs={6}>
+                      <Grid container spacing={2}>
+                        <Grid item xs={12}>
                           <Box
                             bgcolor="info.main"
                             color="info.contrastText"
                             p={2}
                           >
-                            <input
-                              {...register("price", {
-                                required: true,
-                              })}
-                              type="number"
-                              step="0.01"
-                              placeholder="ETH..."
-                              className="form-control"
-                            ></input>
-
-                            <Button
-                              type="sumit"
-                              fullWidth
-                              variant="contained"
-                              sx={{ mt: 3, mb: 2 }}
-                            >
-                              오퍼하기
-                            </Button>
+                            제목{a.img}
                           </Box>
-                        </form>
-                      </Grid>
-                    ) : (
-                      <Grid item xs={4}>
-                        <Box
-                          bgcolor="info.main"
-                          color="info.contrastText"
-                          p={2}
-                        >
-                          <Button
-                            onClick={buyHandler}
-                            fullWidth
-                            variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
+                        </Grid>
+                        <Grid item xs={4}>
+                          <Box
+                            bgcolor="info.main"
+                            color="info.contrastText"
+                            p={2}
                           >
-                            구매하기
-                          </Button>
-                        </Box>
+                            판매자{a.img}
+                          </Box>
+                        </Grid>
+                        <Grid item xs={4}>
+                          <Box
+                            bgcolor="info.main"
+                            color="info.contrastText"
+                            p={2}
+                          >
+                            조회수{a.img}
+                          </Box>
+                        </Grid>
+                        <Grid item xs={4}>
+                          <Box
+                            bgcolor="info.main"
+                            color="info.contrastText"
+                            p={2}
+                          >
+                            좋아요{a.img}
+                          </Box>
+                        </Grid>
+                        <Grid item xs={12}>
+                          <Box
+                            bgcolor="info.main"
+                            color="info.contrastText"
+                            p={2}
+                          >
+                            에디션
+                          </Box>
+                        </Grid>
+                        <Grid item xs={12}>
+                          <Box
+                            bgcolor="info.main"
+                            color="info.contrastText"
+                            p={2}
+                          >
+                            가격 옥션에 대한 db 추가해야함
+                          </Box>
+                        </Grid>
+                        <Grid item xs={4}>
+                          <Box
+                            bgcolor="info.main"
+                            color="info.contrastText"
+                            p={2}
+                          >
+                            수량
+                          </Box>
+                        </Grid>
+                        <Grid item xs={4}>
+                          <Box
+                            bgcolor="info.main"
+                            color="info.contrastText"
+                            p={2}
+                          >
+                            구매
+                          </Box>
+                        </Grid>
+                        <Grid item xs={4}>
+                          <Box
+                            bgcolor="info.main"
+                            color="info.contrastText"
+                            p={2}
+                          >
+                            선물
+                          </Box>
+                        </Grid>
                       </Grid>
-                    )}
-
-                    <Grid item xs={4}>
-                      <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                        선물
-                      </Box>
                     </Grid>
-                  </Grid>
-                </Grid>
+                  </div>
+                ))
+              ) : (
+                <div>
+                  <h1>아님</h1>
+                </div>
+              )}
 
-                <Grid item xs={6} sm={3}>
-                  <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                    디테일 정보
-                  </Box>
-                </Grid>
-                <Grid item xs={6} sm={3}>
-                  <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                    저장 정보
-                  </Box>
-                </Grid>
-                <Grid item xs={6} sm={3}>
-                  <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                    가격 그래프
-                  </Box>
-                </Grid>
-                <Grid item xs={6} sm={3}>
-                  <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                    빈칸
-                  </Box>
-                </Grid>
-
-                <Grid item xs={12}>
-                  <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                    여기에 연관 상품들 나열할 건데 이건 data fetch 하는 식이
-                    날듯?
-                  </Box>
-                </Grid>
+              <Grid item xs={6} sm={3}>
+                <Box bgcolor="info.main" color="info.contrastText" p={2}>
+                  디테일 정보
+                </Box>
               </Grid>
-            ))
-          ) : (
-            <div>
-              <h1>아님</h1>
-            </div>
-          )}
+              <Grid item xs={6} sm={3}>
+                <Box bgcolor="info.main" color="info.contrastText" p={2}>
+                  저장 정보
+                </Box>
+              </Grid>
+              <Grid item xs={6} sm={3}>
+                <Box bgcolor="info.main" color="info.contrastText" p={2}>
+                  가격 그래프
+                </Box>
+              </Grid>
+              <Grid item xs={6} sm={3}>
+                <Box bgcolor="info.main" color="info.contrastText" p={2}>
+                  빈칸
+                </Box>
+              </Grid>
+
+              <Grid item xs={12}>
+                <Box bgcolor="info.main" color="info.contrastText" p={2}>
+                  여기에 연관 상품들 나열할 건데 이건 data fetch 하는 식이 날듯?
+                </Box>
+              </Grid>
+            </Grid>
+          </main>
         </Container>
       </ThemeProvider>
     </div>

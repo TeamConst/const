@@ -8,7 +8,15 @@ module.exports = class User extends Sequelize.Model {
           allowNull: false,
           primaryKey: true,
         },
+        id2: {
+          type: Sequelize.STRING(45),
+          allowNull: false,
+        },
         artist: {
+          type: Sequelize.STRING(45),
+          allowNull: false,
+        },
+        password: {
           type: Sequelize.STRING(45),
           allowNull: false,
         },

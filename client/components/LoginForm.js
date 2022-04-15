@@ -42,17 +42,11 @@ const LoginForm = () => {
       const address = await web3.eth.getAccounts();
       data.address = address[0];
 
-      const result = await axios.post("http://localhost:8080/api/signup", data);
+      const result = await axios.post("http://localhost:8080/api/login", data);
       console.log(result);
     } catch (err) {
       console.log("회원가입 오류에연");
     }
-  };
-
-  const [value, setValue] = useState("");
-  const options = useMemo(() => countryList().getData(), []);
-  const changeHandler = (value) => {
-    setValue(value);
   };
 
   return (
@@ -74,16 +68,32 @@ const LoginForm = () => {
             <Typography component="h1" variant="h5">
               Login
             </Typography>
-            id하고 privateKey를 매칭을 시켜야하나?
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
-                  autoComplete="given-name"
-                  name="ArtistName"
+                  autoComplete="given-id"
+                  name="ArtistId"
                   required
                   fullWidth
-                  id="artistName"
-                  label="Artist Name"
+                  id="artistId"
+                  label="Artist Id"
+                  autoFocus
+                  {...register("id2", {
+                    required: true,
+                    maxLength: 80,
+                  })}
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <TextField
+                  autoComplete="given-password"
+                  name="ArtistPassword"
+                  required
+                  type="password"
+                  fullWidth
+                  id="artistPassword"
+                  label="Artist Password"
                   autoFocus
                   {...register("password", {
                     required: true,
@@ -92,6 +102,7 @@ const LoginForm = () => {
                 />
               </Grid>
             </Grid>
+
             <Button
               type="submit"
               fullWidth

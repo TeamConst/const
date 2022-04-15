@@ -42,10 +42,11 @@ const SignupForm = () => {
       const address = await web3.eth.getAccounts();
       data.address = address[0];
 
+      console.log(data);
       const result = await axios.post("http://localhost:8080/api/signup", data);
       console.log(result);
     } catch (err) {
-      console.log("회원가입 오류에연");
+      console.log("회원가입 오류에연", err);
     }
   };
 
@@ -68,24 +69,89 @@ const SignupForm = () => {
               alignItems: "center",
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-              {/* <LockOutlinedIcon /> */}
-            </Avatar>
+            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}></Avatar>
             <Typography component="h1" variant="h5">
               Sign up
             </Typography>
-            <h3>아티스트는 경매 권한을 부여 받습니다</h3>
 
-            {/* radio */}
-            <div>
-              <label>아티스트</label>
-              <input {...register("artist")} type="radio" value="Artist" />
-              <label>일반 유저 </label>
-              <input {...register("artist")} type="radio" value="Normal" />
-            </div>
-            <br></br>
-            <Grid container spacing={2}>
+            <Grid container spacing={5}>
               <Grid item xs={12}>
+                <Typography component="h1" variant="h5">
+                  <div>
+                    <label>아티스트</label>
+                    <input
+                      {...register("artist")}
+                      type="radio"
+                      value="Artist"
+                    />
+                    <label>일반 유저 </label>
+                    <input
+                      {...register("artist")}
+                      type="radio"
+                      value="Normal"
+                    />
+                  </div>
+                </Typography>
+                <h3>아티스트는 경매 권한을 부여 받습니다</h3>
+              </Grid>
+              <br></br>
+
+              <Grid item xs={12}>
+                <Typography component="h1" variant="h5">
+                  ID
+                </Typography>
+                <TextField
+                  autoComplete="given-id"
+                  name="ArtistId"
+                  required
+                  fullWidth
+                  id="artistId"
+                  label="Artist Id"
+                  autoFocus
+                  {...register("id2", {
+                    required: true,
+                    maxLength: 80,
+                  })}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Typography component="h1" variant="h5">
+                  Password
+                </Typography>
+                <TextField
+                  autoComplete="given-password"
+                  name="ArtistPassword"
+                  required
+                  fullWidth
+                  type="password"
+                  id="artistPassword"
+                  label="Artist Password"
+                  autoFocus
+                  {...register("password", {
+                    required: true,
+                    maxLength: 80,
+                  })}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Typography component="h1" variant="h5">
+                  Re-Password
+                </Typography>
+                <TextField
+                  autoComplete="given-repassword"
+                  name="ArtistRepassword"
+                  required
+                  fullWidth
+                  type="password"
+                  id="artistRepassword"
+                  label="Artist Repassword"
+                  autoFocus
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Typography component="h1" variant="h5">
+                  Name
+                </Typography>
                 <TextField
                   autoComplete="given-name"
                   name="ArtistName"
@@ -100,21 +166,25 @@ const SignupForm = () => {
                   })}
                 />
               </Grid>
-
-              {/* 셀렉트 일부러 만들어놈 */}
-              <div>
-                <label>Nation</label>
+              <Grid item xs={12}>
+                <Typography component="h1" variant="h5">
+                  Nation
+                </Typography>
                 <Select
                   options={options}
                   value={value}
                   onChange={changeHandler}
                 />
-              </div>
-              <input
-                value={value.label}
-                {...register("nation", { required: true })}
-              ></input>
+                <input
+                  value={value.label}
+                  {...register("nation", { required: true })}
+                ></input>
+              </Grid>
+
               <Grid item xs={12}>
+                <Typography component="h1" variant="h5">
+                  Genre
+                </Typography>
                 <div>
                   <label>장르</label>
                   <select {...register("favor_genre", { required: true })}>
@@ -126,52 +196,43 @@ const SignupForm = () => {
               </Grid>
 
               <Grid item xs={12}>
+                <Typography component="h1" variant="h5">
+                  MetaMask Address
+                </Typography>
                 <TextField
-                  autoComplete="given-name"
-                  name="ArtistName"
+                  autoComplete="given-addressname"
+                  name="ArtistAddress"
                   fullWidth
-                  id="artistName"
-                  label="Artist Name"
+                  id="artistAddress"
+                  label="Artist Address"
                   autoFocus
                   {...register("address", {
-                    required: true,
                     maxLength: 80,
                   })}
                 />
-                <Typography component="h1" variant="h5">
+                <Typography component="h5" variant="h5">
                   메타마스크 계정이 있을 경우 입력해 주세요. 미입력시 메타마스크
                   계정이 자동 생성되어 저장됩니다.
                 </Typography>
               </Grid>
 
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={
-                    <Checkbox value="allowExtraEmails" color="primary" />
-                  }
-                  label="Const 화이팅~"
-                />
-              </Grid>
-            </Grid>
-
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign Up
-            </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link href="#" variant="body2">
-                  클릭하면 메타마스크 연결하고 인덱스로 돌아가게 하겠음 Already
-                  have an account? Sign in
-                </Link>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Sign Up
+              </Button>
+              <Grid container justifyContent="flex-end">
+                <Grid item>
+                  <Link href="/login" variant="body2">
+                    Already have an account? Sign in
+                  </Link>
+                </Grid>
               </Grid>
             </Grid>
           </Box>
-          {/* <Copyright sx={{ mt: 5 }} /> */}
         </Container>
       </ThemeProvider>
     </form>

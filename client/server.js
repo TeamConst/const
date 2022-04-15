@@ -11,14 +11,24 @@ dotenv.config();
 const morgan = require("morgan");
 const path = require("path");
 
+// 시퀄라이즈 연결
 const { sequelize } = require("./models/index.js");
 const User = require("./models/user");
+const Music = require("./models/music");
+const Auction = require("./models/auction");
+const AuctionData = require("./models/auctiondata");
+const MyMusic = require("./models/mymusic");
+const BuyMusic = require("./models/buyMusic");
+const TransactionDetail = require("./models/transactionDetail");
 
+// 쿠키, 세션 설정
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 
+// cors 설정
 const cors = require("cors");
 
+// passport 설정
 // const passport = require("passport");
 // const passportConfig = require("./passport");
 
@@ -41,25 +51,6 @@ sequelize
   .catch((err) => {
     console.error(err);
   });
-
-// 나머지 설정들
-// req.session 객체 생성
-// const sessionOption = {
-//   resave: false,
-//   saveUninitialized: false,
-//   secret: process.env.COOKIE_SECRET,
-//   cookie: {
-//     httpOnly: true,
-//     secure: false,
-//   },
-//   // redis저장 설정
-//   // store: new RedisStore({ client: redisClient }),
-// };
-// if (process.env.NODE_ENV === "production") {
-//   sessionOption.proxy = true;
-//   // sessionOption.cookie.secure = true;
-// }
-// app.use(session(sessionOption));
 
 // passport setting
 // passportConfig();
@@ -116,47 +107,55 @@ const app = next({ dev });
 const handle = app.getRequestHandler();
 
 app.prepare().then(() => {
-  // const webSocketServer = new WebSocket.Server({ port: 8880 });
-
-  // webSocketServer.on("connection", function (client, req) {
-  //   console.log("웹소켓 서버 연결");
-
-  //   client.on("message", async function (data) {
-  //     client.send("일단");
-  //   });
-  // });
-
   const server = express();
 
-  const ioServer = require("http").createServer(server);
-  const io = require("socket.io")(ioServer, {
-    cors: {
-      origin: "*",
-      methods: ["GET", "POST"],
-    },
-  });
-  io.on("connection", (client) => {
-    client.on("first Request", (req) => {
-      console.log(req);
-      client.emit("first Respond", { data: "firstRespond" });
-    });
-    client.on("successAuction", (req) => {
-      console.log(req);
-      console.log("나오면 성공");
-      client.broadcast.emit("refreshAuction", {});
-    });
+  // const ioServer = require("http").createServer(server);
+  // const io = require("socket.io")(ioServer, {
+  //   cors: {
+  //     origin: "*",
+  //     methods: ["GET", "POST"],
+  //   },
+  // });
+  // io.on("connection", (client) => {
+  //   client.on("first Request", (req) => {
+  //     console.log(req);
+  //     client.emit("first Respond", { data: "firstRespond" });
+  //   });
+  //   client.on("successAuction", (req) => {
+  //     console.log(req);
+  //     console.log("나오면 성공");
+  //     client.broadcast.emit("refreshAuction", {});
+  //   });
 
-    client.on("event", (data) => {
-      /* … */
-      // client.broadcast.emit("이벤트이름", {
-      //   data: "나를 제외한 다른 클라이언트",
-      // });
-    });
-    client.on("disconnect", () => {
-      /* … */
-    });
-  });
-  ioServer.listen(3000);
+  //   client.on("event", (data) => {
+  //     /* … */
+  //     // client.broadcast.emit("이벤트이름", {
+  //     //   data: "나를 제외한 다른 클라이언트",
+  //     // });
+  //   });
+  //   client.on("disconnect", () => {
+  //     /* … */
+  //   });
+  // });
+  // ioServer.listen(3000);
+
+  // req.session 객체 생성
+  const sessionOption = {
+    resave: false,
+    saveUninitialized: false,
+    secret: process.env.COOKIE_SECRET,
+    cookie: {
+      httpOnly: true,
+      secure: false,
+    },
+    // redis저장 설정
+    // store: new RedisStore({ client: redisClient }),
+  };
+  if (process.env.NODE_ENV === "production") {
+    sessionOption.proxy = true;
+    // sessionOption.cookie.secure = true;
+  }
+  server.use(session(sessionOption));
 
   // 이거 어따씀?
   // app.use("/", express.static(path.join(__dirname, "./build")));
@@ -174,6 +173,7 @@ app.prepare().then(() => {
   );
   server.use(cookieParser(process.env.COOKIE_SECRET));
 
+  // multer, req.files 예제
   // server.post("/upload", function (req, res, next) {
   //   console.log("들어옴?");
   //   res.send("Successfully uploaded " + req.file.length + " files!");
@@ -183,61 +183,13 @@ app.prepare().then(() => {
   //   res.json("업로드 오케이");
   // });
 
-  server.get("/api/bestCollection", (req, res) => {
-    // multer, s3
-    const AWS = require("aws-sdk");
-    const multer = require("multer");
-    const multerS3 = require("multer-s3");
-
-    // Set the AWS Region
-    const REGION = "ap-northeast-2"; //REGION
-    const IDENTITY_POOL_ID =
-      "ap-northeast-2:ee62d023-c180-46bf-9e24-935ff2fa2b5a";
-    const BucketName = "const123";
-
-    AWS.config.update({
-      region: REGION,
-      accessKeyId: process.env.S3_ACCESS_KEY_ID,
-      secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
-    });
-
-    // credentials: new AWS.CognitoIdentityCredentials({
-    //   IdentityPoolId: IDENTITY_POOL_ID,
-    // }),
-
-    const s3 = new AWS.S3({
-      apiVersion: "2006-03-01",
-      params: { Bucket: BucketName },
-    });
-
-    // Call S3 to obtain a list of the objects in the bucket
-    //  앨범명, 개수 등의 파라미터를 적는 곳을 찾아야함 아직 모름
-    s3.listObjects(function (err, data) {
-      if (err) {
-        console.log("Error", err);
-      } else {
-        const result = data.Contents;
-
-        for (i = 0; i < result.length; i++) {
-          result[i].URL =
-            "https://const123.s3.ap-northeast-2.amazonaws.com/" + result[i].Key;
-        }
-
-        console.log("Success");
-        res.json(result);
-      }
-    });
-  });
-
-  const Music = require("./models/music");
-  // const User = require("./models/user");
-  const Auction = require("./models/auction");
-  const AuctionData = require("./models/auctiondata");
-  const MyMusic = require("./models/mymusic");
-
+  // 라우팅 처리
+  // 민팅 한번에 처리
+  // 사실 지금 music 컴포넌트에 이게 이미 하고 있어서 나중에 로직 결정을 해야함
   server.post("/api/mint", async (req, res) => {
     const parse = JSON.parse(req.body.db);
 
+    console.log("민트 데이터");
     console.log(parse);
     await Music.create(parse);
 
@@ -255,9 +207,9 @@ app.prepare().then(() => {
       host: "ipfs.infura.io",
       port: 5001,
       protocol: "https",
-      // headers: {
-      //   authorization: auth,
-      // },
+      headers: {
+        authorization: auth,
+      },
     });
 
     // console.log(req.files);
@@ -269,7 +221,11 @@ app.prepare().then(() => {
 
     await client.add(ipfsUpload).then(async (res) => {
       console.log(res);
-      await Music.update({ CID: res.path }, { where: { title: parse.title } });
+      const s3 = `https://const123.s3.ap-northeast-2.amazonaws.com/image/${res.path}.jpg`;
+      await Music.update(
+        { s3: s3, CID: res.path },
+        { where: { title: parse.title } }
+      );
     });
 
     const metadata = {
@@ -287,13 +243,6 @@ app.prepare().then(() => {
     });
 
     res.send("민트 최종 ok");
-  });
-
-  // 민트하고 나머지 정보 DB에 쏠 때
-  // 노래등록, 앨범등록으로 나누어야 겠다
-  server.post("/api/mint/gg", async (req, res) => {
-    await Music.create(req.body);
-    res.send("민트 mysql OK");
   });
 
   server.post("/api/mint/image", async (req, res) => {
@@ -344,15 +293,11 @@ app.prepare().then(() => {
       ACL: "public-read",
     };
 
-    console.log(req.body);
-    console.log(req.files);
     await s3.upload(uploadParams, function (err, data) {
       if (err) {
         console.log("Error", err);
       }
       if (data) {
-        console.log("sex");
-        console.log(data);
         console.log("Upload Success", data.Location);
       }
     });
@@ -384,67 +329,105 @@ app.prepare().then(() => {
     res.send("민트 S3 OK");
   });
 
-  server.post("/api/mint/musics", async (req, res) => {
-    // ipfs-http-client 라이브러리 사용안하고 연결해도 됨. docs 참고
-    const ipfsClient = require("ipfs-http-client");
+  // 로컬 DB 민팅
+  // server.post("/api/mint/gg", async (req, res) => {
+  //   await Music.create(req.body);
+  //   res.send("민트 mysql OK");
+  // });
 
-    // 개인 id, secret
-    const projectId = "26fkdqdZ9VBjWP310ZLH3ZUkb5T";
-    const projectSecret = "9c05a2839dd121251b98ed30be561824";
-    const auth =
-      "Basic " +
-      Buffer.from(projectId + ":" + projectSecret).toString("base64");
+  // 음원 민팅
+  // server.post("/api/mint/musics", async (req, res) => {
+  //   // ipfs-http-client 라이브러리 사용안하고 연결해도 됨. docs 참고
+  //   const ipfsClient = require("ipfs-http-client");
 
-    const client = await ipfsClient.create({
-      host: "ipfs.infura.io",
-      port: 5001,
-      protocol: "https",
-      // headers: {
-      //   authorization: auth,
-      // },
+  //   // 개인 id, secret
+  //   const projectId = "26fkdqdZ9VBjWP310ZLH3ZUkb5T";
+  //   const projectSecret = "9c05a2839dd121251b98ed30be561824";
+  //   const auth =
+  //     "Basic " +
+  //     Buffer.from(projectId + ":" + projectSecret).toString("base64");
+
+  //   // ipfs 연결
+  //   const client = await ipfsClient.create({
+  //     host: "ipfs.infura.io",
+  //     port: 5001,
+  //     protocol: "https",
+  //     headers: {
+  //       authorization: auth,
+  //     },
+  //   });
+
+  //   // 파일과 그에 대한 메타데이터를 같이 저장해야 해야 좋을 것 같음
+  //   const ipfsUpload = {
+  //     path: req.files.musics.name,
+  //     content: req.files.musics.data,
+  //   };
+
+  //   await client.add(ipfsUpload).then((res) => {
+  //     console.log(res);
+  //   });
+
+  //   const metadata = {
+  //     name: req.files.musics.name,
+  //     mimetype: req.files.musics.mimetype,
+  //     size: req.files.musics.size,
+  //     encoding: req.files.musics.encoding,
+  //   };
+
+  //   const { Readable } = require("stream");
+  //   const src = Readable.from(JSON.stringify(metadata));
+
+  //   await client.add(src).then((res) => {
+  //     console.log(res);
+  //   });
+
+  //   res.send("음원 민팅 성공");
+  // });
+
+  // Get 처리
+  server.get("/api/bestCollection", (req, res) => {
+    // multer, s3
+    const AWS = require("aws-sdk");
+    const multer = require("multer");
+    const multerS3 = require("multer-s3");
+
+    // Set the AWS Region
+    const REGION = "ap-northeast-2"; //REGION
+    const IDENTITY_POOL_ID =
+      "ap-northeast-2:ee62d023-c180-46bf-9e24-935ff2fa2b5a";
+    const BucketName = "const123";
+
+    AWS.config.update({
+      region: REGION,
+      accessKeyId: process.env.S3_ACCESS_KEY_ID,
+      secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
     });
 
-    // 파일과 그에 대한 메타데이터를 같이 저장해야 해야 좋을 것 같음
-    const ipfsUpload = {
-      path: req.files.musics.name,
-      content: req.files.musics.data,
-    };
+    // credentials: new AWS.CognitoIdentityCredentials({
+    //   IdentityPoolId: IDENTITY_POOL_ID,
+    // }),
 
-    await client.add(ipfsUpload).then((res) => {
-      console.log(res);
+    const s3 = new AWS.S3({
+      apiVersion: "2006-03-01",
+      params: { Bucket: BucketName },
     });
 
-    const metadata = {
-      name: req.files.musics.name,
-      mimetype: req.files.musics.mimetype,
-      size: req.files.musics.size,
-      encoding: req.files.musics.encoding,
-    };
+    // Call S3 to obtain a list of the objects in the bucket
+    //  앨범명, 개수 등의 파라미터를 적는 곳을 찾아야함 아직 모름
+    s3.listObjects(function (err, data) {
+      if (err) {
+        console.log("Error", err);
+      } else {
+        const result = data.Contents;
 
-    const { Readable } = require("stream");
-    const src = Readable.from(JSON.stringify(metadata));
-
-    await client.add(src).then((res) => {
-      console.log(res);
+        for (i = 0; i < result.length; i++) {
+          result[i].URL =
+            "https://const123.s3.ap-northeast-2.amazonaws.com/" + result[i].Key;
+        }
+        console.log("Success");
+        res.json(result);
+      }
     });
-
-    // await Music.update(req.body);
-
-    // CID db에 저장
-
-    // 여기서 나오는 CID를 저장하면 된다.
-
-    // 다 저장했으니까 이제 이걸 우리 db에 하나 저장해놓고
-    // 불러오면 좋을 것 같은데
-    // 여기서 db저장까지 하는게 좋을 거 같은데?
-    // 메타데이터가 여기서 나오니까
-
-    // add 예시 api는 docs 참고
-    // client.files.add(req.body).then((res) => {
-    //   console.log(res);
-    // });
-
-    res.send("okok");
   });
 
   // 음악 컴포넌트 음악 정보 불러오기
@@ -456,88 +439,41 @@ app.prepare().then(() => {
     res.json(result);
   });
 
-  // 마이페이지 컴포넌트  정보 불러오기
-  server.get("/api/mypage", async (req, res) => {
-    // 그니까 가져올 곳이 세션, 블록, s3, ipfs 잖아 잘 맞춰보자
-    // 내 이름 : web3, 아니면 db에서 web3 검색해서 아이디 찾기?
-    // 생각했던 web3 연결을 여기서도 충분히 할 수 있잖아
-    // 여기서 하는 걸로 우선 써보자
-
-    // 우선, 컨트랙트 불러오기
-    // 서버에서 처리하는 걸로 한번 해봤다
-    //  NFT 관련 변수 한번 파악해야겠다
-    const web3 = require("./getWeb3");
-    const contractJSON = require("../build/contracts/ImageMarketplace.json");
-    // const contractJSON = require("../build/contracts/NFTCollection.json");
-    const accounts = await web3.eth.getAccounts();
-    const networkId = await web3.eth.net.getId();
-    const deployedAddress = contractJSON.networks[networkId].address;
-    const contract = new web3.eth.Contract(contractJSON.abi, deployedAddress);
-
-    const block = await web3.eth.getBlock();
-    const tr = await web3.eth.getTransaction();
-    const tra = await web3.eth.getTransaction(
-      "0x7dd2990185d801d8c4c87bc51264671161283c955860901bf71cae3fab2dfb38"
-    );
-    // console.log(block);
-    console.log(contract);
-    console.log(tr);
-    console.log(tra);
-    // 0x76534D3ED03b40D2B4BC9062Bc69db60672Ef836
-    // 블록이나 tr 불러오는거 한번 봐보면,
-    // 일단 해시값을 알거나, 아니면 블록에 대한 정보로 불어와야 할 것 같은데,
-
-    // 컨트랙트 불러온 계정으로 나머지 정보들 불러오기
-    // 그런데 지금 메타마스크 계정 바꿔논 걸 어떻게 불러오지
-    // db 불러오기
-    const music = await Music.findOne({ title: req.body.name });
-    // const music = await Music.findAll();
-
-    // console.log(contract);
-    // console.log(abc.eth.accounts);
-
-    // 새로 만들어야할 컴포넌트
-    // 회원 정보 수정 컴포넌트 만들어야함
-    // 나의 NFT 컴포넌트 만들기
-
-    // Recently Palyed 등등
-
-    // 여러 곡에 대한 나의 정보도 db가 하나 더 있어야하겠네
-    // const mymusic = await MyMusic.findAll();
-
-    // res.json(data);
-
-    // res.json(result);
-    res.send("okok");
-  });
-
   // 좋아요 수 처리
   server.post("/api/upLike", async (req, res) => {
     // const result = await Music.findAll();
     // const data = await Music.findOne({ title: req.body.name });
     // res.json(data);
-    const title = Object.keys(req.body);
-    const read = await Music.findOne({ where: { title: title } });
+    const CID = Object.keys(req.body);
+    const read = await Music.findOne({ where: { CID: CID } });
     await Music.update(
       { LikeMusic: read.LikeMusic + 1 },
       { where: { title: title } }
     );
-
     res.send("업하트 오케");
   });
 
-  server.post("/api/AuctionData", async (req, res) => {
-    // const result = await Music.findAll();
-    // const data = await Music.findOne({ title: req.body.name });
-    // res.json(data);
-    const title = Object.keys(req.body);
-    const read = await AuctionData.findOne({ where: { title: title } });
-    await AuctionData.update(
-      { Auction: read.Auction },
-      { where: { title: title } }
-    );
+  // 내가 하는 행동 처리
+  server.post("/api/myPlayCount", async (req, res) => {
+    const CID = Object.keys(req.body);
+    // 세션으로 받자
+    const read = await MyMusic.findOne({
+      where: { address: req.session.address, CID: CID },
+    });
 
-    res.send("옥션데이터 오케");
+    if (!read) {
+      await MyMusic.create({
+        address: req.session.address,
+        CID: CID,
+        myplayCount: 1,
+      });
+    } else {
+      await MyMusic.update(
+        { myplayCount: read.myplayCount + 1 },
+        { where: { CID: CID } }
+      );
+    }
+    res.send("myPlayCount Success!");
   });
 
   // 구매, 판매 페이지 입장시
@@ -578,14 +514,22 @@ app.prepare().then(() => {
       const data = await User.create(req.body);
       res.send("회원가입 완료");
     } catch (err) {
-      console.log(err);
+      res.send(err);
+    }
+  });
+
+  server.post("/api/login", async (req, res) => {
+    try {
+      // const data = await User.create(req.body);
+      res.send("로그인 완료");
+    } catch (err) {
+      res.send(err);
     }
   });
 
   // 구매 첫 페이지
   server.get("/api/getBuy", async (req, res) => {
     const abc = await getBuy();
-
     res.json(abc);
   });
 
@@ -593,6 +537,18 @@ app.prepare().then(() => {
     const abc = await getMyBuy();
 
     res.json(abc);
+  });
+
+  server.post("/api/getBuyDB", async (req, res) => {
+    const a = req.body.name;
+    // const b = a[1];
+    // const c = b.split(".");
+    // const d = c[0];
+
+    const abc = await Music.findOne({ where: { CID: a } });
+    res.json(abc);
+
+    // res.send("ok");
   });
 
   server.post("/api/setBuy", async (req, res) => {
@@ -612,18 +568,6 @@ app.prepare().then(() => {
 
     res.json(abc);
   });
-
-  // server.post("/api/setBuy", async (req, res) => {
-  //   const a = req.body.name;
-  //   // const b = a[1];
-  //   // const c = b.split(".");
-  //   // const d = c[0];
-  //   console.log(a);
-
-  //   const abc = await setBuy(a);
-  //   res.json(abc);
-  //   // res.send("ok");
-  // });
 
   server.get("/api/getNFT", async (req, res) => {
     const abc = await getNFT();
@@ -654,6 +598,20 @@ app.prepare().then(() => {
     res.json(result);
   });
 
+  server.post("/api/AuctionData", async (req, res) => {
+    // const result = await Music.findAll();
+    // const data = await Music.findOne({ title: req.body.name });
+    // res.json(data);
+    const title = Object.keys(req.body);
+    const read = await AuctionData.findOne({ where: { title: title } });
+    await AuctionData.update(
+      { Auction: read.Auction },
+      { where: { title: title } }
+    );
+
+    res.send("옥션데이터 오케");
+  });
+
   // 구매, 판매 페이지 입장시
   server.post("/api/auction", async (req, res) => {
     console.log(req.body);
@@ -662,9 +620,9 @@ app.prepare().then(() => {
         mintby: req.body.mintby,
         CID: req.body.CID,
       });
-      res.send("회원가입 완료");
+      res.send("옥션 DB 성공");
     } catch (err) {
-      console.log("회원가입 오류");
+      res.send(err);
     }
   });
 
@@ -715,6 +673,7 @@ app.prepare().then(() => {
     const aba = new Date();
     res.json(aba);
   });
+
   // 여기 보면 된다
   server.all("*", (req, res) => {
     return handle(req, res);
@@ -726,6 +685,7 @@ app.prepare().then(() => {
   });
 });
 
+// 함수 모음
 async function getBuyDataContract() {
   // web3
   const web3 = require("./getWeb3");
