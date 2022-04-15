@@ -7,7 +7,7 @@ import contractJSON from "../../../build/contracts/NFTCollection.json";
 
 const fetchCollections = async () => {
   // const parsed = await ky("http://localhost:3000/api/collections").json();
-  const data = await axios.get("http://localhost:3000/api/collections");
+  const data = await axios.get("http://13.209.65.10:8080/api/collections");
   // const parsed = await ky("https://jsonplaceholder.typicode.com/posts").json();
 
   // const result = parsed.filter((x) => x.id <= limit);

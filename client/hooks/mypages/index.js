@@ -5,7 +5,7 @@ import axios from "axios";
 const fetchMypages = async () => {
   // const parsed = await ky("http://localhost:3000/api/locals").json();
   // const parsed = await ky("https://jsonplaceholder.typicode.com/posts").json();
-  const data = await axios.get("http://localhost:8080/api/mypage");
+  const data = await axios.get("http://13.209.65.10:8080/api/mypage");
 
   // const result = parsed.filter((x) => x.id <= limit);
   // console.log(result);

@@ -8,7 +8,7 @@ import axios from "axios";
 
 const fetchBuy = async () => {
   // const parsed = await ky("http://localhost:3000/api/collections").json();
-  const data = await axios.get("http://localhost:8080/api/getBuy", {});
+  const data = await axios.get("http://13.209.65.10:8080/api/getBuy", {});
 
   // const data = await axios.get("http://localhost:8080/api/bestCollection");
   // const parsed = await ky("https://jsonplaceholder.typicode.com/posts").json();

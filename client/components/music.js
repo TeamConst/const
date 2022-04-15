@@ -101,7 +101,7 @@ const Music = () => {
     imageFormData.append("CID", bu.path);
 
     const resultImage = await axios.post(
-      "http://localhost:8080/api/mint/image",
+      "http://13.209.65.10:8080/api/mint/image",
       imageFormData
     );
     console.log(resultImage);
@@ -192,7 +192,7 @@ const Music = () => {
     form.append("db", JSON.stringify(gg));
     // form.append("CID", bu.path);
 
-    const rere = await axios.post("http://localhost:8080/api/mint", form);
+    const rere = await axios.post("http://13.209.65.10:8080/api/mint", form);
   };
   // console.log(errors);
 

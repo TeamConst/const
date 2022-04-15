@@ -8,7 +8,7 @@ import axios from "axios";
 
 const fetchWho = async (param) => {
   // const parsed = await ky("http://localhost:3000/api/collections").json();
-  const data = await axios.post("http://localhost:8080/api/getWho", {
+  const data = await axios.post("http://13.209.65.10:8080/api/getWho", {
     name: param,
   });
 

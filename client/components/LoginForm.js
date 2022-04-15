@@ -42,7 +42,10 @@ const LoginForm = () => {
       const address = await web3.eth.getAccounts();
       data.address = address[0];
 
-      const result = await axios.post("http://localhost:8080/api/signup", data);
+      const result = await axios.post(
+        "http://13.209.65.10:8080/api/signup",
+        data
+      );
       console.log(result);
     } catch (err) {
       console.log("회원가입 오류에연");
