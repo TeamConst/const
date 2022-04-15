@@ -96,11 +96,7 @@ onSubmit
     const musics = data.musics[0];
     const musicsFormData = new FormData();
     musicsFormData.append("musics", musics);
-    // const resultMusics = await axios.post(
-    //   "http://localhost:8080/api/mint/musics",
-    //   musicsFormData
-    // );
-    // console.log(resultMusics);
+
 
     // 나머지 db처리부분
     let gg = {};

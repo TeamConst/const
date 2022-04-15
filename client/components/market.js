@@ -189,27 +189,6 @@ useEffect(() => {
 	  }
 }());
  
-
-// const router = useRouter()
-//   const { id } = router.query;
-//   const { add } = router.query;
-//   const [이미지, 이미지변경] = useState();
-// console.log({ id })
-// console.log({add})
-//   useEffect(() => {
-//     이미지변경(`https://const123.s3.ap-northeast-2.amazonaws.com/${id}`);
-
-
-//   }, [id]);
-//   const fromDb = id;
-//   let str = fromDb || `${id}`;
-
-// console.log(str.slice(6,52))
-// str = str.slice(6,52)
-// console.log(str)
-
-
-console.log(Auctions)
 const [음악, 음악변경] = useState();
 const changeMusic = async (str) => {
   console.log(str);
@@ -217,24 +196,20 @@ const changeMusic = async (str) => {
   console.log(`https://ipfs.io/ipfs/${str}`);
   
 }
-let musics;
-let a = 0;
-let mintby=[];
-console.log(data)
-if (data) {
-  a = 1;
-  musics = data.data;
-  console.log(musics)
-  for(let i=0; i < musics.length;i++){
-    if(musics[i].CID === str){
-      mintby[i] = musics[i].mintby
-    }
-  }
-}
-
-
-
-// console.log(musics2[0].mintedBy)
+// let musics;
+// let a = 0;
+// let mintby=[];
+// console.log(data)
+// if (data) {
+//   a = 1;
+//   musics = data.data;
+//   console.log(musics)
+//   for(let i=0; i < musics.length;i++){
+//     if(musics[i].CID === str){
+//       mintby[i] = musics[i].mintby
+//     }
+//   }
+// }
 const myImages = Images.filter(
   
   (image) => image.currentOwner === accountAddress && image.tokenURI === `https://ipfs.io/ipfs/${str}`);
@@ -249,7 +224,6 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 console.log(ImagesId)
-// console.log(musi)
   if(accountAddress===ImagesId){
  return (   
   <div>
