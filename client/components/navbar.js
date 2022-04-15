@@ -16,11 +16,15 @@ import Link from "next/link";
 
 // 객체로 바꾸자
 const pages = [
-  ["BUY NOW", "buysell"],
-  ["AUCTION", "auction"],
+  ["ALL NFT", "constnft"],
+  ["BUY NOW", "constbuy"],
+  ["AUCTION", "constauction"],
   ["이용권 구매", "buyticket"],
   ["로그인", "login"],
   ["회원가입", "signup"],
+  ["MyPage", "mypage"],
+  ["MINTING", "mint"],
+  ["Listen Music", "listen"],
 ];
 
 // const pages = [
@@ -60,22 +64,26 @@ const Navbar = () => {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           {/* 타이포 디자인 비교하라고 일부러 냅둠 */}
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
-          >
-            CONST
-          </Typography>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
-          >
-            CONST
-          </Typography>
+          <Link href="/">
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
+            >
+              CONST
+            </Typography>
+          </Link>
+          <Link href="/">
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
+            >
+              CONST
+            </Typography>
+          </Link>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton

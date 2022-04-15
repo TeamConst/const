@@ -1,5 +1,6 @@
 import Layout from "../components/layout";
 import GetNFT from "../components/getNFT";
+
 import axios from "axios";
 import { useQuery, dehydrate, QueryClient, useQueryClient } from "react-query";
 

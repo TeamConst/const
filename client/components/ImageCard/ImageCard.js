@@ -27,6 +27,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import { useQuery } from "react-query";
 import { fetchAuctiondata } from "../../hooks";
+
 const theme = createTheme();
 
 function ImageCard(props) {
@@ -187,13 +188,12 @@ function ImageCard(props) {
                   />
                   <CardContent sx={{ flexGrow: 1 }}>
                     <Typography gutterBottom variant="h5" component="h2">
-                      뭐 딴 내용 들어갈거?
+                      {str}
                     </Typography>
                     {/* <Typography>{a.Key}</Typography> */}
                   </CardContent>
                   <CardActions>
-                    <Button size="small">View</Button>
-                    <Button size="small">Edit</Button>
+                    <Button size="small">클릭</Button>
                   </CardActions>
                 </Card>
               </Grid>

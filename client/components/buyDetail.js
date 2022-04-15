@@ -16,7 +16,8 @@ import { fetchWho } from "../hooks";
 import { useState, useEffect } from "react";
 
 import web3 from "./connection/web3";
-import ConstContract from "../../build/contracts/ConstContract.json";
+// import ConstContract from "../../build/contracts/ConstContract.json";
+import ConstContract from "../../build/contracts/ImageMarketplace.json";
 
 const theme = createTheme();
 

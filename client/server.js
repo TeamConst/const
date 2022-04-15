@@ -589,6 +589,12 @@ app.prepare().then(() => {
     res.json(abc);
   });
 
+  server.get("/api/getMyBuy", async (req, res) => {
+    const abc = await getMyBuy();
+
+    res.json(abc);
+  });
+
   server.post("/api/setBuy", async (req, res) => {
     const a = req.body.name;
     // const b = a[1];
@@ -620,11 +626,12 @@ app.prepare().then(() => {
   // });
 
   server.get("/api/getNFT", async (req, res) => {
-    // const NFTInstance = await getAuctionContract();
-    const abc = await getImage();
-    // console.log(abc);
-    // console.log(ab);
-    // res.send("no");
+    const abc = await getNFT();
+    res.json(abc);
+  });
+
+  server.get("/api/getMyNFT", async (req, res) => {
+    const abc = await getMyNFT();
     res.json(abc);
   });
 
@@ -691,7 +698,7 @@ app.prepare().then(() => {
   });
 
   server.get("/api/getContract", async (req, res) => {
-    const NFTInstance = await getAuctionContract();
+    const NFTInstance = await getAuctionDataContract();
 
     console.log(NFTInstance);
     res.send("1");
@@ -718,29 +725,6 @@ app.prepare().then(() => {
     console.log(`> Ready on http://localhost:${port}`);
   });
 });
-
-async function getAuctionContract() {
-  // web3
-  const web3 = require("./getWeb3");
-
-  // contract
-  const contractabi = require("../build/contracts/ImageMarketplace.json");
-
-  // accounts
-  const accounts = await web3.eth.getAccounts();
-
-  // networkId
-  const networkId = await web3.eth.net.getId();
-  const deployedAddress = contractabi.networks[networkId].address;
-
-  // Instance
-  const NFTMarketplaceInstance = new web3.eth.Contract(
-    contractabi.abi,
-    deployedAddress
-  );
-
-  return NFTMarketplaceInstance;
-}
 
 async function getBuyDataContract() {
   // web3
@@ -788,22 +772,33 @@ async function getBuyMethodContract() {
   return NFTMarketplaceInstance;
 }
 
-async function getImage() {
-  const Instance = await getAuctionContract();
+async function getAuctionDataContract() {
+  // web3
+  const web3 = require("./getWeb3");
+
+  // contract
+  const contractabi = require("../build/contracts/ImageMarketplace.json");
+
+  // accounts
+  const accounts = await web3.eth.getAccounts();
+
+  // networkId
+  const networkId = await web3.eth.net.getId();
+  const deployedAddress = contractabi.networks[networkId].address;
+
+  // Instance
+  const NFTMarketplaceInstance = new web3.eth.Contract(
+    contractabi.abi,
+    deployedAddress
+  );
+
+  return NFTMarketplaceInstance;
+}
+
+async function getNFT() {
+  const Instance = await getAuctionDataContract();
 
   if (Instance) {
-    // 클라이언트 변수 처리 부분
-    // const [accountAddress, setAccountAddress] = useState("");
-    // const [accountBalance, setAccountBalance] = useState("");
-    // const [Contract, setContract] = useState(null);
-    // const [ImageCount, setImageCount] = useState(0);
-    // const [Images, setImages] = useState([]);
-    // const [ImageNumOfAccount, setImageNumOfAccount] = useState(0);
-    // const [Auctions, setAuctions] = useState([]);
-    // // 얜 뭐 경매 시각 쓰려고 한건가
-    // const [lastMintTime, setLastMintTime] = useState(null);
-    // const [currentTime, setCurrentTime] = useState(null);
-
     let imagesArray = [];
     let auctionsArray = [];
 
@@ -832,12 +827,54 @@ async function getImage() {
     // setAccountBalance(balance);
     // setImageCount(ImageCount);
     // setImageNumOfAccount(ContractImageNumOfAccount);
-    return auctionsArray;
+    return imagesArray;
+  }
+}
+
+// 경매 컨트랙트로 일단 써놈
+async function getMyNFT() {
+  const Instance = await getAuctionDataContract();
+
+  const w = require("./getWeb3");
+  const ac = await w.eth.getAccounts();
+
+  if (Instance) {
+    let imagesArray = [];
+    let auctionsArray = [];
+
+    const ContractImageCount = await Instance.methods
+      .currentImageCount()
+      .call();
+    for (let i = 1; i <= ContractImageCount; i++) {
+      let image = await Instance.methods.imageStorage(i).call();
+      if (image.currentOwner == ac[0]) {
+        imagesArray = [...imagesArray, image];
+      }
+
+      // setImages((Images) => [...Images, image]);
+      let auction = await Instance.methods.auctions(i).call();
+      auctionsArray = [...auctionsArray, auction];
+    }
+    // console.log(imagesArray);
+    // console.log(auctionsArray);
+    // console.log(Instance);
+
+    // 얘는 세션 처리가 날 것 같은데?
+    // let ContractImageNumOfAccount = await Instance.methods
+    //   .getOwnedNumber(accounts[0])
+    //   .call();
+
+    // setContract(NFTMarketplaceInstance);
+    // setAccountAddress(accounts[0]);
+    // setAccountBalance(balance);
+    // setImageCount(ImageCount);
+    // setImageNumOfAccount(ContractImageNumOfAccount);
+    return imagesArray;
   }
 }
 
 async function getAll() {
-  const Instance = await getAuctionContract();
+  const Instance = await getAuctionDataContract();
 
   if (Instance) {
     // 클라이언트 변수 처리 부분
@@ -890,7 +927,7 @@ async function getAll() {
 }
 
 async function get옥션Buy() {
-  const Instance = await getAuctionContract();
+  const Instance = await getAuctionDataContract();
 
   if (Instance) {
     // 클라이언트 변수 처리 부분
@@ -967,6 +1004,67 @@ async function getBuy() {
           },
           ...collection,
         ];
+      } catch {
+        console.error("Something went wrong");
+      }
+    }
+    return collection;
+  }
+}
+
+async function getMyBuy() {
+  const Instance = await getBuyDataContract();
+
+  if (Instance) {
+    const w = require("./getWeb3");
+    const ac = await w.eth.getAccounts();
+
+    // 클라이언트 변수 처리 부분
+    // const [accountAddress, setAccountAddress] = useState("");
+    // const [accountBalance, setAccountBalance] = useState("");
+    // const [Contract, setContract] = useState(null);
+    // const [ImageCount, setImageCount] = useState(0);
+    // const [Images, setImages] = useState([]);
+    // const [ImageNumOfAccount, setImageNumOfAccount] = useState(0);
+    // const [Auctions, setAuctions] = useState([]);
+    // // 얜 뭐 경매 시각 쓰려고 한건가
+    // const [lastMintTime, setLastMintTime] = useState(null);
+    // const [currentTime, setCurrentTime] = useState(null);
+
+    const totalSupply = await Instance.methods.totalSupply().call();
+    // 로드가 이게 끝인데, 왜 굳이 업데이트를 상태관리로 해놓은지 아직 이해가 안감
+    // 얼마나 더 나은 결과물이길래
+
+    let collection = [];
+    for (let i = 0; i < totalSupply; i++) {
+      const hash = await Instance.methods.tokenURIs(i).call();
+
+      // console.log(hash);
+      try {
+        // 오류 핸들러니까 잠시 주석 처리
+        const response = await fetch(
+          `https://ipfs.infura.io/ipfs/${hash}?clear`
+        );
+        if (!response.ok) {
+          throw new Error("Something went wrong");
+        }
+
+        const metadata = await response.json();
+        const owner = await Instance.methods.ownerOf(i + 1).call();
+
+        console.log(owner);
+
+        if (ac[0] == owner) {
+          collection = [
+            {
+              id: i + 1,
+              title: metadata.properties.name.description,
+              img: metadata.properties.image.description,
+              owner: owner,
+            },
+            ...collection,
+          ];
+        }
       } catch {
         console.error("Something went wrong");
       }

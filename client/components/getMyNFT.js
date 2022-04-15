@@ -23,20 +23,20 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { QueryClient, useQuery, useQueryClient } from "react-query";
-import { fetchBestCollections, fetchNFT } from "../hooks";
+import { fetchMyNFT } from "../hooks";
 import web3 from "./connection/web3";
 
 import io from "socket.io-client";
 
 const theme = createTheme();
 
-const GetNFT = () => {
+const GetMyNFT = () => {
   const queryClient = useQueryClient();
   console.log(queryClient);
 
   // 실시간 경매 Fetch
-  const { data, isLoading, isFetching } = useQuery(["getNFT"], () =>
-    fetchNFT()
+  const { data, isLoading, isFetching } = useQuery(["getMyNFT"], () =>
+    fetchMyNFT()
   );
   console.log(isFetching);
   console.log(data);
@@ -110,10 +110,10 @@ const GetNFT = () => {
               <div>
                 <Grid container spacing={4}>
                   {/* <Link
-              href={`/buysell/${encodeURIComponent(`image/${str}.jpg`)}?add=${
-                props.accountAddress
-              }`}
-            > */}
+                href={`/buysell/${encodeURIComponent(`image/${str}.jpg`)}?add=${
+                  props.accountAddress
+                }`}
+              > */}
 
                   <Grid item key={a.tokenURI} xs={12} sm={6} md={4}>
                     <Card
@@ -157,4 +157,4 @@ const GetNFT = () => {
   );
 };
 
-export default GetNFT;
+export default GetMyNFT;
