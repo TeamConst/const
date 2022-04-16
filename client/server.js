@@ -587,6 +587,24 @@ app.prepare().then(() => {
       return res.status(400).send(err);
     }
   });
+
+  server.post("/api/updateuser", async (req, res) => {
+    console.log(req.body.id)
+    console.log(req.body.ticket)
+
+    try {
+      const updateCondition = await User.update({
+        ticket: req.body.ticket
+      }, {
+        where: { id: req.body.id }
+      });
+  
+      res.status(200).json({ success: true, updateCondition });
+    } catch (error) {
+      console.error(error);
+      return res.status(400).send(err);
+    }
+  });
   // server.post("/api/updateauction", async (req, res) => {
   //   console.log(req.body.mintby)
   //   console.log(req.body.CID)

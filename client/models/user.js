@@ -21,6 +21,11 @@ module.exports = class User extends Sequelize.Model {
           type: Sequelize.STRING(45),
           allowNull: false,
         },
+        ticket: {
+          type: Sequelize.STRING(45),
+          allowNull: false,
+          defaultValue: "이용권 없음"
+        },
         favor_genre: {
           type: Sequelize.STRING(45),
           allowNull: true,

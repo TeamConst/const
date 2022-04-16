@@ -114,6 +114,10 @@ const Signup = () => {
                 value={value.label}
                 {...register("nation", { required: true })}
               ></input>
+                   {/* <input type="hidden"
+                value={value.label}
+                {...register("ticket", { required: true })}
+              ></input> */}
               <Grid item xs={12}>
                 <div>
                   <label>장르</label>
