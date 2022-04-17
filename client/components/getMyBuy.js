@@ -30,6 +30,7 @@ import React, { useState, useEffect } from "react";
 import { fetchMyBuy } from "../hooks";
 import io from "socket.io-client";
 
+import axios from "axios";
 import Link from "next/link";
 
 import web3 from "./connection/web3";
@@ -63,6 +64,7 @@ const style2 = {
 };
 
 const ConfigBuy = (props) => {
+  console.log("여기요", props);
   const [buy, setBuy] = React.useState(false);
 
   const buyOpen = () => setBuy(true);
@@ -118,11 +120,17 @@ const ConfigBuy = (props) => {
           .send({ from: praaccounts[0] })
           .on("transactionHash", (hash) => {
             console.log("해시해시", hash);
+            // 일단 여기에 비동기로 하나 넣자
           })
           .on("error", (error) => {
             window.alert("Something went wrong when pushing to the blockchain");
           });
       });
+    const ax = await axios.post("http://localhost:8080/api/setBuyOffer", {
+      CID: props.props.img,
+      address: praaccounts[0],
+      price: data.price,
+    });
 
     // 캔슬
   };
@@ -281,16 +289,31 @@ const ConfigAuction = () => {
   );
 };
 
+let param;
+
 const GetMyBuy = () => {
   const router = useRouter();
   const { id } = router.query;
 
+  // get now accounts
+  useEffect(() => {
+    async function getNowAccount() {
+      const accounts = await web3.eth.getAccounts();
+      console.log("개쎾쓰");
+      console.log("이거 왜", accounts[0]);
+      param = accounts[0];
+      console.log("pp", param);
+    }
+    getNowAccount();
+  }, []);
+
   const { data, isLoading, isFetching } = useQuery(["getMyBuy"], () =>
-    fetchMyBuy()
+    fetchMyBuy(param)
   );
 
   // const socketClient = io("http://localhost:3000");
 
+  console.log("param2", param);
   // 서버에서 받기
   // socketClient.on("refreshAuction", (req) => {
   //   console.log("서버에서 refreshAuction 받기 성공");
@@ -314,9 +337,9 @@ const GetMyBuy = () => {
 
   console.log(buyData);
 
+  console.log("이거봐바", id);
   const [open, setOpen] = React.useState(false);
   const [모달데이터, 모달데이터변경] = useState();
-
   const handleOpen = (data) => {
     모달데이터변경(data);
     setOpen(true);

@@ -533,8 +533,36 @@ app.prepare().then(() => {
     res.json(abc);
   });
 
-  server.get("/api/getMyBuy", async (req, res) => {
-    const abc = await getMyBuy();
+  server.get("/api/getBuyOffer", async (req, res) => {
+    const abc = await getBuyOffer();
+    res.json(abc);
+  });
+
+  server.post("/api/setBuyOffer", async (req, res) => {
+    const a = req.body;
+
+    console.log(a);
+
+    // CID로 검색을 해야되니까
+    await BuyMusic.create({
+      sellComplete: false,
+      CID: req.body.CID,
+      currentOwner: req.body.address,
+      price: req.body.price,
+    });
+    // await BuyMusic.create({
+    //   sellComplete: false,
+    //   CID: req.body.CID,
+    //   owner: req.body.address,
+    // });
+    res.send("setBuyOffer success");
+  });
+
+  server.post("/api/getMyBuy", async (req, res) => {
+    const a = req.body.name;
+
+    console.log("이거는", a);
+    const abc = await getMyBuy(a);
 
     res.json(abc);
   });
@@ -547,6 +575,25 @@ app.prepare().then(() => {
 
     const abc = await Music.findOne({ where: { CID: a } });
     res.json(abc);
+
+    // res.send("ok");
+  });
+
+  server.get("/api/getNowBuy", async (req, res) => {
+    const abc = await BuyMusic.findAll({ where: { sellComplete: false } });
+    res.json(abc);
+  });
+
+  server.post("/api/getUserDB", async (req, res) => {
+    const a = req.body.name;
+    // const b = a[1];
+    // const c = b.split(".");
+    // const d = c[0];
+
+    const abc = await Music.findOne({ where: { CID: a } });
+
+    const bcd = await User.findOne({ where: { address: abc.address } });
+    res.json(bcd);
 
     // res.send("ok");
   });
@@ -574,8 +621,10 @@ app.prepare().then(() => {
     res.json(abc);
   });
 
-  server.get("/api/getMyNFT", async (req, res) => {
-    const abc = await getMyNFT();
+  server.post("/api/getMyNFT", async (req, res) => {
+    const a = req.body.name;
+
+    const abc = await getMyNFT(a);
     res.json(abc);
   });
 
@@ -792,7 +841,7 @@ async function getNFT() {
 }
 
 // 경매 컨트랙트로 일단 써놈
-async function getMyNFT() {
+async function getMyNFT(data) {
   const Instance = await getAuctionDataContract();
 
   const w = require("./getWeb3");
@@ -807,7 +856,7 @@ async function getMyNFT() {
       .call();
     for (let i = 1; i <= ContractImageCount; i++) {
       let image = await Instance.methods.imageStorage(i).call();
-      if (image.currentOwner == ac[0]) {
+      if (image.currentOwner == data) {
         imagesArray = [...imagesArray, image];
       }
 
@@ -972,7 +1021,7 @@ async function getBuy() {
   }
 }
 
-async function getMyBuy() {
+async function getBuyOffer() {
   const Instance = await getBuyDataContract();
 
   if (Instance) {
@@ -1012,9 +1061,79 @@ async function getMyBuy() {
         const metadata = await response.json();
         const owner = await Instance.methods.ownerOf(i + 1).call();
 
+        const abcd = await BuyMusic.findOne({
+          where: {
+            sellComplete: false,
+            CID: metadata.properties.image.description,
+          },
+        });
+
+        if (abcd) {
+          collection = [
+            {
+              id: i + 1,
+              title: metadata.properties.name.description,
+              img: metadata.properties.image.description,
+              owner: owner,
+            },
+            ...collection,
+          ];
+        }
+      } catch {
+        console.error("Something went wrong");
+      }
+    }
+    return collection;
+  }
+}
+
+async function getMyBuy(data) {
+  const Instance = await getBuyDataContract();
+
+  if (Instance) {
+    console.log("섹스", data);
+    const w = require("./getWeb3");
+
+    const ac = await w.eth.getAccounts();
+
+    console.log("여기요", ac[0]);
+
+    // 클라이언트 변수 처리 부분
+    // const [accountAddress, setAccountAddress] = useState("");
+    // const [accountBalance, setAccountBalance] = useState("");
+    // const [Contract, setContract] = useState(null);
+    // const [ImageCount, setImageCount] = useState(0);
+    // const [Images, setImages] = useState([]);
+    // const [ImageNumOfAccount, setImageNumOfAccount] = useState(0);
+    // const [Auctions, setAuctions] = useState([]);
+    // // 얜 뭐 경매 시각 쓰려고 한건가
+    // const [lastMintTime, setLastMintTime] = useState(null);
+    // const [currentTime, setCurrentTime] = useState(null);
+
+    const totalSupply = await Instance.methods.totalSupply().call();
+    // 로드가 이게 끝인데, 왜 굳이 업데이트를 상태관리로 해놓은지 아직 이해가 안감
+    // 얼마나 더 나은 결과물이길래
+
+    let collection = [];
+    for (let i = 0; i < totalSupply; i++) {
+      const hash = await Instance.methods.tokenURIs(i).call();
+
+      // console.log(hash);
+      try {
+        // 오류 핸들러니까 잠시 주석 처리
+        const response = await fetch(
+          `https://ipfs.infura.io/ipfs/${hash}?clear`
+        );
+        if (!response.ok) {
+          throw new Error("Something went wrong");
+        }
+
+        const metadata = await response.json();
+        const owner = await Instance.methods.ownerOf(i + 1).call();
+
         console.log(owner);
 
-        if (ac[0] == owner) {
+        if (data == owner) {
           collection = [
             {
               id: i + 1,

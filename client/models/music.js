@@ -4,6 +4,12 @@ module.exports = class Music extends Sequelize.Model {
   static init(sequelize) {
     return super.init(
       {
+        id: {
+          autoIncrement: true,
+          type: Sequelize.INTEGER,
+          allowNull: false,
+          primaryKey: true,
+        },
         address: {
           type: Sequelize.STRING(45),
           allowNull: false,

@@ -6,10 +6,10 @@ import axios from "axios";
 // import contractJSON from "../../../build/contracts/NFTMarketplace.json";
 // import contractJSON from "../../../build/contracts/NFTCollection.json";
 
-const fetchMyBuy = async (param) => {
-  console.log("그럼 이건", param);
+const fetchUserDB = async (param) => {
+  console.log(param);
   // const parsed = await ky("http://localhost:3000/api/collections").json();
-  const data = await axios.post("http://localhost:8080/api/getMyBuy", {
+  const data = await axios.post("http://localhost:8080/api/getUserDB", {
     name: param,
   });
 
@@ -34,4 +34,4 @@ const fetchMyBuy = async (param) => {
 //   return result;
 // };
 
-export { fetchMyBuy };
+export { fetchUserDB };

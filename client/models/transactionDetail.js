@@ -38,6 +38,10 @@ module.exports = class TransactionDetail extends Sequelize.Model {
           allowNull: true,
           defaultValue: 0,
         },
+        winner: {
+          type: Sequelize.STRING(100),
+          allowNull: true,
+        },
       },
       {
         sequelize,

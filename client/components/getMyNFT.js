@@ -30,13 +30,27 @@ import io from "socket.io-client";
 
 const theme = createTheme();
 
+let param;
+
 const GetMyNFT = () => {
   const queryClient = useQueryClient();
   console.log(queryClient);
 
+  // get now accounts
+  useEffect(() => {
+    async function getNowAccount() {
+      const accounts = await web3.eth.getAccounts();
+      console.log("개쎾쓰");
+      console.log("이거 왜", accounts[0]);
+      param = accounts[0];
+      console.log("pp", param);
+    }
+    getNowAccount();
+  }, []);
+
   // 실시간 경매 Fetch
   const { data, isLoading, isFetching } = useQuery(["getMyNFT"], () =>
-    fetchMyNFT()
+    fetchMyNFT(param)
   );
   console.log(isFetching);
   console.log(data);

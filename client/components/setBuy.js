@@ -8,7 +8,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useRouter } from "next/router";
 import { useQuery } from "react-query";
 import { useForm } from "react-hook-form";
-import { fetchBuyDB, fetchSetBuy, fetchOffer } from "../hooks";
+import { fetchUserDB, fetchBuyDB, fetchSetBuy, fetchOffer } from "../hooks";
 import { useState, useEffect } from "react";
 
 import web3 from "./connection/web3";
@@ -34,10 +34,15 @@ const SetBuy = () => {
     const result = useQuery(["getBuyDB"], () => fetchBuyDB(id));
     return result;
   };
+  const useUser4 = () => {
+    const result = useQuery(["getUserDB"], () => fetchUserDB(id));
+    return result;
+  };
 
   const data1 = useUser1();
   const data2 = useUser2();
   const data3 = useUser3();
+  const data4 = useUser4();
 
   const [이미지, 이미지변경] = useState();
 
@@ -67,6 +72,13 @@ const SetBuy = () => {
   if (data3.data) {
     c = 1;
     buyDB = data3.data.data;
+  }
+
+  let d = 0;
+  let userDB;
+  if (data4.data) {
+    d = 1;
+    userDB = data4.data.data;
   }
 
   console.log(buyDB);
@@ -289,7 +301,7 @@ const SetBuy = () => {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Container maxWidth="lg">
-          {a === 1 && c === 1 ? (
+          {a === 1 && c === 1 && d === 1 ? (
             buyData.map((a) => (
               <Grid container spacing={5}>
                 <Grid item xs={6}>
@@ -308,7 +320,7 @@ const SetBuy = () => {
                     </Grid>
                     <Grid item xs={4}>
                       <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                        판매자{a.owner}
+                        판매자{userDB.id2}
                       </Box>
                     </Grid>
                     <Grid item xs={4}>
@@ -334,7 +346,7 @@ const SetBuy = () => {
                     </Grid>
                     <Grid item xs={4}>
                       <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                        수량
+                        좋아요 누르기
                       </Box>
                     </Grid>
 
