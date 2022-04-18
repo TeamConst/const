@@ -8,13 +8,21 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useRouter } from "next/router";
 import { useQuery } from "react-query";
 import { useForm } from "react-hook-form";
-import { fetchUserDB, fetchBuyDB, fetchSetBuy, fetchOffer } from "../hooks";
+import {
+  fetchBuyMusicDB,
+  fetchUserDB,
+  fetchBuyDB,
+  fetchSetBuy,
+  fetchOffer,
+} from "../hooks";
 import { useState, useEffect } from "react";
 
 import web3 from "./connection/web3";
 import collectionContractJSON from "../../build/contracts/NFTCollection.json";
 import marketContractJSON from "../../build/contracts/NFTMarketplace.json";
 import { ConfigService } from "aws-sdk";
+
+import axios from "axios";
 
 const theme = createTheme();
 
@@ -38,11 +46,16 @@ const SetBuy = () => {
     const result = useQuery(["getUserDB"], () => fetchUserDB(id));
     return result;
   };
+  const useUser5 = () => {
+    const result = useQuery(["getBuyMusicDB"], () => fetchBuyMusicDB(id));
+    return result;
+  };
 
   const data1 = useUser1();
   const data2 = useUser2();
   const data3 = useUser3();
   const data4 = useUser4();
+  const data5 = useUser5();
 
   const [이미지, 이미지변경] = useState();
 
@@ -50,6 +63,13 @@ const SetBuy = () => {
     이미지변경(
       `https://const123.s3.ap-northeast-2.amazonaws.com/image/${id}.jpg`
     );
+
+    async function upView() {
+      const view = await axios.post("http://localhost:8080/api/upView", {
+        CID: id,
+      });
+    }
+    upView();
   }, [id]);
 
   let buyData;
@@ -81,7 +101,23 @@ const SetBuy = () => {
     userDB = data4.data.data;
   }
 
-  console.log(buyDB);
+  let e = 0;
+  let buyMusicDB;
+  if (data5.data) {
+    e = 1;
+    buyMusicDB = data5.data.data;
+  }
+
+  const likeHandler = async () => {
+    const like = await axios.post("http://localhost:8080/api/upLike2", {
+      CID: id,
+    });
+  };
+
+  console.log("a", a);
+  console.log("c", c);
+  console.log("d", d);
+  console.log("e", e);
   // 클라이언트 처리
   const [계정, 계정변경] = useState();
 
@@ -98,8 +134,8 @@ const SetBuy = () => {
     getGlobalAccounts();
   }, []);
 
-  console.log(buyData);
-  console.log(offerData);
+  console.log("패트", buyData);
+  console.log("매트", offerData);
 
   const buyHandler = async (event) => {
     // 컨트랙트
@@ -150,6 +186,15 @@ const SetBuy = () => {
             window.alert("Something went wrong when pushing to the blockchain");
           });
       }
+    }
+
+    const setbuydb = await axios.post("http://localhost:8080/api/setBuyDB", {
+      address: praaccounts[0],
+      CID: buyData[0].img,
+    });
+
+    if (setbuydb.data == "구매 성공") {
+      window.reload.href = "http://localhost:8080/constbuy";
     }
   };
 
@@ -283,25 +328,16 @@ const SetBuy = () => {
 
   return (
     <div>
-      1
       <button onClick={claimFundsHandler} className="btn btn-success">
-        느그 돈 받아가랑
+        구매 완료 된 이더 받기
       </button>
-      얘는 취소 처리 할 수 있는 메서드
-      <div className="row">
-        <div className="d-grid gap-2 col-5 mx-auto">
-          <button onClick={cancelHandler} className="btn btn-danger">
-            CANCEL
-          </button>
-        </div>
-      </div>
       <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
         버튼버튼
       </Button>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Container maxWidth="lg">
-          {a === 1 && c === 1 && d === 1 ? (
+          {a === 1 && c === 1 && d === 1 && e === 1 ? (
             buyData.map((a) => (
               <Grid container spacing={5}>
                 <Grid item xs={6}>
@@ -325,7 +361,7 @@ const SetBuy = () => {
                     </Grid>
                     <Grid item xs={4}>
                       <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                        조회수{buyDB.playCount}
+                        조회수{buyDB.view}
                       </Box>
                     </Grid>
                     <Grid item xs={4}>
@@ -340,17 +376,23 @@ const SetBuy = () => {
                     </Grid>
                     <Grid item xs={12}>
                       <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                        가격
-                        {/* {buyDB.price} */}
+                        가격 {buyMusicDB.price}
                       </Box>
                     </Grid>
                     <Grid item xs={4}>
                       <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                        좋아요 누르기
+                        <Button
+                          onClick={likeHandler}
+                          fullWidth
+                          variant="contained"
+                          sx={{ mt: 3, mb: 2 }}
+                        >
+                          좋아요 누르기
+                        </Button>
                       </Box>
                     </Grid>
 
-                    {계정 === buyData[0].owner ? (
+                    {계정 === userDB.address ? (
                       <Grid item xs={4}>
                         <form onSubmit={handleSubmit(onSubmit)}>
                           <Box
@@ -358,7 +400,7 @@ const SetBuy = () => {
                             color="info.contrastText"
                             p={2}
                           >
-                            <input
+                            {/* <input
                               {...register("price", {
                                 required: true,
                               })}
@@ -366,18 +408,34 @@ const SetBuy = () => {
                               step="0.01"
                               placeholder="ETH..."
                               className="form-control"
-                            ></input>
-
-                            <Button
+                            ></input> */}
+                            {/* <Button
                               type="sumit"
                               fullWidth
                               variant="contained"
                               sx={{ mt: 3, mb: 2 }}
                             >
                               오퍼하기
+                            </Button> */}
+                            <Button
+                              type="sumit"
+                              fullWidth
+                              variant="contained"
+                              sx={{ mt: 3, mb: 2 }}
+                            >
+                              본인의 상품입니다
                             </Button>
                           </Box>
                         </form>
+                        <Button
+                          type="sumit"
+                          fullWidth
+                          onClick={cancelHandler}
+                          variant="contained"
+                          sx={{ mt: 3, mb: 2 }}
+                        >
+                          오퍼 취소하기
+                        </Button>
                       </Grid>
                     ) : (
                       <Grid item xs={4}>

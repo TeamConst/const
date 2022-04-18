@@ -61,6 +61,11 @@ module.exports = class Music extends Sequelize.Model {
           allowNull: true,
           defaultValue: 0,
         },
+        view: {
+          type: Sequelize.INTEGER,
+          allowNull: true,
+          defaultValue: 0,
+        },
         CID: {
           type: Sequelize.STRING(100),
           allowNull: false,

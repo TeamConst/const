@@ -14,16 +14,27 @@ import MenuItem from "@mui/material/MenuItem";
 
 import Link from "next/link";
 
+import { QueryClient, useQuery, useQueryClient } from "react-query";
+import { fetchUserSession } from "../hooks";
+
 // 객체로 바꾸자
-const pages = [
+const pagesYesSession = [
   ["ALL NFT", "constnft"],
   ["BUY NOW", "constbuy"],
   ["AUCTION", "constauction"],
   ["이용권 구매", "buyticket"],
-  ["로그인", "login"],
-  ["회원가입", "signup"],
   ["MyPage", "mypage"],
   ["MINTING", "mint"],
+  ["Listen Music", "listen"],
+  ["로그아웃", "logout"],
+];
+
+const pagesNoSession = [
+  ["ALL NFT", "constnft"],
+  ["BUY NOW", "constbuy"],
+  ["AUCTION", "constauction"],
+  ["로그인", "login"],
+  ["회원가입", "signup"],
   ["Listen Music", "listen"],
 ];
 
@@ -41,6 +52,15 @@ const pages = [
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const Navbar = () => {
+  const { data, isLoading, isFetching } = useQuery(["getUserSession"], () =>
+    fetchUserSession()
+  );
+
+  let a = 0;
+  if (data) {
+    a = 1;
+  }
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -114,28 +134,60 @@ const Navbar = () => {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
-                <Link href={page[1]}>
-                  <MenuItem key={page[0]} onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">{page[0]}</Typography>
-                  </MenuItem>
-                </Link>
-              ))}
+              {a === 1 ? (
+                <Box>
+                  {pagesYesSession.map((page) => (
+                    <Link href={`/${encodeURIComponent(page[1])}`}>
+                      <MenuItem key={page[0]} onClick={handleCloseNavMenu}>
+                        <Typography textAlign="center">{page[0]}</Typography>
+                      </MenuItem>
+                    </Link>
+                  ))}
+                </Box>
+              ) : (
+                <Box>
+                  {pagesNoSession.map((page) => (
+                    <Link href={`/${encodeURIComponent(page[1])}`}>
+                      <MenuItem key={page[0]} onClick={handleCloseNavMenu}>
+                        <Typography textAlign="center">{page[0]}</Typography>
+                      </MenuItem>
+                    </Link>
+                  ))}
+                </Box>
+              )}
             </Menu>
           </Box>
 
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Link href={page[1]}>
-                <Button
-                  key={page[0]}
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: "white", display: "block" }}
-                >
-                  {page[0]}
-                </Button>
-              </Link>
-            ))}
+            {a === 1 ? (
+              <Box>
+                {pagesYesSession.map((page) => (
+                  <Link href={`/${encodeURIComponent(page[1])}`}>
+                    <Button
+                      key={page[0]}
+                      onClick={handleCloseNavMenu}
+                      sx={{ my: 2, color: "white", display: "block" }}
+                    >
+                      {page[0]}
+                    </Button>
+                  </Link>
+                ))}
+              </Box>
+            ) : (
+              <Box>
+                {pagesNoSession.map((page) => (
+                  <Link href={`/${encodeURIComponent(page[1])}`}>
+                    <Button
+                      key={page[0]}
+                      onClick={handleCloseNavMenu}
+                      sx={{ my: 2, color: "white", display: "block" }}
+                    >
+                      {page[0]}
+                    </Button>
+                  </Link>
+                ))}
+              </Box>
+            )}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>

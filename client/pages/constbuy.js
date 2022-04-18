@@ -1,5 +1,6 @@
 import Layout from "../components/layout";
 import GetBuy from "../components/getBuy";
+import GetNowBuy from "../components/getNowBuy";
 
 const ConstBuy = () => {
   // const localsQuery = useQuery("locals", fetchLocals);
@@ -7,7 +8,8 @@ const ConstBuy = () => {
   return (
     <div>
       <Layout></Layout>
-      <GetBuy></GetBuy>
+      <GetNowBuy></GetNowBuy>
+      {/* <GetBuy></GetBuy> */}
     </div>
   );
 };

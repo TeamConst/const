@@ -44,6 +44,8 @@ const LoginForm = () => {
 
       const result = await axios.post("http://localhost:8080/api/login", data);
       console.log(result);
+
+      window.location.href = "http://localhost:8080/";
     } catch (err) {
       console.log("회원가입 오류에연");
     }

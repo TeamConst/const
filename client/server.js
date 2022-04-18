@@ -11,6 +11,9 @@ dotenv.config();
 const morgan = require("morgan");
 const path = require("path");
 
+// 암호화
+const bcrypt = require("bcrypt");
+
 // 시퀄라이즈 연결
 const { sequelize } = require("./models/index.js");
 const User = require("./models/user");
@@ -29,8 +32,11 @@ const session = require("express-session");
 const cors = require("cors");
 
 // passport 설정
-// const passport = require("passport");
-// const passportConfig = require("./passport");
+const passport = require("passport");
+const passportConfig = require("./passport");
+
+// 미들웨어
+const { isLoggedIn, isNotLoggedIn } = require("./routers/middlewares.js");
 
 // 라우터 선언
 const indexRouter = require("./routers/index.js");
@@ -51,13 +57,6 @@ sequelize
   .catch((err) => {
     console.error(err);
   });
-
-// passport setting
-// passportConfig();
-// passport 설정 선언(req에 passport 설정 삽입) 위 use.session이라고 보면 댐
-// app.use(passport.initialize());
-// req.session 에 passport 정보 저장 (req.session.num = 1 이런거라고 보면 댐)
-// app.use(passport.session());
 
 // nextjs는 아래 안써줘도 된다
 // URL과 라우터 매칭
@@ -156,6 +155,13 @@ app.prepare().then(() => {
     // sessionOption.cookie.secure = true;
   }
   server.use(session(sessionOption));
+
+  // passport setting
+  passportConfig();
+  // passport 설정 선언(req에 passport 설정 삽입) 위 use.session이라고 보면 댐
+  server.use(passport.initialize());
+  // req.session 에 passport 정보 저장 (req.session.num = 1 이런거라고 보면 댐)
+  server.use(passport.session());
 
   // 이거 어따씀?
   // app.use("/", express.static(path.join(__dirname, "./build")));
@@ -453,6 +459,23 @@ app.prepare().then(() => {
     res.send("업하트 오케");
   });
 
+  server.post("/api/upLike2", async (req, res) => {
+    const a = req.body.CID;
+    const read = await Music.findOne({ where: { CID: a } });
+    await Music.update(
+      { LikeMusic: read.LikeMusic + 1 },
+      { where: { CID: a } }
+    );
+    res.send("좋아요 올리기 성공");
+  });
+
+  server.post("/api/upView", async (req, res) => {
+    const a = req.body.CID;
+    const read = await Music.findOne({ where: { CID: a } });
+    await Music.update({ view: read.view + 1 }, { where: { CID: a } });
+    res.send("조회수 올리기 성공");
+  });
+
   // 내가 하는 행동 처리
   server.post("/api/myPlayCount", async (req, res) => {
     const CID = Object.keys(req.body);
@@ -509,21 +532,85 @@ app.prepare().then(() => {
 
   // 회원가입 일단, 어드레스만 트러플에 넣고 나머지는 Mysql에 넣도록 하겠다
   // 그리고 블록체인이니까 계정 중복 등의 고려는 우선 하지 않도록 하겠다
-  server.post("/api/signup", async (req, res) => {
+  server.post("/api/signup", isNotLoggedIn, async (req, res, next) => {
     try {
-      const data = await User.create(req.body);
+      const body = await req.body;
+      console.log(req.body.password);
+      const hash = await bcrypt.hash(req.body.password, 12);
+      body.password = hash;
+      const data = await User.create(body);
+
       res.send("회원가입 완료");
-    } catch (err) {
-      res.send(err);
+    } catch (error) {
+      // res.send(err);
+      console.error(error);
+      next(error);
     }
   });
 
-  server.post("/api/login", async (req, res) => {
+  server.post("/api/login", isNotLoggedIn, async (req, res, next) => {
     try {
-      // const data = await User.create(req.body);
-      res.send("로그인 완료");
-    } catch (err) {
-      res.send(err);
+      // passport를 이용하면 req.session 객체에 정보를 넣는게 쉬워서 사용하는 것이다.
+      // localStrategy로 감
+      passport.authenticate("local", (authError, user, info) => {
+        // 서버에러 시
+        if (authError) {
+          console.error(authError);
+          return next(authError);
+        }
+        if (!user) {
+          return res.redirect(`/?loginError=${info.message}`);
+        }
+        //req.login이 serializeUser 실행
+        return req.login(user, (loginError) => {
+          if (loginError) {
+            console.error(loginError);
+            return next(loginError);
+          }
+          res.json(req.user);
+          // return res.redirect("/");
+        });
+      })(req, res, next); // 미들웨어 내의 미들웨어에는 (req, res, next)를 붙입니다.
+    } catch {
+      console.log("얘도 확인");
+    }
+  });
+
+  // server.get("/api/session", isLoggedIn, (req, res) => {
+  //   res.json(req.user);
+  // });
+
+  server.get("/api/getUserSession", isLoggedIn, (req, res) => {
+    res.json(req.user);
+  });
+
+  server.get("/api/logout", isLoggedIn, (req, res) => {
+    console.log("뜸?");
+    req.logout();
+    req.session.destroy();
+    // res.redirect("/");
+    res.send("로그아웃 완료");
+  });
+
+  // 이용권
+  server.post("/api/updateuser", async (req, res) => {
+    console.log(req.body.id);
+    console.log(req.body.ticket);
+
+    try {
+      const updateCondition = await User.update(
+        {
+          ticket: req.body.ticket,
+        },
+        {
+          where: { id: req.body.id },
+        }
+      );
+
+      res.status(200).json({ success: true, updateCondition });
+    } catch (error) {
+      console.error(error);
+      return res.status(400).send(err);
     }
   });
 
@@ -574,6 +661,40 @@ app.prepare().then(() => {
     // const d = c[0];
 
     const abc = await Music.findOne({ where: { CID: a } });
+    res.json(abc);
+
+    // res.send("ok");
+  });
+
+  server.post("/api/setBuyDB", async (req, res) => {
+    const a = req.body.name;
+
+    // const b = a[1];
+    // const c = b.split(".");
+    // const d = c[0];
+
+    await Music.update(
+      { address: req.body.address },
+      { where: { CID: req.body.CID } }
+    );
+    const abc = await BuyMusic.update(
+      { sellComplete: true, currentOwner: req.body.address },
+      { where: { CID: req.body.CID } }
+    );
+
+    res.json("구매 성공");
+
+    // res.send("ok");
+  });
+
+  server.post("/api/getBuyMusicDB", async (req, res) => {
+    const a = req.body.name;
+    // const b = a[1];
+    // const c = b.split(".");
+    // const d = c[0];
+
+    console.log("이거요", a);
+    const abc = await BuyMusic.findOne({ where: { CID: a } });
     res.json(abc);
 
     // res.send("ok");
@@ -1091,7 +1212,6 @@ async function getMyBuy(data) {
   const Instance = await getBuyDataContract();
 
   if (Instance) {
-    console.log("섹스", data);
     const w = require("./getWeb3");
 
     const ac = await w.eth.getAccounts();

@@ -299,7 +299,6 @@ const GetMyBuy = () => {
   useEffect(() => {
     async function getNowAccount() {
       const accounts = await web3.eth.getAccounts();
-      console.log("개쎾쓰");
       console.log("이거 왜", accounts[0]);
       param = accounts[0];
       console.log("pp", param);

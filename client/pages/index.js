@@ -39,11 +39,20 @@ import { fetchLocals } from "../hooks";
 import AuctionCollection from "../components/Auction/AuctionCollection";
 import Marketplace from "../components/Marketplace";
 
+import GetNFT from "../components/getNFT";
+import GetBuy from "../components/getBuy";
+import GetNowBuy from "../components/getNowBuy";
+
 const Page = () => {
   return (
     <div>
       <Layout></Layout>
       <AuctionCollection />
+
+      {/* <GetNFT></GetNFT> */}
+      {/* <GetBuy></GetBuy> */}
+      {/* <GetNowBuy></GetNowBuy> */}
+
       <div>dadada</div>
     </div>
   );

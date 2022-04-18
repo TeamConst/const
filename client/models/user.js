@@ -23,7 +23,7 @@ module.exports = class User extends Sequelize.Model {
           allowNull: false,
         },
         password: {
-          type: Sequelize.STRING(45),
+          type: Sequelize.STRING(100),
           allowNull: false,
         },
         name: {
@@ -37,6 +37,11 @@ module.exports = class User extends Sequelize.Model {
         favor_genre: {
           type: Sequelize.STRING(45),
           allowNull: true,
+        },
+        ticket: {
+          type: Sequelize.STRING(45),
+          allowNull: false,
+          defaultValue: "이용권 없음",
         },
       },
       {
