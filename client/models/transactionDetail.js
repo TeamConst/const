@@ -18,12 +18,14 @@ module.exports = class TransactionDetail extends Sequelize.Model {
           defaultValue: 0,
         },
         startingPoint: {
-          type: Sequelize.STRING(100),
+          type: Sequelize.INTEGER,
           allowNull: true,
+          defaultValue: 0,
         },
         endingPoint: {
-          type: Sequelize.STRING(100),
+          type: Sequelize.INTEGER,
           allowNull: true,
+          defaultValue: 0,
         },
         startingTime: {
           type: Sequelize.DATE,

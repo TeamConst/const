@@ -40,7 +40,7 @@ module.exports = class MyMusic extends Sequelize.Model {
     );
   }
   static associate(db) {
-    db.Mymusic.belongsTo(db.User, {
+    db.MyMusic.belongsTo(db.User, {
       foreignKey: "address",
       targetKey: "address",
     });

@@ -4,10 +4,25 @@ module.exports = class AuctionMusic extends Sequelize.Model {
   static init(sequelize) {
     return super.init(
       {
+        id: {
+          autoIncrement: true,
+          type: Sequelize.INTEGER,
+          allowNull: false,
+          primaryKey: true,
+        },
         CID: {
           type: Sequelize.STRING(100),
-          allowNull: true,
+          allowNull: false,
           primaryKey: true,
+        },
+        currentPrice: {
+          type: Sequelize.INTEGER,
+          allowNull: true,
+          defaultValue: 0,
+        },
+        currentWinner: {
+          type: Sequelize.STRING(100),
+          allowNull: true,
         },
         auctionCount: {
           type: Sequelize.INTEGER,

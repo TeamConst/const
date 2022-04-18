@@ -10,9 +10,9 @@ const config = require("../config/config.js");
 const User = require("./user");
 const Music = require("./music");
 const Artist = require("./artist");
-const Auction = require("./auction");
 const AuctionData = require("./auctiondata");
-const Mymusic = require("./mymusic");
+const MyMusic = require("./mymusic");
+const AuctionMusic = require("./auctionMusic");
 const BuyMusic = require("./buyMusic");
 const TransactionDetail = require("./transactionDetail");
 
@@ -33,9 +33,9 @@ db.sequelize = sequelize;
 db.User = User;
 db.Music = Music;
 db.Artist = Artist;
-db.Auction = Auction;
-db.Mymusic = Mymusic;
+db.MyMusic = MyMusic;
 db.BuyMusic = BuyMusic;
+db.AuctionMusic = AuctionMusic;
 db.TransactionDetail = TransactionDetail;
 db.AuctionData = AuctionData;
 
@@ -43,20 +43,20 @@ db.AuctionData = AuctionData;
 User.init(sequelize);
 Artist.init(sequelize);
 Music.init(sequelize);
-Auction.init(sequelize);
 AuctionData.init(sequelize);
-Mymusic.init(sequelize);
+MyMusic.init(sequelize);
 BuyMusic.init(sequelize);
+AuctionMusic.init(sequelize);
 TransactionDetail.init(sequelize);
 // Like.init(sequelize);
 
 User.associate(db);
 Artist.associate(db);
 Music.associate(db);
-Auction.associate(db);
 AuctionData.associate(db);
-Mymusic.associate(db);
+MyMusic.associate(db);
 BuyMusic.associate(db);
+AuctionMusic.associate(db);
 TransactionDetail.associate(db);
 // Like.associate(db);
 

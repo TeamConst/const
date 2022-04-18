@@ -193,8 +193,9 @@ const SetBuy = () => {
       CID: buyData[0].img,
     });
 
-    if (setbuydb.data == "구매 성공") {
-      window.reload.href = "http://localhost:8080/constbuy";
+    if (setbuydb) {
+      console.log(setbuydb);
+      // window.reload.href = "http://localhost:8080/constbuy";
     }
   };
 
@@ -320,10 +321,6 @@ const SetBuy = () => {
             window.alert("Something went wrong when pushing to the blockchain");
           });
       });
-
-    // 바이
-
-    // 캔슬
   };
 
   return (

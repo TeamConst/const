@@ -18,10 +18,10 @@ const bcrypt = require("bcrypt");
 const { sequelize } = require("./models/index.js");
 const User = require("./models/user");
 const Music = require("./models/music");
-const Auction = require("./models/auction");
 const AuctionData = require("./models/auctiondata");
 const MyMusic = require("./models/mymusic");
 const BuyMusic = require("./models/buyMusic");
+const AuctionMusic = require("./models/auctionMusic");
 const TransactionDetail = require("./models/transactionDetail");
 
 // 쿠키, 세션 설정
@@ -620,6 +620,11 @@ app.prepare().then(() => {
     res.json(abc);
   });
 
+  server.get("/api/getAuction", async (req, res) => {
+    const abc = await getAuction();
+    res.json(abc);
+  });
+
   server.get("/api/getBuyOffer", async (req, res) => {
     const abc = await getBuyOffer();
     res.json(abc);
@@ -677,10 +682,26 @@ app.prepare().then(() => {
       { address: req.body.address },
       { where: { CID: req.body.CID } }
     );
-    const abc = await BuyMusic.update(
+
+    await BuyMusic.update(
       { sellComplete: true, currentOwner: req.body.address },
       { where: { CID: req.body.CID } }
     );
+
+    const price = await BuyMusic.findOne(
+      { price },
+      { where: { CID: req.body.CID } }
+    );
+    const date = new Date();
+
+    await TransactionDetail.create({
+      CID: req.body.CID,
+      Method: "BUY",
+      price: price,
+      startingTime: date,
+      totalParticipant: 1,
+      winner: req.body.address,
+    });
 
     res.json("구매 성공");
 
@@ -702,6 +723,13 @@ app.prepare().then(() => {
 
   server.get("/api/getNowBuy", async (req, res) => {
     const abc = await BuyMusic.findAll({ where: { sellComplete: false } });
+    res.json(abc);
+  });
+
+  server.get("/api/getNowAuction", async (req, res) => {
+    const abc = await AuctionMusic.findAll({
+      where: { auctionComplete: false },
+    });
     res.json(abc);
   });
 
@@ -750,23 +778,23 @@ app.prepare().then(() => {
   });
 
   // 구매, 판매 페이지 입장시
-  server.post("/api/buysell", async (req, res) => {
-    console.log(req.body);
-    console.log(req.body.name);
-    const a = req.body.name.split("/");
-    const b = a[1];
-    const c = b.split(".");
+  // server.post("/api/buysell", async (req, res) => {
+  //   console.log(req.body);
+  //   console.log(req.body.name);
+  //   const a = req.body.name.split("/");
+  //   const b = a[1];
+  //   const c = b.split(".");
 
-    // 경매 불러와야대
-    const mu = await Music.findOne({ where: { title: c } });
-    const ac = await Auction.findOne({ where: { title: c } });
+  //   // 경매 불러와야대
+  //   const mu = await Music.findOne({ where: { title: c } });
+  //   const ac = await Auction.findOne({ where: { title: c } });
 
-    console.log(mu, ac);
-    const result = { ...mu, ...ac };
+  //   console.log(mu, ac);
+  //   const result = { ...mu, ...ac };
 
-    // const data = await Music.findOne({ title: req.body.name });
-    res.json(result);
-  });
+  //   // const data = await Music.findOne({ title: req.body.name });
+  //   res.json(result);
+  // });
 
   server.post("/api/AuctionData", async (req, res) => {
     // const result = await Music.findAll();
@@ -1354,5 +1382,43 @@ async function getOffer(param) {
     }
 
     return offers;
+  }
+
+  async function getAuction() {
+    const Instance = await getAuctionDataContract();
+
+    if (Instance) {
+      let imagesArray = [];
+      let auctionsArray = [];
+
+      const ContractImageCount = await Instance.methods
+        .currentImageCount()
+        .call();
+
+      for (let i = 1; i <= ContractImageCount; i++) {
+        let image = await Instance.methods.imageStorage(i).call();
+        imagesArray = [...imagesArray, image];
+        // setImages((Images) => [...Images, image]);
+        let auction = await Instance.methods.auctions(i).call();
+        auctionsArray = [...auctionsArray, auction];
+      }
+
+      // console.log(imagesArray);
+      // console.log(auctionsArray);
+      // console.log(Instance);
+
+      // 얘는 세션 처리가 날 것 같은데?
+      // let ContractImageNumOfAccount = await Instance.methods
+      //   .getOwnedNumber(accounts[0])
+      //   .call();
+
+      // setContract(NFTMarketplaceInstance);
+      // setAccountAddress(accounts[0]);
+      // setAccountBalance(balance);
+      // setImageCount(ImageCount);
+      // setImageNumOfAccount(ContractImageNumOfAccount);
+
+      return imagesArray;
+    }
   }
 }
