@@ -9,10 +9,10 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { TextField } from "@mui/material";
 
-import web3 from "./connection/web3";
-import contractJSON from "../../build/contracts/NFTCollection.json";
+import web3 from "../connection/web3";
+import contractJSON from "../../../build/contracts/NFTCollection.json";
 
-import ImageNFTMarketplace from "../../build/contracts/ImageMarketplace.json";
+import ImageNFTMarketplace from "../../../build/contracts/ImageMarketplace.json";
 // import ImageNFTMarketplace from "../../build/contracts/ConstContract.json";
 
 import axios from "axios";

@@ -23,8 +23,8 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { QueryClient, useQuery, useQueryClient } from "react-query";
-import { fetchMyNFT } from "../hooks";
-import web3 from "./connection/web3";
+import { fetchMyNFT } from "../../../hooks";
+import web3 from "../../connection/web3";
 
 import io from "socket.io-client";
 

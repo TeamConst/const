@@ -1,4 +1,4 @@
-import Layout from "../components/layout";
+import Layout from "../components/Layout/layout";
 import GetBuyOffer from "../components/getBuyOffer";
 
 const ConstBuyOffer = () => {

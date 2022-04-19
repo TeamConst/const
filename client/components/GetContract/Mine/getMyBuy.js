@@ -15,6 +15,7 @@ import {
   DialogContentText,
   DialogTitle,
 } from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
 import Container from "@mui/material/Container";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -27,15 +28,15 @@ import { useForm } from "react-hook-form";
 
 import { QueryClient, useQuery, useQueryClient } from "react-query";
 import React, { useState, useEffect } from "react";
-import { fetchMyBuy } from "../hooks";
+import { fetchMyBuy } from "../../../hooks";
 import io from "socket.io-client";
 
 import axios from "axios";
 import Link from "next/link";
 
-import web3 from "./connection/web3";
-import collectionContractJSON from "../../build/contracts/NFTCollection.json";
-import marketContractJSON from "../../build/contracts/NFTMarketplace.json";
+import web3 from "../../connection/web3";
+import collectionContractJSON from "../../../../build/contracts/NFTCollection.json";
+import marketContractJSON from "../../../../build/contracts/NFTMarketplace.json";
 
 const theme = createTheme();
 
@@ -295,6 +296,7 @@ const GetMyBuy = () => {
   const router = useRouter();
   const { id } = router.query;
 
+  console.log("라우터", router);
   // get now accounts
   useEffect(() => {
     async function getNowAccount() {
@@ -348,7 +350,6 @@ const GetMyBuy = () => {
   return (
     <div>
       {/* 모달 */}
-
       <Modal
         open={open}
         onClose={handleClose}
@@ -411,9 +412,8 @@ const GetMyBuy = () => {
                 // </Link>
               ))
             ) : (
-              // <div>{JSON.stringify(data)}</div>
               <div>
-                <h1>아님</h1>
+                <CircularProgress />
               </div>
             )}
           </Grid>

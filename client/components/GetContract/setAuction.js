@@ -22,12 +22,12 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import { QueryClient, useQuery, useQueryClient } from "react-query";
 import React, { useState, useEffect } from "react";
-import { fetchAuction } from "../hooks";
+import { fetchAuction } from "../../hooks";
 import io from "socket.io-client";
 
-import web3 from "./connection/web3";
-import { fetchContract } from "../hooks";
-import ImageNFTMarketplace from "../../build/contracts/ImageMarketplace.json";
+import web3 from "../connection/web3";
+import { fetchContract } from "../../hooks";
+import ImageNFTMarketplace from "../../../build/contracts/ImageMarketplace.json";
 
 const theme = createTheme();
 

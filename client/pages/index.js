@@ -1,7 +1,7 @@
 // import { useQuery, dehydrate, QueryClient } from "react-query";
 // import { fetchLocals } from "../hooks";
 
-// import Layout from "../components/layout";
+// import Layout from "../components/Layout/layout";
 
 // const Index = () => {
 //   return <div>abcd111</div>;
@@ -33,27 +33,24 @@
 
 // export default Index;
 
-import Layout from "../components/layout";
+import Layout from "../components/Layout/layout";
 import { useQuery, dehydrate, QueryClient } from "react-query";
 import { fetchLocals } from "../hooks";
-import AuctionCollection from "../components/Auction/AuctionCollection";
-import Marketplace from "../components/Marketplace";
 
-import GetNFT from "../components/getNFT";
-import GetBuy from "../components/getBuy";
-import GetNowBuy from "../components/getNowBuy";
+import AuctionCollection from "../components/Auction/AuctionCollection";
+
+import GetNowBuy from "../components/GetLocalDB/getNowBuy";
+import GetNowAuction from "../components/GetLocalDB/getNowAuction";
+import ListenMusic from "../components/GetLocalDB/listenMusic";
 
 const Page = () => {
   return (
     <div>
       <Layout></Layout>
-      <AuctionCollection />
-
-      {/* <GetNFT></GetNFT> */}
-      {/* <GetBuy></GetBuy> */}
-      {/* <GetNowBuy></GetNowBuy> */}
-
-      <div>dadada</div>
+      {/* <AuctionCollection /> */}
+      <GetNowBuy></GetNowBuy>
+      <GetNowAuction></GetNowAuction>
+      <ListenMusic></ListenMusic>
     </div>
   );
 };

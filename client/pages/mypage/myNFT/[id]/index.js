@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 
-import Layout from "../../../../components/layout";
-import GetMyNFT from "../../../../components/getMyNFT";
+import Layout from "../../../../components/Layout/layout";
+import GetMyNFT from "../../../../components/GetContract/Mine/getMyNFT";
 
 import { useQuery, dehydrate, QueryClient } from "react-query";
 

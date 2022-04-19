@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 
-import Layout from "../../../components/layout";
-import SetBuy from "../../../components/setBuy";
+import Layout from "../../../components/Layout/layout";
+import SetBuy from "../../../components/GetContract/setBuy";
 
 import { useQuery, dehydrate, QueryClient } from "react-query";
 

@@ -1,4 +1,4 @@
-import Layout from "../components/layout";
+import Layout from "../components/Layout/layout";
 import GetNFT from "../components/getNFT";
 
 import axios from "axios";

@@ -21,13 +21,13 @@ import CardMedia from "@mui/material/CardMedia";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import { useQuery } from "react-query";
-import { fetchNowAuction } from "../hooks";
+import { fetchNowAuction } from "../../hooks";
 
 import Link from "next/link";
 
 const theme = createTheme();
 
-const GetNowBuy = () => {
+const GetNowAuction = () => {
   const { data, isLoading, isFetching } = useQuery(["getNowAuction"], () =>
     fetchNowAuctiony()
   );
@@ -104,4 +104,4 @@ const GetNowBuy = () => {
   );
 };
 
-export default GetNowBuy;
+export default GetNowAuction;

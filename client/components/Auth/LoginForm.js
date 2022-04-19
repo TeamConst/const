@@ -20,7 +20,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import countryList from "react-select-country-list";
 
-import web3 from "./connection/web3";
+import web3 from "../connection/web3";
 
 const theme = createTheme();
 

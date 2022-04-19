@@ -1,5 +1,5 @@
 import Navbar from "../components/navbar";
-import ListenMusic from "../components/listenMusic";
+import ListenMusic from "../components/GetLocalDB/listenMusic";
 
 const Listen = () => {
   return (

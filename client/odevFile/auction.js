@@ -1,4 +1,4 @@
-import Layout from "../components/layout";
+import Layout from "../components/Layout/layout";
 import GetAuction from "../components/getAuction";
 
 const Auction = () => {

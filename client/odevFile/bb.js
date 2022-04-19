@@ -1,4 +1,4 @@
-import Layout from "../components/layout";
+import Layout from "../components/Layout/layout";
 import BestCollection from "../components/NFTCollection/bestCollection";
 
 import { useQuery, dehydrate, QueryClient } from "react-query";

@@ -1,3 +1,4 @@
+// 서버 페칭만 써볼 거에요 이 컴포넌트는
 import {
   Button,
   Typography,
@@ -20,45 +21,53 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-import { useQuery } from "react-query";
-import { fetchNowBuy } from "../hooks";
+import { QueryClient, useQuery, useQueryClient } from "react-query";
+import React, { useState, useEffect } from "react";
+import { fetchBuy } from "../../hooks";
+import io from "socket.io-client";
 
 import Link from "next/link";
 
 const theme = createTheme();
 
-const GetNowBuy = () => {
-  const { data, isLoading, isFetching } = useQuery(["getNowBuy"], () =>
-    fetchNowBuy()
+const GetBuy = () => {
+  const { data, isLoading, isFetching } = useQuery(["getBuy"], () =>
+    fetchBuy()
   );
 
-  let a = 0;
-  let buyNowData = [];
-  console.log(data);
+  // const socketClient = io("http://localhost:3000");
 
+  // 서버에서 받기
+  // socketClient.on("refreshAuction", (req) => {
+  //   console.log("서버에서 refreshAuction 받기 성공");
+  //   // queryClient.invalidateQueries("getAuctions");
+  // });
+
+  let a = 0;
+  let buyData = [];
+  let b;
+  let c;
   if (data) {
-    if (data.data.length > 0) {
-      a = 1;
-      for (let i = 0; i < data.data.length; i++) {
-        buyNowData[i] = data.data[i];
-        buyNowData[
-          i
-        ].s3 = `https://const123.s3.ap-northeast-2.amazonaws.com/image/${data.data[i].CID}.jpg`;
-      }
+    a = 1;
+    for (let i = 0; i < data.data.length; i++) {
+      buyData[i] = data.data[i];
+      buyData[
+        i
+      ].s3 = `https://const123.s3.ap-northeast-2.amazonaws.com/image/${data.data[i].img}.jpg`;
     }
   }
 
-  console.log(a);
-  console.log(buyNowData);
+  console.log(buyData);
+
   return (
     <div>
       <ThemeProvider theme={theme}>
         <Container sx={{ py: 8 }} maxWidth="md">
           <Grid container spacing={4}>
             {a === 1 ? (
-              buyNowData.map((a) => (
-                <Link href={`/buy/${encodeURIComponent(a.CID)}`}>
-                  <Grid item key={a.CID} xs={12} sm={6} md={4}>
+              buyData.map((a) => (
+                <Link href={`/buy/${encodeURIComponent(a.img)}`}>
+                  <Grid item key={a.img} xs={12} sm={6} md={4}>
                     <Card
                       sx={{
                         height: "100%",
@@ -94,7 +103,7 @@ const GetNowBuy = () => {
             ) : (
               // <div>{JSON.stringify(data)}</div>
               <div>
-                <h1>아직 판매로 나온 상품이 없어용</h1>
+                <h1>아님</h1>
               </div>
             )}
           </Grid>
@@ -104,4 +113,4 @@ const GetNowBuy = () => {
   );
 };
 
-export default GetNowBuy;
+export default GetBuy;

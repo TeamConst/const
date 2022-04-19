@@ -14,12 +14,12 @@ import {
   fetchBuyDB,
   fetchSetBuy,
   fetchOffer,
-} from "../hooks";
+} from "../../hooks";
 import { useState, useEffect } from "react";
 
-import web3 from "./connection/web3";
-import collectionContractJSON from "../../build/contracts/NFTCollection.json";
-import marketContractJSON from "../../build/contracts/NFTMarketplace.json";
+import web3 from "../connection/web3";
+import collectionContractJSON from "../../../build/contracts/NFTCollection.json";
+import marketContractJSON from "../../../build/contracts/NFTMarketplace.json";
 import { ConfigService } from "aws-sdk";
 
 import axios from "axios";

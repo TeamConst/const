@@ -6,9 +6,9 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useQuery } from "react-query";
 import { useEffect, useState } from "react";
-import web3 from "../components/connection/web3";
-import MintedImages from "./MintedImages/index";
-import { fetchBestCollections } from "../hooks";
+import web3 from "../connection/web3";
+import MintedImages from "../MintedImages/index";
+import { fetchBestCollections } from "../../hooks";
 import axios from "axios";
 //
 import Card from "@mui/material/Card";
@@ -25,10 +25,10 @@ import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import ImageCard from "./ImageCard/ImageCard";
+import ImageCard from "../ImageCard/ImageCard";
 
-import GetMyBuy from "../components/getMyBuy";
-import GetMyNFT from "../components/getMyNFT";
+import GetMyBuy from "../getMyBuy";
+import GetMyNFT from "../getMyNFT";
 
 //
 import Web3 from "web3";
@@ -76,7 +76,7 @@ const Mypage1 = () => {
     let ImageNFTMarketplace = {};
 
     try {
-      ImageNFTMarketplace = require("../../build/contracts/ImageMarketplace.json");
+      ImageNFTMarketplace = require("../../../build/contracts/ImageMarketplace.json");
     } catch (e) {
       console.log(e);
     }

@@ -1,5 +1,5 @@
-import Layout from "../components/layout";
-import Mypage1 from "../components/mypage";
+import Layout from "../components/Layout/layout";
+import Mypage1 from "../components/Mypage/mypage";
 import { useQuery, dehydrate, QueryClient } from "react-query";
 
 const Mypage = () => {

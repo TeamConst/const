@@ -15,8 +15,8 @@ import Link from "@mui/material/Link";
 import GlobalStyles from "@mui/material/GlobalStyles";
 import Container from "@mui/material/Container";
 
-import configuration from "../../build/contracts/Tickets.json";
-import web3 from "./connection/web3";
+import configuration from "../../../build/contracts/Tickets.json";
+import web3 from "../connection/web3";
 import { useState, useEffect } from "react";
 
 const tiers = [

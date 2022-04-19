@@ -1,5 +1,5 @@
-import Layout from "../components/layout";
-import Music from "../components/music";
+import Layout from "../components/Layout/layout";
+import Music from "../components/Minting/music";
 
 const Mint = () => {
   return (

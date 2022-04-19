@@ -15,7 +15,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Link from "next/link";
 
 import { QueryClient, useQuery, useQueryClient } from "react-query";
-import { fetchUserSession } from "../hooks";
+import { fetchUserSession } from "../../hooks";
 
 // 객체로 바꾸자
 const pagesYesSession = [

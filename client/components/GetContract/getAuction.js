@@ -23,7 +23,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import { QueryClient, useQuery, useQueryClient } from "react-query";
 import React, { useState, useEffect } from "react";
-import { fetchAuction } from "../hooks";
+import { fetchAuction } from "../../hooks";
 import io from "socket.io-client";
 
 const theme = createTheme();

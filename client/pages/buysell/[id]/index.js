@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 
-import Layout from "../../../components/layout";
+import Layout from "../../../components/Layout/layout";
 import BuyDetail from "../../../components/buyDetail";
 import Market from "../../../components/market";
 

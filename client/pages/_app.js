@@ -4,8 +4,6 @@ import React from "react";
 import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 
-import Layout from "../components/layout";
-
 import CssBaseline from "@mui/material/CssBaseline";
 
 const MyApp = ({ Component, pageProps }) => {

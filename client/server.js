@@ -576,10 +576,6 @@ app.prepare().then(() => {
     }
   });
 
-  // server.get("/api/session", isLoggedIn, (req, res) => {
-  //   res.json(req.user);
-  // });
-
   server.get("/api/getUserSession", isLoggedIn, (req, res) => {
     res.json(req.user);
   });
@@ -614,7 +610,39 @@ app.prepare().then(() => {
     }
   });
 
-  // 구매 첫 페이지
+  // 현재 진행중인 데이터 로컬 db 간략화
+  server.get("/api/getNowBuy", async (req, res) => {
+    const abc = await BuyMusic.findAll({ where: { sellComplete: false } });
+    res.json(abc);
+  });
+
+  server.get("/api/getNowAuction", async (req, res) => {
+    const abc = await AuctionMusic.findAll({
+      where: { auctionComplete: false },
+    });
+    res.json(abc);
+  });
+
+  server.post("/api/getUserDB", async (req, res) => {
+    const a = req.body.name;
+    // const b = a[1];
+    // const c = b.split(".");
+    // const d = c[0];
+
+    const abc = await Music.findOne({ where: { CID: a } });
+    const bcd = await User.findOne({ where: { address: abc.address } });
+    res.json(bcd);
+
+    // res.send("ok");
+  });
+  // 현재 진행중인 데이터 로컬 db 간략화 끝
+
+  // 컨트랙트 불러오기
+  server.get("/api/getNFT", async (req, res) => {
+    const abc = await getNFT();
+    res.json(abc);
+  });
+
   server.get("/api/getBuy", async (req, res) => {
     const abc = await getBuy();
     res.json(abc);
@@ -625,6 +653,24 @@ app.prepare().then(() => {
     res.json(abc);
   });
 
+  server.post("/api/getOffer", async (req, res) => {
+    const a = req.body.name;
+    const abc = await getOffer(a);
+
+    res.json(abc);
+  });
+
+  server.get("/api/getContract", async (req, res) => {
+    const NFTInstance = await getAuctionDataContract();
+
+    console.log(NFTInstance);
+    res.send("1");
+    // res.json(NFTInstance);
+  });
+
+  // 컨트랙트 불러오기 끝
+
+  // 오퍼 처리
   server.get("/api/getBuyOffer", async (req, res) => {
     const abc = await getBuyOffer();
     res.json(abc);
@@ -642,12 +688,17 @@ app.prepare().then(() => {
       currentOwner: req.body.address,
       price: req.body.price,
     });
-    // await BuyMusic.create({
-    //   sellComplete: false,
-    //   CID: req.body.CID,
-    //   owner: req.body.address,
-    // });
+
     res.send("setBuyOffer success");
+  });
+  // 오퍼 처리 끝
+
+  // My : 컨트랙트에서 불러오기
+  server.post("/api/getMyNFT", async (req, res) => {
+    const a = req.body.name;
+
+    const abc = await getMyNFT(a);
+    res.json(abc);
   });
 
   server.post("/api/getMyBuy", async (req, res) => {
@@ -659,6 +710,17 @@ app.prepare().then(() => {
     res.json(abc);
   });
 
+  server.post("/api/getMyAuction", async (req, res) => {
+    const a = req.body.name;
+
+    console.log("이거는", a);
+    const abc = await getMyAuction(a);
+
+    res.json(abc);
+  });
+  // My : 컨트랙트에서 불러오기 끝
+
+  // 특정 조건
   server.post("/api/getBuyDB", async (req, res) => {
     const a = req.body.name;
     // const b = a[1];
@@ -721,32 +783,6 @@ app.prepare().then(() => {
     // res.send("ok");
   });
 
-  server.get("/api/getNowBuy", async (req, res) => {
-    const abc = await BuyMusic.findAll({ where: { sellComplete: false } });
-    res.json(abc);
-  });
-
-  server.get("/api/getNowAuction", async (req, res) => {
-    const abc = await AuctionMusic.findAll({
-      where: { auctionComplete: false },
-    });
-    res.json(abc);
-  });
-
-  server.post("/api/getUserDB", async (req, res) => {
-    const a = req.body.name;
-    // const b = a[1];
-    // const c = b.split(".");
-    // const d = c[0];
-
-    const abc = await Music.findOne({ where: { CID: a } });
-
-    const bcd = await User.findOne({ where: { address: abc.address } });
-    res.json(bcd);
-
-    // res.send("ok");
-  });
-
   server.post("/api/setBuy", async (req, res) => {
     const a = req.body.name;
     // const b = a[1];
@@ -756,25 +792,6 @@ app.prepare().then(() => {
     const abc = await setBuy(a);
     res.json(abc);
     // res.send("ok");
-  });
-
-  server.post("/api/getOffer", async (req, res) => {
-    const a = req.body.name;
-    const abc = await getOffer(a);
-
-    res.json(abc);
-  });
-
-  server.get("/api/getNFT", async (req, res) => {
-    const abc = await getNFT();
-    res.json(abc);
-  });
-
-  server.post("/api/getMyNFT", async (req, res) => {
-    const a = req.body.name;
-
-    const abc = await getMyNFT(a);
-    res.json(abc);
   });
 
   // 구매, 판매 페이지 입장시
@@ -853,24 +870,11 @@ app.prepare().then(() => {
     }
   });
 
-  server.get("/api/getContract", async (req, res) => {
-    const NFTInstance = await getAuctionDataContract();
-
-    console.log(NFTInstance);
-    res.send("1");
-    // res.json(NFTInstance);
-  });
-
   // server.get("/api/getBuyDataContract", async (req, res) => {
   //   const NFTInstance = await getBuyDataContract();
 
   //   res.json(NFTInstance);
   // });
-
-  server.get("/api/getDate", (req, res) => {
-    const aba = new Date();
-    res.json(aba);
-  });
 
   // 여기 보면 된다
   server.all("*", (req, res) => {
@@ -989,12 +993,9 @@ async function getNFT() {
   }
 }
 
-// 경매 컨트랙트로 일단 써놈
+// getMy : 컨트랙트에서
 async function getMyNFT(data) {
   const Instance = await getAuctionDataContract();
-
-  const w = require("./getWeb3");
-  const ac = await w.eth.getAccounts();
 
   if (Instance) {
     let imagesArray = [];
@@ -1031,33 +1032,73 @@ async function getMyNFT(data) {
   }
 }
 
-async function getAll() {
+async function getMyBuy(data) {
+  const Instance = await getBuyDataContract();
+
+  if (Instance) {
+    const totalSupply = await Instance.methods.totalSupply().call();
+    // 로드가 이게 끝인데, 왜 굳이 업데이트를 상태관리로 해놓은지 아직 이해가 안감
+    // 얼마나 더 나은 결과물이길래
+
+    let collection = [];
+    for (let i = 0; i < totalSupply; i++) {
+      const hash = await Instance.methods.tokenURIs(i).call();
+
+      // console.log(hash);
+      try {
+        // 오류 핸들러니까 잠시 주석 처리
+        const response = await fetch(
+          `https://ipfs.infura.io/ipfs/${hash}?clear`
+        );
+        if (!response.ok) {
+          throw new Error("Something went wrong");
+        }
+
+        const metadata = await response.json();
+        const owner = await Instance.methods.ownerOf(i + 1).call();
+
+        console.log(owner);
+
+        if (data == owner) {
+          collection = [
+            {
+              id: i + 1,
+              title: metadata.properties.name.description,
+              img: metadata.properties.image.description,
+              owner: owner,
+            },
+            ...collection,
+          ];
+        }
+      } catch {
+        console.error("Something went wrong");
+      }
+    }
+    return collection;
+  }
+}
+
+async function getMyAuction(data) {
   const Instance = await getAuctionDataContract();
 
   if (Instance) {
-    // 클라이언트 변수 처리 부분
-    // const [accountAddress, setAccountAddress] = useState("");
-    // const [accountBalance, setAccountBalance] = useState("");
-    // const [Contract, setContract] = useState(null);
-
-    // const [ImageCount, setImageCount] = useState(0);
-    // const [Images, setImages] = useState([]);
-    // const [ImageNumOfAccount, setImageNumOfAccount] = useState(0);
-    // const [Auctions, setAuctions] = useState([]);
-    // // 얜 뭐 경매 시각 쓰려고 한건가
-    // const [lastMintTime, setLastMintTime] = useState(null);
-    // const [currentTime, setCurrentTime] = useState(null);
-
     let imagesArray = [];
+    let offersArray = [];
+
     let auctionsArray = [];
 
     const ContractImageCount = await Instance.methods
       .currentImageCount()
       .call();
+
     for (let i = 1; i <= ContractImageCount; i++) {
       let image = await Instance.methods.imageStorage(i).call();
       imagesArray = [...imagesArray, image];
       // setImages((Images) => [...Images, image]);
+
+      let offer = await Instance.methods.imageStorage(i).call();
+      offersArray = [...offersArray, offer];
+
       let auction = await Instance.methods.auctions(i).call();
       auctionsArray = [...auctionsArray, auction];
     }
@@ -1080,56 +1121,16 @@ async function getAll() {
     // setAccountBalance(balance);
     // setImageCount(ImageCount);
     // setImageNumOfAccount(ContractImageNumOfAccount);
-    return a;
+
+    return imagesArray;
   }
 }
 
-async function get옥션Buy() {
-  const Instance = await getAuctionDataContract();
-
-  if (Instance) {
-    // 클라이언트 변수 처리 부분
-    // const [accountAddress, setAccountAddress] = useState("");
-    // const [accountBalance, setAccountBalance] = useState("");
-    // const [Contract, setContract] = useState(null);
-    // const [ImageCount, setImageCount] = useState(0);
-    // const [Images, setImages] = useState([]);
-    // const [ImageNumOfAccount, setImageNumOfAccount] = useState(0);
-    // const [Auctions, setAuctions] = useState([]);
-    // // 얜 뭐 경매 시각 쓰려고 한건가
-    // const [lastMintTime, setLastMintTime] = useState(null);
-    // const [currentTime, setCurrentTime] = useState(null);
-
-    let offersArray = [];
-
-    const ContractOfferCount = await Instance.methods.offerCount().call();
-
-    for (let i = 1; i <= ContractOfferCount; i++) {
-      // i인지 i+1인지 확인필요
-      let offer = await Instance.methods.imageStorage(i + 1).call();
-      offersArray = [...offersArray, offer];
-    }
-
-    return offersArray;
-  }
-}
-
+// 기본 컨트랙트 전체 불러오기
 async function getBuy() {
   const Instance = await getBuyDataContract();
 
   if (Instance) {
-    // 클라이언트 변수 처리 부분
-    // const [accountAddress, setAccountAddress] = useState("");
-    // const [accountBalance, setAccountBalance] = useState("");
-    // const [Contract, setContract] = useState(null);
-    // const [ImageCount, setImageCount] = useState(0);
-    // const [Images, setImages] = useState([]);
-    // const [ImageNumOfAccount, setImageNumOfAccount] = useState(0);
-    // const [Auctions, setAuctions] = useState([]);
-    // // 얜 뭐 경매 시각 쓰려고 한건가
-    // const [lastMintTime, setLastMintTime] = useState(null);
-    // const [currentTime, setCurrentTime] = useState(null);
-
     const totalSupply = await Instance.methods.totalSupply().call();
     // 로드가 이게 끝인데, 왜 굳이 업데이트를 상태관리로 해놓은지 아직 이해가 안감
     // 얼마나 더 나은 결과물이길래
@@ -1170,6 +1171,128 @@ async function getBuy() {
   }
 }
 
+async function getAuction() {
+  const Instance = await getAuctionDataContract();
+
+  if (Instance) {
+    let imagesArray = [];
+    let offersArray = [];
+    let auctionsArray = [];
+
+    const ContractImageCount = await Instance.methods
+      .currentImageCount()
+      .call();
+
+    for (let i = 1; i <= ContractImageCount; i++) {
+      let image = await Instance.methods.imageStorage(i).call();
+      imagesArray = [...imagesArray, image];
+      // setImages((Images) => [...Images, image]);
+
+      let offer = await Instance.methods.imageStorage(i).call();
+      offersArray = [...offersArray, offer];
+
+      let auction = await Instance.methods.auctions(i).call();
+      auctionsArray = [...auctionsArray, auction];
+    }
+
+    let a = {};
+    a.image = imagesArray;
+    a.auction = auctionsArray;
+
+    // console.log(imagesArray);
+    // console.log(auctionsArray);
+    // console.log(Instance);
+
+    // 얘는 세션 처리가 날 것 같은데?
+    // let ContractImageNumOfAccount = await Instance.methods
+    //   .getOwnedNumber(accounts[0])
+    //   .call();
+
+    // setContract(NFTMarketplaceInstance);
+    // setAccountAddress(accounts[0]);
+    // setAccountBalance(balance);
+    // setImageCount(ImageCount);
+    // setImageNumOfAccount(ContractImageNumOfAccount);
+
+    return a;
+  }
+}
+
+// 특정 조건
+async function setBuy(param) {
+  const Instance = await getBuyDataContract();
+
+  if (Instance) {
+    const totalSupply = await Instance.methods.totalSupply().call();
+    // 로드가 이게 끝인데, 왜 굳이 업데이트를 상태관리로 해놓은지 아직 이해가 안감
+    // 얼마나 더 나은 결과물이길래
+
+    console.log(totalSupply);
+    let collection = [];
+    for (let i = 0; i < totalSupply; i++) {
+      const hash = await Instance.methods.tokenURIs(i).call();
+
+      // console.log(hash);
+      try {
+        // 오류 핸들러니까 잠시 주석 처리
+        const response = await fetch(
+          `https://ipfs.infura.io/ipfs/${hash}?clear`
+        );
+        if (!response.ok) {
+          throw new Error("Something went wrong");
+        }
+
+        const metadata = await response.json();
+        // console.log("ipfs 불러오기", metadata);
+        const owner = await Instance.methods.ownerOf(i + 1).call();
+        console.log(param);
+        if (metadata.properties.image.description == param) {
+          console.log("떠라");
+          collection = [
+            {
+              id: i + 1,
+              title: metadata.properties.name.description,
+              img: metadata.properties.image.description,
+              owner: owner,
+            },
+            ...collection,
+          ];
+        }
+      } catch {
+        console.error("Something went wrong");
+      }
+    }
+    return collection;
+  }
+}
+
+async function getOffer(param) {
+  const Instance = await getBuyMethodContract();
+
+  if (Instance) {
+    const offerCount = await Instance.methods.offerCount().call();
+
+    console.log(offerCount);
+    let offers = [];
+    for (let i = 0; i < offerCount; i++) {
+      const offer = await Instance.methods.offers(i + 1).call();
+      offers.push(offer);
+
+      offers.map((offer) => {
+        offer.offerId = parseInt(offer.offerId);
+        offer.id = parseInt(offer.id);
+        offer.price = parseInt(offer.price);
+      });
+      // .filter(
+      //   (offer) => offer.fulfilled === false && offer.cancelled === false
+      // );
+    }
+
+    return offers;
+  }
+}
+
+// 이거 뭔지 모름
 async function getBuyOffer() {
   const Instance = await getBuyDataContract();
 
@@ -1233,192 +1356,5 @@ async function getBuyOffer() {
       }
     }
     return collection;
-  }
-}
-
-async function getMyBuy(data) {
-  const Instance = await getBuyDataContract();
-
-  if (Instance) {
-    const w = require("./getWeb3");
-
-    const ac = await w.eth.getAccounts();
-
-    console.log("여기요", ac[0]);
-
-    // 클라이언트 변수 처리 부분
-    // const [accountAddress, setAccountAddress] = useState("");
-    // const [accountBalance, setAccountBalance] = useState("");
-    // const [Contract, setContract] = useState(null);
-    // const [ImageCount, setImageCount] = useState(0);
-    // const [Images, setImages] = useState([]);
-    // const [ImageNumOfAccount, setImageNumOfAccount] = useState(0);
-    // const [Auctions, setAuctions] = useState([]);
-    // // 얜 뭐 경매 시각 쓰려고 한건가
-    // const [lastMintTime, setLastMintTime] = useState(null);
-    // const [currentTime, setCurrentTime] = useState(null);
-
-    const totalSupply = await Instance.methods.totalSupply().call();
-    // 로드가 이게 끝인데, 왜 굳이 업데이트를 상태관리로 해놓은지 아직 이해가 안감
-    // 얼마나 더 나은 결과물이길래
-
-    let collection = [];
-    for (let i = 0; i < totalSupply; i++) {
-      const hash = await Instance.methods.tokenURIs(i).call();
-
-      // console.log(hash);
-      try {
-        // 오류 핸들러니까 잠시 주석 처리
-        const response = await fetch(
-          `https://ipfs.infura.io/ipfs/${hash}?clear`
-        );
-        if (!response.ok) {
-          throw new Error("Something went wrong");
-        }
-
-        const metadata = await response.json();
-        const owner = await Instance.methods.ownerOf(i + 1).call();
-
-        console.log(owner);
-
-        if (data == owner) {
-          collection = [
-            {
-              id: i + 1,
-              title: metadata.properties.name.description,
-              img: metadata.properties.image.description,
-              owner: owner,
-            },
-            ...collection,
-          ];
-        }
-      } catch {
-        console.error("Something went wrong");
-      }
-    }
-    return collection;
-  }
-}
-
-async function setBuy(param) {
-  const Instance = await getBuyDataContract();
-
-  if (Instance) {
-    const totalSupply = await Instance.methods.totalSupply().call();
-    // 로드가 이게 끝인데, 왜 굳이 업데이트를 상태관리로 해놓은지 아직 이해가 안감
-    // 얼마나 더 나은 결과물이길래
-
-    console.log(totalSupply);
-    let collection = [];
-    for (let i = 0; i < totalSupply; i++) {
-      const hash = await Instance.methods.tokenURIs(i).call();
-
-      // console.log(hash);
-      try {
-        // 오류 핸들러니까 잠시 주석 처리
-        const response = await fetch(
-          `https://ipfs.infura.io/ipfs/${hash}?clear`
-        );
-        if (!response.ok) {
-          throw new Error("Something went wrong");
-        }
-
-        const metadata = await response.json();
-        // console.log("ipfs 불러오기", metadata);
-        const owner = await Instance.methods.ownerOf(i + 1).call();
-        console.log(param);
-        if (metadata.properties.image.description == param) {
-          console.log("떠라");
-          collection = [
-            {
-              id: i + 1,
-              title: metadata.properties.name.description,
-              img: metadata.properties.image.description,
-              owner: owner,
-            },
-            ...collection,
-          ];
-        }
-      } catch {
-        console.error("Something went wrong");
-      }
-    }
-    return collection;
-  }
-}
-
-async function getOffer(param) {
-  const Instance = await getBuyMethodContract();
-
-  if (Instance) {
-    // 클라이언트 변수 처리 부분
-    // const [accountAddress, setAccountAddress] = useState("");
-    // const [accountBalance, setAccountBalance] = useState("");
-    // const [Contract, setContract] = useState(null);
-    // const [ImageCount, setImageCount] = useState(0);
-    // const [Images, setImages] = useState([]);
-    // const [ImageNumOfAccount, setImageNumOfAccount] = useState(0);
-    // const [Auctions, setAuctions] = useState([]);
-    // // 얜 뭐 경매 시각 쓰려고 한건가
-    // const [lastMintTime, setLastMintTime] = useState(null);
-    // const [currentTime, setCurrentTime] = useState(null);
-
-    const offerCount = await Instance.methods.offerCount().call();
-
-    console.log(offerCount);
-    let offers = [];
-    for (let i = 0; i < offerCount; i++) {
-      const offer = await Instance.methods.offers(i + 1).call();
-      offers.push(offer);
-
-      offers.map((offer) => {
-        offer.offerId = parseInt(offer.offerId);
-        offer.id = parseInt(offer.id);
-        offer.price = parseInt(offer.price);
-      });
-      // .filter(
-      //   (offer) => offer.fulfilled === false && offer.cancelled === false
-      // );
-    }
-
-    return offers;
-  }
-
-  async function getAuction() {
-    const Instance = await getAuctionDataContract();
-
-    if (Instance) {
-      let imagesArray = [];
-      let auctionsArray = [];
-
-      const ContractImageCount = await Instance.methods
-        .currentImageCount()
-        .call();
-
-      for (let i = 1; i <= ContractImageCount; i++) {
-        let image = await Instance.methods.imageStorage(i).call();
-        imagesArray = [...imagesArray, image];
-        // setImages((Images) => [...Images, image]);
-        let auction = await Instance.methods.auctions(i).call();
-        auctionsArray = [...auctionsArray, auction];
-      }
-
-      // console.log(imagesArray);
-      // console.log(auctionsArray);
-      // console.log(Instance);
-
-      // 얘는 세션 처리가 날 것 같은데?
-      // let ContractImageNumOfAccount = await Instance.methods
-      //   .getOwnedNumber(accounts[0])
-      //   .call();
-
-      // setContract(NFTMarketplaceInstance);
-      // setAccountAddress(accounts[0]);
-      // setAccountBalance(balance);
-      // setImageCount(ImageCount);
-      // setImageNumOfAccount(ContractImageNumOfAccount);
-
-      return imagesArray;
-    }
   }
 }

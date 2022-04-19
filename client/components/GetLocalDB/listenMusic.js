@@ -4,7 +4,7 @@ import ReactAudioPlayer from "react-audio-player";
 import { create } from "ipfs-http-client";
 // import { create } from "ipfs-core";
 import { useRef, useState, useEffect } from "react";
-import { fetchMusics } from "../hooks";
+import { fetchMusics } from "../../hooks";
 
 import { useQuery } from "react-query";
 import { useForm } from "react-hook-form";

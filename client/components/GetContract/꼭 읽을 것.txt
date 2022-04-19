@@ -1,0 +1,2 @@
+getAuction, getBuy, getNFT는 안쓸거야
+View는 로컬의 간단한 데이터로 처리해 속도를 높일 것임
