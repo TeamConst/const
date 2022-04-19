@@ -21,6 +21,7 @@ import {
 } from '@mui/material';
 import AuctionMint from "./Auction/AuctionMint";
 import axios from "axios";
+import MusicPlayer from "./MusicPlayer/MusicPlayer";
 const theme = createTheme();
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -194,16 +195,16 @@ const  bid = async () => {
             <main>
               <Grid container spacing={5}>
                 <Grid item xs={6}>
-                  <Box bgcolor="info.main" color="info.contrastText" p={2}>
+                {/* <Box bgcolor="info.main" color="info.contrastText" p={2}>
                     사진
                     <img src={이미지} height="300" width="300"></img>
                 
-                  </Box>
-                  <form onSubmit={onSubmit}>    <Button onClick={()=>{ondada();onSubmit();}}>ds</Button></form>
-              
+                  </Box> */}
                 </Grid>
+                
                 {a === 1 ? (
                   <Grid item xs={6}>
+                    
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
                         <Box bgcolor="info.main" color="info.contrastText" p={2}>
@@ -253,20 +254,16 @@ const  bid = async () => {
                     </Grid>
                   </Grid>
                 ) : (
-                  <h1>아님</h1>
+                  <h1></h1>
                 )}
                  
                 <Grid item xs={6} sm={3}>
-                  <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                    디테일 정보
-                    {str}
-                  </Box>
-                  <AudioPlayer
-          autoPlay
-          src={`https://ipfs.io/ipfs/${str}`}
-          onPlay={(e) => console.log("onPlay")}
-          // other props here
-        />
+ 
+                </Grid>
+                <Grid item xs={12}>
+                <MusicPlayer
+ str={str}
+        />    
                 </Grid>
                 <Grid item xs={6} sm={6}>
                   <Box bgcolor="info.main" color="info.contrastText" p={2}>

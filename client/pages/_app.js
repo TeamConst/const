@@ -1,5 +1,5 @@
 import "../styles/globals.css";
-
+import "./ticket.css"
 import React from "react";
 import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
