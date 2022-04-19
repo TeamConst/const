@@ -21,42 +21,41 @@ import CardMedia from "@mui/material/CardMedia";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import { useQuery } from "react-query";
-import { fetchNowBuy } from "../../hooks";
+import { fetchMyBuyDB } from "../../../hooks";
 
 import Link from "next/link";
 
 const theme = createTheme();
 
-const GetNowNFT = () => {
-  const { data, isLoading, isFetching } = useQuery(["getNowBuy"], () =>
-    fetchNowBuy()
+const GetMyBuyDB = () => {
+  const { data, isLoading, isFetching } = useQuery(["getMyBuyDB"], () =>
+    fetchMyBuyDB()
   );
 
   let a = 0;
-  let buyNowData = [];
-  console.log(data);
+  let buyMyData = [];
 
   if (data) {
-    if (data.data.length > 0) {
-      a = 1;
-      for (let i = 0; i < data.data.length; i++) {
-        buyNowData[i] = data.data[i];
-        buyNowData[
-          i
-        ].s3 = `https://const123.s3.ap-northeast-2.amazonaws.com/image/${data.data[i].CID}.jpg`;
-      }
-    }
+    a = 1;
+    buyMyData = data.data;
+    // if (data.data.length > 0) {
+    //   a = 1;
+    //   for (let i = 0; i < data.data.length; i++) {
+    //     buyMyData[i] = data.data[i];
+    //     buyMyData[
+    //       i
+    //     ].s3 = `https://const123.s3.ap-northeast-2.amazonaws.com/image/${data.data[i].CID}.jpg`;
+    //   }
+    // }
   }
 
-  console.log(a);
-  console.log(buyNowData);
   return (
     <div>
       <ThemeProvider theme={theme}>
         <Container sx={{ py: 8 }} maxWidth="md">
           <Grid container spacing={4}>
             {a === 1 ? (
-              buyNowData.map((a) => (
+              buyMyData.map((a) => (
                 <Link href={`/buy/${encodeURIComponent(a.CID)}`}>
                   <Grid item key={a.CID} xs={12} sm={6} md={4}>
                     <Card
@@ -94,7 +93,7 @@ const GetNowNFT = () => {
             ) : (
               // <div>{JSON.stringify(data)}</div>
               <div>
-                <h1>아직 나와있는 상품이 없어용</h1>
+                <h1>아직 판매로 나온 상품이 없어용</h1>
               </div>
             )}
           </Grid>
@@ -104,4 +103,4 @@ const GetNowNFT = () => {
   );
 };
 
-export default GetNowNFT;
+export default GetMyBuyDB;

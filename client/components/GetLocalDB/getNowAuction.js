@@ -94,7 +94,7 @@ const GetNowAuction = () => {
             ) : (
               // <div>{JSON.stringify(data)}</div>
               <div>
-                <h1>아직 판매로 나온 상품이 없어용</h1>
+                <h1>아직 경매로 나온 상품이 없어용</h1>
               </div>
             )}
           </Grid>

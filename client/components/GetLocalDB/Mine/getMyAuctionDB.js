@@ -1,4 +1,3 @@
-// 서버 페칭만 써볼 거에요 이 컴포넌트는
 import {
   Button,
   Typography,
@@ -21,43 +20,34 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-import { QueryClient, useQuery, useQueryClient } from "react-query";
-import React, { useState, useEffect } from "react";
-import { fetchBuyOffer } from "../../hooks";
-import io from "socket.io-client";
+import { useQuery } from "react-query";
+import { fetchMyAuctionDB } from "../../../hooks";
 
 import Link from "next/link";
 
 const theme = createTheme();
 
-const GetBuyOffer = () => {
-  const { data, isLoading, isFetching } = useQuery(["getBuyOffer"], () =>
-    fetchBuyOffer()
+const GetMyAuctionDB = () => {
+  const { data, isLoading, isFetching } = useQuery(["getMyAuctionDB"], () =>
+    fetchMyAuctionDB()
   );
 
-  // const socketClient = io("http://localhost:3000");
-
-  // 서버에서 받기
-  // socketClient.on("refreshAuction", (req) => {
-  //   console.log("서버에서 refreshAuction 받기 성공");
-  //   // queryClient.invalidateQueries("getAuctions");
-  // });
-
   let a = 0;
-  let buyOfferData = [];
-  let b;
-  let c;
+  let auctionMyData = [];
+
   if (data) {
     a = 1;
-    for (let i = 0; i < data.data.length; i++) {
-      buyOfferData[i] = data.data[i];
-      buyOfferData[
-        i
-      ].s3 = `https://const123.s3.ap-northeast-2.amazonaws.com/image/${data.data[i].img}.jpg`;
-    }
+    auctionMyData = data.data;
+    // if (data.data.length > 0) {
+    //   a = 1;
+    //   for (let i = 0; i < data.data.length; i++) {
+    //     auctionMyData[i] = data.data[i];
+    //     auctionMyData[
+    //       i
+    //     ].s3 = `https://const123.s3.ap-northeast-2.amazonaws.com/image/${data.data[i].CID}.jpg`;
+    //   }
+    // }
   }
-
-  console.log(buyOfferData);
 
   return (
     <div>
@@ -65,9 +55,9 @@ const GetBuyOffer = () => {
         <Container sx={{ py: 8 }} maxWidth="md">
           <Grid container spacing={4}>
             {a === 1 ? (
-              buyData.map((a) => (
-                <Link href={`/buy/${encodeURIComponent(a.img)}`}>
-                  <Grid item key={a.img} xs={12} sm={6} md={4}>
+              auctionMyData.map((a) => (
+                <Link href={`/buy/${encodeURIComponent(a.CID)}`}>
+                  <Grid item key={a.CID} xs={12} sm={6} md={4}>
                     <Card
                       sx={{
                         height: "100%",
@@ -103,7 +93,7 @@ const GetBuyOffer = () => {
             ) : (
               // <div>{JSON.stringify(data)}</div>
               <div>
-                <h1>아님</h1>
+                <h1>아직 경매로 나온 상품이 없어용</h1>
               </div>
             )}
           </Grid>
@@ -113,4 +103,4 @@ const GetBuyOffer = () => {
   );
 };
 
-export default GetBuyOffer;
+export default GetMyAuctionDB;

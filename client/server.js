@@ -436,15 +436,6 @@ app.prepare().then(() => {
     });
   });
 
-  // 음악 컴포넌트 음악 정보 불러오기
-  server.get("/api/getMusics", async (req, res) => {
-    const result = await Music.findAll();
-    // const data = await Music.findOne({ title: req.body.name });
-    // res.json(data);
-
-    res.json(result);
-  });
-
   // 좋아요 수 처리
   server.post("/api/upLike", async (req, res) => {
     // const result = await Music.findAll();
@@ -623,17 +614,26 @@ app.prepare().then(() => {
     res.json(abc);
   });
 
-  server.post("/api/getUserDB", async (req, res) => {
-    const a = req.body.name;
-    // const b = a[1];
-    // const c = b.split(".");
-    // const d = c[0];
+  server.get("/api/getMyNFTDB", async (req, res) => {
+    const abc = await Music.findAll({ where: { address: req.user.address } });
+    res.json(abc);
+  });
 
-    const abc = await Music.findOne({ where: { CID: a } });
-    const bcd = await User.findOne({ where: { address: abc.address } });
-    res.json(bcd);
+  server.get("/api/getMyBuyDB", async (req, res) => {
+    const abc = await Music.findAll({ where: { address: req.user.address } });
+    res.json(abc);
+  });
 
-    // res.send("ok");
+  server.get("/api/getMyAuctionDB", async (req, res) => {
+    const abc = await Music.findAll({ where: { address: req.user.address } });
+    res.json(abc);
+  });
+
+  // 음악 컴포넌트 음악 정보 불러오기
+  server.get("/api/getMusics", async (req, res) => {
+    const result = await Music.findAll();
+
+    res.json(result);
   });
   // 현재 진행중인 데이터 로컬 db 간략화 끝
 
@@ -653,13 +653,6 @@ app.prepare().then(() => {
     res.json(abc);
   });
 
-  server.post("/api/getOffer", async (req, res) => {
-    const a = req.body.name;
-    const abc = await getOffer(a);
-
-    res.json(abc);
-  });
-
   server.get("/api/getContract", async (req, res) => {
     const NFTInstance = await getAuctionDataContract();
 
@@ -667,31 +660,7 @@ app.prepare().then(() => {
     res.send("1");
     // res.json(NFTInstance);
   });
-
   // 컨트랙트 불러오기 끝
-
-  // 오퍼 처리
-  server.get("/api/getBuyOffer", async (req, res) => {
-    const abc = await getBuyOffer();
-    res.json(abc);
-  });
-
-  server.post("/api/setBuyOffer", async (req, res) => {
-    const a = req.body;
-
-    console.log(a);
-
-    // CID로 검색을 해야되니까
-    await BuyMusic.create({
-      sellComplete: false,
-      CID: req.body.CID,
-      currentOwner: req.body.address,
-      price: req.body.price,
-    });
-
-    res.send("setBuyOffer success");
-  });
-  // 오퍼 처리 끝
 
   // My : 컨트랙트에서 불러오기
   server.post("/api/getMyNFT", async (req, res) => {
@@ -720,7 +689,43 @@ app.prepare().then(() => {
   });
   // My : 컨트랙트에서 불러오기 끝
 
-  // 특정 조건
+  // 오퍼 처리
+  server.post("/api/setBuyOffer", async (req, res) => {
+    const a = req.body;
+
+    console.log(a);
+
+    // CID로 검색을 해야되니까
+    await BuyMusic.create({
+      sellComplete: false,
+      CID: req.body.CID,
+      currentOwner: req.body.address,
+      price: req.body.price,
+    });
+
+    res.send("setBuyOffer success");
+  });
+  // 오퍼 처리 끝
+
+  // setBuy.js;
+  server.post("/api/setBuy", async (req, res) => {
+    const a = req.body.name;
+    // const b = a[1];
+    // const c = b.split(".");
+    // const d = c[0];
+
+    const abc = await setBuy(a);
+    res.json(abc);
+    // res.send("ok");
+  });
+
+  server.post("/api/getOffer", async (req, res) => {
+    const a = req.body.name;
+    const abc = await getOffer(a);
+
+    res.json(abc);
+  });
+
   server.post("/api/getBuyDB", async (req, res) => {
     const a = req.body.name;
     // const b = a[1];
@@ -728,6 +733,32 @@ app.prepare().then(() => {
     // const d = c[0];
 
     const abc = await Music.findOne({ where: { CID: a } });
+    res.json(abc);
+
+    // res.send("ok");
+  });
+
+  server.post("/api/getUserDB", async (req, res) => {
+    const a = req.body.name;
+    // const b = a[1];
+    // const c = b.split(".");
+    // const d = c[0];
+
+    const abc = await Music.findOne({ where: { CID: a } });
+    const bcd = await User.findOne({ where: { address: abc.address } });
+    res.json(bcd);
+
+    // res.send("ok");
+  });
+
+  server.post("/api/getBuyMusicDB", async (req, res) => {
+    const a = req.body.name;
+    // const b = a[1];
+    // const c = b.split(".");
+    // const d = c[0];
+
+    console.log("이거요", a);
+    const abc = await BuyMusic.findOne({ where: { CID: a } });
     res.json(abc);
 
     // res.send("ok");
@@ -766,34 +797,10 @@ app.prepare().then(() => {
     });
 
     res.json("구매 성공");
-
-    // res.send("ok");
   });
+  // setBuy.js 끝
 
-  server.post("/api/getBuyMusicDB", async (req, res) => {
-    const a = req.body.name;
-    // const b = a[1];
-    // const c = b.split(".");
-    // const d = c[0];
-
-    console.log("이거요", a);
-    const abc = await BuyMusic.findOne({ where: { CID: a } });
-    res.json(abc);
-
-    // res.send("ok");
-  });
-
-  server.post("/api/setBuy", async (req, res) => {
-    const a = req.body.name;
-    // const b = a[1];
-    // const c = b.split(".");
-    // const d = c[0];
-
-    const abc = await setBuy(a);
-    res.json(abc);
-    // res.send("ok");
-  });
-
+  // 아래는 내꺼 아님
   // 구매, 판매 페이지 입장시
   // server.post("/api/buysell", async (req, res) => {
   //   console.log(req.body);
@@ -1218,7 +1225,6 @@ async function getAuction() {
   }
 }
 
-// 특정 조건
 async function setBuy(param) {
   const Instance = await getBuyDataContract();
 
@@ -1291,70 +1297,4 @@ async function getOffer(param) {
     return offers;
   }
 }
-
-// 이거 뭔지 모름
-async function getBuyOffer() {
-  const Instance = await getBuyDataContract();
-
-  if (Instance) {
-    const w = require("./getWeb3");
-    const ac = await w.eth.getAccounts();
-
-    // 클라이언트 변수 처리 부분
-    // const [accountAddress, setAccountAddress] = useState("");
-    // const [accountBalance, setAccountBalance] = useState("");
-    // const [Contract, setContract] = useState(null);
-    // const [ImageCount, setImageCount] = useState(0);
-    // const [Images, setImages] = useState([]);
-    // const [ImageNumOfAccount, setImageNumOfAccount] = useState(0);
-    // const [Auctions, setAuctions] = useState([]);
-    // // 얜 뭐 경매 시각 쓰려고 한건가
-    // const [lastMintTime, setLastMintTime] = useState(null);
-    // const [currentTime, setCurrentTime] = useState(null);
-
-    const totalSupply = await Instance.methods.totalSupply().call();
-    // 로드가 이게 끝인데, 왜 굳이 업데이트를 상태관리로 해놓은지 아직 이해가 안감
-    // 얼마나 더 나은 결과물이길래
-
-    let collection = [];
-    for (let i = 0; i < totalSupply; i++) {
-      const hash = await Instance.methods.tokenURIs(i).call();
-
-      // console.log(hash);
-      try {
-        // 오류 핸들러니까 잠시 주석 처리
-        const response = await fetch(
-          `https://ipfs.infura.io/ipfs/${hash}?clear`
-        );
-        if (!response.ok) {
-          throw new Error("Something went wrong");
-        }
-
-        const metadata = await response.json();
-        const owner = await Instance.methods.ownerOf(i + 1).call();
-
-        const abcd = await BuyMusic.findOne({
-          where: {
-            sellComplete: false,
-            CID: metadata.properties.image.description,
-          },
-        });
-
-        if (abcd) {
-          collection = [
-            {
-              id: i + 1,
-              title: metadata.properties.name.description,
-              img: metadata.properties.image.description,
-              owner: owner,
-            },
-            ...collection,
-          ];
-        }
-      } catch {
-        console.error("Something went wrong");
-      }
-    }
-    return collection;
-  }
-}
+// setBuy.js 끝

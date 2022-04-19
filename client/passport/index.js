@@ -20,14 +20,10 @@ module.exports = () => {
 
   passport.deserializeUser(async (id2, done) => {
     try {
-      console.log("이거 떠야대 꼮");
-
       // 최종적으로는 이곳에 redis 내용을 써줘야한다
-
       const user1 = await User.findOne({
         where: { id2: id2 },
       });
-
       done(null, user1);
     } catch {
       console.log("deserialize 오류");

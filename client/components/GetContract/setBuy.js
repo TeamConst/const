@@ -3,6 +3,8 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
+import CircularProgress from "@mui/material/CircularProgress";
+
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import { useRouter } from "next/router";
@@ -30,22 +32,31 @@ const SetBuy = () => {
   const router = useRouter();
   const { id } = router.query;
 
+  // 컨트랙트 처리 위해서
   const useUser1 = () => {
     const result = useQuery(["setBuy"], () => fetchSetBuy(id));
     return result;
   };
+
+  // 컨트랙트 처리 위해서
   const useUser2 = () => {
     const result = useQuery(["getOffer"], () => fetchOffer(id));
     return result;
   };
+
+  // DB 가져다 쓰고 하려고
   const useUser3 = () => {
     const result = useQuery(["getBuyDB"], () => fetchBuyDB(id));
     return result;
   };
+
+  // 유저 DB 가져다 쓰고 하려고
   const useUser4 = () => {
     const result = useQuery(["getUserDB"], () => fetchUserDB(id));
     return result;
   };
+
+  // BuyMusic DB 가져다 쓰고 하려고
   const useUser5 = () => {
     const result = useQuery(["getBuyMusicDB"], () => fetchBuyMusicDB(id));
     return result;
@@ -125,8 +136,6 @@ const SetBuy = () => {
 
   async function getGlobalAccounts() {
     const accounts2 = await web3.eth.getAccounts();
-    console.log("hi");
-    console.log(accounts2[0]);
     계정변경(accounts2[0]);
   }
 
@@ -166,13 +175,8 @@ const SetBuy = () => {
     // offerId : 전체 오퍼한 개수 중 내 작품의 순번
     // _id : 전체 상품들 나열 중 내 작품의 번호 가져옴
 
-    console.log("일단");
-    console.log(buyData[0].id);
     for (let i = 0; i < offerData.length; i++) {
-      console.log("여기");
       if (offerData[i].id == buyData[0].id) {
-        console.log("뜨나");
-        console.log(offerData[i]);
         pra2.methods
           .fillOffer(offerData[i].offerId)
           .send({
@@ -242,31 +246,6 @@ const SetBuy = () => {
     }
   };
 
-  const claimFundsHandler = async () => {
-    let pra2;
-    let praaccounts;
-    const accounts1 = await web3.eth.getAccounts();
-    const networkId1 = await web3.eth.net.getId();
-
-    const deployedAddress2 = marketContractJSON.networks[networkId1].address;
-    const contract2 = new web3.eth.Contract(
-      marketContractJSON.abi,
-      deployedAddress2
-    );
-    pra2 = contract2;
-    praaccounts = accounts1;
-
-    pra2.methods
-      .claimFunds()
-      .send({ from: praaccounts[0] })
-      .on("transactionHash", (hash) => {
-        console.log("해쉬해쉬", hash);
-      })
-      .on("error", (error) => {
-        window.alert("Something went wrong when pushing to the blockchain");
-      });
-  };
-
   const {
     register,
     formState: { errors },
@@ -325,12 +304,6 @@ const SetBuy = () => {
 
   return (
     <div>
-      <button onClick={claimFundsHandler} className="btn btn-success">
-        구매 완료 된 이더 받기
-      </button>
-      <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-        버튼버튼
-      </Button>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Container maxWidth="lg">
@@ -492,7 +465,7 @@ const SetBuy = () => {
             ))
           ) : (
             <div>
-              <h1>아님</h1>
+              <CircularProgress />
             </div>
           )}
         </Container>

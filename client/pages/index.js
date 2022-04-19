@@ -41,6 +41,7 @@ import AuctionCollection from "../components/Auction/AuctionCollection";
 
 import GetNowBuy from "../components/GetLocalDB/getNowBuy";
 import GetNowAuction from "../components/GetLocalDB/getNowAuction";
+import GetNowNFT from "../components/GetLocalDB/getNowNFT";
 import ListenMusic from "../components/GetLocalDB/listenMusic";
 
 const Page = () => {
@@ -48,6 +49,8 @@ const Page = () => {
     <div>
       <Layout></Layout>
       {/* <AuctionCollection /> */}
+
+      {/* <GetNowNFT></GetNowNFT> */}
       <GetNowBuy></GetNowBuy>
       <GetNowAuction></GetNowAuction>
       <ListenMusic></ListenMusic>
