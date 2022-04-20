@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "root",
-    "password": "Shine77!",
+    "username": "admin",
+    "password": "mimi1234",
     "database": "const40",
-    "host": "127.0.0.1",
+    "host": "mimi.ciszsojgfruj.ap-northeast-2.rds.amazonaws.com",
     "dialect": "mysql"
   },
   "test": {

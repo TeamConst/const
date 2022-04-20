@@ -183,7 +183,7 @@ const Mypage1 = () => {
     a = 1;
     userSession = data1.data.data;
   }
-
+  console.log(userSession)
   const claimFundsHandler = async () => {
     let pra2;
     let praaccounts;
@@ -208,7 +208,30 @@ const Mypage1 = () => {
         window.alert("Something went wrong when pushing to the blockchain");
       });
   };
-
+  let lastTime;
+      if(userSession){
+      let today = new Date().getTime();
+      let dday = new Date(`${userSession.ticketTime}`).getTime(); 
+       lastTime =Math.ceil((dday - today) / (1000 * 60 * 60 * 24));
+  
+  }
+  console.log(lastTime)
+  if(userSession){
+    let today = new Date().getTime();
+    let dday = new Date(`${userSession.ticketTime}`).getTime(); 
+  
+    
+     if(dday-today <= 0 &&userSession.ticket !=="이용권 없음" ){ 
+       console.log(dday-today)
+       const rere =  axios.post("http://localhost:8080/api/updateuser", {
+        ticket: `이용권 없음`,
+        ticketTime:"0",
+        id: userSession.id
+      }
+      );
+      }
+  
+   }
   return (
     <div>
       <ThemeProvider theme={theme}>
@@ -323,8 +346,10 @@ const Mypage1 = () => {
 
                 <Grid item xs={12}>
                   <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                    이용권 정보
-                  </Box>
+                    이용권 정보    {userSession.name}
+                    {}
+                  </Box>{`이용권:${userSession.ticket}${lastTime}일남음`}
+              
                 </Grid>
                 <Grid item xs={4}>
                   <Box bgcolor="info.main" color="info.contrastText" p={2}>

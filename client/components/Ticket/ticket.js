@@ -18,6 +18,7 @@ import axios from "axios";
 import configuration from "../../../build/contracts/Tickets.json";
 import web3 from "../connection/web3";
 import { useState, useEffect } from "react";
+import { useQuery } from "react-query";
 
 const tiers = [
   { 
@@ -66,6 +67,22 @@ const tiers = [
 ];
 
 const Ticket = () => {
+
+
+  const useUser1 = () => {
+    const result = useQuery(["getUserSession"], () => fetchUserSession());
+    return result;
+  };
+
+  const data1 = useUser1();
+
+  let a = 0;
+  let userSession;
+  if (data1.data) {
+    a = 1;
+    userSession = data1.data.data;
+  }
+  console.log(userSession)
   const [tickets, setTickets] = useState([]);
   const [Time, setTime] = useState([]);
   const CONTRACT_ADDRESS = configuration.networks["5777"].address;
@@ -77,20 +94,33 @@ const Ticket = () => {
 
   let account;
   const buyTicket = async (i) => {
-    const accounts = await web3.eth.requestAccounts();
-    account = accounts[0];
-    await contract.methods.buyTicket(i).send({
-      from: account,
-      value: tickets[i],
-    });
-    console.log(tickets[i]);
-    setTime(`${i + 1}년 회원권`);
-    const rere = await axios.post("http://localhost:8080/api/updateuser", {
-      ticket: `${i + 1}년 회원권`,
-      id: 1,
-    });
-  };
 
+    if(userSession.ticket === "이용권 없음"){
+      const accounts = await web3.eth.requestAccounts();
+      account = accounts[0];
+      await contract.methods.buyTicket(i).send({
+        from: account,
+        value: tickets[i],
+      });
+  //시간
+     let now = new Date();	// 현재 날짜 및 시간
+    let oneMonthLater = new Date(now.setMonth(now.getMonth() + (i+1)));	// 한달 후 
+    
+    let today = new Date().getTime(); //현재 날짜시간
+    let dday = new Date(`${oneMonthLater}`).getTime();  //dday날짜 및 시간
+    console.log(dday)
+
+      setTime(`${i+1}달 회원권`);
+      const rere = await axios.post("http://localhost:8080/api/updateuser", {
+        ticket: `${i+1}달 회원권`,
+        ticketTime:oneMonthLater,
+        id: userSession.id
+      });
+    }else{
+      window.alert("구매할수 없습니다")
+    
+  };
+  }
   const main = async () => {
     for (let i = 0; i < TOTAL_TICKETS; i++) {
       let ticket = await contract.methods.tickets(i).call();
@@ -103,7 +133,25 @@ const Ticket = () => {
   useEffect(() => {
     main();
   }, []);
+  // let today = new Date().getTime();
+  // let dday = new Date("2022-04-20T06:02:08.571Z").getTime(); 
+  // console.log(dday-today)
+ if(userSession){
+  let today = new Date().getTime();
+  let dday = new Date(`${userSession.ticketTime}`).getTime(); 
 
+  
+   if(dday-today <= 0 &&userSession.ticket !=="이용권 없음" ){ 
+     console.log(dday-today)
+     const rere =  axios.post("http://localhost:8080/api/updateuser", {
+      ticket: `이용권 없음`,
+      ticketTime:"0",
+      id: userSession.id
+    }
+    );
+    }
+  
+ }
   return (
     <div>
       <GlobalStyles

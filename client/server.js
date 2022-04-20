@@ -583,11 +583,12 @@ app.prepare().then(() => {
   server.post("/api/updateuser", async (req, res) => {
     console.log(req.body.id);
     console.log(req.body.ticket);
-
+    console.log(req.body.ticketTime);
     try {
       const updateCondition = await User.update(
         {
           ticket: req.body.ticket,
+          ticketTime:req.body.ticketTime,
         },
         {
           where: { id: req.body.id },
