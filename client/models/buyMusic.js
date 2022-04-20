@@ -11,7 +11,7 @@ module.exports = class BuyMusic extends Sequelize.Model {
           primaryKey: true,
         },
         CID: {
-          type: Sequelize.STRING(100),
+          type: Sequelize.STRING(200),
           allowNull: false,
           primaryKey: true,
         },
@@ -31,7 +31,7 @@ module.exports = class BuyMusic extends Sequelize.Model {
           defaultValue: false,
         },
         currentOwner: {
-          type: Sequelize.STRING(100),
+          type: Sequelize.STRING(200),
           allowNull: true,
         },
       },

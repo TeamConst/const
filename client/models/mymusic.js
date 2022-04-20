@@ -5,11 +5,11 @@ module.exports = class MyMusic extends Sequelize.Model {
     return super.init(
       {
         address: {
-          type: Sequelize.STRING(45),
+          type: Sequelize.STRING(200),
           allowNull: false,
         },
         CID: {
-          type: Sequelize.STRING(100),
+          type: Sequelize.STRING(200),
           allowNull: false,
           defaultValue: "NotYetUpdate",
         },
@@ -25,7 +25,7 @@ module.exports = class MyMusic extends Sequelize.Model {
           defaultValue: 0,
         },
         myfavoriteMusic: {
-          type: Sequelize.STRING(45),
+          type: Sequelize.STRING(200),
           allowNull: true,
         },
       },

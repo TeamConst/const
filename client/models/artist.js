@@ -9,7 +9,7 @@ module.exports = class Artist extends Sequelize.Model {
           primaryKey: true,
         },
         AuctionRight: {
-          type: Sequelize.STRING(45),
+          type: Sequelize.STRING(200),
           allowNull: true,
         },
         LikeArtist: {

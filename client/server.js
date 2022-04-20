@@ -620,12 +620,32 @@ app.prepare().then(() => {
   });
 
   server.get("/api/getMyBuyDB", async (req, res) => {
-    const abc = await Music.findAll({ where: { address: req.user.address } });
+    const abc = await BuyMusic.findAll(
+      {
+        include: [
+          {
+            model: Music,
+          },
+        ],
+      },
+      { where: { currentOwner: req.user.address } }
+    );
+
     res.json(abc);
   });
 
   server.get("/api/getMyAuctionDB", async (req, res) => {
-    const abc = await Music.findAll({ where: { address: req.user.address } });
+    const abc = await AuctionMusic.findAll(
+      {
+        include: [
+          {
+            model: Music,
+          },
+        ],
+      },
+      { where: { currentOwner: req.user.address } }
+    );
+
     res.json(abc);
   });
 
@@ -706,6 +726,20 @@ app.prepare().then(() => {
     res.send("setBuyOffer success");
   });
   // 오퍼 처리 끝
+
+  // 옥션 스타트 처리
+  server.post("/api/setAuctionStart", async (req, res) => {
+    // CID로 검색을 해야되니까
+    await AuctionMusic.create({
+      auctionComplete: false,
+      CID: req.body.CID,
+      currentOwner: req.user.address,
+      currentWinner: req.user.address,
+    });
+
+    res.send("setAuctionStart success");
+  });
+  // 옥션 스타트 처리 끝
 
   // setBuy.js;
   server.post("/api/setBuy", async (req, res) => {

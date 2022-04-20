@@ -11,11 +11,11 @@ module.exports = class AuctionData extends Sequelize.Model {
           primaryKey: true,
         },
         mintby: {
-          type: Sequelize.STRING(100),
+          type: Sequelize.STRING(200),
           allowNull: true,
         },
         CID: {
-          type: Sequelize.STRING(100),
+          type: Sequelize.STRING(200),
           allowNull: true,
         },
       },

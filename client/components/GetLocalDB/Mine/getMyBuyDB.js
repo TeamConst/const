@@ -49,6 +49,7 @@ const GetMyBuyDB = () => {
     // }
   }
 
+  console.log(buyMyData);
   return (
     <div>
       <ThemeProvider theme={theme}>
@@ -71,16 +72,18 @@ const GetMyBuyDB = () => {
                           // 16:9
                           pt: "56.25%",
                         }}
-                        image={a.s3}
+                        image={a.Music.s3}
                         alt="random"
                       />
                       <CardContent sx={{ flexGrow: 1 }}>
                         ID
                         <Typography>{a.id}</Typography>
                         CID
-                        <Typography>{a.img}</Typography>
+                        <Typography>{a.CID}</Typography>
                         Owner
-                        <Typography>{a.owner}</Typography>
+                        <Typography>{a.currentOwner}</Typography>
+                        S3
+                        <Typography>{a.Music.s3}</Typography>
                       </CardContent>
                       <CardActions>
                         <Button size="small">View</Button>

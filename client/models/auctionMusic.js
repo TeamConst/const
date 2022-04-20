@@ -11,7 +11,7 @@ module.exports = class AuctionMusic extends Sequelize.Model {
           primaryKey: true,
         },
         CID: {
-          type: Sequelize.STRING(100),
+          type: Sequelize.STRING(200),
           allowNull: false,
           primaryKey: true,
         },
@@ -20,9 +20,18 @@ module.exports = class AuctionMusic extends Sequelize.Model {
           allowNull: true,
           defaultValue: 0,
         },
-        currentWinner: {
-          type: Sequelize.STRING(100),
+        currentOwner: {
+          type: Sequelize.STRING(200),
           allowNull: true,
+        },
+        currentWinner: {
+          type: Sequelize.STRING(200),
+          allowNull: true,
+        },
+        lastWinner: {
+          type: Sequelize.STRING(200),
+          allowNull: true,
+          defaultValue: "NotYet",
         },
         auctionCount: {
           type: Sequelize.INTEGER,

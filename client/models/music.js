@@ -10,8 +10,14 @@ module.exports = class Music extends Sequelize.Model {
           allowNull: false,
           primaryKey: true,
         },
+        CID: {
+          type: Sequelize.STRING(200),
+          allowNull: false,
+          defaultValue: "NotYetUpdate",
+          primaryKey: true,
+        },
         address: {
-          type: Sequelize.STRING(45),
+          type: Sequelize.STRING(200),
           allowNull: false,
         },
         s3: {
@@ -19,31 +25,31 @@ module.exports = class Music extends Sequelize.Model {
           allowNull: true,
         },
         title: {
-          type: Sequelize.STRING(45),
+          type: Sequelize.STRING(200),
           allowNull: true,
         },
         artist: {
-          type: Sequelize.STRING(45),
+          type: Sequelize.STRING(200),
           allowNull: true,
         },
         albumName: {
-          type: Sequelize.STRING(45),
+          type: Sequelize.STRING(200),
           allowNull: true,
         },
         release: {
-          type: Sequelize.STRING(45),
+          type: Sequelize.STRING(200),
           allowNull: true,
         },
         genre: {
-          type: Sequelize.STRING(45),
+          type: Sequelize.STRING(200),
           allowNull: true,
         },
         composer: {
-          type: Sequelize.STRING(45),
+          type: Sequelize.STRING(200),
           allowNull: true,
         },
         lyricist: {
-          type: Sequelize.STRING(45),
+          type: Sequelize.STRING(200),
           allowNull: true,
         },
         playTime: {
@@ -66,12 +72,6 @@ module.exports = class Music extends Sequelize.Model {
           allowNull: true,
           defaultValue: 0,
         },
-        CID: {
-          type: Sequelize.STRING(100),
-          allowNull: false,
-          defaultValue: "NotYetUpdate",
-          primaryKey: true,
-        },
       },
       {
         sequelize,
@@ -88,7 +88,7 @@ module.exports = class Music extends Sequelize.Model {
       foreignKey: "address",
       targetKey: "address",
     });
-    db.Music.hasMany(db.BuyMusic, {
+    db.Music.hasOne(db.BuyMusic, {
       foreignKey: "CID",
       targetKey: "CID",
     });

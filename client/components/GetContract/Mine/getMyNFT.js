@@ -114,7 +114,7 @@ const GetMyNFT = () => {
             <ConfigEndBuy></ConfigEndBuy>
           </Box> */}
           <Box>
-            <ConfigAuction></ConfigAuction>
+            <ConfigAuction props={모달데이터}></ConfigAuction>
           </Box>
           <Button onClick={handleClose}>닫기</Button>
         </Box>
@@ -290,7 +290,8 @@ const ConfigBuy = (props) => {
   );
 };
 
-const ConfigAuction = () => {
+const ConfigAuction = (props) => {
+  console.log("jijij", props);
   const [auction, setAuction] = useState(false);
   const auctionOpen = () => setAuction(true);
   const auctionClose = () => setAuction(false);
@@ -301,7 +302,16 @@ const ConfigAuction = () => {
     handleSubmit,
   } = useForm();
 
-  const onSubmit = async (data) => {};
+  const onSubmit = async (data) => {
+    try {
+      const ax = await axios.post("http://localhost:8080/api/setAuctionStart", {
+        CID: props.props.CID,
+      });
+      window.location.reload(true);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <div>
       <Button onClick={auctionOpen}>경매 시작하기</Button>
@@ -318,15 +328,9 @@ const ConfigAuction = () => {
 
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="col-7">
-              <input
-                {...register("price", {
-                  required: true,
-                })}
-                type="number"
-                step="0.01"
-                placeholder="ETH..."
-                className="form-control"
-              ></input>
+              <button type="submit" className="btn btn-secondary">
+                경매 고고
+              </button>
             </div>
           </form>
           <Button onClick={auctionClose}>닫기</Button>

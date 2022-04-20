@@ -29,7 +29,7 @@ const theme = createTheme();
 
 const GetNowAuction = () => {
   const { data, isLoading, isFetching } = useQuery(["getNowAuction"], () =>
-    fetchNowAuctiony()
+    fetchNowAuction()
   );
 
   let a = 0;

@@ -5,11 +5,11 @@ module.exports = class TransactionDetail extends Sequelize.Model {
     return super.init(
       {
         CID: {
-          type: Sequelize.STRING(100),
+          type: Sequelize.STRING(200),
           allowNull: false,
         },
         Method: {
-          type: Sequelize.STRING(100),
+          type: Sequelize.STRING(200),
           allowNull: true,
         },
         price: {
@@ -41,7 +41,7 @@ module.exports = class TransactionDetail extends Sequelize.Model {
           defaultValue: 0,
         },
         winner: {
-          type: Sequelize.STRING(100),
+          type: Sequelize.STRING(200),
           allowNull: true,
         },
       },

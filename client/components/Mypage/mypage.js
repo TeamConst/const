@@ -311,14 +311,14 @@ const Mypage1 = () => {
                 <Grid item xs={12}>
                   <GetMyAuctionDB></GetMyAuctionDB>
                   {/* <GetMyAuction></GetMyAuction> */}
-                  {/* <MintedImages
+                  <MintedImages
                     accountAddress={accountAddress}
                     Images={Images}
                     ImageNumOfAccount={ImageNumOfAccount}
                     Contract={Contract}
                     Auctions={Auctions}
                     currentTime={currentTime}
-                  /> */}
+                  />
                 </Grid>
 
                 <Grid item xs={12}>
