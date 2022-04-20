@@ -60,7 +60,6 @@ const SignupForm = () => {
         imageFormData
       );
       console.log(resultImage);
-      console.log(title)  
        console.log(data)
        const address = await web3.eth.getAccounts();
       data.address = address[0];
@@ -100,7 +99,7 @@ const SignupForm = () => {
     <form onSubmit={handleSubmit(onSubmit)}> 
       <ThemeProvider theme={theme}>
         <Container component="main" maxWidth="xs">
-          <CssBaseline /><img src={"https://const123.s3.ap-northeast-2.amazonaws.com/image/1ANhWWRq_400x400.jpeg"}/>
+          <CssBaseline />
           <Box
             sx={{
               marginTop: 8,
