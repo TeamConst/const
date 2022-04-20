@@ -14,47 +14,53 @@ import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
 import GlobalStyles from "@mui/material/GlobalStyles";
 import Container from "@mui/material/Container";
-
+import axios from "axios";
 import configuration from "../../../build/contracts/Tickets.json";
 import web3 from "../connection/web3";
 import { useState, useEffect } from "react";
 
 const tiers = [
-  {
-    title: "Free",
-    price: "0",
+  { 
+    id:0,
+    title: "1달권",
+    price: "0.1eth",
     description: [
+      "혜택쓸거임",
       "10 users included",
       "2 GB of storage",
       "Help center access",
       "Email support",
     ],
-    buttonText: "Sign up for free",
+    buttonText: "구매하기",
     buttonVariant: "outlined",
   },
   {
-    title: "Pro",
+    id:1,
+    title: "3달권",
     subheader: "Most popular",
-    price: "15",
+    price: "0.2eth",
     description: [
+      "혜택쓸거임",
       "20 users included",
       "10 GB of storage",
       "Help center access",
       "Priority email support",
     ],
-    buttonText: "Get started",
+    buttonText: "구매하기",
     buttonVariant: "contained",
   },
   {
-    title: "Enterprise",
-    price: "30",
+    id:2,
+    title: "5달권",
+    price: "0.3eth",
     description: [
+      "혜택쓸거임",
       "50 users included",
       "30 GB of storage",
       "Help center access",
       "Phone & email support",
     ],
-    buttonText: "Contact us",
+    buttonText: "구매하기",
     buttonVariant: "outlined",
   },
 ];
@@ -119,7 +125,7 @@ const Ticket = () => {
           color="text.primary"
           gutterBottom
         >
-          Pricing
+          이용권
         </Typography>
         <Typography
           variant="h5"
@@ -127,9 +133,9 @@ const Ticket = () => {
           color="text.secondary"
           component="p"
         >
-          Quickly build an effective pricing table for your potential customers
+          {/* Quickly build an effective pricing table for your potential customers
           with this layout. It&apos;s built with default MUI components with
-          little customization.
+          little customization. */}
         </Typography>
       </Container>
       {/* End hero unit */}
@@ -176,9 +182,6 @@ const Ticket = () => {
                     >
                       ${tier.price}
                     </Typography>
-                    <Typography variant="h6" color="text.secondary">
-                      /mo
-                    </Typography>
                   </Box>
                   <ul>
                     {tier.description.map((line) => (
@@ -196,7 +199,7 @@ const Ticket = () => {
                 <CardActions>
                   <Button
                     onClick={() => {
-                      buyTicket(0);
+                      buyTicket(tier.id);
                     }}
                     fullWidth
                     variant={tier.buttonVariant}
@@ -216,14 +219,6 @@ const Ticket = () => {
         component="main"
         sx={{ pt: 8, pb: 6 }}
       >
-        <Typography
-          variant="h5"
-          align="center"
-          color="text.secondary"
-          component="p"
-        >
-          회원이 아니신가요? 회원등록을 하세요
-        </Typography>
       </Container>
     </div>
   );

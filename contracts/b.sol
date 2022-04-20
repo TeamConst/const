@@ -18,13 +18,13 @@ contract Tickets {
   constructor() {
     for (uint256 i = 0; i < TOTAL_TICKETS; i++) {
       tickets[i].price = 1e17*(i+1); // 0.1 ETH
-      tickets[i].owner = address(0x0); // not defined
+      // tickets[i].owner = address(0x0); // not defined
     }
   }
 
   function buyTicket(uint256 _index) external payable {
     require(_index < TOTAL_TICKETS && _index >= 0);
-    require(tickets[_index].owner == address(0x0));
+    // require(tickets[_index].owner == address(0x0));
     require(msg.value >= tickets[_index].price);
     tickets[_index].owner = msg.sender;
   }

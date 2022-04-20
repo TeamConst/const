@@ -17,6 +17,9 @@
     "@aws-sdk/credential-providers": "^3.54.1",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
+    "@fortawesome/fontawesome-svg-core": "^6.1.1",
+    "@fortawesome/free-solid-svg-icons": "^6.1.1",
+    "@fortawesome/react-fontawesome": "^0.1.18",
     "@mui/material": "^5.6.2",
     "aws-sdk": "^2.1095.0",
     "axios": "^0.26.0",
@@ -55,6 +58,7 @@
     "sequelize": "^6.17.0",
     "sequelize-cli": "^6.4.1",
     "socket.io": "^4.4.1",
+    "styled-components": "^5.3.5",
     "web3": "^1.7.0",
     "ws": "^8.5.0"
   },

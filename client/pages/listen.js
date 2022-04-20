@@ -1,10 +1,10 @@
-import Navbar from "../components/navbar";
+// import Navbar from "../components/navbar";
 import ListenMusic from "../components/GetLocalDB/listenMusic";
 
 const Listen = () => {
   return (
     <div>
-      <Navbar></Navbar>
+      {/* <Navbar></Navbar> */}
       <ListenMusic></ListenMusic>
     </div>
   );
