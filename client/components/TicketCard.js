@@ -35,7 +35,7 @@ const TicketCard= ({price,ticketname,id})=>{
        account = accounts[0];
        await contract.methods.buyTicket(i).send({
          from: account,
-         value: tickets[i]
+         value: tickets[i],
        });
        console.log(tickets[i])
        setTime(`${i+1}년 회원권`)

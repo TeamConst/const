@@ -30,7 +30,7 @@ const Tickets = () => {
     const main = async () => {
         for (let i = 0; i < TOTAL_TICKETS; i++) {
          let  ticket = await contract.methods.tickets(i).call();
-         ticket.id = i;
+        //  ticket.id = i;
          console.log(ticket)
            setTickets(tickets=> [...tickets,ticket.price] )
 
