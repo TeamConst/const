@@ -1,0 +1,21 @@
+1. NFTCollection
+변수 : tokenURIs : 민트시 저장할 토큰 배열
+함수 : safeMint : tokenURI 담아서 보냄
+
+2. NFTMarketplace
+변수 : offerCount : 구매하면 카운트
+객체 : offers : 구매 정보, userFunds : 고객 구매 이력 모음
+함수 : 
+makeOffer 
+fillOffer
+cancelOffer
+claimFunds
+-> 민팅 이미지에 내용 쏘고 나머지 함수 실행
+
+3. ERC721
+approve : 다른 계좌로 토큰 보낼 수 있도록 허가
+balaceOf : 내 계좌 토큰 반환
+ownerOf().call() : 토큰의 오너 반환
+totalSupply().call() : 컨트랙트에 저장된 모든 토큰 반환
+tokenURI : 토큰의 URI 반환
+
