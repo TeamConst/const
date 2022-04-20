@@ -107,6 +107,7 @@ const SignupForm = () => {
                       {...register("artist")}
                       type="radio"
                       value="Artist"
+                      required
                     />
                     <label>일반 유저 </label>
                     <input
