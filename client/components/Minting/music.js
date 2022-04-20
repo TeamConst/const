@@ -99,7 +99,7 @@ const Music = () => {
     imageFormData.append("image", image);
     imageFormData.append("title", data.title);
     imageFormData.append("CID", bu.path);
-
+ 
     const resultImage = await axios.post(
       "http://localhost:8080/api/mint/image",
       imageFormData
