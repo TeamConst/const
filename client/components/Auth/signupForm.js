@@ -25,6 +25,30 @@ import web3 from "../connection/web3";
 const theme = createTheme();
 
 const SignupForm = () => {
+  const [최종, 최종변경] = useState(false);
+  const [현재아이디, 현재아이디변경] = useState();
+  const [아이디유효성, 아이디유효성변경] = useState();
+
+  const validId = async () => {
+    const a = await axios.post("http://localhost:8080/api/validId", {
+      id2: 현재아이디,
+    });
+
+    if (a.data == "아이디가있습니다") {
+      아이디유효성변경("아이디가 이미 있답니다");
+      최종변경(false);
+    } else {
+      최종변경(true);
+    }
+  };
+
+  console.log("최종", 최종);
+  console.log(현재아이디);
+  const changeId = async (e) => {
+    const id = e.target.value;
+    현재아이디변경(id);
+  };
+
   const {
     register,
     formState: { errors },
@@ -107,12 +131,30 @@ const SignupForm = () => {
                   fullWidth
                   id="artistId"
                   label="Artist Id"
+                  onChange={(e) => {
+                    changeId(e);
+                  }}
                   autoFocus
                   {...register("id2", {
                     required: true,
                     maxLength: 80,
                   })}
                 />
+                <input
+                  onChange={(e) => {
+                    changeId(e);
+                  }}
+                ></input>
+                <Button
+                  onClick={() => validId()}
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                >
+                  아이디 있나 보기
+                </Button>
+
+                {아이디유효성}
               </Grid>
               <Grid item xs={12}>
                 <Typography component="h1" variant="h5">

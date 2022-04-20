@@ -56,39 +56,37 @@ const GetMyNFTDB = () => {
           <Grid container spacing={4}>
             {a === 1 ? (
               nftMyData.map((a) => (
-                <Link href={`/buy/${encodeURIComponent(a.CID)}`}>
-                  <Grid item key={a.CID} xs={12} sm={6} md={4}>
-                    <Card
+                <Grid item key={a.CID} xs={12} sm={6} md={4}>
+                  <Card
+                    sx={{
+                      height: "100%",
+                      display: "flex",
+                      flexDirection: "column",
+                    }}
+                  >
+                    <CardMedia
+                      component="img"
                       sx={{
-                        height: "100%",
-                        display: "flex",
-                        flexDirection: "column",
+                        // 16:9
+                        pt: "56.25%",
                       }}
-                    >
-                      <CardMedia
-                        component="img"
-                        sx={{
-                          // 16:9
-                          pt: "56.25%",
-                        }}
-                        image={a.s3}
-                        alt="random"
-                      />
-                      <CardContent sx={{ flexGrow: 1 }}>
-                        ID
-                        <Typography>{a.id}</Typography>
-                        CID
-                        <Typography>{a.img}</Typography>
-                        Owner
-                        <Typography>{a.owner}</Typography>
-                      </CardContent>
-                      <CardActions>
-                        <Button size="small">View</Button>
-                        <Button size="small">Edit</Button>
-                      </CardActions>
-                    </Card>
-                  </Grid>
-                </Link>
+                      image={a.s3}
+                      alt="random"
+                    />
+                    <CardContent sx={{ flexGrow: 1 }}>
+                      ID
+                      <Typography>{a.id}</Typography>
+                      CID
+                      <Typography>{a.img}</Typography>
+                      Owner
+                      <Typography>{a.owner}</Typography>
+                    </CardContent>
+                    <CardActions>
+                      <Button size="small">View</Button>
+                      <Button size="small">Edit</Button>
+                    </CardActions>
+                  </Card>
+                </Grid>
               ))
             ) : (
               // <div>{JSON.stringify(data)}</div>

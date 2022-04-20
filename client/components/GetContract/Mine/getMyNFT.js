@@ -64,27 +64,7 @@ const GetMyNFT = () => {
     nftMyData = data.data;
   }
 
-  // 실시간 경매 Fetch
-  // const { data, isLoading, isFetching } = useQuery(["getMyNFT"], () =>
-  //   fetchMyNFT(param)
-  // );
-  // console.log(isFetching);
-  // console.log(data);
-
-  // let auctions = [];
-  // let a = 0;
-  // if (data) {
-  //   for (let i = 0; i < data.data.length; i++) {
-  //     auctions[i] = data.data[i];
-  //     let token = data.data[i].tokenURI;
-  //     let slice = token.slice(21, token.length);
-  //     auctions[
-  //       i
-  //     ].s3 = `https://const123.s3.ap-northeast-2.amazonaws.com/image/${slice}.jpg`;
-  //   }
-  //   a = 1;
-  // }
-  // console.log(auctions);
+  console.log("dlrjqhwk", nftMyData);
 
   //  클라이언트에서 그대로 불러오기
   const [이미지, 이미지변경] = useState([]);
@@ -144,15 +124,17 @@ const GetMyNFT = () => {
                       alt="random"
                     />
                     <CardContent sx={{ flexGrow: 1 }}>
-                      ID
-                      <Typography>{a.id}</Typography>
-                      CID
-                      <Typography>{a.img}</Typography>
-                      Owner
-                      <Typography>{a.owner}</Typography>
+                      제목
+                      <Typography>{a.title}</Typography>
+                      작곡가
+                      <Typography>{a.composer}</Typography>
+                      재생 횟수
+                      <Typography>{a.playCount}</Typography>
                     </CardContent>
                     <CardActions>
-                      <Button onClick={() => handleOpen(a)}>뭐 시작하기</Button>
+                      <Button onClick={() => handleOpen(a)}>
+                        판매 & 경매 시작하기
+                      </Button>
                     </CardActions>
                   </Card>
                 </Grid>
@@ -184,66 +166,77 @@ const ConfigBuy = (props) => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    // 컨트랙트
-    // buy contract
-    let pra;
-    let praaccounts;
-    const accounts1 = await web3.eth.getAccounts();
-    const networkId1 = await web3.eth.net.getId();
-    const deployedAddress1 =
-      collectionContractJSON.networks[networkId1].address;
-    const contract1 = new web3.eth.Contract(
-      collectionContractJSON.abi,
-      deployedAddress1
-    );
+    try {
+      try {
+        // 컨트랙트
+        // buy contract
+        let pra;
+        let praaccounts;
+        const accounts1 = await web3.eth.getAccounts();
+        const networkId1 = await web3.eth.net.getId();
+        const deployedAddress1 =
+          collectionContractJSON.networks[networkId1].address;
+        const contract1 = new web3.eth.Contract(
+          collectionContractJSON.abi,
+          deployedAddress1
+        );
 
-    pra = contract1;
-    praaccounts = accounts1;
+        pra = contract1;
+        praaccounts = accounts1;
 
-    let pra2;
-    const deployedAddress2 = marketContractJSON.networks[networkId1].address;
-    const contract2 = new web3.eth.Contract(
-      marketContractJSON.abi,
-      deployedAddress2
-    );
-    pra2 = contract2;
+        let pra2;
+        const deployedAddress2 =
+          marketContractJSON.networks[networkId1].address;
+        const contract2 = new web3.eth.Contract(
+          marketContractJSON.abi,
+          deployedAddress2
+        );
+        pra2 = contract2;
 
-    console.log("섹스", pra2);
-    // 오퍼
-    const enteredPrice = web3.utils.toWei(data.price, "ether");
-    console.log(praaccounts[0]);
-    // 바이데이터아이디는 내 작품의 전체 순번
-    // console.log(buyData[0].id);
-    console.log(pra2.options.address);
+        // 오퍼
+        const enteredPrice = web3.utils.toWei(data.price, "ether");
+        console.log(praaccounts[0]);
+        // 바이데이터아이디는 내 작품의 전체 순번
+        // console.log(buyData[0].id);
+        console.log(pra2.options.address);
 
-    await pra.methods
-      .approve(pra2.options.address, props.props.id)
-      .send({ from: praaccounts[0] })
-      .on("transactionHash", (hash) => {
-        console.log("해시해시", hash);
-      })
-      .on("receipt", (receipt) => {
-        pra2.methods
-          .makeOffer(props.props.id, enteredPrice)
+        await pra.methods
+          .approve(pra2.options.address, props.props.id)
           .send({ from: praaccounts[0] })
           .on("transactionHash", (hash) => {
             console.log("해시해시", hash);
-            // 일단 여기에 비동기로 하나 넣자
           })
-          .on("error", (error) => {
-            window.alert("Something went wrong when pushing to the blockchain");
+          .on("receipt", (receipt) => {
+            pra2.methods
+              .makeOffer(props.props.id, enteredPrice)
+              .send({ from: praaccounts[0] })
+              .on("transactionHash", (hash) => {
+                console.log("해시해시", hash);
+                // 일단 여기에 비동기로 하나 넣자
+              })
+              .on("error", (error) => {
+                window.alert(
+                  "Something went wrong when pushing to the blockchain"
+                );
+              });
           });
-      });
 
-    console.log(props.props);
+        console.log(props.props);
+      } catch (err) {
+        console.log(err);
+      }
 
-    try {
-      const ax = await axios.post("http://localhost:8080/api/setBuyOffer", {
-        CID: props.props.CID,
-        address: praaccounts[0],
-        price: data.price,
-      });
-      window.location.reload(true);
+      try {
+        const ax = await axios.post("http://localhost:8080/api/setBuyOffer", {
+          CID: props.props.CID,
+          address: praaccounts[0],
+          price: data.price,
+        });
+      } catch (err) {
+        console.log(err);
+      }
+
+      // window.location.href = "http://localhost:8080/mypage";
     } catch (err) {
       console.log(err);
     }
@@ -262,12 +255,12 @@ const ConfigBuy = (props) => {
         aria-describedby="child-modal-description"
       >
         <Box sx={{ ...style, width: 200 }}>
-          <h2 id="child-modal-title">구매구매 랄라</h2>
+          <h2 id="child-modal-title">판매 시작하기</h2>
 
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="col-5 d-grid gap-2">
               <button type="submit" className="btn btn-secondary">
-                OFFER
+                오퍼하기
               </button>
             </div>
             <div className="col-7">
@@ -291,7 +284,6 @@ const ConfigBuy = (props) => {
 };
 
 const ConfigAuction = (props) => {
-  console.log("jijij", props);
   const [auction, setAuction] = useState(false);
   const auctionOpen = () => setAuction(true);
   const auctionClose = () => setAuction(false);
@@ -307,7 +299,7 @@ const ConfigAuction = (props) => {
       const ax = await axios.post("http://localhost:8080/api/setAuctionStart", {
         CID: props.props.CID,
       });
-      window.location.reload(true);
+      window.location.href = "http://localhost:8080/mypage";
     } catch (err) {
       console.log(err);
     }
@@ -324,7 +316,7 @@ const ConfigAuction = (props) => {
         aria-describedby="child-modal-description"
       >
         <Box sx={{ ...style, width: 200 }}>
-          <h2 id="child-modal-title">라랄라</h2>
+          <h2 id="child-modal-title">경매 시작하기</h2>
 
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="col-7">

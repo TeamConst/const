@@ -147,59 +147,69 @@ const SetBuy = () => {
   console.log("매트", offerData);
 
   const buyHandler = async (event) => {
-    // 컨트랙트
-    // buy contract
-    let pra;
-    let praaccounts;
-    const accounts1 = await web3.eth.getAccounts();
-    const networkId1 = await web3.eth.net.getId();
-    const deployedAddress1 =
-      collectionContractJSON.networks[networkId1].address;
-    const contract1 = new web3.eth.Contract(
-      collectionContractJSON.abi,
-      deployedAddress1
-    );
+    try {
+      // 컨트랙트
+      // buy contract
+      let pra;
+      let praaccounts;
+      const accounts1 = await web3.eth.getAccounts();
+      const networkId1 = await web3.eth.net.getId();
+      const deployedAddress1 =
+        collectionContractJSON.networks[networkId1].address;
+      const contract1 = new web3.eth.Contract(
+        collectionContractJSON.abi,
+        deployedAddress1
+      );
 
-    pra = contract1;
-    praaccounts = accounts1;
+      pra = contract1;
+      praaccounts = accounts1;
 
-    let pra2;
-    const deployedAddress2 = marketContractJSON.networks[networkId1].address;
-    const contract2 = new web3.eth.Contract(
-      marketContractJSON.abi,
-      deployedAddress2
-    );
-    pra2 = contract2;
+      let pra2;
+      const deployedAddress2 = marketContractJSON.networks[networkId1].address;
+      const contract2 = new web3.eth.Contract(
+        marketContractJSON.abi,
+        deployedAddress2
+      );
+      pra2 = contract2;
 
-    // 메이크 오퍼의 offers 배열이 내가 오퍼한 개수, 오퍼한 것 중 나의 작품의 전체 순번이니까
-    // offerId : 전체 오퍼한 개수 중 내 작품의 순번
-    // _id : 전체 상품들 나열 중 내 작품의 번호 가져옴
+      // 메이크 오퍼의 offers 배열이 내가 오퍼한 개수, 오퍼한 것 중 나의 작품의 전체 순번이니까
+      // offerId : 전체 오퍼한 개수 중 내 작품의 순번
+      // _id : 전체 상품들 나열 중 내 작품의 번호 가져옴
 
-    for (let i = 0; i < offerData.length; i++) {
-      if (offerData[i].id == buyData[0].id) {
-        pra2.methods
-          .fillOffer(offerData[i].offerId)
-          .send({
-            from: praaccounts[0],
-            value: offerData[i].price,
-          })
-          .on("transactionHash", (hash) => {
-            console.log("해시해시", hash);
-          })
-          .on("error", (error) => {
-            window.alert("Something went wrong when pushing to the blockchain");
-          });
+      for (let i = 0; i < offerData.length; i++) {
+        if (offerData[i].id == buyData[0].id) {
+          pra2.methods
+            .fillOffer(offerData[i].offerId)
+            .send({
+              from: praaccounts[0],
+              value: offerData[i].price,
+            })
+            .on("transactionHash", (hash) => {
+              console.log("해시해시", hash);
+            })
+            .on("error", (error) => {
+              window.alert(
+                "Something went wrong when pushing to the blockchain"
+              );
+            });
+        }
       }
+    } catch (err) {
+      console.log(err);
     }
 
-    const setbuydb = await axios.post("http://localhost:8080/api/setBuyDB", {
-      address: praaccounts[0],
-      CID: buyData[0].img,
-    });
+    try {
+      const setbuydb = await axios.post("http://localhost:8080/api/setBuyDB", {
+        address: praaccounts[0],
+        CID: buyData[0].img,
+      });
 
-    if (setbuydb) {
-      console.log(setbuydb);
-      // window.reload.href = "http://localhost:8080/constbuy";
+      if (setbuydb) {
+        console.log(setbuydb);
+        // window.reload.href = "http://localhost:8080/constbuy";
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 

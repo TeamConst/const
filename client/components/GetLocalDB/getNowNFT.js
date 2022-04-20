@@ -24,6 +24,7 @@ import { useQuery } from "react-query";
 import { fetchNowNFT } from "../../hooks";
 
 import Link from "next/link";
+import axios from "axios";
 
 const theme = createTheme();
 
@@ -48,8 +49,16 @@ const GetNowNFT = () => {
     }
   }
 
-  console.log(a);
-  console.log(nftNowData);
+  const linkto = async (data) => {
+    console.log(data);
+    const abcd = await axios.post("http://localhost:8080/api/getNFTLocation", {
+      CID: data.CID,
+    });
+    console.log(abcd);
+
+    window.location.href = `http://localhost:8080/${abcd.data}/${data.CID}`;
+  };
+
   return (
     <div>
       <ThemeProvider theme={theme}>
@@ -57,8 +66,14 @@ const GetNowNFT = () => {
           <Grid container spacing={4}>
             {a === 1 ? (
               nftNowData.map((a) => (
-                // <Link href={`/buy/${encodeURIComponent(a.CID)}`}>
-                <Grid item key={a.CID} xs={12} sm={6} md={4}>
+                <Grid
+                  item
+                  key={a.CID}
+                  xs={12}
+                  sm={6}
+                  md={4}
+                  onClick={() => linkto(a)}
+                >
                   <Card
                     sx={{
                       height: "100%",
@@ -89,7 +104,6 @@ const GetNowNFT = () => {
                     </CardActions>
                   </Card>
                 </Grid>
-                // </Link>
               ))
             ) : (
               // <div>{JSON.stringify(data)}</div>

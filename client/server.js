@@ -523,6 +523,18 @@ app.prepare().then(() => {
 
   // 회원가입 일단, 어드레스만 트러플에 넣고 나머지는 Mysql에 넣도록 하겠다
   // 그리고 블록체인이니까 계정 중복 등의 고려는 우선 하지 않도록 하겠다
+
+  server.post("/api/validId", isNotLoggedIn, async (req, res, next) => {
+    console.log(req.body);
+    const id2 = req.body.id2;
+    const a = await User.findAll({ where: { id2: id2 } });
+    if (a.length == 0) {
+      res.json("아이디 없어용");
+    } else {
+      res.json("아이디가있습니다");
+    }
+  });
+
   server.post("/api/signup", isNotLoggedIn, async (req, res, next) => {
     try {
       const body = await req.body;
@@ -670,6 +682,27 @@ app.prepare().then(() => {
 
     res.json(result);
   });
+
+  server.post("/api/getNFTLocation", async (req, res) => {
+    const data = req.body.CID;
+
+    const a = await BuyMusic.findAll({
+      where: { sellComplete: false, CID: data },
+    });
+    const b = await AuctionMusic.findAll({
+      where: { auctionComplete: false, CID: data },
+    });
+
+    if (a.length == 1 && b.length == 1) {
+      res.json("DB에 오류가 있습니다");
+    } else if (a.length == 1) {
+      res.json("buy");
+    } else if (b.length == 1) {
+      res.json("auction");
+    } else {
+      res.json("아직 시작한 상품이 없습니다");
+    }
+  });
   // 현재 진행중인 데이터 로컬 db 간략화 끝
 
   // 컨트랙트 불러오기
@@ -756,6 +789,34 @@ app.prepare().then(() => {
   });
   // 옥션 스타트 처리 끝
 
+  // setAuction.js
+  server.post("/api/getAuctionDB", async (req, res) => {
+    const a = req.body.name;
+    // const b = a[1];
+    // const c = b.split(".");
+    // const d = c[0];
+
+    const abc = await Music.findOne({ where: { CID: a } });
+    res.json(abc);
+
+    // res.send("ok");
+  });
+
+  server.post("/api/getAuctionMusicDB", async (req, res) => {
+    const a = req.body.name;
+    // const b = a[1];
+    // const c = b.split(".");
+    // const d = c[0];
+
+    console.log("이거요", a);
+    const abc = await AuctionMusic.findOne({ where: { CID: a } });
+    res.json(abc);
+
+    // res.send("ok");
+  });
+
+  // setAuction.js 끝
+
   // setBuy.js;
   server.post("/api/setBuy", async (req, res) => {
     const a = req.body.name;
@@ -830,20 +891,26 @@ app.prepare().then(() => {
       { where: { CID: req.body.CID } }
     );
 
-    const price = await BuyMusic.findOne(
-      { price },
-      { where: { CID: req.body.CID } }
-    );
-    const date = new Date();
+    const update = async () => {
+      const price = await BuyMusic.findOne(
+        { price },
+        { where: { CID: req.body.CID } }
+      );
+      const date = new Date();
 
-    await TransactionDetail.create({
-      CID: req.body.CID,
-      Method: "BUY",
-      price: price,
-      startingTime: date,
-      totalParticipant: 1,
-      winner: req.body.address,
-    });
+      try {
+        await TransactionDetail.create({
+          CID: req.body.CID,
+          Method: "BUY",
+          price: price,
+          startingTime: date,
+          totalParticipant: 1,
+          winner: req.body.address,
+        });
+      } catch (err) {
+        res.json(err);
+      }
+    };
 
     res.json("구매 성공");
   });

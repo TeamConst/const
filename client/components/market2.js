@@ -24,6 +24,7 @@ import {
 } from "@mui/material";
 
 import axios from "axios";
+import { fetchUserDB, fetchAuctionDB, fetchAuctionMusicDB } from "../hooks";
 
 import MusicPlayer from "../components/Musicplay/MusicPlayer";
 
@@ -37,18 +38,63 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const Market2 = (props) => {
-  console.log(props);
+  // DB 가져다 쓰고 하려고
+  const useUser3 = () => {
+    const result = useQuery(["getAuctionDB"], () => fetchAuctionDB(id));
+    return result;
+  };
+
+  // 유저 DB 가져다 쓰고 하려고
+  const useUser4 = () => {
+    const result = useQuery(["getUserDB"], () => fetchUserDB(id));
+    return result;
+  };
+
+  // AuctionMusic DB 가져다 쓰고 하려고
+  const useUser5 = () => {
+    const result = useQuery(["getAuctionMusicDB"], () =>
+      fetchAuctionMusicDB(id)
+    );
+    return result;
+  };
+
+  const data3 = useUser3();
+  const data4 = useUser4();
+  const data5 = useUser5();
+
+  let c = 0;
+  let auctionDB;
+  if (data3.data) {
+    c = 1;
+    auctionDB = data3.data.data;
+  }
+
+  let d = 0;
+  let userDB;
+  if (data4.data) {
+    d = 1;
+    userDB = data4.data.data;
+  }
+
+  let e = 0;
+  let auctionMusicDB;
+  if (data5.data) {
+    e = 1;
+    auctionMusicDB = data5.data.data;
+  }
 
   // let accountAddress = props.accountAddress
   let Contract = props.Contract;
   //
   const router = useRouter();
   const { id } = router.query;
-  const { add } = router.query;
+
   const [이미지, 이미지변경] = useState();
 
   useEffect(() => {
-    이미지변경(`https://const123.s3.ap-northeast-2.amazonaws.com/${id}.jpg`);
+    이미지변경(
+      `https://const123.s3.ap-northeast-2.amazonaws.com/image/${id}.jpg`
+    );
   }, [id]);
 
   const fromDb = id;
@@ -65,7 +111,7 @@ const Market2 = (props) => {
     console.log(`https://ipfs.io/ipfs/${str}`);
   };
 
-  let a = 0;
+  let a = 1;
 
   const [open, setOpen] = useState(false);
 
@@ -196,6 +242,8 @@ const Market2 = (props) => {
     // window.location.reload(true);
   };
 
+  console.log(props);
+  console.log(auctionMusicDB);
   return (
     <div>
       <ThemeProvider theme={theme}>
@@ -204,33 +252,44 @@ const Market2 = (props) => {
           <main>
             <Grid container spacing={5}>
               <Grid item xs={6}>
+                <Box bgcolor="info.main" color="info.contrastText" p={2}>
+                  음악 플레이어
+                  {/* <AudioPlayer
+                    autoPlay
+                    src={`https://ipfs.io/ipfs/${str}`}
+                    onPlay={(e) => console.log("onPlay")}
+                    // other props here
+                  /> */}
+                  <MusicPlayer str={str} />
+                </Box>
+
                 {/* <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                    사진
-                    <img src={이미지} height="300" width="300"></img>
-                
-                  </Box> */}
+                  사진
+                  <img src={이미지} height="300" width="300"></img>
+                </Box> */}
               </Grid>
-              {a === 1 ? (
+
+              {a === 1 && c === 1 && d === 1 && e === 1 ? (
                 <Grid item xs={6}>
                   <Grid container spacing={2}>
                     <Grid item xs={12}>
                       <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                        {/* 제목{abcd.title} */}
+                        제목{auctionDB.title}
                       </Box>
                     </Grid>
                     <Grid item xs={4}>
                       <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                        {/* 판매자{abcd.artist} */}
+                        판매자{userDB.id2}
                       </Box>
                     </Grid>
                     <Grid item xs={4}>
                       <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                        {/* 조회수{abcd.playCount} */}
+                        조회수{auctionDB.view}
                       </Box>
                     </Grid>
                     <Grid item xs={4}>
                       <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                        {/* 좋아요{abcd.LikeMusic} */}
+                        좋아요{auctionDB.LikeMusic}
                       </Box>
                     </Grid>
                     <Grid item xs={12}>
@@ -240,7 +299,7 @@ const Market2 = (props) => {
                     </Grid>
                     <Grid item xs={12}>
                       <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                        가격 옥션에 대한 db 추가해야함
+                        가격 {auctionMusicDB.currentPrice}
                       </Box>
                     </Grid>
                     <Grid item xs={4}>
@@ -263,38 +322,30 @@ const Market2 = (props) => {
               ) : (
                 <h1>아님</h1>
               )}
-              <Grid item xs={6} sm={3}>
+
+              <Grid item xs={6} sm={6}>
                 <Box bgcolor="info.main" color="info.contrastText" p={2}>
                   디테일 정보
                   {str}
                 </Box>
-                <AudioPlayer
-                  autoPlay
-                  src={`https://ipfs.io/ipfs/${str}`}
-                  onPlay={(e) => console.log("onPlay")}
-                  // other props here
-                />
-
-                <MusicPlayer str={str} />
               </Grid>
 
               <Grid item xs={6} sm={6}>
                 <Box bgcolor="info.main" color="info.contrastText" p={2}>
                   저장 정보
                 </Box>
-
                 <Typography variant="h5">세부 정보</Typography>
               </Grid>
 
-              <Grid item>
+              <Grid item xs={8}>
                 <Typography variant="body2" color="text.secondary">
                   Name: {image.tokenName}
                   <br />
                   Highest Auction Price:{" "}
-                  {window.web3.utils.fromWei(
+                  {/* {window.web3.utils.fromWei(
                     `${image.highestBidPrice}`,
                     "ether"
-                  )}{" "}
+                  )}{" "} */}
                   ETH
                   <br />
                   Minted By: {image.mintedBy}
@@ -302,59 +353,50 @@ const Market2 = (props) => {
                   Owner: {image.currentOwner}
                   <br />
                   <br />
-                </Typography>
-                {/* </Grid> */}
-                <Grid item>
                   <Typography variant="h5">소유권 경로</Typography>
                   {/* {ownerShipTrans.map((address, index) => {
-return (
-  <Typography variant="body2" color="text.secondary" key={index}>{address} -&gt;</Typography>
-);
-})} */}
+                    return (
+                      <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        key={index}
+                      >
+                        {address} -&gt;
+                      </Typography>
+                    );
+                  })} */}
                   <Typography variant="body2" color="text.secondary">
                     (Current)
                     <br />
                     <br />
                   </Typography>
-                </Grid>
-                {/* {onBid || toBeClaim ? */}
-                <Grid item>
-                  {/* {onBid ? */}
-                  <Typography variant="h5" color="red">
-                    경매 중
-                  </Typography>
-                  :{" "}
-                  <Typography variant="h5" color="green">
-                    청구 대상
-                  </Typography>
-                  {/* } */}
-                  <Typography variant="body2" color="text.secondary">
-                    입찰 시작:{" "}
-                    {window.web3.utils.fromWei(`${auction.startBid}`, "ether")}{" "}
-                    ETH
-                    <br />
-                    현재 입찰가:{" "}
-                    {window.web3.utils.fromWei(
-                      `${auction.highestBid}`,
-                      "ether"
-                    )}{" "}
-                    ETH
-                    <br />
-                    현재 우승자: {auction.winner}
-                    <br />
-                    <br />
-                  </Typography>
-                </Grid>
-                : <div />
+                </Typography>
+                <Typography variant="h5" color="red">
+                  경매 중
+                </Typography>
+                :{" "}
+                <Typography variant="h5" color="green">
+                  청구 대상
+                </Typography>
                 {/* } */}
+                <Typography variant="body2" color="text.secondary">
+                  입찰 시작:{" "}
+                  {/* {window.web3.utils.fromWei(`${auction.startBid}`, "ether")}{" "} */}
+                  ETH
+                  <br />
+                  현재 입찰가:{" "}
+                  {/* {window.web3.utils.fromWei(
+                    `${auction.highestBid}`,
+                    "ether"
+                  )}{" "} */}
+                  ETH
+                  <br />
+                  현재 우승자: {auction.winner}
+                  <br />
+                  <br />
+                </Typography>
               </Grid>
-              <Grid item xs={6} sm={3}>
-                <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                  빈칸
-                </Box>
-              </Grid>
-
-              <Grid item xs={6} sm={3}>
+              <Grid item xs={4}>
                 <Box bgcolor="info.main" color="info.contrastText" p={2}>
                   <Stack
                     elevation={12}
@@ -362,8 +404,6 @@ return (
                     columns={{ xs: 4, sm: 8, md: 12 }}
                   >
                     <Grid container spacing={2}>
-                      <Grid item></Grid>
-                      //여기서
                       <Grid item xs={12} sm container>
                         <Grid item xs container direction="column">
                           <Grid item xs={2}>
@@ -400,127 +440,131 @@ return (
                       </Grid>
                     </Grid>
                   </Stack>
-                </Box>
-              </Grid>
 
-              {image.status == 0 ? ( // Hard to read I guess
-                <div>
-                  <Button variant="개요" onClick={handleClickOpen}>
-                    입찰하다
-                  </Button>
-                  <Dialog open={open} onClose={handleClose}>
-                    <form onSubmit={putOnBid}>
-                      <DialogTitle>입찰하다</DialogTitle>
-                      <DialogContent>
-                        <DialogContentText>
-                          경매를 시작하려면 다음 정보를 입력하세요.
-                        </DialogContentText>
-                        <Box>
-                          <TextField
-                            label="Starting Bid"
-                            type="number"
-                            width={100}
-                            variant="standard"
-                            required
-                            onChange={(e) => setMinBid(e.target.value)}
-                          />
-                          <br />
-                          <Select
-                            defaultValue={1}
-                            variant="standard"
-                            onChange={(e) => setCurrenciesIU(e.target.value)}
-                          >
-                            <MenuItem value={1}>Wei</MenuItem>
-                            <MenuItem value={1000000000000}>Szabo</MenuItem>
-                          </Select>
-                        </Box>
-                        <Box>
-                          <TextField
-                            label="Durations"
-                            type="number"
-                            width={100}
-                            variant="standard"
-                            required
-                            onChange={(e) => setDuration(e.target.value)}
-                          />
-                          <br />
-                          <Select
-                            defaultValue={1}
-                            variant="standard"
-                            onChange={(e) => setTimesIU(e.target.value)}
-                          >
-                            <MenuItem value={1}>Second</MenuItem>
-                            <MenuItem value={60}>Minute</MenuItem>
-                            <MenuItem value={3600}>Hour</MenuItem>
-                          </Select>
-                        </Box>
-                      </DialogContent>
-                      <DialogActions>
-                        <Button onClick={handleClose}>Cancel</Button>
-                        <Button type="submit">Start</Button>
-                      </DialogActions>
-                    </form>
-                  </Dialog>
-                </div>
-              ) : image.status == 1 ? (
-                leftTime > 0 ? (
-                  isOwner ? (
-                    <Button>경매 종료 날짜 {leftTime}s</Button>
-                  ) : (
+                  {image.status == 0 ? ( // Hard to read I guess
                     <div>
-                      <Button variant="outlined" onClick={handleClickOpen}>
-                        경매 종료 날짜{leftTime}s, Bid!!!
+                      <Button variant="개요" onClick={handleClickOpen}>
+                        입찰하다
                       </Button>
                       <Dialog open={open} onClose={handleClose}>
-                        <form onSubmit={bid}>
+                        <form onSubmit={putOnBid}>
                           <DialogTitle>입찰하다</DialogTitle>
                           <DialogContent>
                             <DialogContentText>
-                              입찰가를 채워주세요
+                              경매를 시작하려면 다음 정보를 입력하세요.
                             </DialogContentText>
-                            <TextField
-                              label="Your Bid"
-                              type="number"
-                              width={100}
-                              variant="standard"
-                              required
-                              onChange={(e) => setNewBid(e.target.value)}
-                            />
-                            <br />
-                            <Select
-                              defaultValue={1}
-                              variant="standard"
-                              onChange={(e) => setCurrenciesIU(e.target.value)}
-                            >
-                              <MenuItem value={1}>Wei</MenuItem>
-                              <MenuItem value={1000000000000}>Szabo</MenuItem>
-                            </Select>
+                            <Box>
+                              <TextField
+                                label="Starting Bid"
+                                type="number"
+                                width={100}
+                                variant="standard"
+                                required
+                                onChange={(e) => setMinBid(e.target.value)}
+                              />
+                              <br />
+                              <Select
+                                defaultValue={1}
+                                variant="standard"
+                                onChange={(e) =>
+                                  setCurrenciesIU(e.target.value)
+                                }
+                              >
+                                <MenuItem value={1}>Wei</MenuItem>
+                                <MenuItem value={1000000000000}>Szabo</MenuItem>
+                              </Select>
+                            </Box>
+                            <Box>
+                              <TextField
+                                label="Durations"
+                                type="number"
+                                width={100}
+                                variant="standard"
+                                required
+                                onChange={(e) => setDuration(e.target.value)}
+                              />
+                              <br />
+                              <Select
+                                defaultValue={1}
+                                variant="standard"
+                                onChange={(e) => setTimesIU(e.target.value)}
+                              >
+                                <MenuItem value={1}>Second</MenuItem>
+                                <MenuItem value={60}>Minute</MenuItem>
+                                <MenuItem value={3600}>Hour</MenuItem>
+                              </Select>
+                            </Box>
                           </DialogContent>
                           <DialogActions>
                             <Button onClick={handleClose}>Cancel</Button>
-                            <Button type="submit">Bid</Button>
+                            <Button type="submit">Start</Button>
                           </DialogActions>
                         </form>
                       </Dialog>
                     </div>
-                  )
-                ) : isOwner ? (
-                  <Button
-                    onClick={() => {
-                      endOnBid();
-                      onSubmit();
-                    }}
-                  >
-                    이제 끝낼 수 있습니다.
-                  </Button>
-                ) : (
-                  <Button>Time Up, 소유자가 종료하기를 기다리는 중.</Button>
-                )
-              ) : (
-                <Button onClick={claim}>To be claimed</Button>
-              )}
-
-              {/* 여기서 다시 */}
+                  ) : image.status == 1 ? (
+                    leftTime > 0 ? (
+                      isOwner ? (
+                        <Button>경매 종료 날짜 {leftTime}s</Button>
+                      ) : (
+                        <div>
+                          <Button variant="outlined" onClick={handleClickOpen}>
+                            경매 종료 날짜{leftTime}s, Bid!!!
+                          </Button>
+                          <Dialog open={open} onClose={handleClose}>
+                            <form onSubmit={bid}>
+                              <DialogTitle>입찰하다</DialogTitle>
+                              <DialogContent>
+                                <DialogContentText>
+                                  입찰가를 채워주세요
+                                </DialogContentText>
+                                <TextField
+                                  label="Your Bid"
+                                  type="number"
+                                  width={100}
+                                  variant="standard"
+                                  required
+                                  onChange={(e) => setNewBid(e.target.value)}
+                                />
+                                <br />
+                                <Select
+                                  defaultValue={1}
+                                  variant="standard"
+                                  onChange={(e) =>
+                                    setCurrenciesIU(e.target.value)
+                                  }
+                                >
+                                  <MenuItem value={1}>Wei</MenuItem>
+                                  <MenuItem value={1000000000000}>
+                                    Szabo
+                                  </MenuItem>
+                                </Select>
+                              </DialogContent>
+                              <DialogActions>
+                                <Button onClick={handleClose}>Cancel</Button>
+                                <Button type="submit">Bid</Button>
+                              </DialogActions>
+                            </form>
+                          </Dialog>
+                        </div>
+                      )
+                    ) : isOwner ? (
+                      <Button
+                        onClick={() => {
+                          endOnBid();
+                          onSubmit();
+                        }}
+                      >
+                        이제 끝낼 수 있습니다.
+                      </Button>
+                    ) : (
+                      <Button>Time Up, 소유자가 종료하기를 기다리는 중.</Button>
+                    )
+                  ) : (
+                    <Button onClick={claim}>To be claimed</Button>
+                  )}
+                </Box>
+              </Grid>
             </Grid>
           </main>
         </Container>

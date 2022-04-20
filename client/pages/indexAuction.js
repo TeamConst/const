@@ -1,5 +1,4 @@
 import Layout from "../components/Layout/layout";
-import SetAuction from "../components/setAuction";
 import GetNowAuction from "../components/GetLocalDB/getNowAuction";
 
 const IndexAuction = () => {
@@ -8,7 +7,6 @@ const IndexAuction = () => {
   return (
     <div>
       <Layout></Layout>
-      <SetAuction></SetAuction>
       <GetNowAuction></GetNowAuction>
     </div>
   );
