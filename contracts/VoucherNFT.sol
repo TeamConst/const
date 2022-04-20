@@ -25,10 +25,7 @@ contract Tickets {
     for (uint256 i = 0; i < TOTAL_TICKETS; i++) {
       tickets[i].price = 1e17*(i+1); // 0.1 ETH
       // tickets[i].owner = address(0x0); // not defined
-<<<<<<< HEAD:contracts/VoucherNFT.sol
       tickets[i].endTime = block.timestamp + ((i+1)* 1 days);
-=======
->>>>>>> 36706299f9fe9f7a493e878135fce0a984ce8638:contracts/b.sol
     }
   }
 

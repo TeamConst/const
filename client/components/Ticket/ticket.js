@@ -14,23 +14,15 @@ import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
 import GlobalStyles from "@mui/material/GlobalStyles";
 import Container from "@mui/material/Container";
-<<<<<<< HEAD
 
-=======
->>>>>>> 36706299f9fe9f7a493e878135fce0a984ce8638
 import axios from "axios";
 import configuration from "../../../build/contracts/Tickets.json";
 import web3 from "../connection/web3";
 import { useState, useEffect } from "react";
 
 const tiers = [
-<<<<<<< HEAD
   {
     id: 0,
-=======
-  { 
-    id:0,
->>>>>>> 36706299f9fe9f7a493e878135fce0a984ce8638
     title: "1달권",
     price: "0.1eth",
     description: [
@@ -40,25 +32,14 @@ const tiers = [
       "Help center access",
       "Email support",
     ],
-<<<<<<< HEAD
-    buttonText: "Sign up for free",
-=======
->>>>>>> 36706299f9fe9f7a493e878135fce0a984ce8638
     buttonText: "구매하기",
     buttonVariant: "outlined",
   },
   {
-<<<<<<< HEAD
     id: 1,
     title: "3달권",
-    subheader: "Most popular",
-    price: "15",
-=======
-    id:1,
-    title: "3달권",
-    subheader: "Most popular",
->>>>>>> 36706299f9fe9f7a493e878135fce0a984ce8638
     price: "0.2eth",
+    subheader: "Most popular",
     description: [
       "혜택쓸거임",
       "20 users included",
@@ -66,22 +47,12 @@ const tiers = [
       "Help center access",
       "Priority email support",
     ],
-<<<<<<< HEAD
-    buttonText: "Get started",
-=======
->>>>>>> 36706299f9fe9f7a493e878135fce0a984ce8638
     buttonText: "구매하기",
     buttonVariant: "contained",
   },
   {
-<<<<<<< HEAD
     id: 2,
     title: "5달권",
-    price: "30",
-=======
-    id:2,
-    title: "5달권",
->>>>>>> 36706299f9fe9f7a493e878135fce0a984ce8638
     price: "0.3eth",
     description: [
       "혜택쓸거임",
@@ -90,10 +61,6 @@ const tiers = [
       "Help center access",
       "Phone & email support",
     ],
-<<<<<<< HEAD
-    buttonText: "Contact us",
-=======
->>>>>>> 36706299f9fe9f7a493e878135fce0a984ce8638
     buttonText: "구매하기",
     buttonVariant: "outlined",
   },
@@ -252,8 +219,7 @@ const Ticket = () => {
         maxWidth="sm"
         component="main"
         sx={{ pt: 8, pb: 6 }}
-      >
-      </Container>
+      ></Container>
     </div>
   );
 };

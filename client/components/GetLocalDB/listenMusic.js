@@ -8,10 +8,6 @@ import { fetchMusics } from "../../hooks";
 
 import { useQuery } from "react-query";
 import { useForm } from "react-hook-form";
-<<<<<<< HEAD
-=======
-// import coreIsIterable from "core-js/modules/core.is-iterable";
->>>>>>> 36706299f9fe9f7a493e878135fce0a984ce8638
 
 import * as React from "react";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
