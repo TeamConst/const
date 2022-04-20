@@ -37,8 +37,8 @@ const tiers = [
   },
   {
     id:1,
-    title: "3달권",
-    subheader: "Most popular",
+    title: "2달권",
+    subheader: "제일 많이 찾는",
     price: "0.2eth",
     description: [
       "혜택쓸거임",
@@ -52,7 +52,7 @@ const tiers = [
   },
   {
     id:2,
-    title: "5달권",
+    title: "3달권",
     price: "0.3eth",
     description: [
       "혜택쓸거임",

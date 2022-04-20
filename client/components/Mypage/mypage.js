@@ -37,6 +37,61 @@ import GetMyAuctionDB from "../GetLocalDB/Mine/getMyAuctionDB";
 //
 import Web3 from "web3";
 //
+import avatar from "../../images/1.jpg"
+import styled from "styled-components";
+const Smallertext = styled.div`
+font-weight: normal;
+font-size: 0.7rem;
+color: hsl(0, 0%, 50%);
+text-align: center;
+letter-spacing: 1px;
+padding-bottom: 20px;
+line-height: 5px;
+`;
+const Cardcontainer = styled.div`
+background-color: white;
+min-width: 100%;
+max-width: 100%;
+height: 100%;
+border-radius: 14px;
+box-shadow: 0px 10px 30px hsl(185, 75%, 35%);
+`;
+const Followers = styled.div`
+flex: 1;
+`;
+const Socialcontainer = styled.div`
+display: flex;
+border-top: solid rgb(206, 206, 206) 1px;
+text-align: center;
+`;
+const Normaltext  = styled.div`
+font-weight: normal;
+font-size: 0.95rem;
+color: hsl(0, 0%, 50%);
+text-align: center;
+padding-bottom: 10px;
+`;
+const Boldtext = styled.div`
+font-weight: bold;
+font-size: 1.1rem;
+text-align: center;
+padding: 10px 20px 0px 20px;
+`;
+const Header = styled.div`
+background-position: 0px 0px;
+background-repeat: no-repeat;
+background-size: contain;
+text-align: center;
+border-top-left-radius: 28px;
+border-top-right-radius: 28px;
+`;
+const Img = styled.img`
+margin: auto;
+width: 15%;
+border: solid white 4px;
+border-radius: 50%;
+margin-top: 75px;
+`;
 const theme = createTheme();
 
 async function setupWeb3() {
@@ -63,6 +118,19 @@ async function setupWeb3() {
 
 const Mypage1 = () => {
   //
+
+    
+       const data= {
+          name:"Rita Correia",
+          age:"32",
+          city:"London",
+          followers:"80K",
+          likes:"803K",
+          photos:"1.4K"
+        }
+  console.log(data.name)
+
+ 
   const [accountAddress, setAccountAddress] = useState("");
   const [accountBalance, setAccountBalance] = useState("");
   const [Contract, setContract] = useState(null);
@@ -250,11 +318,37 @@ const Mypage1 = () => {
               버튼버튼
             </Button>
             {a === 1 ? (
+
+              
               <Grid container spacing={5}>
+                
                 <Grid item xs={12}>
-                  <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                    마이페이지
-                  </Box>
+                <Cardcontainer>
+			<Header>
+				<Img src={"https://cdnimg.melon.co.kr/cm2/artistcrop/images/002/61/143/261143_20210325180240_500.jpg?61e575e8653e5920470a38d1482d7312/melon/optimize/90"} alt={userSession.name} />
+			</Header>
+			<Boldtext>
+				{data.name} <span className="normal-text">{data.age}</span>
+			</Boldtext>
+			<Normaltext>{data.city}</Normaltext>
+			<Socialcontainer>
+				<Followers>
+					<Boldtext>{data.followers}</Boldtext>
+					<Smallertext>Followers</Smallertext>
+				</Followers>
+				<div className="likes">
+					<Boldtext>{data.likes}</Boldtext>
+					<Smallertext>Likes</Smallertext>
+				</div>
+				<div className="photos">
+					<Boldtext>{data.photos}</Boldtext>
+					<Smallertext>Photos</Smallertext>
+				</div>
+			</Socialcontainer>
+		</Cardcontainer>
+                  {/* <Box bgcolor="info.main" color="info.contrastText" p={2}>
+         
+                  </Box> */}
                 </Grid>
                 <Grid item xs={6}>
                   <Box bgcolor="info.main" color="info.contrastText" p={2}>
