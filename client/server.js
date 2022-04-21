@@ -620,6 +620,26 @@ app.prepare().then(() => {
       return res.status(400).send(err);
     }
   });
+    //프로필 사진변경
+    server.post("/api/updateuser3", async (req, res) => {
+      try {
+        const updateCondition3 = await User.update(
+          {
+            name :req.body.name,
+            favor_genre:req.body.favor_genre,
+            nation :req.body.nation
+          },
+          {
+            where: { id: req.body.id },
+          }
+        );
+  
+        res.status(200).json({ success: true, updateCondition3 });
+      } catch (error) {
+        console.error(error);
+        return res.status(400).send(err);
+      }
+    });
   // 현재 진행중인 데이터 로컬 db 간략화
   server.get("/api/getNowBuy", async (req, res) => {
     const abc = await BuyMusic.findAll({ where: { sellComplete: false } });
