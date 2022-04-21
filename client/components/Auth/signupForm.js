@@ -25,18 +25,18 @@ import web3 from "../connection/web3";
 const theme = createTheme();
 
 const SignupForm = () => {
-  const [이미지, 이미지변경] = useState();
-  const [title,setTitle] =useState();
+  // const [이미지, 이미지변경] = useState();
+  // const [title,setTitle] =useState();
   
-  const changeImage = async (e) => {
-    const file = e.target.files;
-    const reader = new FileReader();
-    reader.onload = () => {
-      이미지변경(reader.result);
+  // const changeImage = async (e) => {
+  //   const file = e.target.files;
+  //   const reader = new FileReader();
+  //   reader.onload = () => {
+  //     이미지변경(reader.result);
 
-    };
-    reader.readAsDataURL(file[0]);
-  };
+  //   };
+  //   reader.readAsDataURL(file[0]);
+  // };
 
   const {
     register,
@@ -48,19 +48,19 @@ const SignupForm = () => {
     try {
 
  
-      const image = data.image[0];
-      console.log(image)
-      const imageFormData = new FormData();
-      imageFormData.append("image", image);
-      imageFormData.append("title", image.name);
-      imageFormData.append("CID", image.name);
-      setTitle(image.title)
-      const resultImage = await axios.post(
-        "http://localhost:8080/api/mint/image",
-        imageFormData
-      );
-      console.log(resultImage);
-       console.log(data)
+      // const image = data.image[0];
+      // console.log(image)
+      // const imageFormData = new FormData();
+      // imageFormData.append("image", image);
+      // imageFormData.append("title", image.name);
+      // imageFormData.append("CID", image.name);
+      // setTitle(image.title)
+      // const resultImage = await axios.post(
+      //   "http://localhost:8080/api/mint/image",
+      //   imageFormData
+      // );
+      // console.log(resultImage);
+      //  console.log(data)
        const address = await web3.eth.getAccounts();
       data.address = address[0];
     let gg = {};
@@ -71,7 +71,7 @@ const SignupForm = () => {
     gg.name = data.name;
     gg.favor_genre = data.favor_genre;
     gg.nation = data.nation;
-    gg.profileImg =`https://const123.s3.ap-northeast-2.amazonaws.com/image/${image.name}.jpg`
+    // gg.profileImg =`https://const123.s3.ap-northeast-2.amazonaws.com/image/${image.name}.jpg`
       // 실제에서는 여기서 어드레스 받고 폼 데이터랑 같이 보내준다고 처리하자
       // 우리는 truffle accounts로 계정은 이미 만든 상태다 가정하고 처리
       // console.log(web3);
@@ -233,7 +233,7 @@ const SignupForm = () => {
                   </select>
                 </div>
               </Grid>
-             <Grid item xs={12}>
+             {/* <Grid item xs={12}>
                   <Box bgcolor="info.main" color="info.contrastText" p={2}>
                     앨범커버 이미지 등록 이미지 첨부하면 렌더링하는 것까지
                     구현하자
@@ -255,7 +255,7 @@ const SignupForm = () => {
                       }}
                     ></input>
                   </Box>
-                </Grid>
+                </Grid> */}
               <Grid item xs={12}>
                 <Typography component="h1" variant="h5">
                   MetaMask Address

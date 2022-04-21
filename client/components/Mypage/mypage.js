@@ -5,12 +5,13 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useQuery } from "react-query";
-import { useEffect, useState } from "react";
+import { useEffect, useState ,useRef} from "react";
 import web3 from "../connection/web3";
 import MintedImages from "../MintedImages/index";
 import { fetchBestCollections } from "../../hooks";
 import axios from "axios";
 //
+import { useForm } from "react-hook-form";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
@@ -130,7 +131,7 @@ const Mypage1 = () => {
         }
   console.log(data.name)
 
- 
+
   const [accountAddress, setAccountAddress] = useState("");
   const [accountBalance, setAccountBalance] = useState("");
   const [Contract, setContract] = useState(null);
@@ -299,11 +300,46 @@ const Mypage1 = () => {
       );
       }
   
-   }
+
+
+	
+    }
+    const fileInput = useRef(null)
+  
+    const onChange =async (e) => {
+      if(e.target.files[0]){
+        // setImage(e.target.files[0])
+        const image = e.target.files[0];
+        const imageFormData = new FormData();
+        imageFormData.append("image", image);
+        imageFormData.append("title", image.name);
+        imageFormData.append("CID", image.name);
+        const resultImage = await axios.post(
+          "http://localhost:8080/api/mint/image",
+          imageFormData
+        );
+         const rere =  axios.post("http://localhost:8080/api/updateuser2", {
+          profileImg:`https://const123.s3.ap-northeast-2.amazonaws.com/image/${image.name}.jpg`,
+          id: userSession.id
+         
+        }
+        )
+    }
+            console.log(rere)
+      //화면에 프로필 사진 표시
+            const reader = new FileReader();
+            reader.onload = () => {
+                if(reader.readyState === 2){
+                    // setImage(reader.result)
+                }
+            }
+            reader.readAsDataURL(e.target.files[0])
+        }
   return (
     <div>
       <ThemeProvider theme={theme}>
-        <CssBaseline />
+        <CssBaseline />  
+
         <Container maxWidth="lg">
           <main>
             <button onClick={claimFundsHandler} className="btn btn-success">
@@ -325,7 +361,18 @@ const Mypage1 = () => {
                 <Grid item xs={12}>
                 <Cardcontainer>
 			<Header>
-				<Img src={`${userSession.profileImg}`} alt={userSession.name} />
+      <Img 
+        src={`${userSession.profileImg}`} 
+        style={{margin:'20px'}} 
+        size={200} 
+        onClick={()=>{fileInput.current.click()}}/>
+          <input 
+ 	type='file' 
+    	style={{display:'none'}}
+        accept='image/jpg,impge/png,image/jpeg' 
+        name='profile_img'
+        onChange={onChange}
+        ref={fileInput}/>
 			</Header>
 			<Boldtext>
       {userSession.name} <span className="normal-text">나이/랭크</span>
@@ -462,6 +509,7 @@ const Mypage1 = () => {
           </main>
         </Container>
       </ThemeProvider>
+      
     </div>
   );
 };

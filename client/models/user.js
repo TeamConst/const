@@ -51,6 +51,7 @@ module.exports = class User extends Sequelize.Model {
         profileImg: {
           type: Sequelize.STRING(200),
           allowNull: false,
+          defaultValue: "https://yagom.net/wp-content/uploads/avatars/68/5e790a5b49694-bpthumb.png",
         },
       },
       {
