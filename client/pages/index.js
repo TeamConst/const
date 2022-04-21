@@ -38,7 +38,7 @@ import { useQuery, dehydrate, QueryClient } from "react-query";
 import { fetchLocals } from "../hooks";
 
 import AuctionCollection from "../components/Auction/AuctionCollection";
-
+import GetVideo from "../components/GetLocalDB/getVideo";
 import GetNowBuy from "../components/GetLocalDB/getNowBuy";
 import GetNowAuction from "../components/GetLocalDB/getNowAuction";
 import GetNowNFT from "../components/GetLocalDB/getNowNFT";
@@ -49,7 +49,7 @@ const Page = () => {
     <div>
       <Layout></Layout>
       {/* <AuctionCollection /> */}
-
+       <GetVideo></GetVideo>
       {/* <GetNowNFT></GetNowNFT> */}
       <GetNowBuy></GetNowBuy>
       <GetNowAuction></GetNowAuction>
