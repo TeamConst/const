@@ -9,20 +9,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/TeamConst/const.git"
-  },
-  "author": "",
+  "author": "Kyle",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/TeamConst/const/issues"
-  },
-  "homepage": "https://github.com/TeamConst/const#readme",
   "dependencies": {
     "@openzeppelin/contracts": "^4.5.0",
     "dotenv": "^16.0.0",
     "ganache": "^7.0.4",
     "truffle-hdwallet-provider-privkey": "^0.3.0"
-  }
+  },
+  "private": true
 }
