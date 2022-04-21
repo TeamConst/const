@@ -257,7 +257,7 @@ const Mypage1 = () => {
     let praaccounts;
     const accounts1 = await web3.eth.getAccounts();
     const networkId1 = await web3.eth.net.getId();
-
+   
     const deployedAddress2 = marketContractJSON.networks[networkId1].address;
     const contract2 = new web3.eth.Contract(
       marketContractJSON.abi,
@@ -328,68 +328,57 @@ const Mypage1 = () => {
 				<Img src={`${userSession.profileImg}`} alt={userSession.name} />
 			</Header>
 			<Boldtext>
-				{data.name} <span className="normal-text">{data.age}</span>
+      {userSession.name} <span className="normal-text">나이/랭크</span>
 			</Boldtext>
-			<Normaltext>{data.city}</Normaltext>
+			<Normaltext>{userSession.artist}</Normaltext>
 			<Socialcontainer>
 				<Followers>
-					<Boldtext>{data.followers}</Boldtext>
-					<Smallertext>Followers</Smallertext>
+					<Boldtext>{ImageNumOfAccount}</Boldtext>
+					<Smallertext> 소유한 NFTS의 총 수</Smallertext>
 				</Followers>
-				<div className="likes">
-					<Boldtext>{data.likes}</Boldtext>
-					<Smallertext>Likes</Smallertext>
-				</div>
-				<div className="photos">
-					<Boldtext>{data.photos}</Boldtext>
-					<Smallertext>Photos</Smallertext>
-				</div>
+				<Followers className="likes">
+					<Boldtext>{accountBalance}/eth</Boldtext>
+					<Smallertext>잔액</Smallertext>
+				</Followers>
+				<Followers className="photos">
+					<Boldtext>     {`${userSession.ticket}${lastTime}일남음`}</Boldtext>
+					<Smallertext>이용권 정보</Smallertext>
+				</Followers>
 			</Socialcontainer>
 		</Cardcontainer>
                   {/* <Box bgcolor="info.main" color="info.contrastText" p={2}>
          
                   </Box> */}
                 </Grid>
-                <Grid item xs={6}>
-                  <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                    {userSession.name}님 반갑습니다
-                  </Box>
-                </Grid>
-                <Grid item xs={3}>
-                  <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                    내 수익 현황
-                  </Box>
-                </Grid>
-                <Grid item xs={3}>
-                  <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                    회원정보 수정
-                  </Box>
-                </Grid>
                 <Grid item xs={9}>
-                  <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                    소유한 NFTS의 총 수:{ImageNumOfAccount}
-                  </Box>
+                  <Cardcontainer bgcolor="info.main" color="info.contrastText" p={2}>
+                    <Followers> <Boldtext> 내 수익 현황</Boldtext></Followers>
+                    
+                  </Cardcontainer>
                 </Grid>
                 <Grid item xs={3}>
                   {/* <Link href={`/buysell/${encodeURIComponent(a.Key)}`}> */}
                   <Link href={`/mypage/myNFT/${accountAddress}`}>
-                    <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                      NFT 관리하기
-                    </Box>
+                  <Cardcontainer bgcolor="info.main" color="info.contrastText" p={2}>
+                    <Followers> <Boldtext>NFT관리하기</Boldtext></Followers>
+                    
+                  </Cardcontainer>
                   </Link>
                 </Grid>
                 <Grid item xs={9}>
                   <Link href={`/mypage/myNFT/${accountAddress}`}>
-                    <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                      나의 전체 NFT
-                    </Box>
+                  <Cardcontainer bgcolor="info.main" color="info.contrastText" p={2}>
+                    <Followers> <Boldtext>나의 전체 </Boldtext></Followers>
+                    
+                  </Cardcontainer>
                   </Link>
                 </Grid>
                 <Grid item xs={3}>
                   <Link href={`/mypage/myNFT/${accountAddress}`}>
-                    <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                      자세히 보기
-                    </Box>
+                  <Cardcontainer bgcolor="info.main" color="info.contrastText" p={2}>
+                    <Followers> <Boldtext>  자세히보기 </Boldtext></Followers>
+  
+                  </Cardcontainer>
                   </Link>
                 </Grid>
                 <Grid item xs={12}>
@@ -397,15 +386,17 @@ const Mypage1 = () => {
                   {/* <GetMyNFT></GetMyNFT> */}
                 </Grid>
                 <Grid item xs={9}>
-                  <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                    판매 중인 나의 NFT
-                  </Box>
+                <Cardcontainer bgcolor="info.main" color="info.contrastText" p={2}>
+                    <Followers> <Boldtext> 판매중인 나의 NFT </Boldtext></Followers>
+  
+                  </Cardcontainer>
                 </Grid>
                 <Grid item xs={3}>
                   <Link href={`/mypage/myBuy/${accountAddress}`}>
-                    <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                      자세히 보기
-                    </Box>
+                  <Cardcontainer bgcolor="info.main" color="info.contrastText" p={2}>
+                    <Followers> <Boldtext>  자세히보기 </Boldtext></Followers>
+  
+                  </Cardcontainer>
                   </Link>
                 </Grid>
                 <Grid item xs={12}>
@@ -414,15 +405,17 @@ const Mypage1 = () => {
                 </Grid>
 
                 <Grid item xs={9}>
-                  <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                    경매 중인 나의 NFT
-                  </Box>
+                <Cardcontainer bgcolor="info.main" color="info.contrastText" p={2}>
+                    <Followers> <Boldtext>   경매중인 나의 NFT </Boldtext></Followers>
+  
+                  </Cardcontainer>
                 </Grid>
                 <Grid item xs={3}>
                   <Link href={`/mypage/myAuction/${accountAddress}`}>
-                    <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                      자세히 보기
-                    </Box>
+                  <Cardcontainer bgcolor="info.main" color="info.contrastText" p={2}>
+                    <Followers> <Boldtext>  자세히 보기 </Boldtext></Followers>
+  
+                  </Cardcontainer>
                   </Link>
                 </Grid>
                 <Grid item xs={12}>
@@ -439,26 +432,28 @@ const Mypage1 = () => {
                 </Grid>
 
                 <Grid item xs={12}>
-                  <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                    이용권 정보    {userSession.name}
-                    {}
-                  </Box>{`이용권:${userSession.ticket}${lastTime}일남음`}
-              
+                  <Cardcontainer bgcolor="info.main" color="info.contrastText" p={2}>
+                    <Followers> <Boldtext>   이용권 정보 </Boldtext></Followers>
+                    {`이용권:${userSession.ticket}${lastTime}일남음`}
+                  </Cardcontainer>
                 </Grid>
                 <Grid item xs={4}>
-                  <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                    내 음원의 총 재생시간
-                  </Box>
+                <Cardcontainer bgcolor="info.main" color="info.contrastText" p={2}>
+                    <Followers> <Boldtext>  내 음원의 총 재생시간 </Boldtext></Followers>
+  
+                  </Cardcontainer>
                 </Grid>
                 <Grid item xs={4}>
-                  <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                    내 음원을 들은 총 횟 수
-                  </Box>
+                <Cardcontainer bgcolor="info.main" color="info.contrastText" p={2}>
+                    <Followers> <Boldtext>  내음원을 들은 총 재생 횟수 </Boldtext></Followers>
+  
+                  </Cardcontainer>
                 </Grid>
                 <Grid item xs={4}>
-                  <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                    내가 최근 들은 곡 Recently Played 등등
-                  </Box>
+                <Cardcontainer bgcolor="info.main" color="info.contrastText" p={2}>
+                    <Followers> <Boldtext>   내가 최근 들은 곡 Recently Played 등등 </Boldtext></Followers>
+  
+                  </Cardcontainer>
                 </Grid>
               </Grid>
             ) : (
