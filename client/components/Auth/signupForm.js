@@ -25,19 +25,6 @@ import web3 from "../connection/web3";
 const theme = createTheme();
 
 const SignupForm = () => {
-  // const [이미지, 이미지변경] = useState();
-  // const [title,setTitle] =useState();
-  
-  // const changeImage = async (e) => {
-  //   const file = e.target.files;
-  //   const reader = new FileReader();
-  //   reader.onload = () => {
-  //     이미지변경(reader.result);
-
-  //   };
-  //   reader.readAsDataURL(file[0]);
-  // };
-
   const {
     register,
     formState: { errors },
@@ -46,21 +33,6 @@ const SignupForm = () => {
 
   const onSubmit = async (data) => {
     try {
-
- 
-      // const image = data.image[0];
-      // console.log(image)
-      // const imageFormData = new FormData();
-      // imageFormData.append("image", image);
-      // imageFormData.append("title", image.name);
-      // imageFormData.append("CID", image.name);
-      // setTitle(image.title)
-      // const resultImage = await axios.post(
-      //   "http://localhost:8080/api/mint/image",
-      //   imageFormData
-      // );
-      // console.log(resultImage);
-      //  console.log(data)
        const address = await web3.eth.getAccounts();
       data.address = address[0];
     let gg = {};
@@ -233,29 +205,6 @@ const SignupForm = () => {
                   </select>
                 </div>
               </Grid>
-             {/* <Grid item xs={12}>
-                  <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                    앨범커버 이미지 등록 이미지 첨부하면 렌더링하는 것까지
-                    구현하자
-                    <img
-                      src={이미지}
-                      // alt={detailImageFile.name}
-                      loading="lazy"
-                      height="300"
-                      width="300"
-                    />
-                    <input
-                      {...register("image", {
-                        required: true,
-                      })}
-                      accept="image/*"
-                      type="file"
-                      onChange={(e) => {
-                        changeImage(e);
-                      }}
-                    ></input>
-                  </Box>
-                </Grid> */}
               <Grid item xs={12}>
                 <Typography component="h1" variant="h5">
                   MetaMask Address
