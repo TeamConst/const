@@ -166,7 +166,7 @@ const Navbar = () => {
                     <Button
                       key={page[0]}
                       onClick={handleCloseNavMenu}
-                      sx={{ my: 1, color: "block", display: "block" }}
+                      sx={{ my: 1, color: "block", display: "inline-block" }}
                     >
                       {page[0]}
                     </Button>
@@ -180,7 +180,7 @@ const Navbar = () => {
                     <Button
                       key={page[0]}
                       onClick={handleCloseNavMenu}
-                      sx={{ my: 2, color: "block", display: "inline" }}
+                      sx={{ my: 2, color: "block", display: "inline-block" }}
                     >
                       {page[0]}
                     </Button>
