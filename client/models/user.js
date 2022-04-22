@@ -43,6 +43,17 @@ module.exports = class User extends Sequelize.Model {
           allowNull: false,
           defaultValue: "이용권 없음",
         },
+        ticketTime: {
+          type: Sequelize.STRING(200),
+          allowNull: false,
+          defaultValue: "0",
+        },
+        profileImg: {
+          type: Sequelize.STRING(200),
+          allowNull: false,
+          defaultValue:
+            "https://yagom.net/wp-content/uploads/avatars/68/5e790a5b49694-bpthumb.png",
+        },
       },
       {
         sequelize,

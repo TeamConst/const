@@ -67,17 +67,25 @@ const SignupForm = () => {
 
   const onSubmit = async (data) => {
     try {
+      const address = await web3.eth.getAccounts();
+      data.address = address[0];
+      let gg = {};
+      gg.address = data.address;
+      gg.id2 = data.id2;
+      gg.artist = data.artist;
+      gg.password = data.password;
+      gg.name = data.name;
+      gg.favor_genre = data.favor_genre;
+      gg.nation = data.nation;
+      // gg.profileImg =`https://const123.s3.ap-northeast-2.amazonaws.com/image/${image.name}.jpg`
       // 실제에서는 여기서 어드레스 받고 폼 데이터랑 같이 보내준다고 처리하자
       // 우리는 truffle accounts로 계정은 이미 만든 상태다 가정하고 처리
       // console.log(web3);
       // const abc = web3.eth.accounts.create();
       // console.log(abc);
 
-      const address = await web3.eth.getAccounts();
-      data.address = address[0];
-
-      console.log(data);
-      const result = await axios.post("http://localhost:8080/api/signup", data);
+      console.log(gg);
+      const result = await axios.post("http://localhost:8080/api/signup", gg);
       console.log(result);
     } catch (err) {
       console.log("회원가입 오류에연", err);
