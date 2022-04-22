@@ -53,7 +53,6 @@ const Page = () => {
       {/* <GetNowNFT></GetNowNFT> */}
       <GetNowBuy></GetNowBuy>
       <GetNowAuction></GetNowAuction>
-      <ListenMusic></ListenMusic>
     </div>
   );
 };
