@@ -36,7 +36,7 @@ box-shadow: 0px 10px 30px hsl(185, 75%, 35%);
 `;
 const Img = styled.img`
 margin: auto;
-width: 70%;
+width: 40%;
 border: solid white 4px;
 border-radius: 5%;
 margin-top: 75px;
@@ -236,12 +236,12 @@ const Music = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <Container  sx={{ py: 6}} maxWidth="lg">
+          <Container  sx={{ py: 32}} maxWidth="lg">
             <Cardcontainer>
             <main>
               <Grid container spacing={5}>
                 <Grid item xs={12}>
-                <Boldtext>  <img src={"/img/ConstLogo.png"} width="20%"  /></Boldtext>
+                <Boldtext>  <Img src={"/img/music2.jpeg"} /></Boldtext>
                 <Boldtext>음원등록</Boldtext>
                 </Grid>
                 <Grid item xs={6}>
@@ -405,8 +405,8 @@ const Music = () => {
               type="submit"
               fullWidth
               variant="contained"
-              color="secondary"
-              sx={{ mt: 3, mb: 2 }}
+            
+              sx={{ mt: 3, mb: 2  , bgcolor: "black"}}
             >
               음원 등록
             </Button>

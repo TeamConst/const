@@ -19,7 +19,18 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import styled from "styled-components";
 import Container from "@mui/material/Container";
 import countryList from "react-select-country-list";
+const Img = styled.img`
+text-align: center;
+width: 80%;
+border-radius: 5%;
 
+`;
+const Boldtext = styled.div`
+
+
+text-align: center;
+padding: 10px 20px 0px 20px;
+`;
 const Cardcontainer = styled.div`
 background-color: white;
 min-width: 100%;
@@ -79,7 +90,7 @@ const userUpdate = () => {
    
     <form onSubmit={handleSubmit(onSubmit)}> 
       <ThemeProvider theme={theme}>
-      <Container maxWidth="lg">
+      <Container maxWidth="lg"sx={{ py:22}}>
         <Cardcontainer>
         <Container component="main" maxWidth="xs">
           <CssBaseline />
@@ -91,7 +102,7 @@ const userUpdate = () => {
               alignItems: "center",
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}></Avatar>
+           <Boldtext>   <Img src="/img/music3.jpeg" /></Boldtext>
             <Typography component="h1" variant="h5">
               유저 정보 변경
             </Typography>
@@ -171,7 +182,7 @@ const userUpdate = () => {
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2 }}
+                sx={{ mt: 3, mb: 2 , bgcolor: "black" }}
               >
                 수정
               </Button>

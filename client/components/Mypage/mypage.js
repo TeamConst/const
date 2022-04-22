@@ -55,7 +55,15 @@ min-width: 100%;
 max-width: 100%;
 height: 100%;
 border-radius: 14px;
-box-shadow: 0px 10px 30px hsl(185, 75%, 35%);
+box-shadow: 0px 10px 20px hsl(185, 75%, 35%);
+`;
+const Cardcontainer2 = styled.div`
+background-color: white;
+min-width: 100%;
+max-width: 100%;
+height: 100%;
+border-radius: 14px;
+
 `;
 const Followers = styled.div`
 flex: 1;
@@ -340,7 +348,7 @@ const Mypage1 = () => {
       <ThemeProvider theme={theme}>
         <CssBaseline />  
 
-        <Container maxWidth="lg">
+        <Container maxWidth="lg" sx={{ py: 24}}>
           <main>
             <button onClick={claimFundsHandler} className="btn btn-success">
               구매 완료 된 이더 받기
@@ -396,40 +404,51 @@ const Mypage1 = () => {
 					<Smallertext>이용권 정보</Smallertext>
 				</Followers>
 			</Socialcontainer>
+
+
+
+
+
+
+      <Container>
+
+
+        
+      </Container>
 		</Cardcontainer>
                   {/* <Box bgcolor="info.main" color="info.contrastText" p={2}>
          
                   </Box> */}
                 </Grid>
                 <Grid item xs={9}>
-                  <Cardcontainer bgcolor="info.main" color="info.contrastText" p={2}>
+                  <Cardcontainer2 bgcolor="info.main" color="info.contrastText" p={2}>
                     <Followers> <Boldtext> 내 수익 현황</Boldtext></Followers>
                     
-                  </Cardcontainer>
+                  </Cardcontainer2>
                 </Grid>
                 <Grid item xs={3}>
                   {/* <Link href={`/buysell/${encodeURIComponent(a.Key)}`}> */}
                   <Link href={`/mypage/myNFT/${accountAddress}`}>
-                  <Cardcontainer bgcolor="info.main" color="info.contrastText" p={2}>
+                  <Cardcontainer2 bgcolor="info.main" color="info.contrastText" p={2}>
                     <Followers> <Boldtext>NFT관리하기</Boldtext></Followers>
                     
-                  </Cardcontainer>
+                  </Cardcontainer2>
                   </Link>
                 </Grid>
                 <Grid item xs={9}>
                   <Link href={`/mypage/myNFT/${accountAddress}`}>
-                  <Cardcontainer bgcolor="info.main" color="info.contrastText" p={2}>
+                  <Cardcontainer2 bgcolor="info.main" color="info.contrastText" p={2}>
                     <Followers> <Boldtext>나의 전체 </Boldtext></Followers>
                     
-                  </Cardcontainer>
+                  </Cardcontainer2>
                   </Link>
                 </Grid>
                 <Grid item xs={3}>
                   <Link href={`/mypage/myNFT/${accountAddress}`}>
-                  <Cardcontainer bgcolor="info.main" color="info.contrastText" p={2}>
+                  <Cardcontainer2 bgcolor="info.main" color="info.contrastText" p={2}>
                     <Followers> <Boldtext>  자세히보기 </Boldtext></Followers>
   
-                  </Cardcontainer>
+                  </Cardcontainer2>
                   </Link>
                 </Grid>
                 <Grid item xs={12}>
@@ -437,17 +456,17 @@ const Mypage1 = () => {
                   {/* <GetMyNFT></GetMyNFT> */}
                 </Grid>
                 <Grid item xs={9}>
-                <Cardcontainer bgcolor="info.main" color="info.contrastText" p={2}>
+                <Cardcontainer2 bgcolor="info.main" color="info.contrastText" p={2}>
                     <Followers> <Boldtext> 판매중인 나의 NFT </Boldtext></Followers>
   
-                  </Cardcontainer>
+                  </Cardcontainer2>
                 </Grid>
                 <Grid item xs={3}>
                   <Link href={`/mypage/myBuy/${accountAddress}`}>
-                  <Cardcontainer bgcolor="info.main" color="info.contrastText" p={2}>
+                  <Cardcontainer2 bgcolor="info.main" color="info.contrastText" p={2}>
                     <Followers> <Boldtext>  자세히보기 </Boldtext></Followers>
   
-                  </Cardcontainer>
+                  </Cardcontainer2>
                   </Link>
                 </Grid>
                 <Grid item xs={12}>
@@ -456,17 +475,17 @@ const Mypage1 = () => {
                 </Grid>
 
                 <Grid item xs={9}>
-                <Cardcontainer bgcolor="info.main" color="info.contrastText" p={2}>
+                <Cardcontainer2 bgcolor="info.main" color="info.contrastText" p={2}>
                     <Followers> <Boldtext>   경매중인 나의 NFT </Boldtext></Followers>
   
-                  </Cardcontainer>
+                  </Cardcontainer2>
                 </Grid>
                 <Grid item xs={3}>
                   <Link href={`/mypage/myAuction/${accountAddress}`}>
-                  <Cardcontainer bgcolor="info.main" color="info.contrastText" p={2}>
+                  <Cardcontainer2 bgcolor="info.main" color="info.contrastText" p={2}>
                     <Followers> <Boldtext>  자세히 보기 </Boldtext></Followers>
   
-                  </Cardcontainer>
+                  </Cardcontainer2>
                   </Link>
                 </Grid>
                 <Grid item xs={12}>
@@ -482,22 +501,22 @@ const Mypage1 = () => {
                   />
                 </Grid>
                 <Grid item xs={4}>
-                <Cardcontainer bgcolor="info.main" color="info.contrastText" p={2}>
+                <Cardcontainer2 bgcolor="info.main" color="info.contrastText" p={2}>
                     <Followers> <Boldtext>  내 음원의 총 재생시간 </Boldtext></Followers>
   
-                  </Cardcontainer>
+                  </Cardcontainer2>
                 </Grid>
                 <Grid item xs={4}>
-                <Cardcontainer bgcolor="info.main" color="info.contrastText" p={2}>
+                <Cardcontainer2 bgcolor="info.main" color="info.contrastText" p={2}>
                     <Followers> <Boldtext>  내음원을 들은 총 재생 횟수 </Boldtext></Followers>
   
-                  </Cardcontainer>
+                  </Cardcontainer2>
                 </Grid>
                 <Grid item xs={4}>
-                <Cardcontainer bgcolor="info.main" color="info.contrastText" p={2}>
+                <Cardcontainer2 bgcolor="info.main" color="info.contrastText" p={2}>
                     <Followers> <Boldtext>   내가 최근 들은 곡 Recently Played 등등 </Boldtext></Followers>
   
-                  </Cardcontainer>
+                  </Cardcontainer2>
                 </Grid>
               </Grid>
             ) : (

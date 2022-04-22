@@ -80,7 +80,7 @@ const Navbar = () => {
   };
 
   return (
-    <div position="static">
+    <AppBar  position='fixed' sx={{ bgcolor: "#fff" }} elevation="0">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           {/* 타이포 디자인 비교하라고 일부러 냅둠 */}
@@ -168,7 +168,7 @@ const Navbar = () => {
                     <Button
                       key={page[0]}
                       onClick={handleCloseNavMenu}
-                      sx={{ my: 1, color: "block", display: "inline-block" }}
+                      sx={{ my: 1, color: "black", display: "inline-block" }}
                     >
                       {page[0]}
                     </Button>
@@ -225,7 +225,7 @@ const Navbar = () => {
           </div>
         </Toolbar>
       </Container>
-    </div>
+    </AppBar>
   );
 };
 
