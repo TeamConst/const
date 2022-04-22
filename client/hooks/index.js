@@ -31,5 +31,7 @@ export * from "./getAuctionDB";
 export * from "./getBuyMusicDB";
 export * from "./getAuctionMusicDB";
 
+export * from "./getSelectedAuction";
+
 export * from "./Auctiondata";
 export * from "./UdateAuc";

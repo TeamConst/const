@@ -217,5 +217,5 @@ const SetAuction = () => {
   }
 };
 
-// export default withRouter(SetAuction);
-export default SetAuction;
+export default withRouter(SetAuction);
+// export default SetAuction;

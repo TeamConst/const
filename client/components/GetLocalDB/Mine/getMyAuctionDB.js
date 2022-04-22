@@ -49,6 +49,7 @@ const GetMyAuctionDB = () => {
     // }
   }
 
+  console.log(auctionMyData);
   return (
     <div>
       <ThemeProvider theme={theme}>

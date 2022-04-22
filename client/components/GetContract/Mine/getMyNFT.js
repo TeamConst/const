@@ -24,12 +24,16 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/router";
+
 import { QueryClient, useQuery, useQueryClient } from "react-query";
-import { fetchMyNFTDB, fetchMyNFT } from "../../../hooks";
+import { fetchSelectedAuction, fetchMyNFTDB, fetchMyNFT } from "../../../hooks";
 
 import web3 from "../../connection/web3";
 import collectionContractJSON from "../../../../build/contracts/NFTCollection.json";
 import marketContractJSON from "../../../../build/contracts/NFTMarketplace.json";
+
+import ImageMarketPlace from "../../../../build/contracts/ImageMarketplace.json";
 
 import io from "socket.io-client";
 
@@ -167,64 +171,59 @@ const ConfigBuy = (props) => {
 
   const onSubmit = async (data) => {
     try {
-      try {
-        // 컨트랙트
-        // buy contract
-        let pra;
-        let praaccounts;
-        const accounts1 = await web3.eth.getAccounts();
-        const networkId1 = await web3.eth.net.getId();
-        const deployedAddress1 =
-          collectionContractJSON.networks[networkId1].address;
-        const contract1 = new web3.eth.Contract(
-          collectionContractJSON.abi,
-          deployedAddress1
-        );
+      // 컨트랙트
+      // buy contract
+      let pra;
+      let praaccounts;
+      const accounts1 = await web3.eth.getAccounts();
+      const networkId1 = await web3.eth.net.getId();
+      const deployedAddress1 =
+        collectionContractJSON.networks[networkId1].address;
+      const contract1 = new web3.eth.Contract(
+        collectionContractJSON.abi,
+        deployedAddress1
+      );
 
-        pra = contract1;
-        praaccounts = accounts1;
+      pra = contract1;
+      praaccounts = accounts1;
 
-        let pra2;
-        const deployedAddress2 =
-          marketContractJSON.networks[networkId1].address;
-        const contract2 = new web3.eth.Contract(
-          marketContractJSON.abi,
-          deployedAddress2
-        );
-        pra2 = contract2;
+      let pra2;
+      const deployedAddress2 = marketContractJSON.networks[networkId1].address;
+      const contract2 = new web3.eth.Contract(
+        marketContractJSON.abi,
+        deployedAddress2
+      );
+      pra2 = contract2;
 
-        // 오퍼
-        const enteredPrice = web3.utils.toWei(data.price, "ether");
-        console.log(praaccounts[0]);
-        // 바이데이터아이디는 내 작품의 전체 순번
-        // console.log(buyData[0].id);
-        console.log(pra2.options.address);
+      // 오퍼
+      const enteredPrice = web3.utils.toWei(data.price, "ether");
+      console.log(praaccounts[0]);
+      // 바이데이터아이디는 내 작품의 전체 순번
+      // console.log(buyData[0].id);
+      console.log(pra2.options.address);
 
-        await pra.methods
-          .approve(pra2.options.address, props.props.id)
-          .send({ from: praaccounts[0] })
-          .on("transactionHash", (hash) => {
-            console.log("해시해시", hash);
-          })
-          .on("receipt", (receipt) => {
-            pra2.methods
-              .makeOffer(props.props.id, enteredPrice)
-              .send({ from: praaccounts[0] })
-              .on("transactionHash", (hash) => {
-                console.log("해시해시", hash);
-                // 일단 여기에 비동기로 하나 넣자
-              })
-              .on("error", (error) => {
-                window.alert(
-                  "Something went wrong when pushing to the blockchain"
-                );
-              });
-          });
+      await pra.methods
+        .approve(pra2.options.address, props.props.id)
+        .send({ from: praaccounts[0] })
+        .on("transactionHash", (hash) => {
+          console.log("해시해시", hash);
+        })
+        .on("receipt", (receipt) => {
+          pra2.methods
+            .makeOffer(props.props.id, enteredPrice)
+            .send({ from: praaccounts[0] })
+            .on("transactionHash", (hash) => {
+              console.log("해시해시", hash);
+              // 일단 여기에 비동기로 하나 넣자
+            })
+            .on("error", (error) => {
+              window.alert(
+                "Something went wrong when pushing to the blockchain"
+              );
+            });
+        });
 
-        console.log(props.props);
-      } catch (err) {
-        console.log(err);
-      }
+      console.log(props.props);
 
       try {
         const ax = await axios.post("http://localhost:8080/api/setBuyOffer", {
@@ -284,9 +283,52 @@ const ConfigBuy = (props) => {
 };
 
 const ConfigAuction = (props) => {
+  console.log("dlrjdlrj", props);
   const [auction, setAuction] = useState(false);
   const auctionOpen = () => setAuction(true);
   const auctionClose = () => setAuction(false);
+
+  const { data, isLoading, isFetching } = useQuery(["getSelectedAuction"], () =>
+    fetchSelectedAuction(props.props.CID)
+  );
+
+  let auctionData = [];
+  if (data) {
+    auctionData = data.data;
+  }
+
+  const [currenciesIU, setCurrenciesIU] = useState(1);
+  const [timesIU, setTimesIU] = useState(1);
+  const [minBid, setMinBid] = useState(0);
+  const [duration, setDuration] = useState(0);
+
+  let minBid2 = minBid * currenciesIU;
+  let duration2 = duration * timesIU;
+
+  const putOnBid = async () => {
+    let pra;
+    let praaccounts;
+    const accounts1 = await web3.eth.getAccounts();
+    const networkId1 = await web3.eth.net.getId();
+    const deployedAddress1 = ImageMarketPlace.networks[networkId1].address;
+    const contract1 = new web3.eth.Contract(
+      ImageMarketPlace.abi,
+      deployedAddress1
+    );
+
+    pra = contract1;
+    praaccounts = accounts1;
+
+    const ax = await axios.post("http://localhost:8080/api/setAuctionStart", {
+      CID: props.props.CID,
+      currentPrice: minBid2,
+    });
+
+    /// 판매 개시(소유자라고도 하는 판매자)
+    await pra.methods
+      .beginAuction(auctionData[0].tokenID, minBid2, duration2)
+      .send({ from: praaccounts[0] });
+  };
 
   const {
     register,
@@ -318,13 +360,55 @@ const ConfigAuction = (props) => {
         <Box sx={{ ...style, width: 200 }}>
           <h2 id="child-modal-title">경매 시작하기</h2>
 
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="col-7">
-              <button type="submit" className="btn btn-secondary">
-                경매 고고
-              </button>
-            </div>
+          <form onSubmit={putOnBid}>
+            <DialogTitle>입찰하다</DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                경매를 시작하려면 다음 정보를 입력하세요.
+              </DialogContentText>
+              <Box>
+                <TextField
+                  label="Starting Bid"
+                  type="number"
+                  width={100}
+                  variant="standard"
+                  required
+                  onChange={(e) => setMinBid(e.target.value)}
+                />
+                <br />
+                <Select
+                  defaultValue={1}
+                  variant="standard"
+                  onChange={(e) => setCurrenciesIU(e.target.value)}
+                >
+                  <MenuItem value={1}>Wei</MenuItem>
+                  <MenuItem value={1000000000000}>Szabo</MenuItem>
+                </Select>
+              </Box>
+              <Box>
+                <TextField
+                  label="Durations"
+                  type="number"
+                  width={100}
+                  variant="standard"
+                  required
+                  onChange={(e) => setDuration(e.target.value)}
+                />
+                <br />
+                <Select
+                  defaultValue={1}
+                  variant="standard"
+                  onChange={(e) => setTimesIU(e.target.value)}
+                >
+                  <MenuItem value={1}>Second</MenuItem>
+                  <MenuItem value={60}>Minute</MenuItem>
+                  <MenuItem value={3600}>Hour</MenuItem>
+                </Select>
+              </Box>
+            </DialogContent>
+            <Button type="submit">Start</Button>]{" "}
           </form>
+
           <Button onClick={auctionClose}>닫기</Button>
         </Box>
       </Modal>

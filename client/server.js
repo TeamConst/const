@@ -813,31 +813,29 @@ app.prepare().then(() => {
   });
 
   server.get("/api/getMyBuyDB", async (req, res) => {
-    const abc = await BuyMusic.findAll(
-      {
-        include: [
-          {
-            model: Music,
-          },
-        ],
-      },
-      { where: { currentOwner: req.user.address } }
-    );
+    const abc = await BuyMusic.findAll({
+      where: { currentOwner: req.user.address },
+
+      include: [
+        {
+          model: Music,
+        },
+      ],
+    });
 
     res.json(abc);
   });
 
   server.get("/api/getMyAuctionDB", async (req, res) => {
-    const abc = await AuctionMusic.findAll(
-      {
-        include: [
-          {
-            model: Music,
-          },
-        ],
-      },
-      { where: { currentOwner: req.user.address } }
-    );
+    const abc = await AuctionMusic.findAll({
+      where: { currentOwner: req.user.address },
+
+      include: [
+        {
+          model: Music,
+        },
+      ],
+    });
 
     res.json(abc);
   });
@@ -942,11 +940,56 @@ app.prepare().then(() => {
   // 오퍼 처리 끝
 
   // 옥션 스타트 처리
+  server.post("/api/getSelectedAuction", async (req, res) => {
+    const a = req.body.name;
+
+    console.log("이거요", a);
+
+    const Instance = await getAuctionDataContract();
+
+    if (Instance) {
+      let imagesArray = [];
+      let auctionsArray = [];
+
+      const ContractImageCount = await Instance.methods
+        .currentImageCount()
+        .call();
+      for (let i = 1; i <= ContractImageCount; i++) {
+        let image = await Instance.methods.imageStorage(i).call();
+        let auction = await Instance.methods.auctions(i).call();
+
+        if (
+          image.currentOwner == req.user.address &&
+          image.tokenURI == `https://ipfs.io/ipfs/${a}`
+        ) {
+          imagesArray = [...imagesArray, image];
+          // setImages((Images) => [...Images, image]);
+
+          auctionsArray = [...auctionsArray, auction];
+        }
+      }
+
+      console.log("이거여", imagesArray);
+      res.json(imagesArray);
+    }
+
+    // CID로 검색을 해야되니까
+    // await AuctionMusic.create({
+    //   auctionComplete: false,
+    //   CID: req.body.CID,
+    //   currentOwner: req.user.address,
+    //   currentWinner: req.user.address,
+    // });
+
+    // res.send("setAuctionStart success");
+  });
+
   server.post("/api/setAuctionStart", async (req, res) => {
     // CID로 검색을 해야되니까
     await AuctionMusic.create({
       auctionComplete: false,
       CID: req.body.CID,
+      currentPrice: req.body.currentPrice,
       currentOwner: req.user.address,
       currentWinner: req.user.address,
     });
@@ -956,6 +999,34 @@ app.prepare().then(() => {
   // 옥션 스타트 처리 끝
 
   // setAuction.js
+  server.post("/api/endAuction", async (req, res) => {
+    const read = await AuctionMusic.findOne({ where: { CID: req.body.CID } });
+    await AuctionMusic.update(
+      {
+        auctionComplete: true,
+        lastWinner: read.currentWinner,
+      },
+      { where: { CID: req.body.CID } }
+    );
+
+    res.send("endAuction success");
+  });
+
+  server.post("/api/updateAuction", async (req, res) => {
+    const read = await AuctionMusic.findOne({ where: { CID: req.body.CID } });
+
+    await AuctionMusic.update(
+      {
+        currentPrice: req.body.currentPrice,
+        currentWinner: req.body.currentWinner,
+        auctionCount: read.auctionCount + 1,
+      },
+      { where: { CID: req.body.CID } }
+    );
+
+    res.send("updateAuction success");
+  });
+
   server.post("/api/getAuctionDB", async (req, res) => {
     const a = req.body.name;
     // const b = a[1];
