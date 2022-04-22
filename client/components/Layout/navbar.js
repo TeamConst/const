@@ -91,9 +91,11 @@ const Navbar = () => {
               component="div"
               sx={{ mr: 1, display: { xs: "none", md: "flex" } }}
             >
-              CONST
+             <img src={"/img/ConstLogo.png"} width="30%"  />
             </Typography>
           </Link>
+
+
           <Link href="/">
             <Typography
               variant="h6"

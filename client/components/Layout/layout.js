@@ -17,7 +17,7 @@
 // }
 import Head from "next/head";
 
-import Header from "./Header";
+
 import Navbar from "./navbar";
 import Footer from "./footer";
 

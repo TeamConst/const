@@ -14,12 +14,20 @@ import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import styled from "styled-components";
+import Container from "@mui/material/Container";
 import countryList from "react-select-country-list";
 
-
+const Cardcontainer = styled.div`
+background-color: white;
+min-width: 100%;
+max-width: 100%;
+height: 100%;
+border-radius: 14px;
+box-shadow: 0px 10px 30px hsl(185, 75%, 35%);
+`;
 const theme = createTheme();
 
 const userUpdate = () => {
@@ -71,6 +79,8 @@ const userUpdate = () => {
    
     <form onSubmit={handleSubmit(onSubmit)}> 
       <ThemeProvider theme={theme}>
+      <Container maxWidth="lg">
+        <Cardcontainer>
         <Container component="main" maxWidth="xs">
           <CssBaseline />
           <Box
@@ -168,6 +178,7 @@ const userUpdate = () => {
             </Grid>
           </Box>
         </Container>
+        </Cardcontainer></Container>
       </ThemeProvider>
     </form>
   );

@@ -481,13 +481,6 @@ const Mypage1 = () => {
                     currentTime={currentTime}
                   />
                 </Grid>
-
-                <Grid item xs={12}>
-                  <Cardcontainer bgcolor="info.main" color="info.contrastText" p={2}>
-                    <Followers> <Boldtext>   이용권 정보 </Boldtext></Followers>
-                    {`이용권:${userSession.ticket}${lastTime}일남음`}
-                  </Cardcontainer>
-                </Grid>
                 <Grid item xs={4}>
                 <Cardcontainer bgcolor="info.main" color="info.contrastText" p={2}>
                     <Followers> <Boldtext>  내 음원의 총 재생시간 </Boldtext></Followers>
