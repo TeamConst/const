@@ -550,8 +550,125 @@ app.prepare().then(() => {
       const hash = await bcrypt.hash(req.body.password, 12);
       body.password = hash;
       const data = await User.create(body);
-
       res.send("회원가입 완료");
+    } catch (error) {
+      // res.send(err);
+      console.error(error);
+      next(error);
+    }
+  });
+
+  server.post("/api/signup/image", isNotLoggedIn, async (req, res, next) => {
+    try {
+      // multer, s3
+      const AWS = require("aws-sdk");
+      const multer = require("multer");
+      const multerS3 = require("multer-s3");
+
+      // Set the AWS Region
+      const REGION = "ap-northeast-2"; //REGION
+      const IDENTITY_POOL_ID =
+        "ap-northeast-2:ee62d023-c180-46bf-9e24-935ff2fa2b5a";
+      const BucketName = "const123";
+
+      AWS.config.update({
+        region: REGION,
+        accessKeyId: process.env.S3_ACCESS_KEY_ID,
+        secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+      });
+
+      // credentials: new AWS.CognitoIdentityCredentials({
+      //   IdentityPoolId: IDENTITY_POOL_ID,
+      // }),
+
+      const s3 = new AWS.S3({
+        apiVersion: "2006-03-01",
+        params: { Bucket: BucketName },
+      });
+
+      s3.getBucketAcl(function (err, data) {
+        if (err) {
+          console.log("Error", err);
+        } else if (data) {
+          console.log("Success", data.Grants);
+        }
+      });
+
+      let uploadParams = {
+        Body: req.files.image.data,
+        Key: "profile/" + req.body.id2 + ".jpg",
+        ACL: "public-read",
+      };
+
+      await s3.upload(uploadParams, function (err, data) {
+        if (err) {
+          console.log("Error", err);
+        }
+        if (data) {
+          console.log("Upload Success", data.Location);
+        }
+      });
+
+      res.send("프로필 이미지 등록 완료");
+    } catch (error) {
+      // res.send(err);
+      console.error(error);
+      next(error);
+    }
+  });
+
+  server.post("/api/signup/updateImage", isLoggedIn, async (req, res, next) => {
+    try {
+      // multer, s3
+      const AWS = require("aws-sdk");
+      const multer = require("multer");
+      const multerS3 = require("multer-s3");
+
+      // Set the AWS Region
+      const REGION = "ap-northeast-2"; //REGION
+      const IDENTITY_POOL_ID =
+        "ap-northeast-2:ee62d023-c180-46bf-9e24-935ff2fa2b5a";
+      const BucketName = "const123";
+
+      AWS.config.update({
+        region: REGION,
+        accessKeyId: process.env.S3_ACCESS_KEY_ID,
+        secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+      });
+
+      // credentials: new AWS.CognitoIdentityCredentials({
+      //   IdentityPoolId: IDENTITY_POOL_ID,
+      // }),
+
+      const s3 = new AWS.S3({
+        apiVersion: "2006-03-01",
+        params: { Bucket: BucketName },
+      });
+
+      s3.getBucketAcl(function (err, data) {
+        if (err) {
+          console.log("Error", err);
+        } else if (data) {
+          console.log("Success", data.Grants);
+        }
+      });
+
+      let uploadParams = {
+        Body: req.files.image.data,
+        Key: "profile/" + req.body.id2 + ".jpg",
+        ACL: "public-read",
+      };
+
+      await s3.upload(uploadParams, function (err, data) {
+        if (err) {
+          console.log("Error", err);
+        }
+        if (data) {
+          console.log("Upload Success", data.Location);
+        }
+      });
+
+      res.send("프로필 이미지 수정 완료");
     } catch (error) {
       // res.send(err);
       console.error(error);
@@ -647,7 +764,7 @@ app.prepare().then(() => {
           profileImg: req.body.profileImg,
         },
         {
-          where: { id: req.body.id },
+          where: { id2: req.body.id2 },
         }
       );
 

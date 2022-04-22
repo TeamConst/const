@@ -19,11 +19,9 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import countryList from "react-select-country-list";
 
-
 const theme = createTheme();
 
 const userUpdate = () => {
-
   const useUser1 = () => {
     const result = useQuery(["getUserSession"], () => fetchUserSession());
     return result;
@@ -37,24 +35,23 @@ const userUpdate = () => {
     a = 1;
     userSession = data1.data.data;
   }
-  console.log(userSession)
+  console.log(userSession);
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
 
-
   const onSubmit = async (data) => {
     try {
       //  const address = await web3.eth.getAccounts();
       // data.address = address[0]
-      const result = await axios.post("http://localhost:8080/api/updateuser3", {  
-      name : data.name,
-      favor_genre : data.favor_genre,
-      nation : data.nation,
-      id: userSession.id
-    });
+      const result = await axios.post("http://localhost:8080/api/updateuser3", {
+        name: data.name,
+        favor_genre: data.favor_genre,
+        nation: data.nation,
+        id: userSession.id,
+      });
       console.log(result);
     } catch (err) {
       console.log("회원가입 오류에연", err);
@@ -68,8 +65,7 @@ const userUpdate = () => {
   };
 
   return (
-   
-    <form onSubmit={handleSubmit(onSubmit)}> 
+    <form onSubmit={handleSubmit(onSubmit)}>
       <ThemeProvider theme={theme}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />
@@ -87,9 +83,6 @@ const userUpdate = () => {
             </Typography>
 
             <Grid container spacing={5}>
-      
-           
-       
               <Grid item xs={12}>
                 <Typography component="h1" variant="h5">
                   Name

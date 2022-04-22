@@ -34,7 +34,6 @@ const SignupForm = () => {
     const a = await axios.post("http://localhost:8080/api/validId", {
       id2: 현재아이디,
     });
-
     if (a.data == "아이디가있습니다") {
       아이디유효성변경("아이디가 이미 있답니다");
       최종변경(false);
@@ -59,6 +58,19 @@ const SignupForm = () => {
     getNowAccount();
   }, []);
 
+  // 이미지 변경에 대한 처리
+  const [이미지, 이미지변경] = useState();
+  const [이미지버퍼, 이미지버퍼변경] = useState();
+  const changeImage = async (e) => {
+    const file = e.target.files;
+    const reader = new FileReader();
+    reader.onload = () => {
+      이미지변경(reader.result);
+      이미지버퍼변경(Buffer(reader.result));
+    };
+    reader.readAsDataURL(file[0]);
+  };
+
   const {
     register,
     formState: { errors },
@@ -69,6 +81,9 @@ const SignupForm = () => {
     try {
       const address = await web3.eth.getAccounts();
       data.address = address[0];
+
+      // 프로필 이미지 처리부분
+
       let gg = {};
       gg.address = data.address;
       gg.id2 = data.id2;
@@ -77,15 +92,21 @@ const SignupForm = () => {
       gg.name = data.name;
       gg.favor_genre = data.favor_genre;
       gg.nation = data.nation;
-      // gg.profileImg =`https://const123.s3.ap-northeast-2.amazonaws.com/image/${image.name}.jpg`
-      // 실제에서는 여기서 어드레스 받고 폼 데이터랑 같이 보내준다고 처리하자
-      // 우리는 truffle accounts로 계정은 이미 만든 상태다 가정하고 처리
-      // console.log(web3);
-      // const abc = web3.eth.accounts.create();
-      // console.log(abc);
+      gg.profileImg = `https://const123.s3.ap-northeast-2.amazonaws.com/profile/${data.id2}.jpg`;
 
       console.log(gg);
       const result = await axios.post("http://localhost:8080/api/signup", gg);
+
+      const image = data.image[0];
+      const imageFormData = new FormData();
+      imageFormData.append("image", image);
+      imageFormData.append("id2", data.id2);
+
+      const resultImage = await axios.post(
+        "http://localhost:8080/api/signup/image",
+        imageFormData
+      );
+
       console.log(result);
     } catch (err) {
       console.log("회원가입 오류에연", err);
@@ -138,6 +159,30 @@ const SignupForm = () => {
                 <h3>아티스트는 경매 권한을 부여 받습니다</h3>
               </Grid>
               <br></br>
+
+              <Grid item xs={12}>
+                <Box bgcolor="info.main" color="info.contrastText" p={2}>
+                  앨범커버 이미지 등록 이미지 첨부하면 렌더링하는 것까지
+                  구현하자
+                  <img
+                    src={이미지}
+                    // alt={detailImageFile.name}
+                    loading="lazy"
+                    height="300"
+                    width="300"
+                  />
+                  <input
+                    {...register("image", {
+                      required: true,
+                    })}
+                    accept="image/*"
+                    type="file"
+                    onChange={(e) => {
+                      changeImage(e);
+                    }}
+                  ></input>
+                </Box>
+              </Grid>
 
               <Grid item xs={12}>
                 <Typography component="h1" variant="h5">
