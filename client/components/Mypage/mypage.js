@@ -374,6 +374,10 @@ const Mypage1 = () => {
         onChange={onChange}
         ref={fileInput}/>
 			</Header>
+
+      <Link href={`/userUpdate2`}>
+            <Followers> <Smallertext>수정하기</Smallertext></Followers>
+       </Link>
 			<Boldtext>
       {userSession.name} <span className="normal-text">나이/랭크</span>
 			</Boldtext>
