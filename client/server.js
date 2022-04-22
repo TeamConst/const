@@ -36,7 +36,11 @@ const passport = require("passport");
 const passportConfig = require("./passport");
 
 // 미들웨어
-const { isLoggedIn, isNotLoggedIn } = require("./routers/middlewares.js");
+const {
+  isLoggedIn,
+  isNotLoggedIn,
+  isCorrectMetamask,
+} = require("./routers/middlewares.js");
 
 // 라우터 선언
 const indexRouter = require("./routers/index.js");
@@ -192,9 +196,13 @@ app.prepare().then(() => {
   // 라우팅 처리
   // 민팅 한번에 처리
   // 사실 지금 music 컴포넌트에 이게 이미 하고 있어서 나중에 로직 결정을 해야함
-  server.post("/api/mint", async (req, res) => {
+  server.post("/api/mint", isCorrectMetamask, async (req, res) => {
     const parse = JSON.parse(req.body.db);
 
+    console.log("hihi", req.body);
+    console.log(req.body.address);
+    console.log(req.user);
+    console.log(req.user.address);
     console.log("민트 데이터");
     console.log(parse);
     await Music.create(parse);

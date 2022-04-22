@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Select from "react-select";
 import ReactDOM from "react-dom";
 import { useForm } from "react-hook-form";
@@ -28,6 +28,7 @@ const SignupForm = () => {
   const [최종, 최종변경] = useState(false);
   const [현재아이디, 현재아이디변경] = useState();
   const [아이디유효성, 아이디유효성변경] = useState();
+  const [현재메타마스크아이디, 현재메타마스크아이디변경] = useState();
 
   const validId = async () => {
     const a = await axios.post("http://localhost:8080/api/validId", {
@@ -48,6 +49,15 @@ const SignupForm = () => {
     const id = e.target.value;
     현재아이디변경(id);
   };
+
+  // get now accounts
+  useEffect(() => {
+    async function getNowAccount() {
+      const accounts = await web3.eth.getAccounts();
+      현재메타마스크아이디변경(accounts[0]);
+    }
+    getNowAccount();
+  }, []);
 
   const {
     register,
@@ -120,6 +130,30 @@ const SignupForm = () => {
                 <h3>아티스트는 경매 권한을 부여 받습니다</h3>
               </Grid>
               <br></br>
+
+              <Grid item xs={12}>
+                <Typography component="h1" variant="h5">
+                  MetaMask Address
+                </Typography>
+                <Typography component="h5" variant="h5">
+                  메타마스크에 연결되어 있는 아이디를 확인해주세요
+                </Typography>
+                <Typography component="h5" variant="h5">
+                  본인의 ID가 맞는지 두 번 확인바람
+                </Typography>
+                <TextField
+                  autoComplete="given-addressname"
+                  name="ArtistAddress"
+                  fullWidth
+                  id="artistAddress"
+                  label="Artist Address"
+                  value={현재메타마스크아이디}
+                  autoFocus
+                  {...register("address", {
+                    maxLength: 80,
+                  })}
+                />
+              </Grid>
 
               <Grid item xs={12}>
                 <Typography component="h1" variant="h5">
@@ -238,27 +272,6 @@ const SignupForm = () => {
                 </div>
               </Grid>
 
-              <Grid item xs={12}>
-                <Typography component="h1" variant="h5">
-                  MetaMask Address
-                </Typography>
-                <TextField
-                  autoComplete="given-addressname"
-                  name="ArtistAddress"
-                  fullWidth
-                  id="artistAddress"
-                  label="Artist Address"
-                  autoFocus
-                  {...register("address", {
-                    maxLength: 80,
-                  })}
-                />
-                <Typography component="h5" variant="h5">
-                  메타마스크 계정이 있을 경우 입력해 주세요. 미입력시 메타마스크
-                  계정이 자동 생성되어 저장됩니다.
-                </Typography>
-              </Grid>
-
               {최종 === true ? (
                 <Button
                   type="submit"
@@ -269,7 +282,7 @@ const SignupForm = () => {
                   Sign Up
                 </Button>
               ) : (
-                <div>버튼 안보이지롱</div>
+                <div>수정사항이 있습니다!</div>
               )}
 
               <Grid container justifyContent="flex-end">

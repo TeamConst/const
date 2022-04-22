@@ -64,6 +64,16 @@ const setupBlockchain = async () => {
 };
 
 const Music = () => {
+  const [현재메타마스크아이디, 현재메타마스크아이디변경] = useState();
+  // get now accounts
+  useEffect(() => {
+    async function getNowAccount() {
+      const accounts = await web3.eth.getAccounts();
+      현재메타마스크아이디변경(accounts[0]);
+    }
+    getNowAccount();
+  }, []);
+
   const {
     register,
     formState: { errors },
@@ -186,6 +196,7 @@ const Music = () => {
     form.append("image", image);
     form.append("musics", musics);
     form.append("db", JSON.stringify(gg));
+    form.append("address", JSON.stringify(현재메타마스크아이디));
     // form.append("CID", bu.path);
     const allMinting = await axios.post("http://localhost:8080/api/mint", form);
 
