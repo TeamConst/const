@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 
-import Layout from "../../../components/Layout/layout";
+import Header from "../../../components/Layout/Header";
 import SetAuction from "../../../components/GetContract/setAuction";
 
 import { useQuery, dehydrate, QueryClient } from "react-query";
@@ -16,7 +16,7 @@ const Auction = () => {
       <p>Auction 파라미터 : {id}</p>
 
       {/* 전체 css 이걸로 설정해 줄 것임 */}
-      <Layout></Layout>
+      <Header></Header>
       <SetAuction></SetAuction>
     </div>
   );

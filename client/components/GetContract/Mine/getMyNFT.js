@@ -41,6 +41,20 @@ const theme = createTheme();
 
 let param;
 
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 500,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  pt: 2,
+  px: 4,
+  pb: 3,
+};
+
 const GetMyNFT = () => {
   const queryClient = useQueryClient();
   console.log(queryClient);
@@ -68,8 +82,6 @@ const GetMyNFT = () => {
     nftMyData = data.data;
   }
 
-  console.log("dlrjqhwk", nftMyData);
-
   //  클라이언트에서 그대로 불러오기
   const [이미지, 이미지변경] = useState([]);
 
@@ -90,7 +102,7 @@ const GetMyNFT = () => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={{ ...style, width: 200 }}>
+        <Box sx={{ ...style, width: 200 }} textAlign="center">
           <Box>
             <ConfigBuy props={모달데이터}></ConfigBuy>
           </Box>
@@ -105,15 +117,19 @@ const GetMyNFT = () => {
       </Modal>
 
       <ThemeProvider theme={theme}>
-        <Container sx={{ py: 8 }} maxWidth="md">
-          <Grid container spacing={4}>
+        <Container sx={{ py: 2 }} maxWidth="xl">
+          <Typography variant="h4" component="h4" sx={{ m: 5 }}>
+            나의 NFT 관리하기
+          </Typography>
+          <Grid container spacing={4} textAlign="center">
             {a === 1 ? (
               nftMyData.map((a) => (
                 // <Link href={`/buy/${encodeURIComponent(a.CID)}`}>
-                <Grid item key={a.CID} xs={12} sm={6} md={4}>
+                <Grid item key={a.CID} xs={3}>
                   <Card
                     sx={{
                       height: "100%",
+                      width: "100%",
                       display: "flex",
                       flexDirection: "column",
                     }}
@@ -121,8 +137,10 @@ const GetMyNFT = () => {
                     <CardMedia
                       component="img"
                       sx={{
-                        // 16:9
-                        pt: "56.25%",
+                        m: 1,
+                        height: "100%",
+                        width: "100%",
+                        objectFit: "fill",
                       }}
                       image={a.s3}
                       alt="random"
@@ -135,7 +153,10 @@ const GetMyNFT = () => {
                       재생 횟수
                       <Typography>{a.playCount}</Typography>
                     </CardContent>
-                    <CardActions>
+                    <CardActions
+                      align="center"
+                      sx={{ justifyContent: "flex-end" }}
+                    >
                       <Button onClick={() => handleOpen(a)}>
                         판매 & 경매 시작하기
                       </Button>
@@ -253,15 +274,10 @@ const ConfigBuy = (props) => {
         aria-labelledby="child-modal-title"
         aria-describedby="child-modal-description"
       >
-        <Box sx={{ ...style, width: 200 }}>
+        <Box sx={{ ...style, width: 300 }} textAlign="center">
           <h2 id="child-modal-title">판매 시작하기</h2>
 
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="col-5 d-grid gap-2">
-              <button type="submit" className="btn btn-secondary">
-                오퍼하기
-              </button>
-            </div>
             <div className="col-7">
               <input
                 {...register("price", {
@@ -273,6 +289,10 @@ const ConfigBuy = (props) => {
                 className="form-control"
               ></input>
             </div>
+
+            <button type="submit" className="btn btn-secondary">
+              오퍼하기
+            </button>
           </form>
 
           <Button onClick={buyClose}>닫기</Button>
@@ -357,7 +377,7 @@ const ConfigAuction = (props) => {
         aria-labelledby="child-modal-title"
         aria-describedby="child-modal-description"
       >
-        <Box sx={{ ...style, width: 200 }}>
+        <Box sx={{ ...style, width: 500 }} textAlign="center">
           <h2 id="child-modal-title">경매 시작하기</h2>
 
           <form onSubmit={putOnBid}>
@@ -406,7 +426,7 @@ const ConfigAuction = (props) => {
                 </Select>
               </Box>
             </DialogContent>
-            <Button type="submit">Start</Button>]{" "}
+            <Button type="submit">Start</Button>
           </form>
 
           <Button onClick={auctionClose}>닫기</Button>
@@ -414,20 +434,6 @@ const ConfigAuction = (props) => {
       </Modal>
     </div>
   );
-};
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  pt: 2,
-  px: 4,
-  pb: 3,
 };
 
 export default GetMyNFT;

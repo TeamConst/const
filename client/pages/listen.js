@@ -1,10 +1,10 @@
-import Layout from "../components/Layout/layout";
+import Header from "../components/Layout/Header";
 import ListenMusic from "../components/GetLocalDB/listenMusic";
 
 const Listen = () => {
   return (
     <div>
-      <Layout></Layout>
+      <Header></Header>
       <ListenMusic></ListenMusic>
     </div>
   );

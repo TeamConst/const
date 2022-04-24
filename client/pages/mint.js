@@ -1,13 +1,13 @@
-import Layout from "../components/Layout/layout";
-import Music from "../components/Minting/music";
+import Header from "../components/Layout/Header";
+import Minting from "../components/Minting/minting";
+import Footer from "../components/Layout/Footer";
 
 const Mint = () => {
   return (
     <div>
-      {/* 전체 css 이걸로 설정해 줄 것임 */}
-      <Layout></Layout>
-      <Music></Music>
-      {/* <MintForm></MintForm> */}
+      <Header></Header>
+      <Minting></Minting>
+      <Footer></Footer>
     </div>
   );
 };

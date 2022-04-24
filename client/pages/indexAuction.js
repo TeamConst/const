@@ -1,4 +1,4 @@
-import Layout from "../components/Layout/layout";
+import Header from "../components/Layout/Header";
 import GetNowAuction from "../components/GetLocalDB/getNowAuction";
 
 const IndexAuction = () => {
@@ -6,7 +6,7 @@ const IndexAuction = () => {
   // console.log(localsQuery);
   return (
     <div>
-      <Layout></Layout>
+      <Header></Header>
       <GetNowAuction></GetNowAuction>
     </div>
   );

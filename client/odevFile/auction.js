@@ -1,10 +1,10 @@
-import Layout from "../components/Layout/layout";
+import Header from "../components/Layout/Header";
 import GetAuction from "../components/getAuction";
 
 const Auction = () => {
   return (
     <div>
-      <Layout></Layout>
+      <Header></Header>
       <GetAuction></GetAuction>
     </div>
   );

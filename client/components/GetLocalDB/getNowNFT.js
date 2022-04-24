@@ -4,20 +4,13 @@ import {
   Grid,
   Box,
   TextField,
-  MenuItem,
-  Select,
-  InputLabel,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
+  Container,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
 } from "@mui/material";
-import Container from "@mui/material/Container";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
+
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import { useQuery } from "react-query";
@@ -54,29 +47,25 @@ const GetNowNFT = () => {
     const abcd = await axios.post("http://localhost:8080/api/getNFTLocation", {
       CID: data.CID,
     });
-    console.log(abcd);
-
     window.location.href = `http://localhost:8080/${abcd.data}/${data.CID}`;
   };
 
+  console.log(nftNowData);
   return (
     <div>
       <ThemeProvider theme={theme}>
-        <Container sx={{ py: 8 }} maxWidth="md">
-          <Grid container spacing={4}>
+        <Container sx={{ py: 2 }} maxWidth="xl">
+          <Typography variant="h4" component="h4" sx={{ m: 5 }}>
+            모든 NFT
+          </Typography>
+          <Grid container spacing={5} textAlign="center">
             {a === 1 ? (
               nftNowData.map((a) => (
-                <Grid
-                  item
-                  key={a.CID}
-                  xs={12}
-                  sm={6}
-                  md={4}
-                  onClick={() => linkto(a)}
-                >
+                <Grid item key={a.CID} xs={2} onClick={() => linkto(a)}>
                   <Card
                     sx={{
                       height: "100%",
+                      width: "100%",
                       display: "flex",
                       flexDirection: "column",
                     }}
@@ -84,29 +73,21 @@ const GetNowNFT = () => {
                     <CardMedia
                       component="img"
                       sx={{
-                        // 16:9
-                        pt: "56.25%",
+                        m: 1,
+                        height: "100%",
+                        width: "100%",
+                        objectFit: "fill",
                       }}
                       image={a.s3}
                       alt="random"
                     />
                     <CardContent sx={{ flexGrow: 1 }}>
-                      ID
-                      <Typography>{a.id}</Typography>
-                      CID
-                      <Typography>{a.img}</Typography>
-                      Owner
-                      <Typography>{a.owner}</Typography>
+                      <Typography>Title : {a.title}</Typography>
                     </CardContent>
-                    <CardActions>
-                      <Button size="small">View</Button>
-                      <Button size="small">Edit</Button>
-                    </CardActions>
                   </Card>
                 </Grid>
               ))
             ) : (
-              // <div>{JSON.stringify(data)}</div>
               <div>
                 <h1>아직 나와있는 상품이 없어용</h1>
               </div>

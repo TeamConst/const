@@ -1,15 +1,13 @@
-// import Navbar from "../components/navbar";
-import ListenMusic from "../components/GetLocalDB/listenMusic";
-import UserUpdate from "../components/Auth/userUpdate"
-import Layout from "../components/Layout/layout";
-const Listen = () => {
-  return (
-    <div> <Layout></Layout>
+import UserUpdate from "../components/Auth/userUpdate";
+import Header from "../components/Layout/Header";
 
-        <UserUpdate></UserUpdate>
-      
+const UserUpdate2 = () => {
+  return (
+    <div>
+      <Header></Header>
+      <UserUpdate></UserUpdate>
     </div>
   );
 };
 
-export default Listen;
+export default UserUpdate2;

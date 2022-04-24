@@ -1,15 +1,44 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 
 import { v4 as uuidv4 } from "uuid";
 // Import components
 import Player from "./Player";
 import Song from "./Song";
+
 const MusicPlayer = ({ str }) => {
   const str2 = str;
 
-  function data() {
-    return [
+  // Ref
+  const audioRef = useRef(null);
+
+  // State
+  const [songs, setSongs] = useState([
+    {
+      name: `${str2}`,
+      cover: `https://const123.s3.ap-northeast-2.amazonaws.com/image/${str2}.jpg`,
+      artist: "Aiguille",
+      audio: `https://ipfs.io/ipfs/${str}`,
+      color: ["#EF8EA9", "#ab417f"],
+      id: uuidv4(),
+      active: false,
+    },
+  ]);
+  const [currentSong, setCurrentSong] = useState(songs[0]);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [libraryStatus, setLibraryStatus] = useState(false);
+  const [songInfo, setSongInfo] = useState({
+    currentTime: 0,
+    duration: 0,
+  });
+
+  console.log("여기영");
+
+  console.log(str2);
+
+  useEffect(() => {
+    console.log("hihi");
+    setSongs([
       {
         name: `${str2}`,
         cover: `https://const123.s3.ap-northeast-2.amazonaws.com/image/${str2}.jpg`,
@@ -19,20 +48,11 @@ const MusicPlayer = ({ str }) => {
         id: uuidv4(),
         active: false,
       },
-    ];
-  }
-  // Ref
-  const audioRef = useRef(null);
+    ]);
+    setCurrentSong(songs[0]);
+  }, [str]);
 
-  // State
-  const [songs, setSongs] = useState(data());
-  const [currentSong, setCurrentSong] = useState(songs[0]);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [libraryStatus, setLibraryStatus] = useState(false);
-  const [songInfo, setSongInfo] = useState({
-    currentTime: 0,
-    duration: 0,
-  });
+  console.log(songs);
 
   // Functions
   const updateTimeHandler = (e) => {

@@ -1,0 +1,12 @@
+elevation : 그림자 정도
+backgroundColor : 배경색
+disableGutters : 왼쪽, 오른쪽 마진 패딩 없애기
+<Typography/> : 글자에 관련된 모든 것
+1. align : 정렬
+inherit : 상속 받기
+justify : 
+2. noWarp : 줄바꿈 안함
+3. component : 컴포넌트 타입
+4. sx : 스타일 설정
+* m : 마진, p : 패딩
+5. variant : 기본 테마

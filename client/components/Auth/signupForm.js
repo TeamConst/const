@@ -1,55 +1,72 @@
+// React
 import { useState, useEffect, useMemo } from "react";
-import Select from "react-select";
-import ReactDOM from "react-dom";
+
+// React-hook-form
 import { useForm } from "react-hook-form";
 
+// axios
 import axios from "axios";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-// import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
+
+// MUI - Component
+import {
+  Avatar,
+  Button,
+  TextField,
+  Link,
+  Grid,
+  Box,
+  Typography,
+  Container,
+  MenuItem,
+  Select,
+  Radio,
+  IconButton,
+  RadioGroup,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+} from "@mui/material";
+import AssignmentIndRoundedIcon from "@mui/icons-material/AssignmentIndRounded";
+import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
+
+// MUI - Custom Styles
+import { styled } from "@mui/material/styles";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
+// web3
+import web3 from "../connection/web3";
+
+// country-list
 import countryList from "react-select-country-list";
 
-import web3 from "../connection/web3";
+const Input = styled("input")({
+  display: "none",
+});
+
+const Genres = [
+  {
+    value: "POP",
+  },
+  {
+    value: "BALLAD",
+  },
+  {
+    value: "EDM",
+  },
+  {
+    value: "EXTRA",
+  },
+];
 
 const theme = createTheme();
 
 const SignupForm = () => {
-  const [최종, 최종변경] = useState(false);
-  const [현재아이디, 현재아이디변경] = useState();
-  const [아이디유효성, 아이디유효성변경] = useState();
-  const [현재메타마스크아이디, 현재메타마스크아이디변경] = useState();
-
-  const validId = async () => {
-    const a = await axios.post("http://localhost:8080/api/validId", {
-      id2: 현재아이디,
-    });
-    if (a.data == "아이디가있습니다") {
-      아이디유효성변경("아이디가 이미 있답니다");
-      최종변경(false);
-    } else {
-      최종변경(true);
-    }
-  };
-
-  console.log("최종", 최종);
-  console.log(현재아이디);
-  const changeId = async (e) => {
-    const id = e.target.value;
-    현재아이디변경(id);
-  };
+  // 컴포넌트 이미지
+  // const [컴포넌트이미지, 컴포넌트이미지변경]=useState('')
 
   // get now accounts
+  const [현재메타마스크아이디, 현재메타마스크아이디변경] = useState();
+
   useEffect(() => {
     async function getNowAccount() {
       const accounts = await web3.eth.getAccounts();
@@ -57,6 +74,70 @@ const SignupForm = () => {
     }
     getNowAccount();
   }, []);
+
+  // 아이디 처리
+  const [아이디, 아이디변경] = useState();
+  const [아이디유효성, 아이디유효성변경] = useState();
+  const [아이디유효성검사, 아이디유효성검사변경] = useState(false);
+
+  const changeId = (event) => {
+    console.log(아이디);
+    const id = event.target.value;
+    아이디변경(id);
+    아이디유효성검사변경(false);
+  };
+
+  const validId = async () => {
+    const a = await axios.post("http://localhost:8080/api/validId", {
+      id2: 아이디,
+    });
+    if (a.data == "아이디가있습니다") {
+      아이디유효성변경("아이디가 이미 있답니다");
+      아이디유효성검사변경(false);
+    } else {
+      아이디유효성변경("중복된 아이디가 없습니다");
+
+      아이디유효성검사변경(true);
+    }
+  };
+
+  // 비밀번호 처리
+  const [비밀번호, 비밀번호변경] = useState();
+  const [비밀번호유효성, 비밀번호유효성변경] = useState();
+  const [비밀번호유효성검사, 비밀번호유효성검사변경] = useState(false);
+
+  const inputPassword = (e) => {
+    비밀번호변경(e.target.value);
+    비밀번호유효성검사변경(false);
+    console.log(비밀번호);
+  };
+
+  const changePassword = (e) => {
+    비밀번호유효성검사변경(false);
+    console.log(비밀번호);
+    console.log(e.target.value);
+    if (비밀번호 == e.target.value) {
+      비밀번호유효성변경("비밀번호가 동일합니다");
+      비밀번호유효성검사변경(true);
+    } else {
+      비밀번호유효성변경("비밀번호가 동일하지 않습니다");
+    }
+  };
+
+  // 국가 처리
+  const options = useMemo(() => countryList().getData(), []);
+  const [국가, 국가변경] = useState("Korea, Republic of");
+
+  const handleNation = (event) => {
+    국가변경(event.target.value);
+  };
+
+  // 장르 처리
+  const [장르, 장르변경] = useState("POP");
+
+  const handleGenre = (event) => {
+    장르변경(event.target.value);
+  };
 
   // 이미지 변경에 대한 처리
   const [이미지, 이미지변경] = useState();
@@ -68,288 +149,289 @@ const SignupForm = () => {
       이미지변경(reader.result);
       이미지버퍼변경(Buffer(reader.result));
     };
+
+    console.log("qkRNla");
     reader.readAsDataURL(file[0]);
   };
 
+  useForm;
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
 
+  console.log(국가);
   const onSubmit = async (data) => {
-    try {
-      const address = await web3.eth.getAccounts();
-      data.address = address[0];
+    const d1 = {
+      address: 현재메타마스크아이디,
+      id2: 아이디,
+      password: 비밀번호,
+      artist: data.artist,
+      name: data.name,
+      favor_genre: 장르,
+      nation: 국가,
+      profileImg: `https://const123.s3.ap-northeast-2.amazonaws.com/profile/${아이디}.jpg`,
+    };
 
-      // 프로필 이미지 처리부분
+    const result = await axios.post("http://localhost:8080/api/signup", d1);
 
-      let gg = {};
-      gg.address = data.address;
-      gg.id2 = data.id2;
-      gg.artist = data.artist;
-      gg.password = data.password;
-      gg.name = data.name;
-      gg.favor_genre = data.favor_genre;
-      gg.nation = data.nation;
-      gg.profileImg = `https://const123.s3.ap-northeast-2.amazonaws.com/profile/${data.id2}.jpg`;
+    // 프로필 이미지 처리부분
+    const image = data.image[0];
+    const imageFormData = new FormData();
 
-      console.log(gg);
-      const result = await axios.post("http://localhost:8080/api/signup", gg);
+    imageFormData.append("image", image);
+    imageFormData.append("id2", 아이디);
 
-      const image = data.image[0];
-      const imageFormData = new FormData();
-      imageFormData.append("image", image);
-      imageFormData.append("id2", data.id2);
+    const resultImage = await axios.post(
+      "http://localhost:8080/api/signup/image",
+      imageFormData
+    );
 
-      const resultImage = await axios.post(
-        "http://localhost:8080/api/signup/image",
-        imageFormData
-      );
-
-      console.log(result);
-    } catch (err) {
-      console.log("회원가입 오류에연", err);
-    }
-  };
-
-  const [value, setValue] = useState("");
-  const options = useMemo(() => countryList().getData(), []);
-  const changeHandler = (value) => {
-    setValue(value);
+    console.log(result);
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <ThemeProvider theme={theme}>
-        <Container component="main" maxWidth="xs">
-          <CssBaseline />
-          <Box
-            sx={{
-              marginTop: 8,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}></Avatar>
-            <Typography component="h1" variant="h5">
-              Sign up
-            </Typography>
-
-            <Grid container spacing={5}>
-              <Grid item xs={12}>
-                <Typography component="h1" variant="h5">
-                  <div>
-                    <label>아티스트</label>
-                    <input
-                      {...register("artist")}
-                      type="radio"
-                      value="Artist"
-                      required
-                    />
-                    <label>일반 유저 </label>
-                    <input
-                      {...register("artist")}
-                      type="radio"
-                      value="Normal"
-                    />
-                  </div>
-                </Typography>
-                <h3>아티스트는 경매 권한을 부여 받습니다</h3>
-              </Grid>
-              <br></br>
-
-              <Grid item xs={12}>
-                <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                  앨범커버 이미지 등록 이미지 첨부하면 렌더링하는 것까지
-                  구현하자
-                  <img
-                    src={이미지}
-                    // alt={detailImageFile.name}
-                    loading="lazy"
-                    height="300"
-                    width="300"
-                  />
-                  <input
-                    {...register("image", {
-                      required: true,
-                    })}
-                    accept="image/*"
-                    type="file"
-                    onChange={(e) => {
-                      changeImage(e);
-                    }}
-                  ></input>
-                </Box>
-              </Grid>
-
-              <Grid item xs={12}>
-                <Typography component="h1" variant="h5">
-                  MetaMask Address
-                </Typography>
-                <Typography component="h5" variant="h5">
-                  메타마스크에 연결되어 있는 아이디를 확인해주세요
-                </Typography>
-                <Typography component="h5" variant="h5">
-                  본인의 ID가 맞는지 두 번 확인바람
-                </Typography>
-                <TextField
-                  autoComplete="given-addressname"
-                  name="ArtistAddress"
-                  fullWidth
-                  id="artistAddress"
-                  label="Artist Address"
-                  value={현재메타마스크아이디}
-                  autoFocus
-                  {...register("address", {
-                    maxLength: 80,
-                  })}
-                />
-              </Grid>
-
-              <Grid item xs={12}>
-                <Typography component="h1" variant="h5">
-                  ID
-                </Typography>
-                <TextField
-                  autoComplete="given-id"
-                  name="ArtistId"
-                  required
-                  fullWidth
-                  id="artistId"
-                  label="Artist Id"
-                  onChange={(e) => {
-                    changeId(e);
-                  }}
-                  autoFocus
-                  {...register("id2", {
-                    required: true,
-                    maxLength: 80,
-                  })}
-                />
-                <input
-                  onChange={(e) => {
-                    changeId(e);
-                  }}
-                ></input>
-                <Button
-                  onClick={() => validId()}
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
-                >
-                  아이디 있나 보기
-                </Button>
-
-                {아이디유효성}
-              </Grid>
-              <Grid item xs={12}>
-                <Typography component="h1" variant="h5">
-                  Password
-                </Typography>
-                <TextField
-                  autoComplete="given-password"
-                  name="ArtistPassword"
-                  required
-                  fullWidth
-                  type="password"
-                  id="artistPassword"
-                  label="Artist Password"
-                  autoFocus
-                  {...register("password", {
-                    required: true,
-                    maxLength: 80,
-                  })}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <Typography component="h1" variant="h5">
-                  Re-Password
-                </Typography>
-                <TextField
-                  autoComplete="given-repassword"
-                  name="ArtistRepassword"
-                  required
-                  fullWidth
-                  type="password"
-                  id="artistRepassword"
-                  label="Artist Repassword"
-                  autoFocus
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <Typography component="h1" variant="h5">
-                  Name
-                </Typography>
-                <TextField
-                  autoComplete="given-name"
-                  name="ArtistName"
-                  required
-                  fullWidth
-                  id="artistName"
-                  label="Artist Name"
-                  autoFocus
-                  {...register("name", {
-                    required: true,
-                    maxLength: 80,
-                  })}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <Typography component="h1" variant="h5">
-                  Nation
-                </Typography>
-                <Select
-                  options={options}
-                  value={value}
-                  onChange={changeHandler}
-                />
-                <input
-                  value={value.label}
-                  {...register("nation", { required: true })}
-                ></input>
-              </Grid>
-
-              <Grid item xs={12}>
-                <Typography component="h1" variant="h5">
-                  Genre
-                </Typography>
-                <div>
-                  <label>장르</label>
-                  <select {...register("favor_genre", { required: true })}>
-                    <option value="Pop">팝</option>
-                    <option value="Balad">발라드</option>
-                    <option value="그 외 임시">등등</option>
-                  </select>
-                </div>
-              </Grid>
-
-              {최종 === true ? (
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
-                >
-                  Sign Up
-                </Button>
-              ) : (
-                <div>수정사항이 있습니다!</div>
-              )}
-
-              <Grid container justifyContent="flex-end">
-                <Grid item>
-                  <Link href="/login" variant="body2">
-                    Already have an account? Sign in
-                  </Link>
-                </Grid>
-              </Grid>
+    <div>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <ThemeProvider theme={theme}>
+          <Grid container spacing={2} sx={{ mt: 5 }}>
+            <Grid item xs={7}>
+              <img src={`/img/CONST.jpg`}></img>
             </Grid>
-          </Box>
-        </Container>
-      </ThemeProvider>
-    </form>
+
+            <Grid item xs={5} textAlign="center">
+              <Box
+                sx={{
+                  marginTop: 8,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
+                <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+                  <AssignmentIndRoundedIcon></AssignmentIndRoundedIcon>
+                </Avatar>
+
+                <Typography sx={{ mb: 10 }}>Sign up</Typography>
+
+                <Grid container spacing={10}>
+                  <Grid item xs={12}>
+                    <Typography>
+                      <Typography>
+                        ※ 아티스트는 경매 권한을 부여 받습니다 ※
+                      </Typography>
+
+                      <FormControl component="fieldset">
+                        <RadioGroup
+                          row={true}
+                          textAlign="center"
+                          display="flex"
+                          alignItems="center"
+                        >
+                          <FormControlLabel
+                            value="ARTIST"
+                            control={<Radio />}
+                            label="ARTIST"
+                            required
+                            {...register("artist")}
+                          />
+                          <FormControlLabel
+                            value="NORMAL"
+                            control={<Radio />}
+                            label="NORMAL"
+                            {...register("artist")}
+                          />
+                        </RadioGroup>
+                      </FormControl>
+                    </Typography>
+                  </Grid>
+
+                  <Grid item xs={12}>
+                    <Typography>
+                      <Typography>
+                        <img
+                          src={이미지}
+                          loading="lazy"
+                          height="300"
+                          width="300"
+                        />
+                        <label htmlFor="icon-button-file">
+                          {/* <Input
+                          {...register("image", {
+                            required: true,
+                          })}
+                          accept="image/*"
+                          id="icon-button-file"
+                          type="file"
+                          onChange={(e) => {
+                            changeImage(e);
+                          }}
+                        ></Input> */}
+                          <input
+                            {...register("image", {
+                              required: true,
+                            })}
+                            accept="image/*"
+                            id="icon-button-file"
+                            type="file"
+                            onChange={(e) => {
+                              changeImage(e);
+                            }}
+                          ></input>
+                          <IconButton
+                            color="primary"
+                            aria-label="upload picture"
+                            component="span"
+                          >
+                            <AddAPhotoIcon></AddAPhotoIcon>
+                          </IconButton>
+                        </label>
+                      </Typography>
+                      <Typography>
+                        ※ 이미지는 추후에 수정 가능합니다 ※
+                      </Typography>
+                    </Typography>
+                  </Grid>
+
+                  <Grid item xs={12}>
+                    <Typography>MetaMask Address</Typography>
+                    <Typography>
+                      메타마스크에 연결되어 있는 아이디를 확인해주세요
+                    </Typography>
+                    <Typography>메타마스크 변경시 F5를 눌러주세요</Typography>
+                    <TextField
+                      fullWidth
+                      id="artistAddress"
+                      value={현재메타마스크아이디}
+                      autoFocus
+                    />
+                  </Grid>
+
+                  <Grid item xs={12}>
+                    <Typography>ID</Typography>
+                    <TextField
+                      required
+                      fullWidth
+                      label="ID"
+                      onChange={changeId}
+                      autoFocus
+                    />
+
+                    <Button
+                      onClick={() => validId()}
+                      variant="contained"
+                      sx={{ mt: 3, mb: 2 }}
+                    >
+                      아이디 있나 보기
+                    </Button>
+                    <Typography>{아이디유효성}</Typography>
+                  </Grid>
+
+                  <Grid item xs={12}>
+                    <Typography>Password</Typography>
+                    <TextField
+                      required
+                      fullWidth
+                      type="password"
+                      label="Artist Password"
+                      autoFocus
+                      onChange={inputPassword}
+                    ></TextField>
+                  </Grid>
+
+                  <Grid item xs={12}>
+                    <Typography>Re-Password</Typography>
+                    <TextField
+                      required
+                      fullWidth
+                      onChange={changePassword}
+                      type="password"
+                      label="Artist Repassword"
+                      autoFocus
+                    />
+                    <Typography>{비밀번호유효성}</Typography>
+                  </Grid>
+
+                  <Grid item xs={12}>
+                    <Typography>Name</Typography>
+                    <TextField
+                      required
+                      fullWidth
+                      label="Artist Name"
+                      autoFocus
+                      {...register("name", {
+                        required: true,
+                        maxLength: 80,
+                      })}
+                    />
+                  </Grid>
+
+                  <Grid item xs={12}>
+                    <Typography>Nation</Typography>
+                    <TextField
+                      select
+                      fullWidth
+                      label="Nation"
+                      options={options}
+                      value={국가}
+                      onChange={handleNation}
+                    >
+                      {options.map((option) => (
+                        <MenuItem key={option.value} value={option.label}>
+                          {option.label}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                  </Grid>
+
+                  <Grid item xs={12}>
+                    <Typography>Genre</Typography>
+                    <TextField
+                      select
+                      label="Genre"
+                      fullWidth
+                      value={장르}
+                      onChange={handleGenre}
+                    >
+                      {Genres.map((option) => (
+                        <MenuItem key={option.value} value={option.value}>
+                          {option.value}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                  </Grid>
+
+                  <Grid item xs={12}>
+                    {아이디유효성검사 === true &&
+                    비밀번호유효성검사 === true ? (
+                      <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        sx={{ mt: 3, mb: 2 }}
+                      >
+                        Sign Up
+                      </Button>
+                    ) : (
+                      <Typography>수정사항이 있습니다!</Typography>
+                    )}
+                  </Grid>
+
+                  <Grid container justifyContent="flex-end">
+                    <Grid item>
+                      <Link href="/login" variant="body2">
+                        Already have an account? Sign in
+                      </Link>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Box>
+            </Grid>
+          </Grid>
+        </ThemeProvider>
+      </form>
+    </div>
   );
 };
 

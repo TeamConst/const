@@ -19,6 +19,25 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import countryList from "react-select-country-list";
 
+import styled from "styled-components";
+
+const Img = styled.img`
+  text-align: center;
+  width: 80%;
+  border-radius: 5%;
+`;
+const Boldtext = styled.div`
+  text-align: center;
+  padding: 10px 20px 0px 20px;
+`;
+const Cardcontainer = styled.div`
+  background-color: white;
+  min-width: 100%;
+  max-width: 100%;
+  height: 100%;
+  border-radius: 14px;
+  box-shadow: 0px 10px 30px hsl(185, 75%, 35%);
+`;
 const theme = createTheme();
 
 const userUpdate = () => {
@@ -67,69 +86,74 @@ const userUpdate = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <ThemeProvider theme={theme}>
-        <Container component="main" maxWidth="xs">
-          <CssBaseline />
-          <Box
-            sx={{
-              marginTop: 8,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}></Avatar>
-            <Typography component="h1" variant="h5">
-              유저 정보 변경
-            </Typography>
+        <Container maxWidth="lg" sx={{ py: 22 }}>
+          <Cardcontainer>
+            <Container component="main" maxWidth="xs">
+              <CssBaseline />
+              <Box
+                sx={{
+                  marginTop: 8,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
+                <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}></Avatar>
+                <Boldtext>
+                  <Img src="/img/music3.jpeg" />
+                </Boldtext>
+                <Typography component="h1" variant="h5">
+                  유저 정보 변경
+                </Typography>
 
-            <Grid container spacing={5}>
-              <Grid item xs={12}>
-                <Typography component="h1" variant="h5">
-                  Name
-                </Typography>
-                <TextField
-                  autoComplete="given-name"
-                  name="ArtistName"
-                  required
-                  fullWidth
-                  id="artistName"
-                  label="Artist Name"
-                  autoFocus
-                  {...register("name", {
-                    required: true,
-                    maxLength: 80,
-                  })}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <Typography component="h1" variant="h5">
-                  Nation
-                </Typography>
-                <Select
-                  options={options}
-                  value={value}
-                  onChange={changeHandler}
-                />
-                <input
-                  value={value.label}
-                  {...register("nation", { required: true })}
-                ></input>
-              </Grid>
+                <Grid container spacing={5}>
+                  <Grid item xs={12}>
+                    <Typography component="h1" variant="h5">
+                      Name
+                    </Typography>
+                    <TextField
+                      autoComplete="given-name"
+                      name="ArtistName"
+                      required
+                      fullWidth
+                      id="artistName"
+                      label="Artist Name"
+                      autoFocus
+                      {...register("name", {
+                        required: true,
+                        maxLength: 80,
+                      })}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Typography component="h1" variant="h5">
+                      Nation
+                    </Typography>
+                    <Select
+                      options={options}
+                      value={value}
+                      onChange={changeHandler}
+                    />
+                    <input
+                      value={value.label}
+                      {...register("nation", { required: true })}
+                    ></input>
+                  </Grid>
 
-              <Grid item xs={12}>
-                <Typography component="h1" variant="h5">
-                  Genre
-                </Typography>
-                <div>
-                  <label>장르</label>
-                  <select {...register("favor_genre", { required: true })}>
-                    <option value="Pop">팝</option>
-                    <option value="Balad">발라드</option>
-                    <option value="그 외 임시">등등</option>
-                  </select>
-                </div>
-              </Grid>
-              {/* <Grid item xs={12}>
+                  <Grid item xs={12}>
+                    <Typography component="h1" variant="h5">
+                      Genre
+                    </Typography>
+                    <div>
+                      <label>장르</label>
+                      <select {...register("favor_genre", { required: true })}>
+                        <option value="Pop">팝</option>
+                        <option value="Balad">발라드</option>
+                        <option value="그 외 임시">등등</option>
+                      </select>
+                    </div>
+                  </Grid>
+                  {/* <Grid item xs={12}>
                 <Typography component="h1" variant="h5">
                   MetaMask Address
                 </Typography>
@@ -150,16 +174,18 @@ const userUpdate = () => {
                 </Typography>
               </Grid> */}
 
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-              >
-                수정
-              </Button>
-            </Grid>
-          </Box>
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    sx={{ mt: 3, mb: 2 }}
+                  >
+                    수정
+                  </Button>
+                </Grid>
+              </Box>
+            </Container>
+          </Cardcontainer>
         </Container>
       </ThemeProvider>
     </form>

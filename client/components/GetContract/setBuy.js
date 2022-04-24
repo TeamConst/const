@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import CircularProgress from "@mui/material/CircularProgress";
+import { Typography } from "@mui/material";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
@@ -22,7 +23,6 @@ import { useState, useEffect } from "react";
 import web3 from "../connection/web3";
 import collectionContractJSON from "../../../build/contracts/NFTCollection.json";
 import marketContractJSON from "../../../build/contracts/NFTMarketplace.json";
-import { ConfigService } from "aws-sdk";
 
 import axios from "axios";
 
@@ -32,6 +32,7 @@ const SetBuy = () => {
   const router = useRouter();
   const { id } = router.query;
 
+  console.log(id);
   // 컨트랙트 처리 위해서
   const useUser1 = () => {
     const result = useQuery(["setBuy"], () => fetchSetBuy(id));
@@ -126,9 +127,11 @@ const SetBuy = () => {
   };
 
   console.log("a", a);
+  console.log("b", b);
   console.log("c", c);
   console.log("d", d);
   console.log("e", e);
+
   // 클라이언트 처리
   const [계정, 계정변경] = useState();
 
@@ -147,69 +150,59 @@ const SetBuy = () => {
   console.log("매트", offerData);
 
   const buyHandler = async (event) => {
-    try {
-      // 컨트랙트
-      // buy contract
-      let pra;
-      let praaccounts;
-      const accounts1 = await web3.eth.getAccounts();
-      const networkId1 = await web3.eth.net.getId();
-      const deployedAddress1 =
-        collectionContractJSON.networks[networkId1].address;
-      const contract1 = new web3.eth.Contract(
-        collectionContractJSON.abi,
-        deployedAddress1
-      );
+    // 컨트랙트
+    // buy contract
+    let pra;
+    let praaccounts;
+    const accounts1 = await web3.eth.getAccounts();
+    const networkId1 = await web3.eth.net.getId();
+    const deployedAddress1 =
+      collectionContractJSON.networks[networkId1].address;
+    const contract1 = new web3.eth.Contract(
+      collectionContractJSON.abi,
+      deployedAddress1
+    );
 
-      pra = contract1;
-      praaccounts = accounts1;
+    pra = contract1;
+    praaccounts = accounts1;
 
-      let pra2;
-      const deployedAddress2 = marketContractJSON.networks[networkId1].address;
-      const contract2 = new web3.eth.Contract(
-        marketContractJSON.abi,
-        deployedAddress2
-      );
-      pra2 = contract2;
+    let pra2;
+    const deployedAddress2 = marketContractJSON.networks[networkId1].address;
+    const contract2 = new web3.eth.Contract(
+      marketContractJSON.abi,
+      deployedAddress2
+    );
+    pra2 = contract2;
 
-      // 메이크 오퍼의 offers 배열이 내가 오퍼한 개수, 오퍼한 것 중 나의 작품의 전체 순번이니까
-      // offerId : 전체 오퍼한 개수 중 내 작품의 순번
-      // _id : 전체 상품들 나열 중 내 작품의 번호 가져옴
+    const setbuydb = await axios.post("http://localhost:8080/api/setBuyDB", {
+      address: praaccounts[0],
+      CID: buyData[0].img,
+    });
 
-      for (let i = 0; i < offerData.length; i++) {
-        if (offerData[i].id == buyData[0].id) {
-          pra2.methods
-            .fillOffer(offerData[i].offerId)
-            .send({
-              from: praaccounts[0],
-              value: offerData[i].price,
-            })
-            .on("transactionHash", (hash) => {
-              console.log("해시해시", hash);
-            })
-            .on("error", (error) => {
-              window.alert(
-                "Something went wrong when pushing to the blockchain"
-              );
-            });
-        }
-      }
-    } catch (err) {
-      console.log(err);
+    if (setbuydb) {
+      console.log(setbuydb);
+      // window.reload.href = "http://localhost:8080/constbuy";
     }
 
-    try {
-      const setbuydb = await axios.post("http://localhost:8080/api/setBuyDB", {
-        address: praaccounts[0],
-        CID: buyData[0].img,
-      });
+    // 메이크 오퍼의 offers 배열이 내가 오퍼한 개수, 오퍼한 것 중 나의 작품의 전체 순번이니까
+    // offerId : 전체 오퍼한 개수 중 내 작품의 순번
+    // _id : 전체 상품들 나열 중 내 작품의 번호 가져옴
 
-      if (setbuydb) {
-        console.log(setbuydb);
-        // window.reload.href = "http://localhost:8080/constbuy";
+    for (let i = 0; i < offerData.length; i++) {
+      if (offerData[i].id == buyData[0].id) {
+        pra2.methods
+          .fillOffer(offerData[i].offerId)
+          .send({
+            from: praaccounts[0],
+            value: offerData[i].price,
+          })
+          .on("transactionHash", (hash) => {
+            console.log("해시해시", hash);
+          })
+          .on("error", (error) => {
+            window.alert("Something went wrong when pushing to the blockchain");
+          });
       }
-    } catch (err) {
-      console.log(err);
     }
   };
 
@@ -261,6 +254,7 @@ const SetBuy = () => {
     formState: { errors },
     handleSubmit,
   } = useForm();
+
   const onSubmit = async (data) => {
     // 컨트랙트
     // buy contract
@@ -316,119 +310,73 @@ const SetBuy = () => {
     <div>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Container maxWidth="lg">
+        <Container sx={{ m: 2 }} maxWidth="lg">
           {a === 1 && c === 1 && d === 1 && e === 1 ? (
             buyData.map((a) => (
-              <Grid container spacing={5}>
+              <Grid container spacing={5} textAlign="center">
                 <Grid item xs={6}>
-                  <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                    사진
-                    <img src={이미지} height="300" width="300"></img>
+                  <Box p={2}>
+                    <img
+                      src={이미지}
+                      height="500"
+                      width="500"
+                      object-Fit="fill"
+                    ></img>
                   </Box>
                 </Grid>
-
                 <Grid item xs={6}>
                   <Grid container spacing={2}>
                     <Grid item xs={12}>
-                      <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                        제목{buyDB.title}
-                      </Box>
+                      <Box p={2}>제목{buyDB.title}</Box>
                     </Grid>
                     <Grid item xs={4}>
-                      <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                        판매자{userDB.id2}
-                      </Box>
+                      <Box p={2}>판매자{userDB.id2}</Box>
                     </Grid>
                     <Grid item xs={4}>
-                      <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                        조회수{buyDB.view}
-                      </Box>
+                      <Box p={2}>조회수{buyDB.view}</Box>
                     </Grid>
                     <Grid item xs={4}>
-                      <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                        좋아요{buyDB.LikeMusic}
-                      </Box>
+                      <Box p={2}>좋아요{buyDB.LikeMusic}</Box>
                     </Grid>
-                    <Grid item xs={12}>
-                      <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                        에디션
-                      </Box>
+                    <Grid item xs={6}>
+                      <Box p={2}>에디션</Box>
                     </Grid>
-                    <Grid item xs={12}>
-                      <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                        가격 {buyMusicDB.price}
-                      </Box>
-                    </Grid>
-                    <Grid item xs={4}>
-                      <Box bgcolor="info.main" color="info.contrastText" p={2}>
+                    <Grid item xs={6}>
+                      <Box p={2}>
                         <Button
                           onClick={likeHandler}
                           fullWidth
                           variant="contained"
-                          sx={{ mt: 3, mb: 2 }}
                         >
                           좋아요 누르기
                         </Button>
                       </Box>
                     </Grid>
+                    <Grid item xs={4}>
+                      <Box p={2}>가격 {buyMusicDB.price}</Box>
+                    </Grid>
 
                     {계정 === userDB.address ? (
                       <Grid item xs={4}>
-                        <form onSubmit={handleSubmit(onSubmit)}>
-                          <Box
-                            bgcolor="info.main"
-                            color="info.contrastText"
-                            p={2}
+                        <Box p={2}>
+                          <Typography>본인의 상품입니다</Typography>
+                          <Button
+                            type="sumit"
+                            fullWidth
+                            onClick={cancelHandler}
+                            variant="contained"
                           >
-                            {/* <input
-                              {...register("price", {
-                                required: true,
-                              })}
-                              type="number"
-                              step="0.01"
-                              placeholder="ETH..."
-                              className="form-control"
-                            ></input> */}
-                            {/* <Button
-                              type="sumit"
-                              fullWidth
-                              variant="contained"
-                              sx={{ mt: 3, mb: 2 }}
-                            >
-                              오퍼하기
-                            </Button> */}
-                            <Button
-                              type="sumit"
-                              fullWidth
-                              variant="contained"
-                              sx={{ mt: 3, mb: 2 }}
-                            >
-                              본인의 상품입니다
-                            </Button>
-                          </Box>
-                        </form>
-                        <Button
-                          type="sumit"
-                          fullWidth
-                          onClick={cancelHandler}
-                          variant="contained"
-                          sx={{ mt: 3, mb: 2 }}
-                        >
-                          오퍼 취소하기
-                        </Button>
+                            오퍼 취소하기
+                          </Button>
+                        </Box>
                       </Grid>
                     ) : (
                       <Grid item xs={4}>
-                        <Box
-                          bgcolor="info.main"
-                          color="info.contrastText"
-                          p={2}
-                        >
+                        <Box p={2}>
                           <Button
                             onClick={buyHandler}
                             fullWidth
                             variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
                           >
                             구매하기
                           </Button>
@@ -437,36 +385,25 @@ const SetBuy = () => {
                     )}
 
                     <Grid item xs={4}>
-                      <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                        선물
+                      <Box p={2}>
+                        <Typography>찜하기</Typography>
                       </Box>
                     </Grid>
                   </Grid>
                 </Grid>
 
-                <Grid item xs={6} sm={3}>
-                  <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                    디테일 정보
-                  </Box>
+                <Grid item xs={4}>
+                  <Box p={2}>디테일 정보</Box>
                 </Grid>
-                <Grid item xs={6} sm={3}>
-                  <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                    저장 정보
-                  </Box>
+                <Grid item xs={4}>
+                  <Box p={2}>저장 정보</Box>
                 </Grid>
-                <Grid item xs={6} sm={3}>
-                  <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                    가격 그래프
-                  </Box>
-                </Grid>
-                <Grid item xs={6} sm={3}>
-                  <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                    빈칸
-                  </Box>
+                <Grid item xs={4}>
+                  <Box p={2}>가격 그래프</Box>
                 </Grid>
 
                 <Grid item xs={12}>
-                  <Box bgcolor="info.main" color="info.contrastText" p={2}>
+                  <Box p={2}>
                     여기에 연관 상품들 나열할 건데 이건 data fetch 하는 식이
                     날듯?
                   </Box>

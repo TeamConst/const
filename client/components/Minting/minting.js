@@ -1,24 +1,55 @@
-import { useForm } from "react-hook-form";
-import { useEffect } from "react";
-import { useState } from "react";
-import CssBaseline from "@mui/material/CssBaseline";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { TextField } from "@mui/material";
+// React
+import { useState, useEffect } from "react";
 
+// React-hook-Form
+import { useForm } from "react-hook-form";
+
+// MUI - Component
+import { Box, Button, Container, TextField, Grid } from "@mui/material";
+
+// MUI - Style
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+
+// styled-componenets
+import styled from "styled-components";
+
+// web3
 import web3 from "../connection/web3";
 import contractJSON from "../../../build/contracts/NFTCollection.json";
-
 import ImageNFTMarketplace from "../../../build/contracts/ImageMarketplace.json";
-// import ImageNFTMarketplace from "../../build/contracts/ConstContract.json";
 
+// React-query
+import { useQuery } from "react-query";
+
+// axios
 import axios from "axios";
+
+// socket.io
 import io from "socket.io-client";
 
-import { useQuery } from "react-query";
+const Boldtext = styled.div`
+  font-weight: bold;
+  font-size: 1.1rem;
+  text-align: center;
+  padding: 10px 20px 0px 20px;
+`;
+
+const Cardcontainer = styled.div`
+  background-color: white;
+  min-width: 100%;
+  max-width: 100%;
+  height: 100%;
+  border-radius: 14px;
+  box-shadow: 0px 10px 30px hsl(185, 75%, 35%);
+`;
+
+const Img = styled.img`
+  margin: auto;
+  width: 40%;
+  border: solid white 4px;
+  border-radius: 5%;
+  margin-top: 75px;
+`;
 
 const theme = createTheme();
 
@@ -63,7 +94,7 @@ const setupBlockchain = async () => {
   }
 };
 
-const Music = () => {
+const Minting = () => {
   const [현재메타마스크아이디, 현재메타마스크아이디변경] = useState();
   // get now accounts
   useEffect(() => {
@@ -135,6 +166,7 @@ const Music = () => {
     gg.artist = data.artist;
     gg.genre = data.genre;
     gg.title = data.title;
+
     const qq = await web3.eth.getAccounts();
     gg.address = qq[0];
     // const resultGG = await axios.post("http://localhost:8080/api/mint/gg", gg);
@@ -223,27 +255,30 @@ const Music = () => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <Container maxWidth="lg">
-            <main>
-              <Grid container spacing={5}>
-                <Grid item xs={12}>
-                  <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                    음원 등록
-                  </Box>
-                </Grid>
-                <Grid item xs={6}>
-                  <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                    앨범커버 이미지 등록 이미지 첨부하면 렌더링하는 것까지
-                    구현하자
+      <ThemeProvider theme={theme}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Container sx={{ py: 5 }} maxWidth="lg">
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <Cardcontainer>
+                <Grid container spacing={5}>
+                  <Grid item xs={12}>
+                    <Boldtext>
+                      <Img src={"/img/music2.jpeg"} />
+                    </Boldtext>
+                    <Boldtext>음원등록</Boldtext>
+                  </Grid>
+                  <Grid item xs={6}>
                     <img
                       src={이미지}
-                      // alt={detailImageFile.name}
+                      style={{ margin: "20px" }}
                       loading="lazy"
-                      height="300"
-                      width="300"
+                      height="500"
+                      width="500"
                     />
                     <input
                       {...register("image", {
@@ -255,12 +290,10 @@ const Music = () => {
                         changeImage(e);
                       }}
                     ></input>
-                  </Box>
-                </Grid>
-                <Grid item xs={6}>
-                  <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                      <Box bgcolor="info.main" color="info.contrastText" p={2}>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Grid container spacing={2}>
+                      <Grid item xs={12}>
                         <TextField
                           variant="outlined"
                           required
@@ -272,10 +305,8 @@ const Music = () => {
                             maxLength: 80,
                           })}
                         />
-                      </Box>
-                    </Grid>
-                    <Grid item xs={12}>
-                      <Box bgcolor="info.main" color="info.contrastText" p={2}>
+                      </Grid>
+                      <Grid item xs={12}>
                         <TextField
                           variant="outlined"
                           required
@@ -287,10 +318,8 @@ const Music = () => {
                             maxLength: 80,
                           })}
                         />
-                      </Box>
-                    </Grid>
-                    <Grid item xs={12}>
-                      <Box bgcolor="info.main" color="info.contrastText" p={2}>
+                      </Grid>
+                      <Grid item xs={12}>
                         <TextField
                           variant="outlined"
                           required
@@ -302,10 +331,8 @@ const Music = () => {
                             maxLength: 80,
                           })}
                         />
-                      </Box>
-                    </Grid>
-                    <Grid item xs={12}>
-                      <Box bgcolor="info.main" color="info.contrastText" p={2}>
+                      </Grid>
+                      <Grid item xs={12}>
                         <TextField
                           variant="outlined"
                           required
@@ -317,10 +344,8 @@ const Music = () => {
                             maxLength: 80,
                           })}
                         />
-                      </Box>
-                    </Grid>
-                    <Grid item xs={12}>
-                      <Box bgcolor="info.main" color="info.contrastText" p={2}>
+                      </Grid>
+                      <Grid item xs={12}>
                         <TextField
                           variant="outlined"
                           required
@@ -332,10 +357,8 @@ const Music = () => {
                             maxLength: 80,
                           })}
                         />
-                      </Box>
-                    </Grid>
-                    <Grid item xs={12}>
-                      <Box bgcolor="info.main" color="info.contrastText" p={2}>
+                      </Grid>
+                      <Grid item xs={12}>
                         <TextField
                           variant="outlined"
                           required
@@ -347,10 +370,8 @@ const Music = () => {
                             maxLength: 80,
                           })}
                         />
-                      </Box>
-                    </Grid>
-                    <Grid item xs={12}>
-                      <Box bgcolor="info.main" color="info.contrastText" p={2}>
+                      </Grid>
+                      <Grid item xs={12}>
                         <TextField
                           variant="outlined"
                           required
@@ -362,10 +383,8 @@ const Music = () => {
                             maxLength: 80,
                           })}
                         />
-                      </Box>
-                    </Grid>
-                    <Grid item xs={12}>
-                      <Box bgcolor="info.main" color="info.contrastText" p={2}>
+                      </Grid>
+                      <Grid item xs={12}>
                         음원(파일)
                         <input
                           {...register("musics", {
@@ -374,25 +393,25 @@ const Music = () => {
                           accept="audio/*"
                           type="file"
                         ></input>
-                      </Box>
+                      </Grid>
                     </Grid>
                   </Grid>
                 </Grid>
-              </Grid>
-            </main>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              음원 등록
-            </Button>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                >
+                  음원 등록
+                </Button>
+              </Cardcontainer>
+            </Box>
           </Container>
-        </ThemeProvider>
-      </form>
+        </form>
+      </ThemeProvider>
     </div>
   );
 };
 
-export default Music;
+export default Minting;

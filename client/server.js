@@ -49,6 +49,7 @@ const indexRouter = require("./routers/index.js");
 // const blockRouter = require("./routers/apis/block");
 // 모든 URL에 대한 Router
 const otherRouter = require("./routers/other.js");
+const { ContactlessOutlined } = require("@mui/icons-material");
 
 // DB와 연결
 sequelize
@@ -594,6 +595,7 @@ app.prepare().then(() => {
         }
       });
 
+      console.log(req.files);
       let uploadParams = {
         Body: req.files.image.data,
         Key: "profile/" + req.body.id2 + ".jpg",
@@ -739,24 +741,8 @@ app.prepare().then(() => {
     }
   });
 
-  // 현재 진행중인 데이터 로컬 db 간략화
-  server.get("/api/getNowNFT", async (req, res) => {
-    const abc = await Music.findAll({
-      include: [
-        {
-          model: BuyMusic,
-        },
-        {
-          model: AuctionMusic,
-        },
-      ],
-    });
-
-    res.json(abc);
-  });
-
   //프로필 사진변경
-  server.post("/api/updateuser2", async (req, res) => {
+  server.post("/api/updateUser2", async (req, res) => {
     console.log(req.body.profileImg);
     try {
       const updateCondition2 = await User.update(
@@ -794,15 +780,43 @@ app.prepare().then(() => {
       return res.status(400).send(err);
     }
   });
+
   // 현재 진행중인 데이터 로컬 db 간략화
+  server.get("/api/getNowNFT", async (req, res) => {
+    const abc = await Music.findAll({
+      include: [
+        {
+          model: BuyMusic,
+        },
+        {
+          model: AuctionMusic,
+        },
+      ],
+    });
+    res.json(abc);
+  });
+
   server.get("/api/getNowBuy", async (req, res) => {
-    const abc = await BuyMusic.findAll({ where: { sellComplete: false } });
+    const abc = await BuyMusic.findAll({
+      where: { sellComplete: false },
+
+      include: [
+        {
+          model: Music,
+        },
+      ],
+    });
     res.json(abc);
   });
 
   server.get("/api/getNowAuction", async (req, res) => {
     const abc = await AuctionMusic.findAll({
       where: { auctionComplete: false },
+      include: [
+        {
+          model: Music,
+        },
+      ],
     });
     res.json(abc);
   });
@@ -1079,7 +1093,10 @@ app.prepare().then(() => {
     // const c = b.split(".");
     // const d = c[0];
 
+    console.log(a);
+    console.log("씨발아");
     const abc = await Music.findOne({ where: { CID: a } });
+    console.log("씨발아2");
     res.json(abc);
 
     // res.send("ok");
@@ -1128,26 +1145,19 @@ app.prepare().then(() => {
       { where: { CID: req.body.CID } }
     );
 
-    const update = async () => {
-      const price = await BuyMusic.findOne(
-        { price },
-        { where: { CID: req.body.CID } }
-      );
-      const date = new Date();
+    const price = await BuyMusic.findOne(
+      { price },
+      { where: { CID: req.body.CID } }
+    );
 
-      try {
-        await TransactionDetail.create({
-          CID: req.body.CID,
-          Method: "BUY",
-          price: price,
-          startingTime: date,
-          totalParticipant: 1,
-          winner: req.body.address,
-        });
-      } catch (err) {
-        res.json(err);
-      }
-    };
+    await TransactionDetail.create({
+      CID: req.body.CID,
+      Method: "BUY",
+      price: price,
+      startingTime: date,
+      totalParticipant: 1,
+      winner: req.body.address,
+    });
 
     res.json("구매 성공");
   });
@@ -1621,6 +1631,7 @@ async function setBuy(param) {
         console.error("Something went wrong");
       }
     }
+    console.log(collection);
     return collection;
   }
 }

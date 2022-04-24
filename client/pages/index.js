@@ -1,7 +1,7 @@
 // import { useQuery, dehydrate, QueryClient } from "react-query";
 // import { fetchLocals } from "../hooks";
 
-// import Layout from "../components/Layout/layout";
+// import Header from "../components/Layout/Header";
 
 // const Index = () => {
 //   return <div>abcd111</div>;
@@ -33,7 +33,8 @@
 
 // export default Index;
 
-import Layout from "../components/Layout/layout";
+import Header from "../components/Layout/Header";
+import Footer from "../components/Layout/Footer";
 import { useQuery, dehydrate, QueryClient } from "react-query";
 import { fetchLocals } from "../hooks";
 
@@ -47,13 +48,15 @@ import ListenMusic from "../components/GetLocalDB/listenMusic";
 const Page = () => {
   return (
     <div>
-      <Layout></Layout>
+      <Header></Header>
       {/* <AuctionCollection /> */}
 
       <GetVideo></GetVideo>
       <GetNowNFT></GetNowNFT>
       <GetNowBuy></GetNowBuy>
       <GetNowAuction></GetNowAuction>
+
+      <Footer></Footer>
     </div>
   );
 };

@@ -165,10 +165,8 @@ const SetAuction = () => {
   if (accountAddress === ImagesId) {
     return (
       <div>
-        <div>123</div>
         <ThemeProvider theme={theme}>
           <div>
-            {" "}
             {myImages.map((image) => {
               return (
                 <Item key={image.tokenID}>
@@ -194,7 +192,6 @@ const SetAuction = () => {
         <div>2</div>
         <ThemeProvider theme={theme}>
           <div>
-            {" "}
             {allImages.map((image) => {
               return (
                 <Item key={image.tokenID}>

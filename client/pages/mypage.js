@@ -1,4 +1,4 @@
-import Layout from "../components/Layout/layout";
+import Header from "../components/Layout/Header";
 import Mypage1 from "../components/Mypage/mypage";
 import { useQuery, dehydrate, QueryClient } from "react-query";
 
@@ -8,7 +8,7 @@ const Mypage = () => {
   return (
     <div>
       {/* 전체 css 이걸로 설정해 줄 것임 */}
-      <Layout></Layout>
+      <Header></Header>
       <Mypage1> </Mypage1>
     </div>
   );

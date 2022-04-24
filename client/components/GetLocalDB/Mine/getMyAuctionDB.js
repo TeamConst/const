@@ -53,15 +53,16 @@ const GetMyAuctionDB = () => {
   return (
     <div>
       <ThemeProvider theme={theme}>
-        <Container sx={{ py: 8 }} maxWidth="md">
-          <Grid container spacing={4}>
+        <Container sx={{ py: 2 }} maxWidth="xl">
+          <Grid container spacing={5} textAlign="center">
             {a === 1 ? (
               auctionMyData.map((a) => (
                 <Link href={`/auction/${encodeURIComponent(a.CID)}`}>
-                  <Grid item key={a.CID} xs={12} sm={6} md={4}>
+                  <Grid item key={a.CID} xs={3}>
                     <Card
                       sx={{
                         height: "100%",
+                        width: "100%",
                         display: "flex",
                         flexDirection: "column",
                       }}
@@ -69,32 +70,25 @@ const GetMyAuctionDB = () => {
                       <CardMedia
                         component="img"
                         sx={{
-                          // 16:9
-                          pt: "56.25%",
+                          m: 1,
+                          height: "100%",
+                          width: "100%",
+                          objectFit: "fill",
                         }}
                         image={a.Music.s3}
                         alt="random"
                       />
+
                       <CardContent sx={{ flexGrow: 1 }}>
-                        ID
-                        <Typography>{a.id}</Typography>
-                        CID
-                        <Typography>{a.CID}</Typography>
-                        Owner
-                        <Typography>{a.currentOwner}</Typography>
-                        S3
-                        <Typography>{a.Music.s3}</Typography>
+                        <Typography>Title : {a.Music.title}</Typography>
+                        <Typography>조회수 : {a.Music.playCount}</Typography>
+                        <Typography>판매수 : {a.auction}</Typography>
                       </CardContent>
-                      <CardActions>
-                        <Button size="small">View</Button>
-                        <Button size="small">Edit</Button>
-                      </CardActions>
                     </Card>
                   </Grid>
                 </Link>
               ))
             ) : (
-              // <div>{JSON.stringify(data)}</div>
               <div>
                 <h1>아직 경매로 나온 상품이 없어용</h1>
               </div>

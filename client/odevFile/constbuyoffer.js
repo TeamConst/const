@@ -1,4 +1,4 @@
-import Layout from "../components/Layout/layout";
+import Header from "../components/Layout/Header";
 import GetBuyOffer from "../components/getBuyOffer";
 
 const ConstBuyOffer = () => {
@@ -6,7 +6,7 @@ const ConstBuyOffer = () => {
   // console.log(localsQuery);
   return (
     <div>
-      <Layout></Layout>
+      <Header></Header>
       <GetBuyOffer></GetBuyOffer>
     </div>
   );

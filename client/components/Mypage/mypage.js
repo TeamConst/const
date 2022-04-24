@@ -1,113 +1,101 @@
-import * as React from "react";
-import CssBaseline from "@mui/material/CssBaseline";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useQuery } from "react-query";
 import { useEffect, useState, useRef } from "react";
+
+import { useForm } from "react-hook-form";
+
+import { useQuery } from "react-query";
+import { fetchUserSession, fetchMyNFTDB } from "../../hooks";
+
+import {
+  Typography,
+  Button,
+  Box,
+  Container,
+  Grid,
+  CssBaseline,
+} from "@mui/material";
+
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+
+import styled from "styled-components";
+
 import web3 from "../connection/web3";
 
 import axios from "axios";
-//
-import { useForm } from "react-hook-form";
-import Card from "@mui/material/Card";
-import CardMedia from "@mui/material/CardMedia";
-import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
-import CardActions from "@mui/material/CardActions";
-import Button from "@mui/material/Button";
-//
+
 import Link from "next/link";
-//
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import ImageCard from "../ImageCard/ImageCard";
 
 import GetMyBuy from "../GetContract/Mine/getMyBuy";
 import GetMyNFT from "../GetContract/Mine/getMyBuy";
-// import GetMyAuction from "../GetContract/Mine/getMyAuction";
+import GetMyAuction from "../GetContract/Mine/getMyAuction";
 
 import GetMyNFTDB from "../GetLocalDB/Mine/getMyNFTDB";
 import GetMyBuyDB from "../GetLocalDB/Mine/getMyBuyDB";
 import GetMyAuctionDB from "../GetLocalDB/Mine/getMyAuctionDB";
-//
-//
-import { fetchUserSession, fetchMyNFTDB } from "../../hooks";
 
-import avatar from "../../images/1.jpg";
-import styled from "styled-components";
+const Smallertext = styled.div`
+  font-weight: normal;
+  font-size: 0.7rem;
+  color: hsl(0, 0%, 50%);
+  text-align: center;
+  letter-spacing: 1px;
+  padding-bottom: 20px;
+  line-height: 5px;
+`;
+const Cardcontainer = styled.div`
+  background-color: white;
+  min-width: 100%;
+  max-width: 100%;
+  height: 100%;
+  border-radius: 14px;
+  box-shadow: 0px 10px 20px hsl(185, 75%, 35%);
+`;
+const Cardcontainer2 = styled.div`
+  background-color: white;
+  min-width: 100%;
+  max-width: 100%;
+  height: 100%;
+  border-radius: 14px;
+`;
+const Followers = styled.div`
+  flex: 1;
+`;
+const Socialcontainer = styled.div`
+  display: flex;
+  border-top: solid rgb(206, 206, 206) 1px;
+  text-align: center;
+`;
+const Normaltext = styled.div`
+  font-weight: normal;
+  font-size: 0.95rem;
+  color: hsl(0, 0%, 50%);
+  text-align: center;
+  padding-bottom: 10px;
+`;
+const Boldtext = styled.div`
+  font-weight: bold;
+  font-size: 1.1rem;
+  text-align: center;
+  padding: 10px 20px 0px 20px;
+`;
+const Header = styled.div`
+  background-position: 0px 0px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  text-align: center;
+  border-top-left-radius: 28px;
+  border-top-right-radius: 28px;
+`;
+const Img = styled.img`
+  margin: auto;
+  width: 15%;
+  border: solid white 4px;
+  border-radius: 50%;
+  margin-top: 75px;
+`;
 
 const theme = createTheme();
 
 const Mypage1 = () => {
-  const Smallertext = styled.div`
-    font-weight: normal;
-    font-size: 0.7rem;
-    color: hsl(0, 0%, 50%);
-    text-align: center;
-    letter-spacing: 1px;
-    padding-bottom: 20px;
-    line-height: 5px;
-  `;
-  const Cardcontainer = styled.div`
-    background-color: white;
-    min-width: 100%;
-    max-width: 100%;
-    height: 100%;
-    border-radius: 14px;
-    box-shadow: 0px 10px 30px hsl(185, 75%, 35%);
-  `;
-  const Followers = styled.div`
-    flex: 1;
-  `;
-  const Socialcontainer = styled.div`
-    display: flex;
-    border-top: solid rgb(206, 206, 206) 1px;
-    text-align: center;
-  `;
-  const Normaltext = styled.div`
-    font-weight: normal;
-    font-size: 0.95rem;
-    color: hsl(0, 0%, 50%);
-    text-align: center;
-    padding-bottom: 10px;
-  `;
-  const Boldtext = styled.div`
-    font-weight: bold;
-    font-size: 1.1rem;
-    text-align: center;
-    padding: 10px 20px 0px 20px;
-  `;
-  const Header = styled.div`
-    background-position: 0px 0px;
-    background-repeat: no-repeat;
-    background-size: contain;
-    text-align: center;
-    border-top-left-radius: 28px;
-    border-top-right-radius: 28px;
-  `;
-  const Img = styled.img`
-    margin: auto;
-    width: 15%;
-    border: solid white 4px;
-    border-radius: 50%;
-    margin-top: 75px;
-  `;
-
-  const data = {
-    name: "Rita Correia",
-    age: "32",
-    city: "London",
-    followers: "80K",
-    likes: "803K",
-    photos: "1.4K",
-  };
-  console.log(data.name);
-
   // 컨트랙트 처리 위해서
   const useUser1 = () => {
     const result = useQuery(["getUserSession"], () => fetchUserSession());
@@ -184,6 +172,7 @@ const Mypage1 = () => {
     let dday = new Date(`${userSession.ticketTime}`).getTime();
     lastTime = Math.ceil((dday - today) / (1000 * 60 * 60 * 24));
   }
+
   console.log(lastTime);
   if (userSession) {
     let today = new Date().getTime();
@@ -198,11 +187,11 @@ const Mypage1 = () => {
       });
     }
   }
+
   const fileInput = useRef(null);
 
   const onChange = async (e) => {
     if (e.target.files[0]) {
-      // setImage(e.target.files[0])
       const image = e.target.files[0];
       const imageFormData = new FormData();
       imageFormData.append("image", image);
@@ -212,12 +201,12 @@ const Mypage1 = () => {
         "http://localhost:8080/api/signup/updateImage",
         imageFormData
       );
-      const rere = axios.post("http://localhost:8080/api/updateuser2", {
+      const rere = axios.post("http://localhost:8080/api/updateUser2", {
         profileImg: `https://const123.s3.ap-northeast-2.amazonaws.com/profile/${userSession.id2}.jpg`,
         id2: userSession.id2,
       });
     }
-    console.log(rere);
+
     //화면에 프로필 사진 표시
     const reader = new FileReader();
     reader.onload = () => {
@@ -227,241 +216,235 @@ const Mypage1 = () => {
     };
     reader.readAsDataURL(e.target.files[0]);
   };
+
   return (
     <div>
       <ThemeProvider theme={theme}>
         <CssBaseline />
 
-        <Container maxWidth="lg">
-          <main>
-            {a === 1 && c === 1 ? (
-              <Grid container spacing={5}>
-                <Grid item xs={12}>
-                  <Cardcontainer>
-                    <Header>
-                      <Img
-                        src={`${userSession.profileImg}`}
-                        style={{ margin: "20px" }}
-                        size={200}
-                        onClick={() => {
-                          fileInput.current.click();
-                        }}
-                      />
-                      <input
-                        type="file"
-                        style={{ display: "none" }}
-                        accept="image/jpg,impge/png,image/jpeg"
-                        name="profile_img"
-                        onChange={onChange}
-                        ref={fileInput}
-                      />
-                    </Header>
+        <Container maxWidth="lg" sx={{ py: 24 }}>
+          {a === 1 && c === 1 ? (
+            <Grid container spacing={5}>
+              <Grid item xs={12}>
+                <Cardcontainer>
+                  <Header>
+                    <Img
+                      src={`${userSession.profileImg}`}
+                      style={{ margin: "20px" }}
+                      size={200}
+                      onClick={() => {
+                        fileInput.current.click();
+                      }}
+                    />
+                    <input
+                      type="file"
+                      style={{ display: "none" }}
+                      accept="image/jpg,impge/png,image/jpeg"
+                      name="profile_img"
+                      onChange={onChange}
+                      ref={fileInput}
+                    />
+                  </Header>
 
-                    <Link href={`/userUpdate2`}>
-                      <Followers>
-                        <Smallertext>수정하기</Smallertext>
-                      </Followers>
-                    </Link>
-                    <Boldtext>
-                      {userSession.name}
-                      <span className="normal-text">나이/랭크</span>
-                    </Boldtext>
-                    <Normaltext>{userSession.artist}</Normaltext>
-                    <Socialcontainer>
-                      <Followers>
-                        <Boldtext>{count}</Boldtext>
-                        <Smallertext> 소유한 NFTS의 총 수</Smallertext>
-                      </Followers>
-                      <Followers className="likes">
-                        <Boldtext>{accountBalance}/eth</Boldtext>
-                        <Smallertext>잔액</Smallertext>
-                      </Followers>
-                      <Followers className="photos">
-                        <Boldtext>
-                          {`${userSession.ticket}${lastTime}일남음`}
-                        </Boldtext>
-                        <Smallertext>이용권 정보</Smallertext>
-                      </Followers>
-                    </Socialcontainer>
-                  </Cardcontainer>
-                  {/* <Box bgcolor="info.main" color="info.contrastText" p={2}>
-         
-                  </Box> */}
-                </Grid>
-                <Grid item xs={9}>
-                  <Cardcontainer
-                    bgcolor="info.main"
-                    color="info.contrastText"
-                    p={2}
-                  >
+                  <Link href={`/userUpdate2`}>
                     <Followers>
-                      <Boldtext> 내 수익 현황</Boldtext>
+                      <Smallertext>수정하기</Smallertext>
                     </Followers>
-                  </Cardcontainer>
-                </Grid>
-                <Grid item xs={3}>
-                  <Link href={`/mypage/myNFT/${userSession.address}`}>
-                    <Cardcontainer
-                      bgcolor="info.main"
-                      color="info.contrastText"
-                      p={2}
-                    >
-                      <Followers>
-                        <Boldtext>
-                          <Button
-                            onClick={claimFundsHandler}
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
-                          >
-                            구매 완료 된 이더 받기
-                          </Button>
-                        </Boldtext>
-                      </Followers>
-                    </Cardcontainer>
                   </Link>
-                </Grid>
-                <Grid item xs={9}>
-                  <Link href={`/mypage/myNFT/${userSession.address}`}>
-                    <Cardcontainer
-                      bgcolor="info.main"
-                      color="info.contrastText"
-                      p={2}
-                    >
-                      <Followers>
-                        <Boldtext>나의 전체 NFT </Boldtext>
-                      </Followers>
-                    </Cardcontainer>
-                  </Link>
-                </Grid>
-                <Grid item xs={3}>
-                  <Link href={`/mypage/myNFT/${userSession.address}`}>
-                    <Cardcontainer
-                      bgcolor="info.main"
-                      color="info.contrastText"
-                      p={2}
-                    >
-                      <Followers>
-                        <Boldtext> 자세히보기 </Boldtext>
-                      </Followers>
-                    </Cardcontainer>
-                  </Link>
-                </Grid>
-                <Grid item xs={12}>
-                  <GetMyNFTDB></GetMyNFTDB>
-                  {/* <GetMyNFT></GetMyNFT> */}
-                </Grid>
-                <Grid item xs={9}>
-                  <Cardcontainer
-                    bgcolor="info.main"
-                    color="info.contrastText"
-                    p={2}
-                  >
+                  <Boldtext>
+                    {userSession.name}
+                    <span className="normal-text">나이/랭크</span>
+                  </Boldtext>
+                  <Normaltext>{userSession.artist}</Normaltext>
+                  <Socialcontainer>
                     <Followers>
-                      <Boldtext> 판매중인 나의 NFT </Boldtext>
+                      <Boldtext>{count}</Boldtext>
+                      <Smallertext> 소유한 NFTS의 총 수</Smallertext>
                     </Followers>
-                  </Cardcontainer>
-                </Grid>
-                <Grid item xs={3}>
-                  <Link href={`/mypage/myBuy/${userSession.address}`}>
-                    <Cardcontainer
-                      bgcolor="info.main"
-                      color="info.contrastText"
-                      p={2}
-                    >
-                      <Followers>
-                        <Boldtext> 자세히보기 </Boldtext>
-                      </Followers>
-                    </Cardcontainer>
-                  </Link>
-                </Grid>
-                <Grid item xs={12}>
-                  <GetMyBuyDB></GetMyBuyDB>
-                  {/* <GetMyBuy></GetMyBuy> */}
-                </Grid>
-
-                <Grid item xs={9}>
-                  <Cardcontainer
-                    bgcolor="info.main"
-                    color="info.contrastText"
-                    p={2}
-                  >
-                    <Followers>
-                      <Boldtext> 경매중인 나의 NFT </Boldtext>
+                    <Followers className="likes">
+                      <Boldtext>{accountBalance}/eth</Boldtext>
+                      <Smallertext>잔액</Smallertext>
                     </Followers>
-                  </Cardcontainer>
-                </Grid>
-                <Grid item xs={3}>
-                  <Link href={`/mypage/myAuction/${userSession.address}`}>
-                    <Cardcontainer
-                      bgcolor="info.main"
-                      color="info.contrastText"
-                      p={2}
-                    >
-                      <Followers>
-                        <Boldtext> 자세히 보기 </Boldtext>
-                      </Followers>
-                    </Cardcontainer>
-                  </Link>
-                </Grid>
-                <Grid item xs={12}>
-                  <GetMyAuctionDB></GetMyAuctionDB>
-                  {/* <GetMyAuction></GetMyAuction> */}
-                </Grid>
-
-                <Grid item xs={12}>
-                  <Cardcontainer
-                    bgcolor="info.main"
-                    color="info.contrastText"
-                    p={2}
-                  >
-                    <Followers>
-                      <Boldtext> 이용권 정보 </Boldtext>
+                    <Followers className="photos">
+                      <Boldtext>
+                        {`${userSession.ticket}${lastTime}일남음`}
+                      </Boldtext>
+                      <Smallertext>이용권 정보</Smallertext>
                     </Followers>
-                    {`이용권:${userSession.ticket}${lastTime}일남음`}
-                  </Cardcontainer>
-                </Grid>
-                <Grid item xs={4}>
-                  <Cardcontainer
-                    bgcolor="info.main"
-                    color="info.contrastText"
-                    p={2}
-                  >
-                    <Followers>
-                      <Boldtext> 내 음원의 총 재생시간 </Boldtext>
-                    </Followers>
-                  </Cardcontainer>
-                </Grid>
-                <Grid item xs={4}>
-                  <Cardcontainer
-                    bgcolor="info.main"
-                    color="info.contrastText"
-                    p={2}
-                  >
-                    <Followers>
-                      <Boldtext> 내음원을 들은 총 재생 횟수 </Boldtext>
-                    </Followers>
-                  </Cardcontainer>
-                </Grid>
-                <Grid item xs={4}>
-                  <Cardcontainer
+                  </Socialcontainer>
+                </Cardcontainer>
+              </Grid>
+              <Grid item xs={9}>
+                <Cardcontainer2
+                  bgcolor="info.main"
+                  color="info.contrastText"
+                  p={2}
+                >
+                  <Followers>
+                    <Boldtext> 내 수익 현황</Boldtext>
+                  </Followers>
+                </Cardcontainer2>
+              </Grid>
+              <Grid item xs={3}>
+                <Link href={`/mypage/myNFT/${userSession.address}`}>
+                  <Cardcontainer2
                     bgcolor="info.main"
                     color="info.contrastText"
                     p={2}
                   >
                     <Followers>
                       <Boldtext>
-                        내가 최근 들은 곡 Recently Played 등등
+                        <Button
+                          onClick={claimFundsHandler}
+                          type="submit"
+                          fullWidth
+                          variant="contained"
+                          sx={{ mt: 3, mb: 2 }}
+                        >
+                          구매 완료 된 이더 받기
+                        </Button>
                       </Boldtext>
                     </Followers>
-                  </Cardcontainer>
-                </Grid>
+                  </Cardcontainer2>
+                </Link>
               </Grid>
-            ) : (
-              <div>오류임</div>
-            )}
-          </main>
+              <Grid item xs={9}>
+                <Link href={`/mypage/myNFT/${userSession.address}`}>
+                  <Cardcontainer2
+                    bgcolor="info.main"
+                    color="info.contrastText"
+                    p={2}
+                  >
+                    <Followers>
+                      <Boldtext>나의 전체 NFT </Boldtext>
+                    </Followers>
+                  </Cardcontainer2>
+                </Link>
+              </Grid>
+              <Grid item xs={3}>
+                <Link href={`/mypage/myNFT/${userSession.address}`}>
+                  <Cardcontainer2
+                    bgcolor="info.main"
+                    color="info.contrastText"
+                    p={2}
+                  >
+                    <Followers>
+                      <Boldtext> 자세히보기 </Boldtext>
+                    </Followers>
+                  </Cardcontainer2>
+                </Link>
+              </Grid>
+              <Grid item xs={12}>
+                <GetMyNFTDB></GetMyNFTDB>
+                {/* <GetMyNFT></GetMyNFT> */}
+              </Grid>
+              <Grid item xs={9}>
+                <Cardcontainer2
+                  bgcolor="info.main"
+                  color="info.contrastText"
+                  p={2}
+                >
+                  <Followers>
+                    <Boldtext> 판매중인 나의 NFT </Boldtext>
+                  </Followers>
+                </Cardcontainer2>
+              </Grid>
+              <Grid item xs={3}>
+                <Link href={`/mypage/myBuy/${userSession.address}`}>
+                  <Cardcontainer2
+                    bgcolor="info.main"
+                    color="info.contrastText"
+                    p={2}
+                  >
+                    <Followers>
+                      <Boldtext> 자세히보기 </Boldtext>
+                    </Followers>
+                  </Cardcontainer2>
+                </Link>
+              </Grid>
+              <Grid item xs={12}>
+                <GetMyBuyDB></GetMyBuyDB>
+                {/* <GetMyBuy></GetMyBuy> */}
+              </Grid>
+
+              <Grid item xs={9}>
+                <Cardcontainer2
+                  bgcolor="info.main"
+                  color="info.contrastText"
+                  p={2}
+                >
+                  <Followers>
+                    <Boldtext> 경매중인 나의 NFT </Boldtext>
+                  </Followers>
+                </Cardcontainer2>
+              </Grid>
+              <Grid item xs={3}>
+                <Link href={`/mypage/myAuction/${userSession.address}`}>
+                  <Cardcontainer2
+                    bgcolor="info.main"
+                    color="info.contrastText"
+                    p={2}
+                  >
+                    <Followers>
+                      <Boldtext> 자세히 보기 </Boldtext>
+                    </Followers>
+                  </Cardcontainer2>
+                </Link>
+              </Grid>
+              <Grid item xs={12}>
+                <GetMyAuctionDB></GetMyAuctionDB>
+                {/* <GetMyAuction></GetMyAuction> */}
+              </Grid>
+
+              <Grid item xs={12}>
+                <Cardcontainer2
+                  bgcolor="info.main"
+                  color="info.contrastText"
+                  p={2}
+                >
+                  <Followers>
+                    <Boldtext> 이용권 정보 </Boldtext>
+                  </Followers>
+                  {`이용권:${userSession.ticket}${lastTime}일남음`}
+                </Cardcontainer2>
+              </Grid>
+              <Grid item xs={4}>
+                <Cardcontainer2
+                  bgcolor="info.main"
+                  color="info.contrastText"
+                  p={2}
+                >
+                  <Followers>
+                    <Boldtext> 내 음원의 총 재생시간 </Boldtext>
+                  </Followers>
+                </Cardcontainer2>
+              </Grid>
+              <Grid item xs={4}>
+                <Cardcontainer2
+                  bgcolor="info.main"
+                  color="info.contrastText"
+                  p={2}
+                >
+                  <Followers>
+                    <Boldtext> 내음원을 들은 총 재생 횟수 </Boldtext>
+                  </Followers>
+                </Cardcontainer2>
+              </Grid>
+              <Grid item xs={4}>
+                <Cardcontainer2
+                  bgcolor="info.main"
+                  color="info.contrastText"
+                  p={2}
+                >
+                  <Followers>
+                    <Boldtext>내가 최근 들은 곡 Recently Played 등등</Boldtext>
+                  </Followers>
+                </Cardcontainer2>
+              </Grid>
+            </Grid>
+          ) : (
+            <div>오류임</div>
+          )}
         </Container>
       </ThemeProvider>
     </div>

@@ -1,4 +1,4 @@
-import Layout from "../components/Layout/layout";
+import Header from "../components/Layout/Header";
 import GetNFT from "../components/getNFT";
 
 import axios from "axios";
@@ -16,7 +16,7 @@ const NFT = (props) => {
 
   return (
     <div>
-      <Layout></Layout>
+      <Header></Header>
       <GetNFT></GetNFT>
     </div>
   );

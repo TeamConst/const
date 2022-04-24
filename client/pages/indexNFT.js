@@ -1,4 +1,4 @@
-import Layout from "../components/Layout/layout";
+import Header from "../components/Layout/Header";
 import GetNowNFT from "../components/GetLocalDB/getNowNFT";
 
 const IndexNFT = () => {
@@ -6,7 +6,7 @@ const IndexNFT = () => {
   // console.log(localsQuery);
   return (
     <div>
-      <Layout></Layout>
+      <Header></Header>
       <GetNowNFT></GetNowNFT>
     </div>
   );

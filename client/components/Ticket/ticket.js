@@ -22,6 +22,18 @@ import { useState, useEffect } from "react";
 
 import { useQuery } from "react-query";
 
+import styled from "styled-components";
+
+const Img = styled.img`
+  text-align: center;
+  width: 80%;
+  border-radius: 5%;
+`;
+const Boldtext = styled.div`
+  text-align: center;
+  padding: 10px 20px 0px 20px;
+`;
+
 const tiers = [
   {
     id: 0,
@@ -35,7 +47,7 @@ const tiers = [
       "Email support",
     ],
     buttonText: "구매하기",
-    buttonVariant: "outlined",
+    buttonVariant: "contained",
   },
   {
     id: 1,
@@ -64,7 +76,7 @@ const tiers = [
       "Phone & email support",
     ],
     buttonText: "구매하기",
-    buttonVariant: "outlined",
+    buttonVariant: "contained",
   },
 ];
 
@@ -159,7 +171,7 @@ const Ticket = () => {
         disableGutters
         maxWidth="sm"
         component="main"
-        sx={{ pt: 8, pb: 6 }}
+        sx={{ pt: 8, pb: 6, py: 32 }}
       >
         <Typography
           component="h1"
@@ -170,6 +182,10 @@ const Ticket = () => {
         >
           이용권
         </Typography>
+        <Boldtext>
+          <Img src="/img/music.jpeg" />
+        </Boldtext>
+
         <Typography
           variant="h5"
           align="center"
