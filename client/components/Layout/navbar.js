@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 // Next
 import Link from "next/link";
-
+import styled from "styled-components";
 // MUI - Component
 import {
   AppBar,
@@ -51,7 +51,6 @@ const pagesNoSession = [
   ["회원가입", "signup"],
   ["Listen Music", "listen"],
 ];
-
 const theme = createTheme({
   palette: {
     background: {
@@ -98,7 +97,7 @@ const Navbar = () => {
   return (
     <div>
       <ThemeProvider theme={theme}>
-        <AppBar position="static" color="background">
+        <AppBar position="fixed" color="background" elevation="0">
           <Container maxWidth="xl">
             <Toolbar disableGutters>
               {a === 1 ? (
@@ -120,8 +119,8 @@ const Navbar = () => {
                           <Link href={`/${encodeURIComponent(page[1])}`}>
                             <img
                               src={"/img/ConstLogo.png"}
-                              height="50"
-                              width="50"
+                              height="100px"
+                              width="100px"
                             />
                           </Link>
                         ) : (
@@ -152,8 +151,8 @@ const Navbar = () => {
                           <Link href={`/${encodeURIComponent(page[1])}`}>
                             <img
                               src={"/img/ConstLogo.png"}
-                              height="50"
-                              width="50"
+                              height="100px"
+                              width="100px"
                             />
                           </Link>
                         ) : (
