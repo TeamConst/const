@@ -1,10 +1,11 @@
+
 import { useEffect, useState, useRef } from "react";
 
 import { useForm } from "react-hook-form";
 
 import { useQuery } from "react-query";
 import { fetchUserSession, fetchMyNFTDB } from "../../hooks";
-
+import Sidebar from "./Sidebar";
 import {
   Typography,
   Button,
@@ -31,6 +32,7 @@ import GetMyAuction from "../GetContract/Mine/getMyAuction";
 import GetMyNFTDB from "../GetLocalDB/Mine/getMyNFTDB";
 import GetMyBuyDB from "../GetLocalDB/Mine/getMyBuyDB";
 import GetMyAuctionDB from "../GetLocalDB/Mine/getMyAuctionDB";
+
 
 const Smallertext = styled.div`
   font-weight: normal;
@@ -141,7 +143,6 @@ const Mypage1 = () => {
     count = data2.data.data.length;
   }
 
-  console.log(userSession);
   const claimFundsHandler = async () => {
     let pra2;
     let praaccounts;
@@ -275,172 +276,13 @@ const Mypage1 = () => {
                       <Smallertext>이용권 정보</Smallertext>
                     </Followers>
                   </Socialcontainer>
+                  <Grid item xs={12}> 
+            <Sidebar/>
+              </Grid>
                 </Cardcontainer>
+             
               </Grid>
-              <Grid item xs={9}>
-                <Cardcontainer2
-                  bgcolor="info.main"
-                  color="info.contrastText"
-                  p={2}
-                >
-                  <Followers>
-                    <Boldtext> 내 수익 현황</Boldtext>
-                  </Followers>
-                </Cardcontainer2>
               </Grid>
-              <Grid item xs={3}>
-                <Cardcontainer2
-                  bgcolor="info.main"
-                  color="info.contrastText"
-                  p={2}
-                >
-                  <Followers>
-                    <Boldtext>
-                      <Button
-                        onClick={claimFundsHandler}
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        sx={{ mt: 3, mb: 2 }}
-                      >
-                        구매 완료 된 이더 받기
-                      </Button>
-                    </Boldtext>
-                  </Followers>
-                </Cardcontainer2>
-              </Grid>
-              <Grid item xs={9}>
-                <Cardcontainer2
-                  bgcolor="info.main"
-                  color="info.contrastText"
-                  p={2}
-                >
-                  <Followers>
-                    <Boldtext>나의 전체 NFT </Boldtext>
-                  </Followers>
-                </Cardcontainer2>
-              </Grid>
-              <Grid item xs={3}>
-                <Link href={`/mypage/myNFT/${userSession.address}`}>
-                  <Cardcontainer2
-                    bgcolor="info.main"
-                    color="info.contrastText"
-                    p={2}
-                  >
-                    <Followers>
-                      <Boldtext> 자세히보기 </Boldtext>
-                    </Followers>
-                  </Cardcontainer2>
-                </Link>
-              </Grid>
-              <Grid item xs={12}>
-                <GetMyNFTDB></GetMyNFTDB>
-                {/* <GetMyNFT></GetMyNFT> */}
-              </Grid>
-              <Grid item xs={9}>
-                <Cardcontainer2
-                  bgcolor="info.main"
-                  color="info.contrastText"
-                  p={2}
-                >
-                  <Followers>
-                    <Boldtext> 판매중인 나의 NFT </Boldtext>
-                  </Followers>
-                </Cardcontainer2>
-              </Grid>
-              <Grid item xs={3}>
-                <Link href={`/mypage/myBuy/${userSession.address}`}>
-                  <Cardcontainer2
-                    bgcolor="info.main"
-                    color="info.contrastText"
-                    p={2}
-                  >
-                    <Followers>
-                      <Boldtext> 자세히보기 </Boldtext>
-                    </Followers>
-                  </Cardcontainer2>
-                </Link>
-              </Grid>
-              <Grid item xs={12}>
-                <GetMyBuyDB></GetMyBuyDB>
-                {/* <GetMyBuy></GetMyBuy> */}
-              </Grid>
-
-              <Grid item xs={9}>
-                <Cardcontainer2
-                  bgcolor="info.main"
-                  color="info.contrastText"
-                  p={2}
-                >
-                  <Followers>
-                    <Boldtext> 경매중인 나의 NFT </Boldtext>
-                  </Followers>
-                </Cardcontainer2>
-              </Grid>
-              <Grid item xs={3}>
-                <Link href={`/mypage/myAuction/${userSession.address}`}>
-                  <Cardcontainer2
-                    bgcolor="info.main"
-                    color="info.contrastText"
-                    p={2}
-                  >
-                    <Followers>
-                      <Boldtext> 자세히 보기 </Boldtext>
-                    </Followers>
-                  </Cardcontainer2>
-                </Link>
-              </Grid>
-              <Grid item xs={12}>
-                <GetMyAuctionDB></GetMyAuctionDB>
-                {/* <GetMyAuction></GetMyAuction> */}
-              </Grid>
-
-              <Grid item xs={12}>
-                <Cardcontainer2
-                  bgcolor="info.main"
-                  color="info.contrastText"
-                  p={2}
-                >
-                  <Followers>
-                    <Boldtext> 이용권 정보 </Boldtext>
-                  </Followers>
-                  {`이용권:${userSession.ticket}${lastTime}일남음`}
-                </Cardcontainer2>
-              </Grid>
-              <Grid item xs={4}>
-                <Cardcontainer2
-                  bgcolor="info.main"
-                  color="info.contrastText"
-                  p={2}
-                >
-                  <Followers>
-                    <Boldtext> 내 음원의 총 재생시간 </Boldtext>
-                  </Followers>
-                </Cardcontainer2>
-              </Grid>
-              <Grid item xs={4}>
-                <Cardcontainer2
-                  bgcolor="info.main"
-                  color="info.contrastText"
-                  p={2}
-                >
-                  <Followers>
-                    <Boldtext> 내음원을 들은 총 재생 횟수 </Boldtext>
-                  </Followers>
-                </Cardcontainer2>
-              </Grid>
-              <Grid item xs={4}>
-                <Cardcontainer2
-                  bgcolor="info.main"
-                  color="info.contrastText"
-                  p={2}
-                >
-                  <Followers>
-                    <Boldtext>내가 최근 들은 곡 Recently Played 등등</Boldtext>
-                  </Followers>
-                </Cardcontainer2>
-              </Grid>
-            </Grid>
           ) : (
             <div>오류임</div>
           )}
@@ -451,3 +293,4 @@ const Mypage1 = () => {
 };
 
 export default Mypage1;
+

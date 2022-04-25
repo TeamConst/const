@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 // Next
 import Link from "next/link";
-
+import styled from "styled-components";
 // MUI - Component
 import {
   AppBar,
@@ -51,7 +51,6 @@ const pagesNoSession = [
   ["회원가입", "signup"],
   ["Listen Music", "listen"],
 ];
-
 const theme = createTheme({
   palette: {
     background: {
@@ -139,7 +138,7 @@ const Navbar = () => {
                     noWrap
                     sx={{ display: { xs: "none", md: "flex" } }}
                     component="div"
-                    color="text.black"
+                    color="dark"
                   >
                     {pagesNoSession.map((page) => (
                       <IconButton
