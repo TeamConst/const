@@ -28,10 +28,10 @@ export default function Home({userSession}) {
 
     const menuList = {
         0:<MyNft id2={userSession2} />,
-        // 1:<MyBuy  id2={userSession2}/>,
-        1:<GetMyBuyDB></GetMyBuyDB>,
-        2:<GetMyAuctionDB></GetMyAuctionDB>,
-        // 2:<MyAuction  id2={userSession2}/>,
+      
+        1:<GetMyBuyDB/>,
+        2:<GetMyAuctionDB/>,
+       
         3: <div>{userSession2}</div>,
         4:  <div>음원정보</div>,
    

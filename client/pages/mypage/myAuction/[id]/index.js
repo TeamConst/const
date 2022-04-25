@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 
 import Header from "../../../../components/Layout/header";
 import Footer from "../../../../components/Layout/footer";
-// import GetMyAuction from "../../../../components/GetContract/Mine/getMyAuction";
+import GetMyAuction from "../../../../components/GetContract/Mine/getMyAuction";
 
 import { useQuery, dehydrate, QueryClient } from "react-query";
 
@@ -16,6 +16,7 @@ const Buy = ({id2}) => {
     <div>
       <p>BuySell 파라미터 : {id2}</p>
       {/* 전체 css 이걸로 설정해 줄 것임 */}
+      <GetMyAuction></GetMyAuction>
       <Header></Header>
       <Footer></Footer>
     </div>
