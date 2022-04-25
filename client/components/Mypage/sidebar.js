@@ -53,13 +53,15 @@ export default function Home() {
   padding: 10px;
   box-sizing: border-box;
   overflow: hidden; /* 반응형 애니메이션용 */
-  transition: all 0.5s ease; /* 반응형 애니메이션 */
+  transition: all 0.5s ease; /* 반응형 애니메이션 */\
 `;
 const Ul = styled.ul`
 list-style: none;
 margin: 0;
 padding: 0;
 `;
+
+
    const [menu,setMenu] =useState(0)
       const changeMenu = (menuIndex) =>{
         setMenu( menuIndex);
