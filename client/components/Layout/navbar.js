@@ -138,7 +138,7 @@ const Navbar = () => {
                     noWrap
                     sx={{ display: { xs: "none", md: "flex" } }}
                     component="div"
-                    color="text.black"
+                    color="dark"
                   >
                     {pagesNoSession.map((page) => (
                       <IconButton
