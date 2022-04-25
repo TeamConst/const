@@ -146,9 +146,10 @@ const Mypage1 = () => {
   const claimFundsHandler = async () => {
     let pra2;
     let praaccounts;
+    const marketContractJSON = require("../../../build/contracts/NFTMarketplace.json");
     const accounts1 = await web3.eth.getAccounts();
     const networkId1 = await web3.eth.net.getId();
-
+    
     const deployedAddress2 = marketContractJSON.networks[networkId1].address;
     const contract2 = new web3.eth.Contract(
       marketContractJSON.abi,
@@ -254,7 +255,14 @@ const Mypage1 = () => {
                     <Followers>
                       <Smallertext>수정하기</Smallertext>
                     </Followers>
+            
+           
                   </Link>
+                  <Followers>
+                      <Smallertext><div onClick={claimFundsHandler} className="btn btn-success">
+              구매 완료 된 이더 받기
+            </div></Smallertext>
+                    </Followers>
                   <Boldtext>
                     {userSession.name}
                     <span className="normal-text">나이/랭크</span>
