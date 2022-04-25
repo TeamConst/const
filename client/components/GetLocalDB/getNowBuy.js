@@ -61,7 +61,7 @@ const GetNowBuy = () => {
             {a === 1 ? (
               buyNowData.map((a) => (
                 <Link href={`/buy/${encodeURIComponent(a.CID)}`}>
-                  <Grid item key={a.CID} xs={2}>
+                  <Grid item key={a.CID} xs={3}>
                     <Card
                       sx={{
                         height: "100%",

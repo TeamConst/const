@@ -53,7 +53,7 @@ const GetNowAuction = () => {
   return (
     <div>
       <ThemeProvider theme={theme}>
-        <Container sx={{ py: 2 }} maxWidth="xl">
+        <Container sx={{ py: 3 }} maxWidth="rg">
           <Typography variant="h4" component="h4" sx={{ m: 5 }}>
             경매 중인 NFT
           </Typography>
@@ -61,7 +61,7 @@ const GetNowAuction = () => {
             {a === 1 ? (
               auctionNowData.map((a) => (
                 <Link href={`/auction/${encodeURIComponent(a.CID)}`}>
-                  <Grid item key={a.CID} xs={2}>
+                  <Grid item key={a.CID} xs={3}>
                     <Card
                       sx={{
                         height: "100%",

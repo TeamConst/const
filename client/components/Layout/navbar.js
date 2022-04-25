@@ -110,9 +110,9 @@ const Navbar = () => {
                   >
                     {pagesYesSession.map((page) => (
                       <IconButton
-                        size="large"
+                        size="small"
                         edge="start"
-                        color="secondary"
+                        color="primary"
                         sx={{ mr: 5 }}
                       >
                         {page[0] === "CONST" ? (
@@ -142,9 +142,9 @@ const Navbar = () => {
                   >
                     {pagesNoSession.map((page) => (
                       <IconButton
-                        size="large"
+                        size="small"
                         edge="start"
-                        color="secondary"
+                        color="primary"
                         sx={{ mr: 5 }}
                       >
                         {page[0] === "CONST" ? (

@@ -61,7 +61,7 @@ const GetNowNFT = () => {
           <Grid container spacing={5} textAlign="center">
             {a === 1 ? (
               nftNowData.map((a) => (
-                <Grid item key={a.CID} xs={2} onClick={() => linkto(a)}>
+                <Grid item key={a.CID} xs={3} onClick={() => linkto(a)}>
                   <Card
                     sx={{
                       height: "100%",
