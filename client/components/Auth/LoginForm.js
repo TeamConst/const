@@ -53,12 +53,14 @@ const LoginForm = () => {
                 alignItems: "center",
               }}
             >
-              <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+
+              <img src="/img/ConstLogo.png " width={"250px"}/>
+              {/* <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
                 <AccountCircleIcon></AccountCircleIcon>
-              </Avatar>
-              <Typography component="h1" variant="h5" sx={{ mb: 10 }}>
+              </Avatar> */}
+              {/* <Typography component="h1" variant="h5" sx={{ mb: 10 }}>
                 Login
-              </Typography>
+              </Typography> */}
 
               <Grid container spacing={2}>
                 <Grid item xs={12}>

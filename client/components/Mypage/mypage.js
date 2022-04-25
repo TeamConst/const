@@ -168,10 +168,12 @@ const Mypage1 = () => {
   };
 
   let lastTime;
-  if (userSession) {
+  if (userSession && userSession.ticket !=="이용권 없음") {
     let today = new Date().getTime();
     let dday = new Date(`${userSession.ticketTime}`).getTime();
     lastTime = Math.ceil((dday - today) / (1000 * 60 * 60 * 24));
+  } else if(userSession && userSession.ticket ==="이용권 없음"){
+    lastTime=0;
   }
 
   console.log(lastTime);
