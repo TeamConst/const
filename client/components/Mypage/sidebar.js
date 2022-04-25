@@ -11,22 +11,28 @@ import {
 import Link from "next/link"
 import { useEffect, useState, useRef } from "react";
 
+import web3 from "../connection/web3";
 
-import GetMyBuy from "../GetContract/Mine/getMyBuy";
-import GetMyNFT from "../GetContract/Mine/getMyBuy";
-import GetMyAuction from "../GetContract/Mine/getMyAuction";
+import axios from "axios";
 
-import GetMyNFTDB from "../GetLocalDB/Mine/getMyNFTDB";
-import GetMyBuyDB from "../GetLocalDB/Mine/getMyBuyDB";
-import GetMyAuctionDB from "../GetLocalDB/Mine/getMyAuctionDB";
+
+
+import MyNft from "../../pages/mypage/myNFT/[id]/index"
+import MyBuy from "../../pages/mypage/myBuy/[id]/index"
+import MyAuction from "../../pages/mypage/myAuction/[id]/index"
 import styled from "styled-components";
+import GetMyBuyDB from "../GetLocalDB/Mine/getMyBuyDB";
+import GetMyAuctionDB from "../GetLocalDB/Mine/GetMyAuctionDB";
+export default function Home({userSession}) {
+  const userSession2=userSession
 
-export default function Home() {
     const menuList = {
-        0:  <GetMyNFTDB></GetMyNFTDB>,
-        1:    <GetMyBuy></GetMyBuy>,
-        2:    <GetMyAuction></GetMyAuction>,
-        3: <div>내수익현황</div>,
+        0:<MyNft id2={userSession2} />,
+        // 1:<MyBuy  id2={userSession2}/>,
+        1:<GetMyBuyDB></GetMyBuyDB>,
+        2:<GetMyAuctionDB></GetMyAuctionDB>,
+        // 2:<MyAuction  id2={userSession2}/>,
+        3: <div>{userSession2}</div>,
         4:  <div>음원정보</div>,
    
       };

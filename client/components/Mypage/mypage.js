@@ -277,7 +277,8 @@ const Mypage1 = () => {
                     </Followers>
                   </Socialcontainer>
                   <Grid item xs={12}> 
-            <Sidebar/>
+            <Sidebar 
+            userSession={userSession.address}/>
               </Grid>
                 </Cardcontainer>
              

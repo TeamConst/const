@@ -7,18 +7,16 @@ import GetMyNFT from "../../../../components/GetContract/Mine/getMyNFT";
 import { useQuery, dehydrate, QueryClient } from "react-query";
 import { fetchMyNFTDB } from "../../../../hooks";
 
-const Buy = () => {
+const Buy = ({id2}) => {
   const router = useRouter();
   const { id } = router.query;
-
+const id3 = id2
   // const { data, isLoading, isFetching } = useQuery(["getMyNFTDB"], () =>
   //   fetchMyNFTDB()
   // );
-
+   
   return (
     <div>
-      <p>BuySell 파라미터 : {id}</p>
-      {/* 전체 css 이걸로 설정해 줄 것임 */}
       <Header></Header>
       <GetMyNFT></GetMyNFT>
       <Footer></Footer>
