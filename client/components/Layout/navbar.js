@@ -98,7 +98,7 @@ const Navbar = () => {
   return (
     <div>
       <ThemeProvider theme={theme}>
-        <AppBar position="static" color="background">
+        <AppBar position="fixed" color="background" elevation="0">
           <Container maxWidth="xl">
             <Toolbar disableGutters>
               {a === 1 ? (
@@ -120,8 +120,8 @@ const Navbar = () => {
                           <Link href={`/${encodeURIComponent(page[1])}`}>
                             <img
                               src={"/img/ConstLogo.png"}
-                              height="50"
-                              width="50"
+                              height="100px"
+                              width="100px"
                             />
                           </Link>
                         ) : (
@@ -152,8 +152,8 @@ const Navbar = () => {
                           <Link href={`/${encodeURIComponent(page[1])}`}>
                             <img
                               src={"/img/ConstLogo.png"}
-                              height="50"
-                              width="50"
+                              height="100px"
+                              width="100px"
                             />
                           </Link>
                         ) : (

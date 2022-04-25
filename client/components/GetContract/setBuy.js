@@ -150,7 +150,6 @@ const SetBuy = () => {
   console.log("c", c);
   console.log("d", d);
   console.log("e", e);
-  console.log("f", f);
 
   // 그래프 그리기
 
@@ -159,7 +158,8 @@ const SetBuy = () => {
     let bbbb = [];
     for (let i = 0; i < transactionDetailDB.length; i++) {
       bbbb[i] = {
-        x: transactionDetailDB[i].id,
+        x: `${transactionDetailDB[i].id}1`,
+
         y: transactionDetailDB[i].price,
       };
     }
@@ -172,9 +172,12 @@ const SetBuy = () => {
     //   };
     // }
 
-    aaaa[0] = { id: "kyle", color: "hsl(114, 70%, 50%)", data: c };
     f = 1;
+
+    aaaa[0] = { id: "kyle", color: "hsl(114, 70%, 50%)", data: c };
   }
+
+  console.log("f", f);
 
   console.log(transactionDetailDB);
   console.log(aaaa);
@@ -314,8 +317,13 @@ const SetBuy = () => {
     // offerId : 전체 오퍼한 개수 중 내 작품의 순번
     // _id : 전체 상품들 나열 중 내 작품의 번호 가져옴
 
+    const etherPrice = web3.utils.toWei(String(buyMusicDB.price), "ether");
+
     for (let i = 0; i < offerData.length; i++) {
-      if (offerData[i].id == buyData[0].id) {
+      if (
+        offerData[i].id == buyData[0].id &&
+        offerData[i].price == etherPrice
+      ) {
         pra2.methods
           .fillOffer(offerData[i].offerId)
           .send({
@@ -432,6 +440,580 @@ const SetBuy = () => {
       });
   };
 
+  const aq = [
+    {
+      id: "Class Average",
+      data: [
+        {
+          x: "1.1",
+          y: 0,
+        },
+        {
+          x: "1.2",
+          y: 0,
+        },
+        {
+          x: "1.3",
+          y: 0,
+        },
+        {
+          x: "1.4",
+          y: 0,
+        },
+        {
+          x: "1.5",
+          y: 0,
+        },
+        {
+          x: "1.6",
+          y: 0,
+        },
+        {
+          x: "1.7",
+          y: 0,
+        },
+        {
+          x: "2.1",
+          y: 0,
+        },
+        {
+          x: "2.2",
+          y: 0,
+        },
+        {
+          x: "2.3",
+          y: 0,
+        },
+        {
+          x: "2.4",
+          y: 0,
+        },
+        {
+          x: "2.5",
+          y: 0,
+        },
+        {
+          x: "2.6",
+          y: 0,
+        },
+        {
+          x: "2.7",
+          y: 0,
+        },
+        {
+          x: "2.8",
+          y: 0,
+        },
+        {
+          x: "3.1",
+          y: 0,
+        },
+        {
+          x: "3.2",
+          y: 0,
+        },
+        {
+          x: "3.3",
+          y: 0,
+        },
+        {
+          x: "3.4",
+          y: 0,
+        },
+        {
+          x: "3.5",
+          y: 0,
+        },
+        {
+          x: "3.6",
+          y: 0,
+        },
+        {
+          x: "3.7",
+          y: 0,
+        },
+        {
+          x: "4.1",
+          y: 0,
+        },
+        {
+          x: "4.2",
+          y: 0,
+        },
+        {
+          x: "4.3",
+          y: 0,
+        },
+        {
+          x: "4.4",
+          y: 69,
+        },
+        {
+          x: "4.5",
+          y: 45,
+        },
+        {
+          x: "4.6",
+          y: 81,
+        },
+        {
+          x: "4.7",
+          y: 0,
+        },
+        {
+          x: "4.8",
+          y: 0,
+        },
+        {
+          x: "5.1",
+          y: 0,
+        },
+        {
+          x: "5.2",
+          y: 84,
+        },
+        {
+          x: "5.3",
+          y: 0,
+        },
+        {
+          x: "5.4",
+          y: 88,
+        },
+        {
+          x: "5.5",
+          y: 89,
+        },
+        {
+          x: "5.6",
+          y: 73,
+        },
+        {
+          x: "5.7",
+          y: 40,
+        },
+        {
+          x: "5.8",
+          y: 86,
+        },
+        {
+          x: "5.9",
+          y: 84,
+        },
+        {
+          x: "6.1",
+          y: 0,
+        },
+        {
+          x: "6.2",
+          y: 0,
+        },
+        {
+          x: "6.3",
+          y: 0,
+        },
+        {
+          x: "6.4",
+          y: 0,
+        },
+        {
+          x: "6.5",
+          y: 0,
+        },
+        {
+          x: "6.6",
+          y: 0,
+        },
+        {
+          x: "6.7",
+          y: 0,
+        },
+        {
+          x: "6.8",
+          y: 0,
+        },
+        {
+          x: "6.9",
+          y: 0,
+        },
+        {
+          x: "6.10",
+          y: 0,
+        },
+        {
+          x: "7.1",
+          y: 0,
+        },
+        {
+          x: "7.2",
+          y: 0,
+        },
+        {
+          x: "7.3",
+          y: 0,
+        },
+        {
+          x: "7.4",
+          y: 0,
+        },
+        {
+          x: "7.5",
+          y: 0,
+        },
+        {
+          x: "7.6",
+          y: 0,
+        },
+        {
+          x: "7.7",
+          y: 0,
+        },
+        {
+          x: "7.8",
+          y: 0,
+        },
+        {
+          x: "7.9",
+          y: 0,
+        },
+        {
+          x: "8.1",
+          y: 0,
+        },
+        {
+          x: "8.2",
+          y: 0,
+        },
+        {
+          x: "8.3",
+          y: 0,
+        },
+        {
+          x: "8.4",
+          y: 0,
+        },
+        {
+          x: "8.5",
+          y: 0,
+        },
+        {
+          x: "8.6",
+          y: 0,
+        },
+        {
+          x: "8.7",
+          y: 0,
+        },
+        {
+          x: "8.8",
+          y: 0,
+        },
+        {
+          x: "8.9",
+          y: 0,
+        },
+        {
+          x: "8.10",
+          y: 0,
+        },
+        {
+          x: "9.1",
+          y: 0,
+        },
+        {
+          x: "9.2",
+          y: 0,
+        },
+      ],
+    },
+    {
+      id: "Avg: smuTest",
+      data: [
+        {
+          x: "1.1",
+          y: 0,
+        },
+        {
+          x: "1.2",
+          y: 0,
+        },
+        {
+          x: "1.3",
+          y: 0,
+        },
+        {
+          x: "1.4",
+          y: 0,
+        },
+        {
+          x: "1.5",
+          y: 0,
+        },
+        {
+          x: "1.6",
+          y: 0,
+        },
+        {
+          x: "1.7",
+          y: 0,
+        },
+        {
+          x: "2.1",
+          y: 0,
+        },
+        {
+          x: "2.2",
+          y: 0,
+        },
+        {
+          x: "2.3",
+          y: 0,
+        },
+        {
+          x: "2.4",
+          y: 0,
+        },
+        {
+          x: "2.5",
+          y: 0,
+        },
+        {
+          x: "2.6",
+          y: 0,
+        },
+        {
+          x: "2.7",
+          y: 0,
+        },
+        {
+          x: "2.8",
+          y: 0,
+        },
+        {
+          x: "3.1",
+          y: 0,
+        },
+        {
+          x: "3.2",
+          y: 0,
+        },
+        {
+          x: "3.3",
+          y: 0,
+        },
+        {
+          x: "3.4",
+          y: 0,
+        },
+        {
+          x: "3.5",
+          y: 0,
+        },
+        {
+          x: "3.6",
+          y: 0,
+        },
+        {
+          x: "3.7",
+          y: 0,
+        },
+        {
+          x: "4.1",
+          y: 0,
+        },
+        {
+          x: "4.2",
+          y: 0,
+        },
+        {
+          x: "4.3",
+          y: 0,
+        },
+        {
+          x: "4.4",
+          y: 100,
+        },
+        {
+          x: "4.5",
+          y: 67,
+        },
+        {
+          x: "4.6",
+          y: 83,
+        },
+        {
+          x: "4.7",
+          y: 0,
+        },
+        {
+          x: "4.8",
+          y: 0,
+        },
+        {
+          x: "5.1",
+          y: 0,
+        },
+        {
+          x: "5.2",
+          y: 100,
+        },
+        {
+          x: "5.3",
+          y: 0,
+        },
+        {
+          x: "5.4",
+          y: 100,
+        },
+        {
+          x: "5.5",
+          y: 100,
+        },
+        {
+          x: "5.6",
+          y: 51,
+        },
+        {
+          x: "5.7",
+          y: 51,
+        },
+        {
+          x: "5.8",
+          y: 51,
+        },
+        {
+          x: "5.9",
+          y: 100,
+        },
+        {
+          x: "6.1",
+          y: 0,
+        },
+        {
+          x: "6.2",
+          y: 0,
+        },
+        {
+          x: "6.3",
+          y: 0,
+        },
+        {
+          x: "6.4",
+          y: 0,
+        },
+        {
+          x: "6.5",
+          y: 0,
+        },
+        {
+          x: "6.6",
+          y: 0,
+        },
+        {
+          x: "6.7",
+          y: 0,
+        },
+        {
+          x: "6.8",
+          y: 0,
+        },
+        {
+          x: "6.9",
+          y: 0,
+        },
+        {
+          x: "6.10",
+          y: 0,
+        },
+        {
+          x: "7.1",
+          y: 0,
+        },
+        {
+          x: "7.2",
+          y: 0,
+        },
+        {
+          x: "7.3",
+          y: 0,
+        },
+        {
+          x: "7.4",
+          y: 0,
+        },
+        {
+          x: "7.5",
+          y: 0,
+        },
+        {
+          x: "7.6",
+          y: 0,
+        },
+        {
+          x: "7.7",
+          y: 0,
+        },
+        {
+          x: "7.8",
+          y: 0,
+        },
+        {
+          x: "7.9",
+          y: 0,
+        },
+        {
+          x: "8.1",
+          y: 0,
+        },
+        {
+          x: "8.2",
+          y: 0,
+        },
+        {
+          x: "8.3",
+          y: 0,
+        },
+        {
+          x: "8.4",
+          y: 0,
+        },
+        {
+          x: "8.5",
+          y: 0,
+        },
+        {
+          x: "8.6",
+          y: 0,
+        },
+        {
+          x: "8.7",
+          y: 0,
+        },
+        {
+          x: "8.8",
+          y: 0,
+        },
+        {
+          x: "8.9",
+          y: 0,
+        },
+        {
+          x: "8.10",
+          y: 0,
+        },
+        {
+          x: "9.1",
+          y: 0,
+        },
+        {
+          x: "9.2",
+          y: 0,
+        },
+      ],
+    },
+  ];
+
+  console.log(aaaa);
   return (
     <div>
       <ThemeProvider theme={theme}>
@@ -528,90 +1110,103 @@ const SetBuy = () => {
                   <Box p={2}>
                     <Typography>가격 그래프</Typography>
 
-                    {f == 1 ? (
-                      <ResponsiveLine
-                        data={aaaa}
-                        margin={{ top: 50, right: 160, bottom: 50, left: 60 }}
-                        xScale={{ type: "linear" }}
-                        yScale={{
-                          type: "linear",
-                          stacked: true,
-                          min: 0,
-                          max: 2500,
-                        }}
-                        yFormat=" >-.2f"
-                        curve="monotoneX"
-                        axisTop={null}
-                        axisRight={{
-                          tickValues: [0, 500, 1000, 1500, 2000, 2500],
-                          tickSize: 5,
-                          tickPadding: 5,
-                          tickRotation: 0,
-                          format: ".2s",
-                          legend: "",
-                          legendOffset: 0,
-                        }}
-                        axisBottom={{
-                          tickValues: [0, 20, 40, 60, 80, 100, 120],
-                          tickSize: 5,
-                          tickPadding: 5,
-                          tickRotation: 0,
-                          format: ".2f",
-                          legend: "price",
-                          legendOffset: 36,
-                          legendPosition: "middle",
-                        }}
-                        axisLeft={{
-                          tickValues: [0, 500, 1000, 1500, 2000, 2500],
-                          tickSize: 5,
-                          tickPadding: 5,
-                          tickRotation: 0,
-                          format: ".2s",
-                          legend: "volume",
-                          legendOffset: -40,
-                          legendPosition: "middle",
-                        }}
-                        enableGridX={false}
-                        colors={{ scheme: "spectral" }}
-                        lineWidth={1}
-                        pointSize={4}
-                        pointColor={{ theme: "background" }}
-                        pointBorderWidth={1}
-                        pointBorderColor={{ from: "serieColor" }}
-                        pointLabelYOffset={-12}
-                        useMesh={true}
-                        gridXValues={[0, 20, 40, 60, 80, 100, 120]}
-                        gridYValues={[0, 500, 1000, 1500, 2000, 2500]}
-                        legends={[
-                          {
-                            anchor: "bottom-right",
-                            direction: "column",
-                            justify: false,
-                            translateX: 140,
-                            translateY: 0,
-                            itemsSpacing: 2,
-                            itemDirection: "left-to-right",
-                            itemWidth: 80,
-                            itemHeight: 12,
-                            itemOpacity: 0.75,
-                            symbolSize: 12,
-                            symbolShape: "circle",
-                            symbolBorderColor: "rgba(0, 0, 0, .5)",
-                            effects: [
-                              {
-                                on: "hover",
-                                style: {
-                                  itemBackground: "rgba(0, 0, 0, .03)",
-                                  itemOpacity: 1,
+                    {/* <div>
+                      {f === 1 ? (
+                        <div>
+                          <Box sx={{ m: 2 }}>
+                            나와바
+                            <ResponsiveLine
+                              data={aq}
+                              margin={{
+                                top: 50,
+                                right: 160,
+                                bottom: 50,
+                                left: 60,
+                              }}
+                              xScale={{ type: "linear" }}
+                              yScale={{
+                                type: "linear",
+                                stacked: true,
+                                min: 0,
+                                max: 2500,
+                              }}
+                              yFormat=" >-.2f"
+                              curve="monotoneX"
+                              axisTop={null}
+                              axisRight={{
+                                tickValues: [0, 500, 1000, 1500, 2000, 2500],
+                                tickSize: 5,
+                                tickPadding: 5,
+                                tickRotation: 0,
+                                format: ".2s",
+                                legend: "",
+                                legendOffset: 0,
+                              }}
+                              axisBottom={{
+                                tickValues: [0, 20, 40, 60, 80, 100, 120],
+                                tickSize: 5,
+                                tickPadding: 5,
+                                tickRotation: 0,
+                                format: ".2f",
+                                legend: "price",
+                                legendOffset: 36,
+                                legendPosition: "middle",
+                              }}
+                              axisLeft={{
+                                tickValues: [0, 500, 1000, 1500, 2000, 2500],
+                                tickSize: 5,
+                                tickPadding: 5,
+                                tickRotation: 0,
+                                format: ".2s",
+                                legend: "volume",
+                                legendOffset: -40,
+                                legendPosition: "middle",
+                              }}
+                              enableGridX={false}
+                              colors={{ scheme: "category10" }}
+                              lineWidth={1}
+                              pointSize={4}
+                              // pointColor={{ theme: "background" }}
+                              pointBorderWidth={1}
+                              // pointBorderColor={{ from: "serieColor" }}
+                              pointLabelYOffset={-12}
+                              useMesh={true}
+                              gridXValues={[0, 20, 40, 60, 80, 100, 120]}
+                              gridYValues={[0, 500, 1000, 1500, 2000, 2500]}
+                              legends={[
+                                {
+                                  anchor: "bottom-right",
+                                  direction: "column",
+                                  justify: false,
+                                  translateX: 140,
+                                  translateY: 0,
+                                  itemsSpacing: 2,
+                                  itemDirection: "left-to-right",
+                                  itemWidth: 80,
+                                  itemHeight: 12,
+                                  itemOpacity: 0.75,
+                                  symbolSize: 12,
+                                  symbolShape: "circle",
+                                  symbolBorderColor: "rgba(0, 0, 0, .5)",
+                                  effects: [
+                                    {
+                                      on: "hover",
+                                      style: {
+                                        itemBackground: "rgba(0, 0, 0, .03)",
+                                        itemOpacity: 1,
+                                      },
+                                    },
+                                  ],
                                 },
-                              },
-                            ],
-                          },
-                        ]}
-                      />
-                    ) : (
-                      <div>그래프 안대연</div>
-                    )}
+                              ]}
+                            ></ResponsiveLine>
+                            다나옴?
+                          </Box>
+                        </div>
+                      ) : (
+                        <div>그래프 안대연</div>
+                      )}
+                    </div> */}
                   </Box>
                 </Grid>
 

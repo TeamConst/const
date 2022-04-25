@@ -828,7 +828,7 @@ app.prepare().then(() => {
 
   server.get("/api/getMyBuyDB", async (req, res) => {
     const abc = await BuyMusic.findAll({
-      where: { currentOwner: req.user.address },
+      where: { currentOwner: req.user.address, sellComplete: false },
 
       include: [
         {
@@ -842,8 +842,7 @@ app.prepare().then(() => {
 
   server.get("/api/getMyAuctionDB", async (req, res) => {
     const abc = await AuctionMusic.findAll({
-      where: { currentOwner: req.user.address },
-
+      where: { currentOwner: req.user.address, auctionComplete: false },
       include: [
         {
           model: Music,

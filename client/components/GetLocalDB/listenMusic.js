@@ -56,17 +56,10 @@ const ListenMusic = () => {
 
   const upLike = async (data) => {
     // 좋아요는 react-query로 관리할 것임
-    const upLikeResult = await axios.post(
-      "http://localhost:8080/api/upLike",
-      data
-    );
 
-    const myPlayCount = await axios.post(
-      "http://localhost:8080/api/myPlayCount",
-      data
-    );
-
-    console.log(upLikeResult);
+    const like = await axios.post("http://localhost:8080/api/upLike2", {
+      CID: data,
+    });
   };
 
   return (
