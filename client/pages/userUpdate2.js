@@ -1,5 +1,5 @@
 import UserUpdate from "../components/Auth/userUpdate";
-import Header from "../components/Layout/Header";
+import Header from "../components/Layout/header";
 
 const UserUpdate2 = () => {
   return (

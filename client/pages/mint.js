@@ -1,6 +1,6 @@
-import Header from "../components/Layout/Header";
+import Header from "../components/Layout/header";
 import Minting from "../components/Minting/minting";
-import Footer from "../components/Layout/Footer";
+import Footer from "../components/Layout/footer";
 
 const Mint = () => {
   return (

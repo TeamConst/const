@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 
-import Header from "../../../components/Layout/Header";
+import Header from "../../../components/Layout/header";
 import BuyDetail from "../../../components/buyDetail";
 import Market from "../../../components/market";
 

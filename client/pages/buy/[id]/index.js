@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 
-import Header from "../../../components/Layout/Header";
+import Header from "../../../components/Layout/header";
+import Footer from "../../../components/Layout/footer";
 import SetBuy from "../../../components/GetContract/setBuy";
 
 import { useQuery, dehydrate, QueryClient } from "react-query";
@@ -23,6 +24,7 @@ const Buy = () => {
       {/* 전체 css 이걸로 설정해 줄 것임 */}
       <Header></Header>
       <SetBuy></SetBuy>
+      <Footer></Footer>
     </div>
   );
 };

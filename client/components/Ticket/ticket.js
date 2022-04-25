@@ -1,27 +1,34 @@
-import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardHeader from "@mui/material/CardHeader";
-import CssBaseline from "@mui/material/CssBaseline";
-import Grid from "@mui/material/Grid";
-// import StarIcon from "@mui/icons-material/StarBorder";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Link from "@mui/material/Link";
-import GlobalStyles from "@mui/material/GlobalStyles";
-import Container from "@mui/material/Container";
-
-import axios from "axios";
-import configuration from "../../../build/contracts/Tickets.json";
-import web3 from "../connection/web3";
+// React
 import { useState, useEffect } from "react";
 
+// React-query
 import { useQuery } from "react-query";
+import { fetchUserSession } from "../../hooks";
 
+// axios
+import axios from "axios";
+
+// web3
+import web3 from "../connection/web3";
+import configuration from "../../../build/contracts/Tickets.json";
+
+// MUI - Component
+import {
+  AppBar,
+  Box,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  CssBaseline,
+  Grid,
+  Typography,
+  GlobalStyles,
+  Container,
+} from "@mui/material";
+
+// styled-components
 import styled from "styled-components";
 
 const Img = styled.img`

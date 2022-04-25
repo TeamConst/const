@@ -1,4 +1,4 @@
-import Header from "../components/Layout/Header";
+import Header from "../components/Layout/header";
 import GetNFT from "../components/getNFT";
 
 import axios from "axios";

@@ -1,3 +1,7 @@
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { useRouter } from "next/router";
+
 import {
   Button,
   Typography,
@@ -13,18 +17,15 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  Container,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
 } from "@mui/material";
-import Container from "@mui/material/Container";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { useRouter } from "next/router";
 
 import { QueryClient, useQuery, useQueryClient } from "react-query";
 import { fetchSelectedAuction, fetchMyNFTDB, fetchMyNFT } from "../../../hooks";
@@ -32,7 +33,6 @@ import { fetchSelectedAuction, fetchMyNFTDB, fetchMyNFT } from "../../../hooks";
 import web3 from "../../connection/web3";
 import collectionContractJSON from "../../../../build/contracts/NFTCollection.json";
 import marketContractJSON from "../../../../build/contracts/NFTMarketplace.json";
-
 import ImageMarketPlace from "../../../../build/contracts/ImageMarketplace.json";
 
 import io from "socket.io-client";

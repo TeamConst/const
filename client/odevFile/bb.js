@@ -1,4 +1,4 @@
-import Header from "../components/Layout/Header";
+import Header from "../components/Layout/header";
 import BestCollection from "../components/NFTCollection/bestCollection";
 
 import { useQuery, dehydrate, QueryClient } from "react-query";

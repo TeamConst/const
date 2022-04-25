@@ -1,4 +1,5 @@
-import Header from "../components/Layout/Header";
+import Header from "../components/Layout/header";
+import Footer from "../components/Layout/footer";
 import ListenMusic from "../components/GetLocalDB/listenMusic";
 
 const Listen = () => {
@@ -6,6 +7,7 @@ const Listen = () => {
     <div>
       <Header></Header>
       <ListenMusic></ListenMusic>
+      <Footer></Footer>
     </div>
   );
 };
