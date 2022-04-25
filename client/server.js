@@ -942,14 +942,34 @@ app.prepare().then(() => {
     console.log(a);
 
     // CID로 검색을 해야되니까
-    await BuyMusic.create({
-      sellComplete: false,
-      CID: req.body.CID,
-      currentOwner: req.body.address,
-      price: req.body.price,
-    });
-
-    res.send("setBuyOffer success");
+    async function updateOrCreate() {
+      // First try to find the record
+      const foundItem = await BuyMusic.findOne({
+        where: { CID: req.body.CID },
+      });
+      if (!foundItem) {
+        // Item not found, create a new one
+        await BuyMusic.create({
+          sellComplete: false,
+          CID: req.body.CID,
+          currentOwner: req.body.address,
+          price: req.body.price,
+        });
+      } else {
+        console.log("업데이트");
+        await BuyMusic.update(
+          {
+            sellComplete: false,
+            sellCount: foundItem.sellCount + 1,
+            currentOwner: req.body.address,
+            price: req.body.price,
+          },
+          { where: { CID: req.body.CID } }
+        );
+        res.send("setBuyOffer success");
+      }
+    }
+    updateOrCreate();
   });
   // 오퍼 처리 끝
 
@@ -1123,6 +1143,22 @@ app.prepare().then(() => {
 
     console.log("이거요", a);
     const abc = await BuyMusic.findOne({ where: { CID: a } });
+    res.json(abc);
+
+    // res.send("ok");
+  });
+
+  server.post("/api/getTransactionDetailDB", async (req, res) => {
+    const a = req.body.name;
+
+    // const b = a[1];
+    // const c = b.split(".");
+    // const d = c[0];
+
+    const abc = await TransactionDetail.findAll({
+      where: { CID: a, Method: "BUY" },
+    });
+
     res.json(abc);
 
     // res.send("ok");

@@ -30,6 +30,7 @@ export * from "./getBuyDB";
 export * from "./getAuctionDB";
 export * from "./getBuyMusicDB";
 export * from "./getAuctionMusicDB";
+export * from "./getTransactionDetailDB";
 
 export * from "./getSelectedAuction";
 
