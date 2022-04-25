@@ -1140,20 +1140,19 @@ app.prepare().then(() => {
       { where: { CID: req.body.CID } }
     );
 
+    const aaa = await BuyMusic.findOne({ where: { CID: req.body.CID } });
+
     await BuyMusic.update(
       { sellComplete: true, currentOwner: req.body.address },
       { where: { CID: req.body.CID } }
     );
 
-    const price = await BuyMusic.findOne(
-      { price },
-      { where: { CID: req.body.CID } }
-    );
+    const date = new Date();
 
     await TransactionDetail.create({
       CID: req.body.CID,
       Method: "BUY",
-      price: price,
+      price: aaa.price,
       startingTime: date,
       totalParticipant: 1,
       winner: req.body.address,

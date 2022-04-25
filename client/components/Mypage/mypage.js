@@ -141,6 +141,7 @@ const Mypage1 = () => {
     count = data2.data.data.length;
   }
 
+  console.log(userSession);
   const claimFundsHandler = async () => {
     let pra2;
     let praaccounts;
@@ -286,40 +287,36 @@ const Mypage1 = () => {
                 </Cardcontainer2>
               </Grid>
               <Grid item xs={3}>
-                <Link href={`/mypage/myNFT/${userSession.address}`}>
-                  <Cardcontainer2
-                    bgcolor="info.main"
-                    color="info.contrastText"
-                    p={2}
-                  >
-                    <Followers>
-                      <Boldtext>
-                        <Button
-                          onClick={claimFundsHandler}
-                          type="submit"
-                          fullWidth
-                          variant="contained"
-                          sx={{ mt: 3, mb: 2 }}
-                        >
-                          구매 완료 된 이더 받기
-                        </Button>
-                      </Boldtext>
-                    </Followers>
-                  </Cardcontainer2>
-                </Link>
+                <Cardcontainer2
+                  bgcolor="info.main"
+                  color="info.contrastText"
+                  p={2}
+                >
+                  <Followers>
+                    <Boldtext>
+                      <Button
+                        onClick={claimFundsHandler}
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        sx={{ mt: 3, mb: 2 }}
+                      >
+                        구매 완료 된 이더 받기
+                      </Button>
+                    </Boldtext>
+                  </Followers>
+                </Cardcontainer2>
               </Grid>
               <Grid item xs={9}>
-                <Link href={`/mypage/myNFT/${userSession.address}`}>
-                  <Cardcontainer2
-                    bgcolor="info.main"
-                    color="info.contrastText"
-                    p={2}
-                  >
-                    <Followers>
-                      <Boldtext>나의 전체 NFT </Boldtext>
-                    </Followers>
-                  </Cardcontainer2>
-                </Link>
+                <Cardcontainer2
+                  bgcolor="info.main"
+                  color="info.contrastText"
+                  p={2}
+                >
+                  <Followers>
+                    <Boldtext>나의 전체 NFT </Boldtext>
+                  </Followers>
+                </Cardcontainer2>
               </Grid>
               <Grid item xs={3}>
                 <Link href={`/mypage/myNFT/${userSession.address}`}>

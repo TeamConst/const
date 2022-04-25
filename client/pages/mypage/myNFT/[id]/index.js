@@ -11,9 +11,9 @@ const Buy = () => {
   const router = useRouter();
   const { id } = router.query;
 
-  const { data, isLoading, isFetching } = useQuery(["getMyNFTDB"], () =>
-    fetchMyNFTDB()
-  );
+  // const { data, isLoading, isFetching } = useQuery(["getMyNFTDB"], () =>
+  //   fetchMyNFTDB()
+  // );
 
   return (
     <div>
@@ -26,16 +26,16 @@ const Buy = () => {
   );
 };
 
-export async function getServerSideProps() {
-  const queryClient = new QueryClient();
+// export async function getServerSideProps() {
+//   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery(["getMyNFTDB"], () => fetchMyNFTDB());
+//   await queryClient.prefetchQuery(["getMyNFTDB"], () => fetchMyNFTDB());
 
-  return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
-    },
-  };
-}
+//   return {
+//     props: {
+//       dehydratedState: dehydrate(queryClient),
+//     },
+//   };
+// }
 
 export default Buy;

@@ -2,11 +2,14 @@ import Header from "../components/Layout/header";
 import Mypage1 from "../components/Mypage/mypage";
 import Footer from "../components/Layout/footer";
 
-import { useQuery, dehydrate, QueryClient } from "react-query";
+import { dehydrate, QueryClient, useQuery } from "react-query";
+import { fetchUserSession } from "../hooks";
 
 const Mypage = () => {
-  // const localsQuery = useQuery("locals", fetchLocals);
-  // console.log(localsQuery);
+  const { data, isLoading, isFetching } = useQuery(["getUserSession"], () =>
+    fetchUserSession()
+  );
+
   return (
     <div>
       {/* 전체 css 이걸로 설정해 줄 것임 */}
@@ -17,11 +20,10 @@ const Mypage = () => {
   );
 };
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const queryClient = new QueryClient();
 
-  // await queryClient.prefetchQuery(["locals", 10], () => fetchLocals(10));
-  // await queryClient.prefetchQuery(["posts", 10], () => fetchPosts(10));
+  await queryClient.prefetchQuery(["getUserSession"], () => fetchUserSession());
 
   return {
     props: {
