@@ -1162,7 +1162,7 @@ const id2 = id
             buyData.map((a) => (
               <Grid container spacing={5} textAlign="center">
                 <Grid item xs={6}>
-                  <Box p={2}>
+                 
                   <div>
 <Smart>
     <Dettaglio>
@@ -1189,7 +1189,7 @@ const id2 = id
 </Schermo>
 <Bottone></Bottone></Smart>
 </div>
-                  </Box>
+                  
                 </Grid>
                 <Grid item xs={6}>
                   <Grid container spacing={5}>
@@ -1197,22 +1197,27 @@ const id2 = id
                     <Boldtext>  {`${buyDB.artist}  -  ${buyDB.title}`}</Boldtext>
                     </Grid>
                     <Grid item xs={12}>
+                    <hr/>
                     <Smalltext><ProfileImg src={userDB.profileImg}/>{userDB.id2}</Smalltext>
                     </Grid>
                     <Grid item xs={12}>
+                    <hr/>
                     <img src="https://cdn-icons.flaticon.com/png/128/707/premium/707680.png?token=exp=1650962417~hmac=5888605f65010fcce3e8c317ede949c9" width={"20px"}   onClick={likeHandler}/>
                     좋아요{buyDB.LikeMusic}    조회수{buyDB.view}   
                     </Grid>
                     <Grid item xs={12}>
+                    <hr/>
                       <Box p={2}>에디션</Box>
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={12}>
+                      <hr/>
                     <Smalltext>Direct purchase price</Smalltext>
                   <Boldtext>{`Price:${buyMusicDB.price}eth`} </Boldtext>
+                  <hr/>
                     </Grid>
 
                     {계정 === userDB.address ? (
-                      <Grid item xs={4}>
+                      <Grid item xs={6}>
                         <Box p={2}>
                           <Typography>본인의 상품입니다</Typography>
                           <Button
@@ -1226,7 +1231,7 @@ const id2 = id
                         </Box>
                       </Grid>
                     ) : (
-                      <Grid item xs={4}>
+                      <Grid item xs={6}>
                         <Box p={2}>
                           <Button
                             onClick={buyHandler}
