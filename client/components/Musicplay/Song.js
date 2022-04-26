@@ -22,9 +22,9 @@ const SongContainer = styled.div`
 `;
 
 const Img = styled.img`
-  width: 30%;
-
-  border-radius: 50%;
+  width: 95%;
+  height:95%;
+  border-radius: 5%;
   @media screen and (max-width: 768px) {
     width: 50%;
   }

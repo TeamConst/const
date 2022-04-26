@@ -37,15 +37,16 @@ width: 20px;
   height: 20px;
 `;
 const IconLeft = styled.div`
+
 display: flex;
 align-items: center;
 float: left;
 `;
 const ProfileImg = styled.img`
-width: 30px;
- height: 30px;
-  border-radius:50%;
-  float: left;
+width: 20px;
+  height: 20px;
+border-radius:70%;
+float: left;
     
 `;
 const theme = createTheme();
@@ -113,6 +114,7 @@ const GetNowNFT = () => {
                         height: "70%",
                         width: "100%",
                         objectFit: "fill",
+                        
                       }}
                       image={a.s3}
                       alt="random"

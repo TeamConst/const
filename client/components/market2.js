@@ -274,17 +274,10 @@ const Market2 = (props) => {
     <div>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Container maxWidth="lg">
+        <Container maxWidth="lg"  sx={{ py: 15 }}>
           <Grid container spacing={5}>
             <Grid item xs={6}>
-              <Box bgcolor="info.main" color="info.contrastText" p={2}>
                 <MusicPlayer str={str} />
-              </Box>
-
-              {/* <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                  사진
-                  <img src={이미지} height="300" width="300"></img>
-                </Box> */}
             </Grid>
 
             {a === 1 && c === 1 && d === 1 && e === 1 ? (
