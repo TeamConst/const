@@ -257,7 +257,7 @@ const Minting = () => {
     <div>
       <ThemeProvider theme={theme}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Container sx={{ py: 5 }} maxWidth="lg">
+          <Container sx={{ py: 15 }} maxWidth="lg">
             <Box
               sx={{
                 display: "flex",

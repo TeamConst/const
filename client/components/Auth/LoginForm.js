@@ -61,10 +61,12 @@ const LoginForm = () => {
                     fullWidth
                     label="Artist Id"
                     autoFocus
+                    
                     {...register("id2", {
                       required: true,
                       maxLength: 80,
                     })}
+                    
                   />
                 </Grid>
 

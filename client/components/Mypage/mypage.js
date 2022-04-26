@@ -274,7 +274,7 @@ const Mypage1 = () => {
                       <Smallertext> 소유한 NFTS의 총 수</Smallertext>
                     </Followers>
                     <Followers className="likes">
-                      <Boldtext>{accountBalance}/eth</Boldtext>
+                      <Boldtext>{`${Math.floor(accountBalance)}/eth`}</Boldtext>
                       <Smallertext>잔액</Smallertext>
                     </Followers>
                     <Followers className="photos">
