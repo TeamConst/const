@@ -19,6 +19,35 @@ import { fetchNowNFT } from "../../hooks";
 import Link from "next/link";
 import axios from "axios";
 
+
+import styled from "styled-components";
+const IconsReact = styled.div`
+height: 20px;
+padding: 10px 20px 20px 0px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+`;
+const IconReact = styled.img`
+width: 20%;
+  height: 30%;
+`;
+const IconReact2 = styled.img`
+width: 20px;
+  height: 20px;
+`;
+const IconLeft = styled.div`
+display: flex;
+align-items: center;
+float: left;
+`;
+const ProfileImg = styled.img`
+width: 30px;
+ height: 30px;
+  border-radius:50%;
+  float: left;
+    
+`;
 const theme = createTheme();
 
 const GetNowNFT = () => {
@@ -56,12 +85,12 @@ const GetNowNFT = () => {
       <ThemeProvider theme={theme}>
         <Container sx={{ py: 2 }} maxWidth="lg">
           <Typography variant="h4" component="h4" sx={{ m: 3 }}>
-            모든 NFT
+            All NFT
           </Typography>
           <Grid container spacing={5} textAlign="center">
             {a === 1 ? (
               nftNowData.map((a) => (
-                <Grid item key={a.CID} xs={4} onClick={() => linkto(a)}>
+                <Grid item key={a.CID} xs={3} onClick={() => linkto(a)}>
                   
                   <Card
                     sx={{
@@ -69,12 +98,14 @@ const GetNowNFT = () => {
                       width: "100%",
                       display: "flex",
                       flexDirection: "column",
-                      borderRadius:"16px"
+                      borderRadius:"20px"
                     }}
                   >
+                    <IconLeft>
      <CardContent sx={{ flexGrow: 0}}>
-                      <Typography>owner : {a.address}</Typography>
-                    </CardContent>
+   
+                      <Typography>  <ProfileImg src={"https://img.marieclairekorea.com/2022/02/mck_620f69c1deca3-scaled.jpg"} alt="하트" />  da</Typography>
+                    </CardContent></IconLeft>
                     <CardMedia
                       component="img"
                       sx={{
@@ -86,8 +117,14 @@ const GetNowNFT = () => {
                       image={a.s3}
                       alt="random"
                     />
-                    <CardContent sx={{ flexGrow: 1 }}>
-                      <Typography>Title : {a.title}</Typography>
+                    <CardContent sx={{ flexGrow: 0}}>
+                      <IconsReact>
+              <IconLeft>
+                <IconReact src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/heart.png" alt="하트" />
+                <IconReact src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/comment.png" alt="말풍선" />
+              </IconLeft>
+              <IconReact2 src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/bookmark.png" alt="북마크" />
+            </IconsReact>
                     </CardContent>
                   </Card>
                 </Grid>
