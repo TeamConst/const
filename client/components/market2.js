@@ -10,7 +10,7 @@ import { useRouter } from "next/router";
 import { useQuery } from "react-query";
 import { useState, useEffect } from "react";
 import AudioPlayer from "react-h5-audio-player";
-import { Typography, Stack, Paper, styled } from "@mui/material";
+import { Typography, Stack, Paper } from "@mui/material";
 import {
   Button,
   TextField,
@@ -23,7 +23,7 @@ import {
   DialogContentText,
   DialogTitle,
 } from "@mui/material";
-
+import styled from "styled-components";
 import axios from "axios";
 import { fetchUserDB, fetchAuctionDB, fetchAuctionMusicDB } from "../hooks";
 
@@ -32,12 +32,140 @@ import MusicPlayer from "../components/Musicplay/MusicPlayer";
 
 const theme = createTheme();
 
-const Item = styled(Paper)(({ theme }) => ({
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: "center",
-  // color: theme.palette.text.secondary,
-}));
+
+
+
+
+
+
+
+
+
+
+
+
+
+const Wrap = styled.div`
+width: 960px;
+max-width: 100%;
+margin: 0 auto;
+`;
+const Header = styled.div`
+background: #555;
+box-shadow: 1px 2px 7px #333;
+`;
+const FramePosizione = styled.div`
+margin-left: 0px;
+margin-right: -1px;
+display: block;
+`;
+const Bottone = styled.div`
+height: 70px;
+width:70px;
+background: #111;
+margin: 20px auto;
+border-radius: 100px;
+`;
+const Schermo = styled.div`
+height: 100%;
+width: 100%;
+background-color: #fff;
+box-shadow: 0 0 0 1px    rgba(0,0,0,0.1)inset;
+overflow: hidden;
+position: relative;
+border-radius: 10px;
+
+`;
+const Microfono = styled.div`
+background: #111;
+height: 7px;
+width: 90px;
+margin: -19px auto 0;
+border-radius: 100px;
+`;
+const Sensore = styled.div`
+background: #111;
+height: 7px;
+width: 7px;
+margin: 12px 100px;
+
+border-radius: 100px;
+display: block;
+`;
+const Fotocamera = styled.div`
+background: #111;
+height: 7px;
+width: 7px;
+margin: auto;
+
+border-radius: 100px;
+display: block;
+}
+`;
+const Dettaglio = styled.div`
+position: absolute;
+left: 0;
+top: 17px;
+width: 100%;
+`;
+const VolumeGiu = styled.div`
+height: 40px;
+width: 3px;
+left: -7px;
+top: 155px;
+border-radius: 4px 0 0 4px;
+
+width: 5px;
+background: #333;
+position: absolute;
+`;
+const VolumeSu = styled.div`
+height: 40px;
+width: 3px;
+left: -7px;
+top: 110px;
+border-radius: 4px 0 0 4px;
+
+width: 5px;
+background: #333;
+position: absolute;
+
+`;
+const AcenzioneButton = styled.div`
+background-color: #333;
+	
+height: 15px;
+left: -5px;
+top: 59px;
+border-radius: 4px 0 0 4px;
+
+width: 3px;
+background: #333;
+position: absolute;
+
+`;
+
+
+const Smart= styled.div`
+margin-left:auto;
+  margin-right:auto;
+  margin-top: 100px;;
+	background-color: #333;
+
+  border-radius:30px;
+
+	width: 90%;
+	height: 40%
+	border-radius: 40px;
+	border: 2px solid #ddd;
+	margin: 0 auto;
+	padding: 60px 10px;
+	position: relative;
+
+
+`;
+
+
 
 const Market2 = (props) => {
   // DB 가져다 쓰고 하려고
@@ -277,14 +405,39 @@ const Market2 = (props) => {
         <Container maxWidth="lg"  sx={{ py: 15 }}>
           <Grid container spacing={5}>
             <Grid item xs={6}>
+            <div>
+<Smart>
+    <Dettaglio>
+    <Sensore></Sensore>
+    <Microfono></Microfono>
+</Dettaglio>
+<AcenzioneButton></AcenzioneButton>
+<VolumeSu></VolumeSu>
+<VolumeGiu></VolumeGiu>
+<Schermo>
+<MusicPlayer str={str} />
+	<FramePosizione>
+    
+		<Header>
+
+<Wrap>
+
+			</Wrap>
+		</Header>
+</FramePosizione>
+</Schermo>
+<Bottone></Bottone></Smart>
+</div>
+            {/* <Box  sx={{   backgroundColor: 'rgba(0,0,0,0.1)', py: 5 ,borderRadius:10} } color="info.contrastText" p={2} >
                 <MusicPlayer str={str} />
+                </Box> */}
             </Grid>
 
             {a === 1 && c === 1 && d === 1 && e === 1 ? (
               <Grid item xs={6}>
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
-                    <Box bgcolor="info.main" color="info.contrastText" p={2}>
+                    <Box  sx={{   backgroundColor: 'rgba(0,0,0,0.1)'}} color="info.contrastText" p={2}>
                       제목{auctionDB.title}
                     </Box>
                   </Grid>
@@ -424,21 +577,8 @@ const Market2 = (props) => {
                       현재 우승자:{auction.winner}
                     </Box>
                   </Grid>
-                </Grid>
-              </Grid>
-            ) : (
-              <h1>아님</h1>
-            )}
-
-            <Grid item xs={6} sm={6}>
-              <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                디테일 정보
-                {str}
-              </Box>
-            </Grid>
-
-            <Grid item xs={6} sm={6}>
-              <Box bgcolor="info.main" color="info.contrastText" p={2}>
+                  <Grid item xs={12}>
+                  <Box bgcolor="info.main" color="info.contrastText" p={2}>
                 저장 정보
                 <Typography variant="h5">소유권 경로</Typography>
                 {ownerShipTrans.map((address, index) => {
@@ -451,8 +591,12 @@ const Market2 = (props) => {
                   </Typography>;
                 })}
               </Box>
-              <Typography variant="h5">세부 정보</Typography>
-            </Grid>
+                    </Grid>
+                </Grid>
+              </Grid>
+            ) : (
+              <h1>아님</h1>
+            )}
           </Grid>
         </Container>
       </ThemeProvider>
