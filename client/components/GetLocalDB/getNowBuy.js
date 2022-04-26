@@ -22,9 +22,36 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import { useQuery } from "react-query";
 import { fetchNowBuy } from "../../hooks";
-
+import styled from "styled-components";
 import Link from "next/link";
+const IconsReact = styled.div`
+height: 20px;
+padding: 10px 20px 20px 0px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+`;
+const IconReact = styled.img`
+width: 20%;
+  height: 30%;
+`;
+const IconReact2 = styled.img`
+width: 20px;
+  height: 20px;
+`;
+const IconLeft = styled.div`
 
+display: flex;
+align-items: center;
+float: left;
+`;
+const ProfileImg = styled.img`
+width: 20px;
+  height: 20px;
+border-radius:70%;
+float: left;
+    
+`;
 const theme = createTheme();
 
 const GetNowBuy = () => {
@@ -54,36 +81,51 @@ const GetNowBuy = () => {
     <div>
       <ThemeProvider theme={theme}>
         <Container sx={{ py: 2 }} maxWidth="xl">
-          <Typography variant="h4" component="h4" sx={{ m: 5 }}>
-            판매 중인 NFT
+        <Typography variant="h4" component="h4" sx={{ m: 3 }}>
+            All Buy
           </Typography>
           <Grid container spacing={5} textAlign="center">
             {a === 1 ? (
               buyNowData.map((a) => (
                 <Link href={`/buy/${encodeURIComponent(a.CID)}`}>
-                  <Grid item key={a.CID} xs={4}>
+                  <Grid item key={a.CID} xs={3}>
                     <Card
-                      sx={{
+                       sx={{
                         height: "100%",
                         width: "100%",
                         display: "flex",
                         flexDirection: "column",
+                        borderRadius:"20px"
                       }}
                     >
-                      <CardMedia
-                        component="img"
-                        sx={{
-                          m: 1,
-                          height: "100%",
-                          width: "100%",
-                          objectFit: "fill",
-                        }}
-                        image={a.s3}
-                        alt="random"
-                      />
-                      <CardContent sx={{ flexGrow: 1 }}>
-                        <Typography>Title : {a.Music.title}</Typography>
-                      </CardContent>
+                             <IconLeft>
+     <CardContent sx={{ flexGrow: 0}}>
+   
+                      <Typography>  <ProfileImg src={"https://img.marieclairekorea.com/2022/02/mck_620f69c1deca3-scaled.jpg"} alt="하트" /> {a.Music.artist}</Typography>
+                    </CardContent></IconLeft>
+                     <CardMedia
+                      component="img"
+                      sx={{
+  
+                        height: "70%",
+                        width: "100%",
+                        objectFit: "fill",
+                        
+                      }}
+                      image={a.s3}
+                      alt="random"
+                    />
+                                 <CardContent sx={{ flexGrow: 0}}>
+                      <IconsReact>
+              <IconLeft>
+                <IconReact src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/heart.png" alt="하트" />
+                <div>{a.Music.LikeMusic}</div>
+                <IconReact src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/comment.png" alt="말풍선" />
+                <div>{a.Music.view}</div>
+              </IconLeft>
+              <IconReact2 src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/bookmark.png" alt="북마크" />
+            </IconsReact>
+                    </CardContent>
                     </Card>
                   </Grid>
                 </Link>

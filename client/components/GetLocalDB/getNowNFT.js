@@ -84,7 +84,7 @@ const GetNowNFT = () => {
   return (
     <div>
       <ThemeProvider theme={theme}>
-        <Container sx={{ py: 2 }} maxWidth="lg">
+        <Container sx={{ py:0}} maxWidth="lg">
           <Typography variant="h4" component="h4" sx={{ m: 3 }}>
             All NFT
           </Typography>
@@ -95,7 +95,7 @@ const GetNowNFT = () => {
                   
                   <Card
                     sx={{
-                      height: "80%",
+                      height: "100%",
                       width: "100%",
                       display: "flex",
                       flexDirection: "column",
@@ -105,7 +105,7 @@ const GetNowNFT = () => {
                     <IconLeft>
      <CardContent sx={{ flexGrow: 0}}>
    
-                      <Typography>  <ProfileImg src={"https://img.marieclairekorea.com/2022/02/mck_620f69c1deca3-scaled.jpg"} alt="하트" />  da</Typography>
+                      <Typography>  <ProfileImg src={"https://img.marieclairekorea.com/2022/02/mck_620f69c1deca3-scaled.jpg"} alt="하트" /> {a.artist}</Typography>
                     </CardContent></IconLeft>
                     <CardMedia
                       component="img"
@@ -123,7 +123,9 @@ const GetNowNFT = () => {
                       <IconsReact>
               <IconLeft>
                 <IconReact src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/heart.png" alt="하트" />
+                <div>{a.LikeMusic}</div>
                 <IconReact src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/comment.png" alt="말풍선" />
+                <div>{a.view}</div>
               </IconLeft>
               <IconReact2 src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/bookmark.png" alt="북마크" />
             </IconsReact>
