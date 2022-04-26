@@ -196,11 +196,11 @@ const SignupForm = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <ThemeProvider theme={theme}>
           <Grid container spacing={2} sx={{ mt: 5 }}>
-            <Grid item xs={7}>
-              <img src={`/img/CONST.jpg`}></img>
+            <Grid item xs={4}>
+           
             </Grid>
 
-            <Grid item xs={5} textAlign="center">
+            <Grid item xs={4} textAlign="center">
               <Box
                 sx={{
                   marginTop: 8,
@@ -209,13 +209,9 @@ const SignupForm = () => {
                   alignItems: "center",
                 }}
               >
-                <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-                  <AssignmentIndRoundedIcon></AssignmentIndRoundedIcon>
-                </Avatar>
-
                 <Typography sx={{ mb: 10 }}>Sign up</Typography>
 
-                <Grid container spacing={10}>
+                <Grid container spacing={5}>
                   <Grid item xs={12}>
                     <Typography>
                       <Typography>
@@ -425,9 +421,17 @@ const SignupForm = () => {
                       </Link>
                     </Grid>
                   </Grid>
+                  
                 </Grid>
+                
               </Box>
+              
             </Grid>
+         
+            <Grid item xs={4}>
+            
+            </Grid>
+            
           </Grid>
         </ThemeProvider>
       </form>

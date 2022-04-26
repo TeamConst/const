@@ -40,6 +40,7 @@ const pagesYesSession = [
   ["MINTING", "mint"],
   ["Listen Music", "listen"],
   ["로그아웃", "logout"],
+  
 ];
 
 const pagesNoSession = [

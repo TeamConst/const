@@ -44,24 +44,16 @@ const LoginForm = () => {
     <div>
       <ThemeProvider theme={theme}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Container maxWidth="xs">
+          <Container maxWidth="xs" >
             <Box
               sx={{
-                marginTop: 8,
+                marginTop: 20,
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
               }}
             >
-
               <img src="/img/ConstLogo.png " width={"250px"}/>
-              {/* <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-                <AccountCircleIcon></AccountCircleIcon>
-              </Avatar> */}
-              {/* <Typography component="h1" variant="h5" sx={{ mb: 10 }}>
-                Login
-              </Typography> */}
-
               <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <TextField
