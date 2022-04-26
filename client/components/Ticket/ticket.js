@@ -178,7 +178,7 @@ const Ticket = () => {
         disableGutters
         maxWidth="sm"
         component="main"
-        sx={{ pt: 8, pb: 6, py: 32 }}
+        sx={{ pt: 8, pb: 6, py: 22 }}
       >
         <Typography
           component="h1"
