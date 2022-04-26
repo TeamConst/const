@@ -36,7 +36,7 @@ const H1 = styled.h2`
 
 const H2 = styled.h3`
   font-size: 1rem;
-  color:red
+  color:white
 `;
 
 export default Song;

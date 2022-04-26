@@ -69,11 +69,13 @@ border-radius: 100px;
 const Schermo = styled.div`
 height: 100%;
 width: 100%;
-background-color: #fff;
+background-color: #6666;
+    opacity:1; 
 box-shadow: 0 0 0 1px    rgba(0,0,0,0.1)inset;
 overflow: hidden;
 position: relative;
 border-radius: 10px;
+
 
 `;
 const Microfono = styled.div`

@@ -26,8 +26,8 @@ const TimeControlContainer = styled.div`
 
 const Track = styled.div`
   background: lightblue;
-  width: 100%;
-  height: 1rem;
+  width: 200p;
+  height: 0.5rem;
   position: relative;
   border-radius: 1rem;
   overflow: hidden;
@@ -39,7 +39,7 @@ const Track = styled.div`
 `;
 
 const AnimateTrack = styled.div`
-  background: rgb(204, 204, 204);
+  background: white;
   width: 100%;
   height: 100%;
   position: absolute;
@@ -96,6 +96,7 @@ const Input = styled.input`
 const P = styled.p`
   padding: 0 1rem 0 1rem;
   user-select: none;
+  color:white
 `;
 
 const PlayControlContainer = styled.div`
