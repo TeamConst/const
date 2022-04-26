@@ -118,9 +118,9 @@ const GetMyNFT = () => {
 
       <ThemeProvider theme={theme}>
         <Container sx={{ py: 2 }} maxWidth="xl">
-          <Typography variant="h4" component="h4" sx={{ m: 5 }}>
+          {/* <Typography variant="h4" component="h4" sx={{ m: 5 }}>
             나의 NFT 관리하기
-          </Typography>
+          </Typography> */}
           <Grid container spacing={4} textAlign="center">
             {a === 1 ? (
               nftMyData.map((a) => (

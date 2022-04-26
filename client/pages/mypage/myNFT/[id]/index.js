@@ -19,7 +19,7 @@ const id3 = id2
     <div>
       <Header></Header>
       <GetMyNFT></GetMyNFT>
-      <Footer></Footer>
+      {/* <Footer></Footer> */}
     </div>
   );
 };
