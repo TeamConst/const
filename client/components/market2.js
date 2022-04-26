@@ -403,6 +403,8 @@ const Market2 = (props) => {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Container maxWidth="lg"  sx={{ py: 15 }}>
+
+            {a === 1 && c === 1 && d === 1 && e === 1 ? (
           <Grid container spacing={5}>
             <Grid item xs={6}>
             <div>
@@ -415,7 +417,8 @@ const Market2 = (props) => {
 <VolumeSu></VolumeSu>
 <VolumeGiu></VolumeGiu>
 <Schermo>
-<MusicPlayer str={str} />
+<MusicPlayer str={str}
+            title={auctionDB.title} />
 	<FramePosizione>
     
 		<Header>
@@ -428,12 +431,9 @@ const Market2 = (props) => {
 </Schermo>
 <Bottone></Bottone></Smart>
 </div>
-            {/* <Box  sx={{   backgroundColor: 'rgba(0,0,0,0.1)', py: 5 ,borderRadius:10} } color="info.contrastText" p={2} >
-                <MusicPlayer str={str} />
-                </Box> */}
             </Grid>
 
-            {a === 1 && c === 1 && d === 1 && e === 1 ? (
+          
               <Grid item xs={6}>
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
@@ -594,10 +594,12 @@ const Market2 = (props) => {
                     </Grid>
                 </Grid>
               </Grid>
-            ) : (
-              <h1>아님</h1>
-            )}
+          
+          
           </Grid>
+             ) : (
+              <h1>아님</h1>
+           )}
         </Container>
       </ThemeProvider>
     </div>

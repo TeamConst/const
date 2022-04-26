@@ -5,7 +5,7 @@ const Song = ({ currentSong }) => {
   return (
     <SongContainer>
       <Img src={currentSong.cover} alt={currentSong.name}></Img>
-      {/* <H1>{currentSong.name}</H1> */}
+      <H2>{currentSong.name}</H2>
       <H2>{currentSong.artist}</H2>
     </SongContainer>
   );
@@ -13,8 +13,8 @@ const Song = ({ currentSong }) => {
 
 const SongContainer = styled.div`
   margin-top: 10vh;
-  min-height: 50vh;
-  max-height: 60vh;
+  min-height: 45vh;
+  max-height: 55vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -36,6 +36,7 @@ const H1 = styled.h2`
 
 const H2 = styled.h3`
   font-size: 1rem;
+  color:red
 `;
 
 export default Song;

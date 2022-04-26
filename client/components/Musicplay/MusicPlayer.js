@@ -6,16 +6,16 @@ import { v4 as uuidv4 } from "uuid";
 import Player from "./Player";
 import Song from "./Song";
 
-const MusicPlayer = ({ str }) => {
+const MusicPlayer = ({ str ,title}) => {
   const str2 = str;
-
+  const title2 = title;
   // Ref
   const audioRef = useRef(null);
 
   // State
   const [songs, setSongs] = useState([
     {
-      name: `${str2}`,
+      name: `${title2}`,
       cover: `https://const123.s3.ap-northeast-2.amazonaws.com/image/${str2}.jpg`,
       artist: "Aiguille",
       audio: `https://ipfs.io/ipfs/${str}`,
