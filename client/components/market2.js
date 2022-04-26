@@ -167,7 +167,22 @@ margin-left:auto;
 
 `;
 
+const Boldtext = styled.div`
+font-weight: bold;
+font-size: 1.8rem;
+text-align: center;
+padding: 10px 20px 0px 20px;
+`;
+const Smalltext = styled.div`
 
+
+text-align: center;
+padding: 10px 20px 0px 20px;
+`;
+const ProfileImg = styled.img`
+width:10%;
+border-radius:50%;
+`;
 
 const Market2 = (props) => {
   // DB 가져다 쓰고 하려고
@@ -440,58 +455,53 @@ const Market2 = (props) => {
               <Grid item xs={6}>
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
-                    <Box  sx={{   backgroundColor: 'rgba(0,0,0,0.1)'}} color="info.contrastText" p={2}>
-                      제목{auctionDB.title}
-                    </Box>
+                <Boldtext>  {`${auctionDB.artist}  -  ${auctionDB.title}`}</Boldtext>
+                    
+                   
                   </Grid>
-                  <Grid item xs={4}>
-                    <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                      판매자{userDB.id2}
-                    </Box>
-                  </Grid>
-                  <Grid item xs={4}>
-                    <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                      조회수{auctionDB.view}
-                    </Box>
-                  </Grid>
-                  <Grid item xs={4}>
-                    <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                      좋아요{auctionDB.LikeMusic}
-                    </Box>
-                  </Grid>
-                  <Grid item xs={6}>
-                    <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                      에디션
-                    </Box>
-                  </Grid>
-                  <Grid item xs={6}>
-                    <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                      <Button
+                  <Grid item xs={12}>  
+                    <Smalltext><ProfileImg src={userDB.profileImg}/>{userDB.id2}</Smalltext>
+                    
+               </Grid>      
+                 
+                  <Grid item xs={12}>   <hr/>
+                  <img src="https://cdn-icons.flaticon.com/png/128/707/premium/707680.png?token=exp=1650962417~hmac=5888605f65010fcce3e8c317ede949c9" width={"20px"}/>
+                      조회수{auctionDB.view}   좋아요{auctionDB.LikeMusic}
+                      {/* <Button
                         // onClick={likeHandler}
                         fullWidth
                         variant="contained"
                       >
                         좋아요 누르기
-                      </Button>
-                    </Box>
+                      </Button> */}
+                    
                   </Grid>
                   <Grid item xs={12}>
+                  <hr/>
                     <Box bgcolor="info.main" color="info.contrastText" p={2}>
+                      에디션
+                    </Box>
+                  </Grid>
+                
+                  <Grid item xs={12}>
+                   <hr/>
                       {/* 최고 경매 가격 : {}ETH                   
                   {/* {window.web3.utils.fromWei(
                     `${image.highestBidPrice}`,
                     "ether"
                   )}{" "} */}
-                      가격 {auctionMusicDB.currentPrice}
-                    </Box>
+                  <Smalltext>Direct purchase price</Smalltext>
+                  <Boldtext>{`Price:${auctionMusicDB.currentPrice}`} </Boldtext>
+                   
+                  <hr/>
                   </Grid>
-                  <Grid item xs={4}>
-                    <Box bgcolor="info.main" color="info.contrastText" p={2}>
+                  <Grid item xs={12}>
+                
                       상태: {status}
-                    </Box>
+                   
                   </Grid>
-                  <Grid item xs={4}>
-                    <Box bgcolor="info.main" color="info.contrastText" p={2}>
+                  <Grid item xs={12}>
+                 
                       {계정 === userDB.address ? (
                         <div>
                           본인의 상품입니다
@@ -573,12 +583,12 @@ const Market2 = (props) => {
                           )}
                         </div>
                       )}
-                    </Box>
+                 
                   </Grid>
-                  <Grid item xs={4}>
-                    <Box bgcolor="info.main" color="info.contrastText" p={2}>
+                  <Grid item xs={12}>
+                   
                       현재 우승자:{auction.winner}
-                    </Box>
+                 
                   </Grid>
                   <Grid item xs={12}>
                   <Box bgcolor="info.main" color="info.contrastText" p={2}>
