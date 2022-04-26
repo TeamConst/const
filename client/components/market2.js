@@ -420,7 +420,8 @@ const Market2 = (props) => {
 <VolumeGiu></VolumeGiu>
 <Schermo>
 <MusicPlayer str={str}
-            title={auctionDB.title} />
+            title={auctionDB.title} 
+            artist={auctionDB.artist}/>
 	<FramePosizione>
     
 		<Header>

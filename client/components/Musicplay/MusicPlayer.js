@@ -6,9 +6,10 @@ import { v4 as uuidv4 } from "uuid";
 import Player from "./Player";
 import Song from "./Song";
 
-const MusicPlayer = ({ str ,title}) => {
+const MusicPlayer = ({ str ,title,artist}) => {
   const str2 = str;
   const title2 = title;
+  const artist2 = artist;
   // Ref
   const audioRef = useRef(null);
 
@@ -17,7 +18,7 @@ const MusicPlayer = ({ str ,title}) => {
     {
       name: `${title2}`,
       cover: `https://const123.s3.ap-northeast-2.amazonaws.com/image/${str2}.jpg`,
-      artist: "Aiguille",
+      artist: `${artist2}`,
       audio: `https://ipfs.io/ipfs/${str}`,
       color: ["#EF8EA9", "#ab417f"],
       id: uuidv4(),
