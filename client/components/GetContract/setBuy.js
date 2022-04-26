@@ -5,7 +5,7 @@ import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import CircularProgress from "@mui/material/CircularProgress";
 import { Typography } from "@mui/material";
-
+import MusicPlayer from "../Musicplay/MusicPlayer";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import { useRouter } from "next/router";
@@ -26,10 +26,149 @@ import collectionContractJSON from "../../../build/contracts/NFTCollection.json"
 import marketContractJSON from "../../../build/contracts/NFTMarketplace.json";
 
 import axios from "axios";
-
+import styled from "styled-components";
 // nivo
 import { ResponsiveLine } from "@nivo/line";
+//css
+const Wrap = styled.div`
+width: 960px;
+max-width: 100%;
+margin: 0 auto;
+`;
+const Header = styled.div`
+background: #555;
+box-shadow: 1px 2px 7px #333;
+`;
+const FramePosizione = styled.div`
+margin-left: 0px;
+margin-right: -1px;
+display: block;
+`;
+const Bottone = styled.div`
+height: 70px;
+width:70px;
+background: #111;
+margin: 20px auto;
+border-radius: 100px;
+`;
+const Schermo = styled.div`
+height: 100%;
+width: 100%;
+background-color: #6666;
+    opacity:1; 
+box-shadow: 0 0 0 1px    rgba(0,0,0,0.1)inset;
+overflow: hidden;
+position: relative;
+border-radius: 10px;
 
+
+`;
+const Microfono = styled.div`
+background: #111;
+height: 7px;
+width: 90px;
+margin: -19px auto 0;
+border-radius: 100px;
+`;
+const Sensore = styled.div`
+background: #111;
+height: 7px;
+width: 7px;
+margin: 12px 100px;
+
+border-radius: 100px;
+display: block;
+`;
+const Fotocamera = styled.div`
+background: #111;
+height: 7px;
+width: 7px;
+margin: auto;
+
+border-radius: 100px;
+display: block;
+}
+`;
+const Dettaglio = styled.div`
+position: absolute;
+left: 0;
+top: 17px;
+width: 100%;
+`;
+const VolumeGiu = styled.div`
+height: 40px;
+width: 3px;
+left: -7px;
+top: 155px;
+border-radius: 4px 0 0 4px;
+
+width: 5px;
+background: #333;
+position: absolute;
+`;
+const VolumeSu = styled.div`
+height: 40px;
+width: 3px;
+left: -7px;
+top: 110px;
+border-radius: 4px 0 0 4px;
+
+width: 5px;
+background: #333;
+position: absolute;
+
+`;
+const AcenzioneButton = styled.div`
+background-color: #333;
+	
+height: 15px;
+left: -5px;
+top: 59px;
+border-radius: 4px 0 0 4px;
+
+width: 3px;
+background: #333;
+position: absolute;
+
+`;
+
+
+const Smart= styled.div`
+margin-left:auto;
+  margin-right:auto;
+  margin-top: 100px;;
+	background-color: #333;
+
+  border-radius:30px;
+
+	width: 90%;
+	height: 40%
+	border-radius: 40px;
+	border: 2px solid #ddd;
+	margin: 0 auto;
+	padding: 60px 10px;
+	position: relative;
+
+
+`;
+
+const Boldtext = styled.div`
+font-weight: bold;
+font-size: 1.8rem;
+text-align: center;
+padding: 10px 20px 0px 20px;
+`;
+const Smalltext = styled.div`
+
+
+text-align: center;
+padding: 10px 20px 0px 20px;
+`;
+const ProfileImg = styled.img`
+width:10%;
+border-radius:50%;
+`;
+//
 const theme = createTheme();
 
 const SetBuy = () => {
@@ -1012,56 +1151,64 @@ const SetBuy = () => {
       ],
     },
   ];
-
-  console.log(aaaa);
+const id2 = id
+  console.log(이미지,"이미지");
   return (
     <div>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Container sx={{ m: 2 }} maxWidth="lg">
+        <Container maxWidth="lg"  sx={{ py: 15 }}>
           {a === 1 && c === 1 && d === 1 && e === 1 ? (
             buyData.map((a) => (
               <Grid container spacing={5} textAlign="center">
                 <Grid item xs={6}>
                   <Box p={2}>
-                    <img
-                      src={이미지}
-                      height="500"
-                      width="500"
-                      object-Fit="fill"
-                    ></img>
+                  <div>
+<Smart>
+    <Dettaglio>
+    <Sensore></Sensore>
+    <Microfono></Microfono>
+</Dettaglio>
+<AcenzioneButton></AcenzioneButton>
+<VolumeSu></VolumeSu>
+<VolumeGiu></VolumeGiu>
+<Schermo>
+<MusicPlayer str={id2}
+            title={buyDB.title} 
+            artist={buyDB.artist}
+            />
+	<FramePosizione>
+    
+		<Header>
+
+<Wrap>
+
+			</Wrap>
+		</Header>
+</FramePosizione>
+</Schermo>
+<Bottone></Bottone></Smart>
+</div>
                   </Box>
                 </Grid>
                 <Grid item xs={6}>
-                  <Grid container spacing={2}>
+                  <Grid container spacing={5}>
                     <Grid item xs={12}>
-                      <Box p={2}>제목{buyDB.title}</Box>
+                    <Boldtext>  {`${buyDB.artist}  -  ${buyDB.title}`}</Boldtext>
                     </Grid>
-                    <Grid item xs={4}>
-                      <Box p={2}>판매자{userDB.id2}</Box>
+                    <Grid item xs={12}>
+                    <Smalltext><ProfileImg src={userDB.profileImg}/>{userDB.id2}</Smalltext>
                     </Grid>
-                    <Grid item xs={4}>
-                      <Box p={2}>조회수{buyDB.view}</Box>
+                    <Grid item xs={12}>
+                    <img src="https://cdn-icons.flaticon.com/png/128/707/premium/707680.png?token=exp=1650962417~hmac=5888605f65010fcce3e8c317ede949c9" width={"20px"}   onClick={likeHandler}/>
+                    좋아요{buyDB.LikeMusic}    조회수{buyDB.view}   
                     </Grid>
-                    <Grid item xs={4}>
-                      <Box p={2}>좋아요{buyDB.LikeMusic}</Box>
-                    </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={12}>
                       <Box p={2}>에디션</Box>
                     </Grid>
-                    <Grid item xs={6}>
-                      <Box p={2}>
-                        <Button
-                          onClick={likeHandler}
-                          fullWidth
-                          variant="contained"
-                        >
-                          좋아요 누르기
-                        </Button>
-                      </Box>
-                    </Grid>
                     <Grid item xs={4}>
-                      <Box p={2}>가격 {buyMusicDB.price}</Box>
+                    <Smalltext>Direct purchase price</Smalltext>
+                  <Boldtext>{`Price:${buyMusicDB.price}eth`} </Boldtext>
                     </Grid>
 
                     {계정 === userDB.address ? (
@@ -1212,8 +1359,7 @@ const SetBuy = () => {
 
                 <Grid item xs={12}>
                   <Box p={2}>
-                    여기에 연관 상품들 나열할 건데 이건 data fetch 하는 식이
-                    날듯?
+                  연관상품
                   </Box>
                 </Grid>
               </Grid>

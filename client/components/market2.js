@@ -509,10 +509,10 @@ const Market2 = (props) => {
                           {image.status == 1 ? (
                             leftTime > 0 ? (
                               isOwner ? (
-                                <div>경매 종료 날짜 {leftTime}s</div>
+                                <div>❤️‍🔥경매 종료 날짜 {leftTime}s❤️‍🔥</div>
                               ) : (
                                 <div>
-                                  <div>경매 종료 날짜 {leftTime}s</div>
+                                  <div>❤️‍🔥경매 종료 날짜 {leftTime}s❤️‍🔥</div>
 
                                   <Button
                                     variant="outlined"

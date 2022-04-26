@@ -192,6 +192,7 @@ const BuyDetail = () => {
                   <Box bgcolor="info.main" color="info.contrastText" p={2}>
                     사진
                     <img src={이미지} height="300" width="300"></img>
+                    시발
                   </Box>
                 </Grid>
                 {a === 1 ? (
