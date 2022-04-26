@@ -54,27 +54,32 @@ const GetNowNFT = () => {
   return (
     <div>
       <ThemeProvider theme={theme}>
-        <Container sx={{ py: 2 }} maxWidth="xl">
-          <Typography variant="h4" component="h4" sx={{ m: 5 }}>
+        <Container sx={{ py: 2 }} maxWidth="lg">
+          <Typography variant="h4" component="h4" sx={{ m: 3 }}>
             모든 NFT
           </Typography>
           <Grid container spacing={5} textAlign="center">
             {a === 1 ? (
               nftNowData.map((a) => (
-                <Grid item key={a.CID} xs={3} onClick={() => linkto(a)}>
+                <Grid item key={a.CID} xs={4} onClick={() => linkto(a)}>
+                  
                   <Card
                     sx={{
-                      height: "100%",
+                      height: "80%",
                       width: "100%",
                       display: "flex",
                       flexDirection: "column",
+                      borderRadius:"16px"
                     }}
                   >
+     <CardContent sx={{ flexGrow: 0}}>
+                      <Typography>owner : {a.address}</Typography>
+                    </CardContent>
                     <CardMedia
                       component="img"
                       sx={{
-                        m: 1,
-                        height: "100%",
+  
+                        height: "70%",
                         width: "100%",
                         objectFit: "fill",
                       }}
