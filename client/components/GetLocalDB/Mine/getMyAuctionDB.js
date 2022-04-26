@@ -59,28 +59,30 @@ const GetMyAuctionDB = () => {
               auctionMyData.map((a) => (
                 <Link href={`/auction/${encodeURIComponent(a.CID)}`}>
                   <Grid item key={a.CID} xs={3}>
-                    <Card
+                  <Card
+                    sx={{
+                      height: "100%",
+                      width: "100%",
+                      display: "flex",
+                      flexDirection: "column",
+                      borderRadius:"20px"
+                    }}
+                  >
+                       <CardMedia
+                      component="img"
                       sx={{
-                        height: "100%",
+  
+                        height: "70%",
                         width: "100%",
-                        display: "flex",
-                        flexDirection: "column",
+                        objectFit: "fill",
+                        
                       }}
-                    >
-                      <CardMedia
-                        component="img"
-                        sx={{
-                          m: 1,
-                          height: "100%",
-                          width: "100%",
-                          objectFit: "fill",
-                        }}
-                        image={a.Music.s3}
-                        alt="random"
-                      />
+                      image={a.Music.s3}
+                      alt="random"
+                    />
 
                       <CardContent sx={{ flexGrow: 1 }}>
-                        <Typography>Title : {a.Music.title}</Typography>
+                        <Typography>{a.Music.title}</Typography>
                         <Typography>조회수 : {a.Music.playCount}</Typography>
                         <Typography>판매수 : {a.auction}</Typography>
                       </CardContent>

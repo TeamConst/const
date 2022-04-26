@@ -132,26 +132,29 @@ const GetMyNFT = () => {
                       width: "100%",
                       display: "flex",
                       flexDirection: "column",
+                      borderRadius:"20px"
                     }}
                   >
-                    <CardMedia
+                     <CardContent sx={{ flexGrow: 0}}>
+   
+   <Typography>  {a.artist}</Typography>
+ </CardContent>
+                        <CardMedia
                       component="img"
                       sx={{
-                        m: 1,
-                        height: "100%",
+  
+                        height: "70%",
                         width: "100%",
                         objectFit: "fill",
+                        
                       }}
                       image={a.s3}
                       alt="random"
                     />
                     <CardContent sx={{ flexGrow: 1 }}>
-                      제목
-                      <Typography>{a.title}</Typography>
-                      작곡가
-                      <Typography>{a.composer}</Typography>
-                      재생 횟수
-                      <Typography>{a.playCount}</Typography>
+              
+                      <div>{`${a.title}`}</div>
+                      <Typography>{`재생 횟수  ${a.playCount}`}</Typography>
                     </CardContent>
                     <CardActions
                       align="center"
