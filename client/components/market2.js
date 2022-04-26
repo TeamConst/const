@@ -478,9 +478,7 @@ const Market2 = (props) => {
                   </Grid>
                   <Grid item xs={12}>
                   <hr/>
-                    <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                      에디션
-                    </Box>
+                  <Smalltext>  {`${auctionDB.artist}is EDITION`}</Smalltext>
                   </Grid>
                 
                   <Grid item xs={12}>
@@ -491,14 +489,13 @@ const Market2 = (props) => {
                     "ether"
                   )}{" "} */}
                   <Smalltext>Direct purchase price</Smalltext>
-                  <Boldtext>{`Price:${auctionMusicDB.currentPrice}`} </Boldtext>
+                  <Boldtext>{`Price:${auctionMusicDB.currentPrice}eth`} </Boldtext>
                    
                   <hr/>
                   </Grid>
                   <Grid item xs={12}>
+                    <Boldtext>   {status ==="경매종료"? `💔${status}`: `❤️‍🔥${status}`}</Boldtext>
                 
-                      상태: {status}
-                   
                   </Grid>
                   <Grid item xs={12}>
                  
@@ -591,9 +588,9 @@ const Market2 = (props) => {
                  
                   </Grid>
                   <Grid item xs={12}>
-                  <Box bgcolor="info.main" color="info.contrastText" p={2}>
-                저장 정보
-                <Typography variant="h5">소유권 경로</Typography>
+                
+                    <hr/>
+                소유권 경로
                 {ownerShipTrans.map((address, index) => {
                   <Typography
                     variant="body2"
@@ -603,7 +600,6 @@ const Market2 = (props) => {
                     {address} -&gt;
                   </Typography>;
                 })}
-              </Box>
                     </Grid>
                 </Grid>
               </Grid>
