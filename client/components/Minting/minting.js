@@ -270,7 +270,7 @@ const Minting = () => {
                     <Boldtext>
                       <Img src={"/img/에스파 ai.jpeg"} />
                     </Boldtext>
-                    <Boldtext>음원등록</Boldtext>
+                    <Boldtext>Music Minting</Boldtext>
                   </Grid>
                   <Grid item xs={6}>
                     <img
