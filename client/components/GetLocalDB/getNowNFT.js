@@ -87,7 +87,7 @@ const GetNowNFT = () => {
                       <CardContent sx={{ flexGrow: 0 }}>
                         <Typography>
                           {" "}
-                          <ProfileImg src={"https://img.marieclairekorea.com/2022/02/mck_620f69c1deca3-scaled.jpg"} alt="하트" /> {a.artist}
+                          <ProfileImg src={a.User.profileImg} alt="하트" /> {a.User.id2}
                         </Typography>
                       </CardContent>
                     </IconLeft>

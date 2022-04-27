@@ -767,6 +767,9 @@ app.prepare().then(() => {
         {
           model: AuctionMusic,
         },
+        {
+          model: User,
+        },
       ],
     });
     res.json(abc);
@@ -778,6 +781,9 @@ app.prepare().then(() => {
       include: [
         {
           model: Music,
+        },
+        {
+          model: User,
         },
       ],
     });
@@ -792,6 +798,9 @@ app.prepare().then(() => {
       include: [
         {
           model: Music,
+        },
+        {
+          model: User,
         },
       ],
     });
