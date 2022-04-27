@@ -268,7 +268,7 @@ const Minting = () => {
                 <Grid container spacing={5}>
                   <Grid item xs={12}>
                     <Boldtext>
-                      <Img src={"/img/music2.jpeg"} />
+                      <Img src={"/img/에스파 ai.jpeg"} />
                     </Boldtext>
                     <Boldtext>음원등록</Boldtext>
                   </Grid>

@@ -98,7 +98,6 @@ const userUpdate = () => {
                   alignItems: "center",
                 }}
               >
-                <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}></Avatar>
                 <Boldtext>
                   <Img src="/img/music3.jpeg" />
                 </Boldtext>
