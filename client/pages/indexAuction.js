@@ -6,9 +6,7 @@ import Footer from "../components/Layout/footer";
 import GetNowAuction from "../components/GetLocalDB/getNowAuction";
 
 const IndexAuction = () => {
-  const { data, isLoading, isFetching } = useQuery(["getNowAuction"], () =>
-    fetchNowAuction()
-  );
+  const { data, isLoading, isFetching } = useQuery(["getNowAuction"], () => fetchNowAuction());
 
   return (
     <div>
@@ -26,7 +24,8 @@ export async function getServerSideProps() {
 
   return {
     props: {
-      dehydratedState: dehydrate(queryClient),
+      // dehydratedState: dehydrate(queryClient),
+      // dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
     },
   };
 }

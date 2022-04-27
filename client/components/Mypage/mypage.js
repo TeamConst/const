@@ -1,4 +1,3 @@
-
 import { useEffect, useState, useRef } from "react";
 
 import { useForm } from "react-hook-form";
@@ -6,14 +5,7 @@ import { useForm } from "react-hook-form";
 import { useQuery } from "react-query";
 import { fetchUserSession, fetchMyNFTDB } from "../../hooks";
 import Sidebar from "./Sidebar";
-import {
-  Typography,
-  Button,
-  Box,
-  Container,
-  Grid,
-  CssBaseline,
-} from "@mui/material";
+import { Typography, Button, Box, Container, Grid, CssBaseline } from "@mui/material";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
@@ -32,7 +24,6 @@ import GetMyAuction from "../GetContract/Mine/getMyAuction";
 import GetMyNFTDB from "../GetLocalDB/Mine/getMyNFTDB";
 import GetMyBuyDB from "../GetLocalDB/Mine/getMyBuyDB";
 import GetMyAuctionDB from "../GetLocalDB/Mine/getMyAuctionDB";
-
 
 const Smallertext = styled.div`
   font-weight: normal;
@@ -117,10 +108,7 @@ const Mypage1 = () => {
   useEffect(() => {
     async function loadBalance() {
       const accounts = await web3.eth.getAccounts();
-      let balance =
-        accounts.length > 0
-          ? await web3.eth.getBalance(accounts[0])
-          : await web3.utils.toWei("0");
+      let balance = accounts.length > 0 ? await web3.eth.getBalance(accounts[0]) : await web3.utils.toWei("0");
       balance = await web3.utils.fromWei(balance, "ether");
       setAccountBalance(balance);
     }
@@ -149,12 +137,9 @@ const Mypage1 = () => {
     const marketContractJSON = require("../../../build/contracts/NFTMarketplace.json");
     const accounts1 = await web3.eth.getAccounts();
     const networkId1 = await web3.eth.net.getId();
-    
+
     const deployedAddress2 = marketContractJSON.networks[networkId1].address;
-    const contract2 = new web3.eth.Contract(
-      marketContractJSON.abi,
-      deployedAddress2
-    );
+    const contract2 = new web3.eth.Contract(marketContractJSON.abi, deployedAddress2);
     pra2 = contract2;
     praaccounts = accounts1;
 
@@ -170,12 +155,12 @@ const Mypage1 = () => {
   };
 
   let lastTime;
-  if (userSession && userSession.ticket !=="이용권 없음") {
+  if (userSession && userSession.ticket !== "이용권 없음") {
     let today = new Date().getTime();
     let dday = new Date(`${userSession.ticketTime}`).getTime();
     lastTime = Math.ceil((dday - today) / (1000 * 60 * 60 * 24));
-  } else if(userSession && userSession.ticket ==="이용권 없음"){
-    lastTime=0;
+  } else if (userSession && userSession.ticket === "이용권 없음") {
+    lastTime = 0;
   }
 
   console.log(lastTime);
@@ -202,10 +187,7 @@ const Mypage1 = () => {
       imageFormData.append("image", image);
       imageFormData.append("id2", userSession.id2);
 
-      const resultImage = await axios.post(
-        "http://localhost:8080/api/signup/updateImage",
-        imageFormData
-      );
+      const resultImage = await axios.post("http://localhost:8080/api/signup/updateImage", imageFormData);
       const rere = axios.post("http://localhost:8080/api/updateUser2", {
         profileImg: `https://const123.s3.ap-northeast-2.amazonaws.com/profile/${userSession.id2}.jpg`,
         id2: userSession.id2,
@@ -241,28 +223,21 @@ const Mypage1 = () => {
                         fileInput.current.click();
                       }}
                     />
-                    <input
-                      type="file"
-                      style={{ display: "none" }}
-                      accept="image/jpg,impge/png,image/jpeg"
-                      name="profile_img"
-                      onChange={onChange}
-                      ref={fileInput}
-                    />
+                    <input type="file" style={{ display: "none" }} accept="image/jpg,impge/png,image/jpeg" name="profile_img" onChange={onChange} ref={fileInput} />
                   </Header>
 
                   <Link href={`/userUpdate2`}>
                     <Followers>
-                      <Smallertext>수정하기</Smallertext>
+                      <Smallertext>회원 정보 수정하기</Smallertext>
                     </Followers>
-            
-           
                   </Link>
                   <Followers>
-                      <Smallertext><div onClick={claimFundsHandler} className="btn btn-success">
-              구매 완료 된 이더 받기
-            </div></Smallertext>
-                    </Followers>
+                    <Smallertext>
+                      <div onClick={claimFundsHandler} className="btn btn-success">
+                        구매 완료 된 이더 받기
+                      </div>
+                    </Smallertext>
+                  </Followers>
                   <Boldtext>
                     {userSession.name}
                     <span className="normal-text">나이/랭크</span>
@@ -278,20 +253,16 @@ const Mypage1 = () => {
                       <Smallertext>잔액</Smallertext>
                     </Followers>
                     <Followers className="photos">
-                      <Boldtext>
-                        {`${userSession.ticket}${lastTime}일남음`}
-                      </Boldtext>
+                      <Boldtext>{`${userSession.ticket}${lastTime}일남음`}</Boldtext>
                       <Smallertext>이용권 정보</Smallertext>
                     </Followers>
                   </Socialcontainer>
-                  <Grid item xs={12}> 
-            <Sidebar 
-            userSession={userSession.address}/>
-              </Grid>
+                  <Grid item xs={12}>
+                    <Sidebar userSession={userSession.address} />
+                  </Grid>
                 </Cardcontainer>
-             
               </Grid>
-              </Grid>
+            </Grid>
           ) : (
             <div>오류임</div>
           )}
@@ -302,4 +273,3 @@ const Mypage1 = () => {
 };
 
 export default Mypage1;
-

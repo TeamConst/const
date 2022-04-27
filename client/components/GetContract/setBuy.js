@@ -11,14 +11,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useRouter } from "next/router";
 import { useQuery } from "react-query";
 import { useForm } from "react-hook-form";
-import {
-  fetchBuyMusicDB,
-  fetchUserDB,
-  fetchBuyDB,
-  fetchSetBuy,
-  fetchOffer,
-  fetchTransactionDetailDB,
-} from "../../hooks";
+import { fetchBuyMusicDB, fetchUserDB, fetchBuyDB, fetchSetBuy, fetchOffer, fetchTransactionDetailDB } from "../../hooks";
 import { useState, useEffect } from "react";
 
 import web3 from "../connection/web3";
@@ -31,53 +24,51 @@ import styled from "styled-components";
 import { ResponsiveLine } from "@nivo/line";
 //css
 const Wrap = styled.div`
-width: 960px;
-max-width: 100%;
-margin: 0 auto;
+  width: 960px;
+  max-width: 100%;
+  margin: 0 auto;
 `;
 const Header = styled.div`
-background: #555;
-box-shadow: 1px 2px 7px #333;
+  background: #555;
+  box-shadow: 1px 2px 7px #333;
 `;
 const FramePosizione = styled.div`
-margin-left: 0px;
-margin-right: -1px;
-display: block;
+  margin-left: 0px;
+  margin-right: -1px;
+  display: block;
 `;
 const Bottone = styled.div`
-height: 70px;
-width:70px;
-background: #111;
-margin: 20px auto;
-border-radius: 100px;
+  height: 70px;
+  width: 70px;
+  background: #111;
+  margin: 20px auto;
+  border-radius: 100px;
 `;
 const Schermo = styled.div`
-height: 100%;
-width: 100%;
-background-color: #6666;
-    opacity:1; 
-box-shadow: 0 0 0 1px    rgba(0,0,0,0.1)inset;
-overflow: hidden;
-position: relative;
-border-radius: 10px;
-
-
+  height: 100%;
+  width: 100%;
+  background-color: #6666;
+  opacity: 1;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1) inset;
+  overflow: hidden;
+  position: relative;
+  border-radius: 10px;
 `;
 const Microfono = styled.div`
-background: #111;
-height: 7px;
-width: 90px;
-margin: -19px auto 0;
-border-radius: 100px;
+  background: #111;
+  height: 7px;
+  width: 90px;
+  margin: -19px auto 0;
+  border-radius: 100px;
 `;
 const Sensore = styled.div`
-background: #111;
-height: 7px;
-width: 7px;
-margin: 12px 100px;
+  background: #111;
+  height: 7px;
+  width: 7px;
+  margin: 12px 100px;
 
-border-radius: 100px;
-display: block;
+  border-radius: 100px;
+  display: block;
 `;
 const Fotocamera = styled.div`
 background: #111;
@@ -90,50 +81,47 @@ display: block;
 }
 `;
 const Dettaglio = styled.div`
-position: absolute;
-left: 0;
-top: 17px;
-width: 100%;
+  position: absolute;
+  left: 0;
+  top: 17px;
+  width: 100%;
 `;
 const VolumeGiu = styled.div`
-height: 40px;
-width: 3px;
-left: -7px;
-top: 155px;
-border-radius: 4px 0 0 4px;
+  height: 40px;
+  width: 3px;
+  left: -7px;
+  top: 155px;
+  border-radius: 4px 0 0 4px;
 
-width: 5px;
-background: #333;
-position: absolute;
+  width: 5px;
+  background: #333;
+  position: absolute;
 `;
 const VolumeSu = styled.div`
-height: 40px;
-width: 3px;
-left: -7px;
-top: 110px;
-border-radius: 4px 0 0 4px;
+  height: 40px;
+  width: 3px;
+  left: -7px;
+  top: 110px;
+  border-radius: 4px 0 0 4px;
 
-width: 5px;
-background: #333;
-position: absolute;
-
+  width: 5px;
+  background: #333;
+  position: absolute;
 `;
 const AcenzioneButton = styled.div`
-background-color: #333;
-	
-height: 15px;
-left: -5px;
-top: 59px;
-border-radius: 4px 0 0 4px;
+  background-color: #333;
 
-width: 3px;
-background: #333;
-position: absolute;
+  height: 15px;
+  left: -5px;
+  top: 59px;
+  border-radius: 4px 0 0 4px;
 
+  width: 3px;
+  background: #333;
+  position: absolute;
 `;
 
-
-const Smart= styled.div`
+const Smart = styled.div`
 margin-left:auto;
   margin-right:auto;
   margin-top: 100px;;
@@ -153,20 +141,18 @@ margin-left:auto;
 `;
 
 const Boldtext = styled.div`
-font-weight: bold;
-font-size: 1.8rem;
-text-align: center;
-padding: 10px 20px 0px 20px;
+  font-weight: bold;
+  font-size: 1.8rem;
+  text-align: center;
+  padding: 10px 20px 0px 20px;
 `;
 const Smalltext = styled.div`
-
-
-text-align: center;
-padding: 10px 20px 0px 20px;
+  text-align: center;
+  padding: 10px 20px 0px 20px;
 `;
 const ProfileImg = styled.img`
-width:10%;
-border-radius:50%;
+  width: 10%;
+  border-radius: 50%;
 `;
 //
 const theme = createTheme();
@@ -208,9 +194,7 @@ const SetBuy = () => {
 
   // 가격 변동 그래프 만드려고
   const useUser6 = () => {
-    const result = useQuery(["getTransactionDetailDB"], () =>
-      fetchTransactionDetailDB(id)
-    );
+    const result = useQuery(["getTransactionDetailDB"], () => fetchTransactionDetailDB(id));
     return result;
   };
 
@@ -224,9 +208,7 @@ const SetBuy = () => {
   const [이미지, 이미지변경] = useState();
 
   useEffect(() => {
-    이미지변경(
-      `https://const123.s3.ap-northeast-2.amazonaws.com/image/${id}.jpg`
-    );
+    이미지변경(`https://const123.s3.ap-northeast-2.amazonaws.com/image/${id}.jpg`);
 
     async function upView() {
       const view = await axios.post("http://localhost:8080/api/upView", {
@@ -424,22 +406,15 @@ const SetBuy = () => {
     let praaccounts;
     const accounts1 = await web3.eth.getAccounts();
     const networkId1 = await web3.eth.net.getId();
-    const deployedAddress1 =
-      collectionContractJSON.networks[networkId1].address;
-    const contract1 = new web3.eth.Contract(
-      collectionContractJSON.abi,
-      deployedAddress1
-    );
+    const deployedAddress1 = collectionContractJSON.networks[networkId1].address;
+    const contract1 = new web3.eth.Contract(collectionContractJSON.abi, deployedAddress1);
 
     pra = contract1;
     praaccounts = accounts1;
 
     let pra2;
     const deployedAddress2 = marketContractJSON.networks[networkId1].address;
-    const contract2 = new web3.eth.Contract(
-      marketContractJSON.abi,
-      deployedAddress2
-    );
+    const contract2 = new web3.eth.Contract(marketContractJSON.abi, deployedAddress2);
     pra2 = contract2;
 
     const setbuydb = await axios.post("http://localhost:8080/api/setBuyDB", {
@@ -459,10 +434,7 @@ const SetBuy = () => {
     const etherPrice = web3.utils.toWei(String(buyMusicDB.price), "ether");
 
     for (let i = 0; i < offerData.length; i++) {
-      if (
-        offerData[i].id == buyData[0].id &&
-        offerData[i].price == etherPrice
-      ) {
+      if (offerData[i].id == buyData[0].id && offerData[i].price == etherPrice) {
         pra2.methods
           .fillOffer(offerData[i].offerId)
           .send({
@@ -486,22 +458,15 @@ const SetBuy = () => {
     let praaccounts;
     const accounts1 = await web3.eth.getAccounts();
     const networkId1 = await web3.eth.net.getId();
-    const deployedAddress1 =
-      collectionContractJSON.networks[networkId1].address;
-    const contract1 = new web3.eth.Contract(
-      collectionContractJSON.abi,
-      deployedAddress1
-    );
+    const deployedAddress1 = collectionContractJSON.networks[networkId1].address;
+    const contract1 = new web3.eth.Contract(collectionContractJSON.abi, deployedAddress1);
 
     pra = contract1;
     praaccounts = accounts1;
 
     let pra2;
     const deployedAddress2 = marketContractJSON.networks[networkId1].address;
-    const contract2 = new web3.eth.Contract(
-      marketContractJSON.abi,
-      deployedAddress2
-    );
+    const contract2 = new web3.eth.Contract(marketContractJSON.abi, deployedAddress2);
     pra2 = contract2;
 
     for (let i = 0; i < offerData.length; i++) {
@@ -535,22 +500,15 @@ const SetBuy = () => {
     let praaccounts;
     const accounts1 = await web3.eth.getAccounts();
     const networkId1 = await web3.eth.net.getId();
-    const deployedAddress1 =
-      collectionContractJSON.networks[networkId1].address;
-    const contract1 = new web3.eth.Contract(
-      collectionContractJSON.abi,
-      deployedAddress1
-    );
+    const deployedAddress1 = collectionContractJSON.networks[networkId1].address;
+    const contract1 = new web3.eth.Contract(collectionContractJSON.abi, deployedAddress1);
 
     pra = contract1;
     praaccounts = accounts1;
 
     let pra2;
     const deployedAddress2 = marketContractJSON.networks[networkId1].address;
-    const contract2 = new web3.eth.Contract(
-      marketContractJSON.abi,
-      deployedAddress2
-    );
+    const contract2 = new web3.eth.Contract(marketContractJSON.abi, deployedAddress2);
     pra2 = contract2;
 
     // 오퍼
@@ -1151,81 +1109,71 @@ const SetBuy = () => {
       ],
     },
   ];
-const id2 = id
-  console.log(이미지,"이미지");
+  const id2 = id;
+  console.log(이미지, "이미지");
   return (
     <div>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Container maxWidth="lg"  sx={{ py: 15 }}>
+        <Container maxWidth="lg" sx={{ py: 15 }}>
           {a === 1 && c === 1 && d === 1 && e === 1 ? (
             buyData.map((a) => (
               <Grid container spacing={5} textAlign="center">
                 <Grid item xs={6}>
-                 
                   <div>
-<Smart>
-    <Dettaglio>
-    <Sensore></Sensore>
-    <Microfono></Microfono>
-</Dettaglio>
-<AcenzioneButton></AcenzioneButton>
-<VolumeSu></VolumeSu>
-<VolumeGiu></VolumeGiu>
-<Schermo>
-<MusicPlayer str={id2}
-            title={buyDB.title} 
-            artist={buyDB.artist}
-            />
-	<FramePosizione>
-    
-		<Header>
-
-<Wrap>
-
-			</Wrap>
-		</Header>
-</FramePosizione>
-</Schermo>
-<Bottone></Bottone></Smart>
-</div>
-                  
+                    <Smart>
+                      <Dettaglio>
+                        <Sensore></Sensore>
+                        <Microfono></Microfono>
+                      </Dettaglio>
+                      <AcenzioneButton></AcenzioneButton>
+                      <VolumeSu></VolumeSu>
+                      <VolumeGiu></VolumeGiu>
+                      <Schermo>
+                        <MusicPlayer str={id2} title={buyDB.title} artist={buyDB.artist} />
+                        <FramePosizione>
+                          <Header>
+                            <Wrap></Wrap>
+                          </Header>
+                        </FramePosizione>
+                      </Schermo>
+                      <Bottone></Bottone>
+                    </Smart>
+                  </div>
                 </Grid>
                 <Grid item xs={6}>
                   <Grid container spacing={5}>
                     <Grid item xs={12}>
-                    <Boldtext>  {`${buyDB.artist}  -  ${buyDB.title}`}</Boldtext>
+                      <Boldtext> {`${buyDB.artist}  -  ${buyDB.title}`}</Boldtext>
                     </Grid>
                     <Grid item xs={12}>
-                    <hr/>
-                    <Smalltext><ProfileImg src={userDB.profileImg}/>{userDB.id2}</Smalltext>
+                      <hr />
+                      <Smalltext>
+                        <ProfileImg src={userDB.profileImg} />
+                        {userDB.id2}
+                      </Smalltext>
                     </Grid>
                     <Grid item xs={12}>
-                    <hr/>
-                    <img src={"/img/heart.png"} width={"100px"}/>
-                    {`좋아요${buyDB.LikeMusic}    👁${buyDB.view} `  }
+                      <hr />
+                      <img src={"/img/heart.png"} width={"100px"} />
+                      {`좋아요${buyDB.LikeMusic}    👁${buyDB.view} `}
                     </Grid>
                     <Grid item xs={12}>
-                    <hr/>
+                      <hr />
                       <Box p={2}>에디션</Box>
                     </Grid>
                     <Grid item xs={12}>
-                      <hr/>
-                    <Smalltext>Direct purchase price</Smalltext>
-                  <Boldtext>{`Price:${buyMusicDB.price}eth`} </Boldtext>
-                  <hr/>
+                      <hr />
+                      <Smalltext>Direct purchase price</Smalltext>
+                      <Boldtext>{`Price:${buyMusicDB.price}eth`} </Boldtext>
+                      <hr />
                     </Grid>
 
                     {계정 === userDB.address ? (
                       <Grid item xs={6}>
                         <Box p={2}>
                           <Typography>본인의 상품입니다</Typography>
-                          <Button
-                            type="sumit"
-                            fullWidth
-                            onClick={cancelHandler}
-                            variant="contained"
-                          >
+                          <Button type="sumit" fullWidth onClick={cancelHandler} variant="contained">
                             오퍼 취소하기
                           </Button>
                         </Box>
@@ -1233,11 +1181,7 @@ const id2 = id
                     ) : (
                       <Grid item xs={6}>
                         <Box p={2}>
-                          <Button
-                            onClick={buyHandler}
-                            fullWidth
-                            variant="contained"
-                          >
+                          <Button onClick={buyHandler} fullWidth variant="contained">
                             구매하기
                           </Button>
                         </Box>
@@ -1363,9 +1307,7 @@ const id2 = id
                 </Grid>
 
                 <Grid item xs={12}>
-                  <Box p={2}>
-                  연관상품
-                  </Box>
+                  <Box p={2}>연관상품</Box>
                 </Grid>
               </Grid>
             ))

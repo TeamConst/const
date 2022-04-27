@@ -36,11 +36,7 @@ const passport = require("passport");
 const passportConfig = require("./passport");
 
 // 미들웨어
-const {
-  isLoggedIn,
-  isNotLoggedIn,
-  isCorrectMetamask,
-} = require("./routers/middlewares.js");
+const { isLoggedIn, isNotLoggedIn, isCorrectMetamask } = require("./routers/middlewares.js");
 
 // 라우터 선언
 const indexRouter = require("./routers/index.js");
@@ -49,7 +45,6 @@ const indexRouter = require("./routers/index.js");
 // const blockRouter = require("./routers/apis/block");
 // 모든 URL에 대한 Router
 const otherRouter = require("./routers/other.js");
-const { ContactlessOutlined } = require("@mui/icons-material");
 
 // DB와 연결
 sequelize
@@ -214,9 +209,7 @@ app.prepare().then(() => {
     // 개인 id, secret
     const projectId = "26fkdqdZ9VBjWP310ZLH3ZUkb5T";
     const projectSecret = "9c05a2839dd121251b98ed30be561824";
-    const auth =
-      "Basic " +
-      Buffer.from(projectId + ":" + projectSecret).toString("base64");
+    const auth = "Basic " + Buffer.from(projectId + ":" + projectSecret).toString("base64");
 
     const client = await ipfsClient.create({
       host: "ipfs.infura.io",
@@ -237,10 +230,7 @@ app.prepare().then(() => {
     await client.add(ipfsUpload).then(async (res) => {
       console.log(res);
       const s3 = `https://const123.s3.ap-northeast-2.amazonaws.com/image/${res.path}.jpg`;
-      await Music.update(
-        { s3: s3, CID: res.path },
-        { where: { title: parse.title } }
-      );
+      await Music.update({ s3: s3, CID: res.path }, { where: { title: parse.title } });
     });
 
     const metadata = {
@@ -268,8 +258,7 @@ app.prepare().then(() => {
 
     // Set the AWS Region
     const REGION = "ap-northeast-2"; //REGION
-    const IDENTITY_POOL_ID =
-      "ap-northeast-2:ee62d023-c180-46bf-9e24-935ff2fa2b5a";
+    const IDENTITY_POOL_ID = "ap-northeast-2:ee62d023-c180-46bf-9e24-935ff2fa2b5a";
     const BucketName = "const123";
 
     AWS.config.update({
@@ -408,8 +397,7 @@ app.prepare().then(() => {
 
     // Set the AWS Region
     const REGION = "ap-northeast-2"; //REGION
-    const IDENTITY_POOL_ID =
-      "ap-northeast-2:ee62d023-c180-46bf-9e24-935ff2fa2b5a";
+    const IDENTITY_POOL_ID = "ap-northeast-2:ee62d023-c180-46bf-9e24-935ff2fa2b5a";
     const BucketName = "const123";
 
     AWS.config.update({
@@ -436,8 +424,7 @@ app.prepare().then(() => {
         const result = data.Contents;
 
         for (i = 0; i < result.length; i++) {
-          result[i].URL =
-            "https://const123.s3.ap-northeast-2.amazonaws.com/" + result[i].Key;
+          result[i].URL = "https://const123.s3.ap-northeast-2.amazonaws.com/" + result[i].Key;
         }
         console.log("Success");
         res.json(result);
@@ -452,20 +439,14 @@ app.prepare().then(() => {
     // res.json(data);
     const CID = Object.keys(req.body);
     const read = await Music.findOne({ where: { CID: CID } });
-    await Music.update(
-      { LikeMusic: read.LikeMusic + 1 },
-      { where: { title: title } }
-    );
+    await Music.update({ LikeMusic: read.LikeMusic + 1 }, { where: { title: title } });
     res.send("업하트 오케");
   });
 
   server.post("/api/upLike2", async (req, res) => {
     const a = req.body.CID;
     const read = await Music.findOne({ where: { CID: a } });
-    await Music.update(
-      { LikeMusic: read.LikeMusic + 1 },
-      { where: { CID: a } }
-    );
+    await Music.update({ LikeMusic: read.LikeMusic + 1 }, { where: { CID: a } });
     res.send("좋아요 올리기 성공");
   });
 
@@ -491,10 +472,7 @@ app.prepare().then(() => {
         myplayCount: 1,
       });
     } else {
-      await MyMusic.update(
-        { myplayCount: read.myplayCount + 1 },
-        { where: { CID: CID } }
-      );
+      await MyMusic.update({ myplayCount: read.myplayCount + 1 }, { where: { CID: CID } });
     }
     res.send("myPlayCount Success!");
   });
@@ -568,8 +546,7 @@ app.prepare().then(() => {
 
       // Set the AWS Region
       const REGION = "ap-northeast-2"; //REGION
-      const IDENTITY_POOL_ID =
-        "ap-northeast-2:ee62d023-c180-46bf-9e24-935ff2fa2b5a";
+      const IDENTITY_POOL_ID = "ap-northeast-2:ee62d023-c180-46bf-9e24-935ff2fa2b5a";
       const BucketName = "const123";
 
       AWS.config.update({
@@ -628,8 +605,7 @@ app.prepare().then(() => {
 
       // Set the AWS Region
       const REGION = "ap-northeast-2"; //REGION
-      const IDENTITY_POOL_ID =
-        "ap-northeast-2:ee62d023-c180-46bf-9e24-935ff2fa2b5a";
+      const IDENTITY_POOL_ID = "ap-northeast-2:ee62d023-c180-46bf-9e24-935ff2fa2b5a";
       const BucketName = "const123";
 
       AWS.config.update({
@@ -799,13 +775,14 @@ app.prepare().then(() => {
   server.get("/api/getNowBuy", async (req, res) => {
     const abc = await BuyMusic.findAll({
       where: { sellComplete: false },
-
       include: [
         {
           model: Music,
         },
       ],
     });
+
+    console.log("여기", abc);
     res.json(abc);
   });
 
@@ -854,11 +831,86 @@ app.prepare().then(() => {
   });
 
   // 음악 컴포넌트 음악 정보 불러오기
-  server.get("/api/getMusics", async (req, res) => {
-    const result = await Music.findAll();
-
-    res.json(result);
+  server.get("/api/getMusicTop100", async (req, res) => {
+    const getMusicLikeAsec = await Music.findAll({
+      limit: 100,
+      order: [["LikeMusic"]],
+    });
+    res.json(getMusicLikeAsec);
   });
+
+  // DB 쿼리 기본 서식
+  server.get("/api/getMusic/?", async (req, res) => {
+    console.log("라우팅", req.body.name);
+    // limit
+    const abc = await Music.findAll({
+      order: [["playCount", "sellCount", "auctionCount"]],
+    });
+    res.json(abc);
+
+    const getMusicTitleAsec = await Music.findAll({
+      order: [["title"]],
+    });
+    const getMusicTitleDesc = await Music.findAll({
+      order: [["title", "DESC"]],
+    });
+    const getMusicArtistAsec = await Music.findAll({
+      order: [["artist"]],
+    });
+    const getMusicArtistDesc = await Music.findAll({
+      order: [["artist", "DESC"]],
+    });
+    const getMusicCountAsec = await Music.findAll({
+      order: [["playCount"]],
+    });
+    const getMusicTimeAsec = await Music.findAll({
+      order: [["playTime"]],
+    });
+    const getMusicLikeAsec = await Music.findAll({
+      order: [["LikeMusic"]],
+    });
+    const getMusicViewAsec = await Music.findAll({
+      order: [["view"]],
+    });
+    const getMusicAucionCountAsec = await AuctionMusic.findAll({
+      where: { auctionComplete: false },
+      include: [
+        {
+          model: Music,
+        },
+      ],
+      order: [["auctionCount"]],
+    });
+    res.json("ok");
+  });
+
+  // const posts = await Music.findAll({
+  //   where,
+  //   limit: 10,
+
+  //   include: [{
+  //     model: User, // 게시글 작성자
+  //     attributes: ['id', 'nickname', 'profileImg'],
+  //   }, {
+  //     model: Image, // 게시글의 이미지
+  //   }, {
+  //     model: Comment, // 게시글의 댓글
+  //     include: [{
+  //       model: User, //댓글을 쓴 사람
+  //       attributes: ['id', 'nickname', 'profileImg'],
+  //     }],
+  //   }, {
+  //     model: User, // 좋아요 누른 사람
+  //     as: 'Likers',
+  //     attributes: ['id'],
+  //   }],
+  //   order: [
+  //     ['createdAt', 'DESC'],
+  //     [Comment, 'createdAt', 'DESC']
+  //   ],
+  // });
+
+  // 음악 컴포넌트 음악 정보 불러오기 끝
 
   server.post("/api/getNFTLocation", async (req, res) => {
     const data = req.body.CID;
@@ -984,17 +1036,12 @@ app.prepare().then(() => {
       let imagesArray = [];
       let auctionsArray = [];
 
-      const ContractImageCount = await Instance.methods
-        .currentImageCount()
-        .call();
+      const ContractImageCount = await Instance.methods.currentImageCount().call();
       for (let i = 1; i <= ContractImageCount; i++) {
         let image = await Instance.methods.imageStorage(i).call();
         let auction = await Instance.methods.auctions(i).call();
 
-        if (
-          image.currentOwner == req.user.address &&
-          image.tokenURI == `https://ipfs.io/ipfs/${a}`
-        ) {
+        if (image.currentOwner == req.user.address && image.tokenURI == `https://ipfs.io/ipfs/${a}`) {
           imagesArray = [...imagesArray, image];
           // setImages((Images) => [...Images, image]);
 
@@ -1170,17 +1217,11 @@ app.prepare().then(() => {
     // const c = b.split(".");
     // const d = c[0];
 
-    await Music.update(
-      { address: req.body.address },
-      { where: { CID: req.body.CID } }
-    );
+    await Music.update({ address: req.body.address }, { where: { CID: req.body.CID } });
 
     const aaa = await BuyMusic.findOne({ where: { CID: req.body.CID } });
 
-    await BuyMusic.update(
-      { sellComplete: true, currentOwner: req.body.address },
-      { where: { CID: req.body.CID } }
-    );
+    await BuyMusic.update({ sellComplete: true, currentOwner: req.body.address }, { where: { CID: req.body.CID } });
 
     const date = new Date();
 
@@ -1223,10 +1264,7 @@ app.prepare().then(() => {
     // res.json(data);
     const title = Object.keys(req.body);
     const read = await AuctionData.findOne({ where: { title: title } });
-    await AuctionData.update(
-      { Auction: read.Auction },
-      { where: { title: title } }
-    );
+    await AuctionData.update({ Auction: read.Auction }, { where: { title: title } });
 
     res.send("옥션데이터 오케");
   });
@@ -1307,10 +1345,7 @@ async function getBuyDataContract() {
   const deployedAddress = contractabi.networks[networkId].address;
 
   // Instance
-  const NFTMarketplaceInstance = new web3.eth.Contract(
-    contractabi.abi,
-    deployedAddress
-  );
+  const NFTMarketplaceInstance = new web3.eth.Contract(contractabi.abi, deployedAddress);
 
   return NFTMarketplaceInstance;
 }
@@ -1330,10 +1365,7 @@ async function getBuyMethodContract() {
   const deployedAddress = contractabi.networks[networkId].address;
 
   // Instance
-  const NFTMarketplaceInstance = new web3.eth.Contract(
-    contractabi.abi,
-    deployedAddress
-  );
+  const NFTMarketplaceInstance = new web3.eth.Contract(contractabi.abi, deployedAddress);
 
   return NFTMarketplaceInstance;
 }
@@ -1353,10 +1385,7 @@ async function getAuctionDataContract() {
   const deployedAddress = contractabi.networks[networkId].address;
 
   // Instance
-  const NFTMarketplaceInstance = new web3.eth.Contract(
-    contractabi.abi,
-    deployedAddress
-  );
+  const NFTMarketplaceInstance = new web3.eth.Contract(contractabi.abi, deployedAddress);
 
   return NFTMarketplaceInstance;
 }
@@ -1368,9 +1397,7 @@ async function getNFT() {
     let imagesArray = [];
     let auctionsArray = [];
 
-    const ContractImageCount = await Instance.methods
-      .currentImageCount()
-      .call();
+    const ContractImageCount = await Instance.methods.currentImageCount().call();
     for (let i = 1; i <= ContractImageCount; i++) {
       let image = await Instance.methods.imageStorage(i).call();
       imagesArray = [...imagesArray, image];
@@ -1405,9 +1432,7 @@ async function getMyNFT(data) {
     let imagesArray = [];
     let auctionsArray = [];
 
-    const ContractImageCount = await Instance.methods
-      .currentImageCount()
-      .call();
+    const ContractImageCount = await Instance.methods.currentImageCount().call();
     for (let i = 1; i <= ContractImageCount; i++) {
       let image = await Instance.methods.imageStorage(i).call();
       if (image.currentOwner == data) {
@@ -1451,9 +1476,7 @@ async function getMyBuy(data) {
       // console.log(hash);
       try {
         // 오류 핸들러니까 잠시 주석 처리
-        const response = await fetch(
-          `https://ipfs.infura.io/ipfs/${hash}?clear`
-        );
+        const response = await fetch(`https://ipfs.infura.io/ipfs/${hash}?clear`);
         if (!response.ok) {
           throw new Error("Something went wrong");
         }
@@ -1491,9 +1514,7 @@ async function getMyAuction(data) {
 
     let auctionsArray = [];
 
-    const ContractImageCount = await Instance.methods
-      .currentImageCount()
-      .call();
+    const ContractImageCount = await Instance.methods.currentImageCount().call();
 
     for (let i = 1; i <= ContractImageCount; i++) {
       let image = await Instance.methods.imageStorage(i).call();
@@ -1546,9 +1567,7 @@ async function getBuy() {
       // console.log(hash);
       try {
         // 오류 핸들러니까 잠시 주석 처리
-        const response = await fetch(
-          `https://ipfs.infura.io/ipfs/${hash}?clear`
-        );
+        const response = await fetch(`https://ipfs.infura.io/ipfs/${hash}?clear`);
         if (!response.ok) {
           throw new Error("Something went wrong");
         }
@@ -1583,9 +1602,7 @@ async function getAuction() {
     let offersArray = [];
     let auctionsArray = [];
 
-    const ContractImageCount = await Instance.methods
-      .currentImageCount()
-      .call();
+    const ContractImageCount = await Instance.methods.currentImageCount().call();
 
     for (let i = 1; i <= ContractImageCount; i++) {
       let image = await Instance.methods.imageStorage(i).call();
@@ -1638,9 +1655,7 @@ async function setBuy(param) {
       // console.log(hash);
       try {
         // 오류 핸들러니까 잠시 주석 처리
-        const response = await fetch(
-          `https://ipfs.infura.io/ipfs/${hash}?clear`
-        );
+        const response = await fetch(`https://ipfs.infura.io/ipfs/${hash}?clear`);
         if (!response.ok) {
           throw new Error("Something went wrong");
         }

@@ -5,17 +5,9 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 
 // MUI - Component
-import {
-  Avatar,
-  Typography,
-  Container,
-  Grid,
-  TextField,
-  Box,
-  Button,
-} from "@mui/material";
+import { Avatar, Typography, Container, Grid, TextField, Box, Button } from "@mui/material";
 
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+// import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 // MUI - style
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -44,7 +36,7 @@ const LoginForm = () => {
     <div>
       <ThemeProvider theme={theme}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Container maxWidth="xs" >
+          <Container maxWidth="xs">
             <Box
               sx={{
                 marginTop: 20,
@@ -53,7 +45,7 @@ const LoginForm = () => {
                 alignItems: "center",
               }}
             >
-              <img src="/img/ConstLogo.png " width={"250px"}/>
+              <img src="/img/ConstLogo.png " width={"250px"} />
               <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <TextField
@@ -61,12 +53,10 @@ const LoginForm = () => {
                     fullWidth
                     label="Artist Id"
                     autoFocus
-                    
                     {...register("id2", {
                       required: true,
                       maxLength: 80,
                     })}
-                    
                   />
                 </Grid>
 
@@ -85,12 +75,7 @@ const LoginForm = () => {
                 </Grid>
               </Grid>
 
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-              >
+              <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
                 Login
               </Button>
             </Box>

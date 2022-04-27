@@ -6,9 +6,7 @@ import Footer from "../components/Layout/footer";
 import GetNowNFT from "../components/GetLocalDB/getNowNFT";
 
 const IndexNFT = () => {
-  const { data, isLoading, isFetching } = useQuery(["getNowNFT"], () =>
-    fetchNowNFT()
-  );
+  const { data, isLoading, isFetching } = useQuery(["getNowNFT"], () => fetchNowNFT());
 
   return (
     <div>
@@ -26,7 +24,8 @@ export async function getServerSideProps() {
 
   return {
     props: {
-      dehydratedState: dehydrate(queryClient),
+      // dehydratedState: dehydrate(queryClient),
+      // dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
     },
   };
 }

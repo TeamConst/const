@@ -6,9 +6,7 @@ import Footer from "../components/Layout/footer";
 import GetNowBuy from "../components/GetLocalDB/getNowBuy";
 
 const IndexBuy = () => {
-  const { data, isLoading, isFetching } = useQuery(["getNowBuy"], () =>
-    fetchNowBuy()
-  );
+  const { data, isLoading, isFetching } = useQuery(["getNowBuy"], () => fetchNowBuy());
 
   return (
     <div>
@@ -21,12 +19,12 @@ const IndexBuy = () => {
 
 export async function getServerSideProps() {
   const queryClient = new QueryClient();
-
   await queryClient.prefetchQuery(["getNowBuy"], () => fetchNowBuy());
 
   return {
     props: {
-      dehydratedState: dehydrate(queryClient),
+      // dehydratedState: dehydrate(queryClient),
+      // dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
     },
   };
 }

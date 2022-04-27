@@ -6,44 +6,59 @@ import { useForm } from "react-hook-form";
 
 // React-query
 import { useQuery } from "react-query";
-import { fetchMusics } from "../../hooks";
+import { fetchMusicTop100, fetchMusic } from "../../hooks";
 
 // axios
 import axios from "axios";
 
 // MUI - Component
-import {
-  Box,
-  Grid,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-  Container,
-} from "@mui/material/";
+import { Box, Button, Grid, Table, TableBody, TableCell, TableHead, TableRow, Container } from "@mui/material/";
 
 // MUI - Style
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
-
-import AudioPlayer from "react-h5-audio-player";
-import "react-h5-audio-player/lib/styles.css";
 
 import MusicPlayer from "../Musicplay/MusicPlayer";
 
 const theme = createTheme();
 
 const ListenMusic = () => {
-  const { data, isLoading, isFetching } = useQuery(["musics"], () =>
-    fetchMusics()
-  );
+  const useUser1 = () => {
+    const result = useQuery(["getMusicTop100"], () => fetchMusicTop100());
+    return result;
+  };
 
-  let musics;
-  let a = 0;
-  if (data) {
-    musics = data.data;
-    a = 1;
+  // 컨트랙트 처리 위해서
+  const useUser2 = (data) => {
+    const result = useQuery(["getMusic"], () => fetchMusic(data));
+    return result;
+  };
+
+  const data1 = useUser1();
+
+  const [쿼리, 쿼리변경] = useState();
+
+  const setQuery = () => {
+    쿼리변경("abcd");
+  };
+
+  if (쿼리 == "abcd") {
+    const data2 = useUser2("abcd");
   }
+
+  // let a = 0;
+  // let musicTop100;
+  // if (data1.data) {
+  //   a = 1;
+  //   musicTop100 = data1.data.data;
+  // }
+
+  // let b = 0;
+  // let musicData;
+  // if (data2.data) {
+  //   b = 1;
+  //   musicData = data2.data.data;
+  // }
+  // console.log(musicData);
 
   const [음악, 음악변경] = useState();
   const [str, str변경] = useState();
@@ -64,15 +79,17 @@ const ListenMusic = () => {
 
   return (
     <div>
-      <ThemeProvider theme={theme}>
+      <Box sx={{ m: 100 }}></Box>1<Button onClick={setQuery}>1111111</Button>
+      {/* <ThemeProvider theme={theme}>
         <Container maxWidth="xl">
           <Grid container spacing={2} sx={{ mt: 5 }}>
             <Grid item xs={6}>
               <MusicPlayer str={str}></MusicPlayer>
             </Grid>
             <Grid item xs={6}>
+              <Button onClick={setQuery}>111</Button>
               <Box sx={{ display: "flex" }}>
-                {/* <Title>Recent Orders</Title> */}
+                <Title>Recent Orders</Title>
                 <Table size="small">
                   <TableHead>
                     <TableRow>
@@ -111,17 +128,7 @@ const ListenMusic = () => {
             </Grid>
           </Grid>
         </Container>
-      </ThemeProvider>
-
-      {/* 테이블 나열하고 클릭시 */}
-      {/* AudioPlayer 실행 */}
-      {/* <AudioPlayer
-        autoPlay
-        // src="https://ipfs.io/ipfs/QmXmsjFBRPEeJ9US2QkNgrDmHgUb6ajSRrcfprSFuTyDoM"
-        src={음악}
-        onPlay={(e) => console.log("onPlay")}
-        // other props here
-      /> */}
+      </ThemeProvider> */}
     </div>
   );
 };

@@ -70,9 +70,7 @@ const GetMyNFT = () => {
     getNowAccount();
   }, []);
 
-  const { data, isLoading, isFetching } = useQuery(["getMyNFTDB"], () =>
-    fetchMyNFTDB()
-  );
+  const { data, isLoading, isFetching } = useQuery(["getMyNFTDB"], () => fetchMyNFTDB());
 
   let a = 0;
   let nftMyData = [];
@@ -96,22 +94,16 @@ const GetMyNFT = () => {
   return (
     <div>
       {/* 모달 */}
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
+      <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
         <Box sx={{ ...style, width: 200 }} textAlign="center">
           <Box>
             <ConfigBuy props={모달데이터}></ConfigBuy>
           </Box>
-          {/* <Box>
-            <ConfigEndBuy></ConfigEndBuy>
-          </Box> */}
+
           <Box>
             <ConfigAuction props={모달데이터}></ConfigAuction>
           </Box>
+
           <Button onClick={handleClose}>닫기</Button>
         </Box>
       </Modal>
@@ -132,37 +124,28 @@ const GetMyNFT = () => {
                       width: "100%",
                       display: "flex",
                       flexDirection: "column",
-                      borderRadius:"20px"
+                      borderRadius: "20px",
                     }}
                   >
-                     <CardContent sx={{ flexGrow: 0}}>
-   
-   <Typography>  {a.artist}</Typography>
- </CardContent>
-                        <CardMedia
+                    <CardContent sx={{ flexGrow: 0 }}>
+                      <Typography> {a.artist}</Typography>
+                    </CardContent>
+                    <CardMedia
                       component="img"
                       sx={{
-  
                         height: "70%",
                         width: "100%",
                         objectFit: "fill",
-                        
                       }}
                       image={a.s3}
                       alt="random"
                     />
                     <CardContent sx={{ flexGrow: 1 }}>
-              
                       <div>{`${a.title}`}</div>
                       <Typography>{`재생 횟수  ${a.playCount}`}</Typography>
                     </CardContent>
-                    <CardActions
-                      align="center"
-                      sx={{ justifyContent: "flex-end" }}
-                    >
-                      <Button onClick={() => handleOpen(a)}>
-                        판매 & 경매 시작하기
-                      </Button>
+                    <CardActions align="center" sx={{ justifyContent: "flex-end" }}>
+                      <Button onClick={() => handleOpen(a)}>판매 & 경매 시작하기</Button>
                     </CardActions>
                   </Card>
                 </Grid>
@@ -201,22 +184,15 @@ const ConfigBuy = (props) => {
       let praaccounts;
       const accounts1 = await web3.eth.getAccounts();
       const networkId1 = await web3.eth.net.getId();
-      const deployedAddress1 =
-        collectionContractJSON.networks[networkId1].address;
-      const contract1 = new web3.eth.Contract(
-        collectionContractJSON.abi,
-        deployedAddress1
-      );
+      const deployedAddress1 = collectionContractJSON.networks[networkId1].address;
+      const contract1 = new web3.eth.Contract(collectionContractJSON.abi, deployedAddress1);
 
       pra = contract1;
       praaccounts = accounts1;
 
       let pra2;
       const deployedAddress2 = marketContractJSON.networks[networkId1].address;
-      const contract2 = new web3.eth.Contract(
-        marketContractJSON.abi,
-        deployedAddress2
-      );
+      const contract2 = new web3.eth.Contract(marketContractJSON.abi, deployedAddress2);
       pra2 = contract2;
 
       // 오퍼
@@ -241,9 +217,7 @@ const ConfigBuy = (props) => {
               // 일단 여기에 비동기로 하나 넣자
             })
             .on("error", (error) => {
-              window.alert(
-                "Something went wrong when pushing to the blockchain"
-              );
+              window.alert("Something went wrong when pushing to the blockchain");
             });
         });
 
@@ -270,13 +244,7 @@ const ConfigBuy = (props) => {
     <div>
       <Button onClick={buyOpen}>판매 시작하기</Button>
 
-      <Modal
-        hideBackdrop
-        open={buy}
-        onClose={buyClose}
-        aria-labelledby="child-modal-title"
-        aria-describedby="child-modal-description"
-      >
+      <Modal hideBackdrop open={buy} onClose={buyClose} aria-labelledby="child-modal-title" aria-describedby="child-modal-description">
         <Box sx={{ ...style, width: 300 }} textAlign="center">
           <h2 id="child-modal-title">판매 시작하기</h2>
 
@@ -311,9 +279,7 @@ const ConfigAuction = (props) => {
   const auctionOpen = () => setAuction(true);
   const auctionClose = () => setAuction(false);
 
-  const { data, isLoading, isFetching } = useQuery(["getSelectedAuction"], () =>
-    fetchSelectedAuction(props.props.CID)
-  );
+  const { data, isLoading, isFetching } = useQuery(["getSelectedAuction"], () => fetchSelectedAuction(props.props.CID));
 
   let auctionData = [];
   if (data) {
@@ -334,10 +300,7 @@ const ConfigAuction = (props) => {
     const accounts1 = await web3.eth.getAccounts();
     const networkId1 = await web3.eth.net.getId();
     const deployedAddress1 = ImageMarketPlace.networks[networkId1].address;
-    const contract1 = new web3.eth.Contract(
-      ImageMarketPlace.abi,
-      deployedAddress1
-    );
+    const contract1 = new web3.eth.Contract(ImageMarketPlace.abi, deployedAddress1);
 
     pra = contract1;
     praaccounts = accounts1;
@@ -348,89 +311,39 @@ const ConfigAuction = (props) => {
     });
 
     /// 판매 개시(소유자라고도 하는 판매자)
-    await pra.methods
-      .beginAuction(auctionData[0].tokenID, minBid2, duration2)
-      .send({ from: praaccounts[0] });
+    await pra.methods.beginAuction(auctionData[0].tokenID, minBid2, duration2).send({ from: praaccounts[0] });
   };
 
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-  } = useForm();
-
-  const onSubmit = async (data) => {
-    try {
-      const ax = await axios.post("http://localhost:8080/api/setAuctionStart", {
-        CID: props.props.CID,
-      });
-      window.location.href = "http://localhost:8080/mypage";
-    } catch (err) {
-      console.log(err);
-    }
-  };
   return (
     <div>
       <Button onClick={auctionOpen}>경매 시작하기</Button>
 
-      <Modal
-        hideBackdrop
-        open={auction}
-        onClose={auctionClose}
-        aria-labelledby="child-modal-title"
-        aria-describedby="child-modal-description"
-      >
+      <Modal hideBackdrop open={auction} onClose={auctionClose} aria-labelledby="child-modal-title" aria-describedby="child-modal-description">
         <Box sx={{ ...style, width: 500 }} textAlign="center">
           <h2 id="child-modal-title">경매 시작하기</h2>
 
-          <form onSubmit={putOnBid}>
-            <DialogTitle>입찰하다</DialogTitle>
-            <DialogContent>
-              <DialogContentText>
-                경매를 시작하려면 다음 정보를 입력하세요.
-              </DialogContentText>
-              <Box>
-                <TextField
-                  label="Starting Bid"
-                  type="number"
-                  width={100}
-                  variant="standard"
-                  required
-                  onChange={(e) => setMinBid(e.target.value)}
-                />
-                <br />
-                <Select
-                  defaultValue={1}
-                  variant="standard"
-                  onChange={(e) => setCurrenciesIU(e.target.value)}
-                >
-                  <MenuItem value={1}>Wei</MenuItem>
-                  <MenuItem value={1000000000000}>Szabo</MenuItem>
-                </Select>
-              </Box>
-              <Box>
-                <TextField
-                  label="Durations"
-                  type="number"
-                  width={100}
-                  variant="standard"
-                  required
-                  onChange={(e) => setDuration(e.target.value)}
-                />
-                <br />
-                <Select
-                  defaultValue={1}
-                  variant="standard"
-                  onChange={(e) => setTimesIU(e.target.value)}
-                >
-                  <MenuItem value={1}>Second</MenuItem>
-                  <MenuItem value={60}>Minute</MenuItem>
-                  <MenuItem value={3600}>Hour</MenuItem>
-                </Select>
-              </Box>
-            </DialogContent>
-            <Button type="submit">Start</Button>
-          </form>
+          <DialogTitle>입찰하다</DialogTitle>
+          <DialogContent>
+            <DialogContentText>경매를 시작하려면 다음 정보를 입력하세요.</DialogContentText>
+            <Box>
+              <TextField label="Starting Bid" type="number" width={100} variant="standard" required onChange={(e) => setMinBid(e.target.value)} />
+              <br />
+              <Select defaultValue={1} variant="standard" onChange={(e) => setCurrenciesIU(e.target.value)}>
+                <MenuItem value={1}>Wei</MenuItem>
+                <MenuItem value={1000000000000}>Szabo</MenuItem>
+              </Select>
+            </Box>
+            <Box>
+              <TextField label="Durations" type="number" width={100} variant="standard" required onChange={(e) => setDuration(e.target.value)} />
+              <br />
+              <Select defaultValue={1} variant="standard" onChange={(e) => setTimesIU(e.target.value)}>
+                <MenuItem value={1}>Second</MenuItem>
+                <MenuItem value={60}>Minute</MenuItem>
+                <MenuItem value={3600}>Hour</MenuItem>
+              </Select>
+            </Box>
+          </DialogContent>
+          <Button onClick={() => putOnBid()}>Start</Button>
 
           <Button onClick={auctionClose}>닫기</Button>
         </Box>
