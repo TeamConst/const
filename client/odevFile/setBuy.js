@@ -120,7 +120,7 @@ const SetBuy = () => {
   }
 
   const likeHandler = async () => {
-    const like = await axios.post("http://localhost:8080/api/upLike2", {
+    const like = await axios.post("http://localhost:8080/api/upLike", {
       CID: id,
     });
   };

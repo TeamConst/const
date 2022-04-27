@@ -9,6 +9,7 @@ export * from "./getMyBuy";
 export * from "./getMyNFTDB";
 export * from "./getMyBuyDB";
 export * from "./getMyAuctionDB";
+export * from "./getMyFavoriteNFTDB";
 
 export * from "./getNowNFT";
 export * from "./getNowBuy";

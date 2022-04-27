@@ -24,9 +24,15 @@ module.exports = class MyMusic extends Sequelize.Model {
           allowNull: true,
           defaultValue: 0,
         },
-        myfavoriteMusic: {
-          type: Sequelize.STRING(200),
+        mylikeMusic: {
+          type: Sequelize.INTEGER,
           allowNull: true,
+          defaultValue: 0,
+        },
+        mybookmarkMusic: {
+          type: Sequelize.INTEGER,
+          allowNull: true,
+          defaultValue: 0,
         },
       },
       {

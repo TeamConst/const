@@ -11,7 +11,14 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useRouter } from "next/router";
 import { useQuery } from "react-query";
 import { useForm } from "react-hook-form";
-import { fetchBuyMusicDB, fetchUserDB, fetchBuyDB, fetchSetBuy, fetchOffer, fetchTransactionDetailDB } from "../../hooks";
+import {
+  fetchBuyMusicDB,
+  fetchUserDB,
+  fetchBuyDB,
+  fetchSetBuy,
+  fetchOffer,
+  fetchTransactionDetailDB,
+} from "../../hooks";
 import { useState, useEffect } from "react";
 
 import web3 from "../connection/web3";
@@ -194,7 +201,9 @@ const SetBuy = () => {
 
   // 가격 변동 그래프 만드려고
   const useUser6 = () => {
-    const result = useQuery(["getTransactionDetailDB"], () => fetchTransactionDetailDB(id));
+    const result = useQuery(["getTransactionDetailDB"], () =>
+      fetchTransactionDetailDB(id)
+    );
     return result;
   };
 
@@ -208,7 +217,9 @@ const SetBuy = () => {
   const [이미지, 이미지변경] = useState();
 
   useEffect(() => {
-    이미지변경(`https://const123.s3.ap-northeast-2.amazonaws.com/image/${id}.jpg`);
+    이미지변경(
+      `https://const123.s3.ap-northeast-2.amazonaws.com/image/${id}.jpg`
+    );
 
     async function upView() {
       const view = await axios.post("http://localhost:8080/api/upView", {
@@ -261,7 +272,7 @@ const SetBuy = () => {
   }
 
   const likeHandler = async () => {
-    const like = await axios.post("http://localhost:8080/api/upLike2", {
+    const like = await axios.post("http://localhost:8080/api/upLike", {
       CID: id,
     });
   };
@@ -406,15 +417,22 @@ const SetBuy = () => {
     let praaccounts;
     const accounts1 = await web3.eth.getAccounts();
     const networkId1 = await web3.eth.net.getId();
-    const deployedAddress1 = collectionContractJSON.networks[networkId1].address;
-    const contract1 = new web3.eth.Contract(collectionContractJSON.abi, deployedAddress1);
+    const deployedAddress1 =
+      collectionContractJSON.networks[networkId1].address;
+    const contract1 = new web3.eth.Contract(
+      collectionContractJSON.abi,
+      deployedAddress1
+    );
 
     pra = contract1;
     praaccounts = accounts1;
 
     let pra2;
     const deployedAddress2 = marketContractJSON.networks[networkId1].address;
-    const contract2 = new web3.eth.Contract(marketContractJSON.abi, deployedAddress2);
+    const contract2 = new web3.eth.Contract(
+      marketContractJSON.abi,
+      deployedAddress2
+    );
     pra2 = contract2;
 
     const setbuydb = await axios.post("http://localhost:8080/api/setBuyDB", {
@@ -434,7 +452,10 @@ const SetBuy = () => {
     const etherPrice = web3.utils.toWei(String(buyMusicDB.price), "ether");
 
     for (let i = 0; i < offerData.length; i++) {
-      if (offerData[i].id == buyData[0].id && offerData[i].price == etherPrice) {
+      if (
+        offerData[i].id == buyData[0].id &&
+        offerData[i].price == etherPrice
+      ) {
         pra2.methods
           .fillOffer(offerData[i].offerId)
           .send({
@@ -458,15 +479,22 @@ const SetBuy = () => {
     let praaccounts;
     const accounts1 = await web3.eth.getAccounts();
     const networkId1 = await web3.eth.net.getId();
-    const deployedAddress1 = collectionContractJSON.networks[networkId1].address;
-    const contract1 = new web3.eth.Contract(collectionContractJSON.abi, deployedAddress1);
+    const deployedAddress1 =
+      collectionContractJSON.networks[networkId1].address;
+    const contract1 = new web3.eth.Contract(
+      collectionContractJSON.abi,
+      deployedAddress1
+    );
 
     pra = contract1;
     praaccounts = accounts1;
 
     let pra2;
     const deployedAddress2 = marketContractJSON.networks[networkId1].address;
-    const contract2 = new web3.eth.Contract(marketContractJSON.abi, deployedAddress2);
+    const contract2 = new web3.eth.Contract(
+      marketContractJSON.abi,
+      deployedAddress2
+    );
     pra2 = contract2;
 
     for (let i = 0; i < offerData.length; i++) {
@@ -500,15 +528,22 @@ const SetBuy = () => {
     let praaccounts;
     const accounts1 = await web3.eth.getAccounts();
     const networkId1 = await web3.eth.net.getId();
-    const deployedAddress1 = collectionContractJSON.networks[networkId1].address;
-    const contract1 = new web3.eth.Contract(collectionContractJSON.abi, deployedAddress1);
+    const deployedAddress1 =
+      collectionContractJSON.networks[networkId1].address;
+    const contract1 = new web3.eth.Contract(
+      collectionContractJSON.abi,
+      deployedAddress1
+    );
 
     pra = contract1;
     praaccounts = accounts1;
 
     let pra2;
     const deployedAddress2 = marketContractJSON.networks[networkId1].address;
-    const contract2 = new web3.eth.Contract(marketContractJSON.abi, deployedAddress2);
+    const contract2 = new web3.eth.Contract(
+      marketContractJSON.abi,
+      deployedAddress2
+    );
     pra2 = contract2;
 
     // 오퍼
@@ -1130,7 +1165,11 @@ const SetBuy = () => {
                       <VolumeSu></VolumeSu>
                       <VolumeGiu></VolumeGiu>
                       <Schermo>
-                        <MusicPlayer str={id2} title={buyDB.title} artist={buyDB.artist} />
+                        <MusicPlayer
+                          str={id2}
+                          title={buyDB.title}
+                          artist={buyDB.artist}
+                        />
                         <FramePosizione>
                           <Header>
                             <Wrap></Wrap>
@@ -1144,7 +1183,10 @@ const SetBuy = () => {
                 <Grid item xs={6}>
                   <Grid container spacing={5}>
                     <Grid item xs={12}>
-                      <Boldtext> {`${buyDB.artist}  -  ${buyDB.title}`}</Boldtext>
+                      <Boldtext>
+                        {" "}
+                        {`${buyDB.artist}  -  ${buyDB.title}`}
+                      </Boldtext>
                     </Grid>
                     <Grid item xs={12}>
                       <hr />
@@ -1160,7 +1202,11 @@ const SetBuy = () => {
                     </Grid>
                     <Grid item xs={12}>
                       <hr />
-                      <Box p={2}>에디션</Box>
+                      <Box p={2}>
+                        <Button onClick={() => likeHandler()}>
+                          즐겨찾기 추가하기
+                        </Button>
+                      </Box>
                     </Grid>
                     <Grid item xs={12}>
                       <hr />
@@ -1173,7 +1219,12 @@ const SetBuy = () => {
                       <Grid item xs={6}>
                         <Box p={2}>
                           <Typography>본인의 상품입니다</Typography>
-                          <Button type="sumit" fullWidth onClick={cancelHandler} variant="contained">
+                          <Button
+                            type="sumit"
+                            fullWidth
+                            onClick={cancelHandler}
+                            variant="contained"
+                          >
                             오퍼 취소하기
                           </Button>
                         </Box>
@@ -1181,7 +1232,11 @@ const SetBuy = () => {
                     ) : (
                       <Grid item xs={6}>
                         <Box p={2}>
-                          <Button onClick={buyHandler} fullWidth variant="contained">
+                          <Button
+                            onClick={buyHandler}
+                            fullWidth
+                            variant="contained"
+                          >
                             구매하기
                           </Button>
                         </Box>

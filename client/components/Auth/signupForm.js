@@ -8,7 +8,24 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 
 // MUI - Component
-import { Avatar, Button, TextField, Link, Grid, Box, Typography, Container, MenuItem, Select, Radio, IconButton, RadioGroup, FormControl, FormControlLabel, FormLabel } from "@mui/material";
+import {
+  Avatar,
+  Button,
+  TextField,
+  Link,
+  Grid,
+  Box,
+  Typography,
+  Container,
+  MenuItem,
+  Select,
+  Radio,
+  IconButton,
+  RadioGroup,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+} from "@mui/material";
 
 // import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 
@@ -166,7 +183,10 @@ const SignupForm = () => {
     imageFormData.append("image", image);
     imageFormData.append("id2", 아이디);
 
-    const resultImage = await axios.post("http://localhost:8080/api/signup/image", imageFormData);
+    const resultImage = await axios.post(
+      "http://localhost:8080/api/signup/image",
+      imageFormData
+    );
 
     console.log(result);
   };
@@ -192,12 +212,30 @@ const SignupForm = () => {
                 <Grid container spacing={5}>
                   <Grid item xs={12}>
                     <Typography>
-                      <Typography>※ 아티스트는 경매 권한을 부여 받습니다 ※</Typography>
+                      <Typography>
+                        ※ 아티스트는 경매 권한을 부여 받습니다 ※
+                      </Typography>
 
                       <FormControl component="fieldset">
-                        <RadioGroup row={true} textAlign="center" display="flex" alignItems="center">
-                          <FormControlLabel value="ARTIST" control={<Radio />} label="ARTIST" required {...register("artist")} />
-                          <FormControlLabel value="NORMAL" control={<Radio />} label="NORMAL" {...register("artist")} />
+                        <RadioGroup
+                          row={true}
+                          textAlign="center"
+                          display="flex"
+                          alignItems="center"
+                        >
+                          <FormControlLabel
+                            value="ARTIST"
+                            control={<Radio />}
+                            label="ARTIST"
+                            required
+                            {...register("artist")}
+                          />
+                          <FormControlLabel
+                            value="NORMAL"
+                            control={<Radio />}
+                            label="NORMAL"
+                            {...register("artist")}
+                          />
                         </RadioGroup>
                       </FormControl>
                     </Typography>
@@ -206,7 +244,12 @@ const SignupForm = () => {
                   <Grid item xs={12}>
                     <Typography>
                       <Typography>
-                        <img src={이미지} loading="lazy" height="300" width="300" />
+                        <img
+                          src={이미지}
+                          loading="lazy"
+                          height="300"
+                          width="300"
+                        />
                         <label htmlFor="icon-button-file">
                           {/* <Input
                           {...register("image", {
@@ -230,27 +273,50 @@ const SignupForm = () => {
                               changeImage(e);
                             }}
                           ></input>
-                          <IconButton color="primary" aria-label="upload picture" component="span">
+                          <IconButton
+                            color="primary"
+                            aria-label="upload picture"
+                            component="span"
+                          >
                             {/* <AddAPhotoIcon></AddAPhotoIcon> */}
                           </IconButton>
                         </label>
                       </Typography>
-                      <Typography>※ 이미지는 추후에 수정 가능합니다 ※</Typography>
+                      <Typography>
+                        ※ 이미지는 추후에 수정 가능합니다 ※
+                      </Typography>
                     </Typography>
                   </Grid>
 
                   <Grid item xs={12}>
                     <Typography>MetaMask Address</Typography>
-                    <Typography>메타마스크에 연결되어 있는 아이디를 확인해주세요</Typography>
+                    <Typography>
+                      메타마스크에 연결되어 있는 아이디를 확인해주세요
+                    </Typography>
                     <Typography>메타마스크 변경시 F5를 눌러주세요</Typography>
-                    <TextField fullWidth id="artistAddress" value={현재메타마스크아이디} autoFocus />
+                    <TextField
+                      fullWidth
+                      id="artistAddress"
+                      value={현재메타마스크아이디}
+                      autoFocus
+                    />
                   </Grid>
 
                   <Grid item xs={12}>
                     <Typography>ID</Typography>
-                    <TextField required fullWidth label="ID" onChange={changeId} autoFocus />
+                    <TextField
+                      required
+                      fullWidth
+                      label="ID"
+                      onChange={changeId}
+                      autoFocus
+                    />
 
-                    <Button onClick={() => validId()} variant="contained" sx={{ mt: 3, mb: 2 }}>
+                    <Button
+                      onClick={() => validId()}
+                      variant="contained"
+                      sx={{ mt: 3, mb: 2 }}
+                    >
                       아이디 있나 보기
                     </Button>
                     <Typography>{아이디유효성}</Typography>
@@ -258,12 +324,26 @@ const SignupForm = () => {
 
                   <Grid item xs={12}>
                     <Typography>Password</Typography>
-                    <TextField required fullWidth type="password" label="Artist Password" autoFocus onChange={inputPassword}></TextField>
+                    <TextField
+                      required
+                      fullWidth
+                      type="password"
+                      label="Artist Password"
+                      autoFocus
+                      onChange={inputPassword}
+                    ></TextField>
                   </Grid>
 
                   <Grid item xs={12}>
                     <Typography>Re-Password</Typography>
-                    <TextField required fullWidth onChange={changePassword} type="password" label="Artist Repassword" autoFocus />
+                    <TextField
+                      required
+                      fullWidth
+                      onChange={changePassword}
+                      type="password"
+                      label="Artist Repassword"
+                      autoFocus
+                    />
                     <Typography>{비밀번호유효성}</Typography>
                   </Grid>
 
@@ -283,7 +363,14 @@ const SignupForm = () => {
 
                   <Grid item xs={12}>
                     <Typography>Nation</Typography>
-                    <TextField select fullWidth label="Nation" options={options} value={국가} onChange={handleNation}>
+                    <TextField
+                      select
+                      fullWidth
+                      label="Nation"
+                      options={options}
+                      value={국가}
+                      onChange={handleNation}
+                    >
                       {options.map((option) => (
                         <MenuItem key={option.value} value={option.label}>
                           {option.label}
@@ -294,18 +381,34 @@ const SignupForm = () => {
 
                   <Grid item xs={12}>
                     <Typography>Genre</Typography>
-                    <TextField select label="Genre" fullWidth value={장르} onChange={handleGenre}>
+                    <TextField
+                      select
+                      label="Genre"
+                      fullWidth
+                      value={장르}
+                      onChange={handleGenre}
+                    >
                       {Genres.map((option) => (
                         <MenuItem key={option.value} value={option.value}>
                           {option.value}
                         </MenuItem>
                       ))}
                     </TextField>
+                    <Typography>
+                      좋아하는 장르를 선택해주세요!<br></br>초기 추천 데이터에
+                      반영이 됩니다.
+                    </Typography>
                   </Grid>
 
                   <Grid item xs={12}>
-                    {아이디유효성검사 === true && 비밀번호유효성검사 === true ? (
-                      <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+                    {아이디유효성검사 === true &&
+                    비밀번호유효성검사 === true ? (
+                      <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        sx={{ mt: 3, mb: 2 }}
+                      >
                         Sign Up
                       </Button>
                     ) : (

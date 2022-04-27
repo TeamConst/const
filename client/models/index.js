@@ -9,14 +9,15 @@ const config = require("../config/config.js");
 // Model 불러오기
 const User = require("./user");
 const Music = require("./music");
-const Artist = require("./artist");
-const AuctionData = require("./auctiondata");
 const MyMusic = require("./mymusic");
+const LikeArtist = require("./likeArtist");
+const LikeMusic = require("./likeMusic");
+const BookmarkMusic = require("./bookmarkMusic");
+
+const AuctionData = require("./auctiondata");
 const AuctionMusic = require("./auctionMusic");
 const BuyMusic = require("./buyMusic");
 const TransactionDetail = require("./transactionDetail");
-
-// const Like = require("./like");
 
 const db = {};
 
@@ -32,8 +33,11 @@ db.sequelize = sequelize;
 
 db.User = User;
 db.Music = Music;
-db.Artist = Artist;
 db.MyMusic = MyMusic;
+db.LikeArtist = LikeArtist;
+db.LikeMusic = LikeMusic;
+db.BookmarkMusic = BookmarkMusic;
+
 db.BuyMusic = BuyMusic;
 db.AuctionMusic = AuctionMusic;
 db.TransactionDetail = TransactionDetail;
@@ -41,20 +45,25 @@ db.AuctionData = AuctionData;
 
 // db.Like = Like;
 User.init(sequelize);
-Artist.init(sequelize);
 Music.init(sequelize);
-AuctionData.init(sequelize);
 MyMusic.init(sequelize);
+LikeArtist.init(sequelize);
+LikeMusic.init(sequelize);
+BookmarkMusic.init(sequelize);
+
+AuctionData.init(sequelize);
 BuyMusic.init(sequelize);
 AuctionMusic.init(sequelize);
 TransactionDetail.init(sequelize);
-// Like.init(sequelize);
 
 User.associate(db);
-Artist.associate(db);
 Music.associate(db);
-AuctionData.associate(db);
 MyMusic.associate(db);
+LikeArtist.associate(db);
+LikeMusic.associate(db);
+BookmarkMusic.associate(db);
+
+AuctionData.associate(db);
 BuyMusic.associate(db);
 AuctionMusic.associate(db);
 TransactionDetail.associate(db);

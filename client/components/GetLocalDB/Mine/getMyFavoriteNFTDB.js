@@ -14,7 +14,7 @@ import {
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import { useQuery } from "react-query";
-import { fetchNowNFT } from "../../hooks";
+import { fetchMyFavoriteNFTDB } from "../../../hooks";
 
 import Link from "next/link";
 import axios from "axios";
@@ -48,27 +48,64 @@ const ProfileImg = styled.img`
 `;
 const theme = createTheme();
 
-const GetNowNFT = () => {
-  // const [limit, setLimit] = useState(50);
-  const { data, isLoading, isFetching } = useQuery(["getNowNFT"], () =>
-    fetchNowNFT()
-  );
+const GetMyFavoriteNFTDB = () => {
+  const useUser1 = () => {
+    const result = useQuery(["getMyFavoriteNFTDB"], () =>
+      fetchMyFavoriteNFTDB()
+    );
+    return result;
+  };
+
+  const data1 = useUser1();
+
+  const useUser2 = () => {
+    const result = useQuery(["getUserSession"], () => fetchUserSession());
+    return result;
+  };
+
+  const data2 = useUser2();
 
   let a = 0;
-  let nftNowData = [];
-  console.log(data);
+  let myFavoriteNFTData;
+  if (data1.data) {
+    a = 1;
+    myFavoriteNFTData = data1.data.data;
+  }
 
-  if (data) {
-    if (data.data.length > 0) {
-      a = 1;
-      for (let i = 0; i < data.data.length; i++) {
-        nftNowData[i] = data.data[i];
-        nftNowData[
-          i
-        ].s3 = `https://const123.s3.ap-northeast-2.amazonaws.com/image/${data.data[i].CID}.jpg`;
-      }
+  let b = 0;
+  let userSession;
+  if (data2.data) {
+    b = 1;
+    userSession = data2.data.data;
+  }
+
+  const [하트, 하트변경] = useState([]);
+
+  let c = 0;
+  if (userSession && myFavoriteNFTData) {
+    c = 1;
+    for (let i = 0; i < myFavoriteNFTData.length; i++) {
+      myFavoriteNFTData.heart = true;
+      하트변경[i] = true;
     }
   }
+
+  // 좋아요
+  const upLike = async (data) => {
+    const like = await axios.post("http://localhost:8080/api/upLike", {
+      CID: data,
+    });
+    하트변경[i] = true;
+  };
+
+  const cancelLike = async (data) => {
+    const like = await axios.post("http://localhost:8080/api/cancelLike", {
+      CID: data,
+    });
+    하트변경[i] = false;
+  };
+
+  // 북마크
 
   const linkto = async (data) => {
     console.log(data);
@@ -78,7 +115,7 @@ const GetNowNFT = () => {
     window.location.href = `http://localhost:8080/${abcd.data}/${data.CID}`;
   };
 
-  console.log(nftNowData);
+  console.log(userSession);
   return (
     <div>
       <ThemeProvider theme={theme}>
@@ -87,8 +124,8 @@ const GetNowNFT = () => {
             All NFT
           </Typography>
           <Grid container spacing={5} textAlign="center">
-            {a === 1 ? (
-              nftNowData.map((a) => (
+            {a === 1 && b === 1 ? (
+              myFavoriteNFTData.map((a) => (
                 <Grid item key={a.CID} xs={3} onClick={() => linkto(a)}>
                   <Card
                     sx={{
@@ -121,11 +158,26 @@ const GetNowNFT = () => {
                     <CardContent sx={{ flexGrow: 0 }}>
                       <IconsReact>
                         <IconLeft>
-                          <IconReact
-                            src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/heart.png"
-                            alt="하트"
-                          />
-                          <div>{a.LikeMusic}</div>
+                          {a.heart == true ? (
+                            <Box>
+                              <IconReact
+                                onclick={() => cancelLike(a.CID)}
+                                src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/heart.png"
+                                alt="하트"
+                              />
+                              <div>풀 하트 넣어야함</div>
+                            </Box>
+                          ) : (
+                            <Box>
+                              <IconReact
+                                onclick={() => upLike(a.CID)}
+                                src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/heart.png"
+                                alt="하트"
+                              />
+                              <div>{a.LikeMusic}</div>
+                            </Box>
+                          )}
+
                           <IconReact
                             src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/comment.png"
                             alt="말풍선"
@@ -143,15 +195,14 @@ const GetNowNFT = () => {
               ))
             ) : (
               <div>
-                <h1>아직 나와있는 상품이 없어용</h1>
+                <h1>아직 좋아하는 상품이 없어용</h1>
               </div>
             )}
           </Grid>
-          <button>상품개수제한</button>
         </Container>
       </ThemeProvider>
     </div>
   );
 };
 
-export default GetNowNFT;
+export default GetMyFavoriteNFTDB;

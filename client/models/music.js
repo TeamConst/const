@@ -67,6 +67,11 @@ module.exports = class Music extends Sequelize.Model {
           allowNull: true,
           defaultValue: 0,
         },
+        boomarkMusic: {
+          type: Sequelize.INTEGER,
+          allowNull: true,
+          defaultValue: 0,
+        },
         view: {
           type: Sequelize.INTEGER,
           allowNull: true,
@@ -87,6 +92,14 @@ module.exports = class Music extends Sequelize.Model {
     db.Music.belongsTo(db.User, {
       foreignKey: "address",
       targetKey: "address",
+    });
+    db.Music.hasMany(db.LikeMusic, {
+      foreignKey: "CID",
+      targetKey: "CID",
+    });
+    db.Music.hasMany(db.BookmarkMusic, {
+      foreignKey: "CID",
+      targetKey: "CID",
     });
     db.Music.hasOne(db.BuyMusic, {
       foreignKey: "CID",

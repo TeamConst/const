@@ -74,5 +74,17 @@ module.exports = class User extends Sequelize.Model {
       foreignKey: "address",
       sourceKey: "address",
     });
+    db.User.hasMany(db.BookmarkMusic, {
+      foreignKey: "address",
+      sourceKey: "address",
+    });
+    db.User.hasMany(db.LikeMusic, {
+      foreignKey: "address",
+      sourceKey: "address",
+    });
+    db.User.hasMany(db.LikeArtist, {
+      foreignKey: "address",
+      sourceKey: "address",
+    });
   }
 };

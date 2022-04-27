@@ -12,7 +12,17 @@ import { fetchMusicTop100, fetchMusic } from "../../hooks";
 import axios from "axios";
 
 // MUI - Component
-import { Box, Button, Grid, Table, TableBody, TableCell, TableHead, TableRow, Container } from "@mui/material/";
+import {
+  Box,
+  Button,
+  Grid,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  Container,
+} from "@mui/material/";
 
 // MUI - Style
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
@@ -72,7 +82,7 @@ const ListenMusic = () => {
   const upLike = async (data) => {
     // 좋아요는 react-query로 관리할 것임
 
-    const like = await axios.post("http://localhost:8080/api/upLike2", {
+    const like = await axios.post("http://localhost:8080/api/upLike", {
       CID: data,
     });
   };
