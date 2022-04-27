@@ -50,11 +50,8 @@ const tiers = [
     title: "1달권",
     price: "0.1eth",
     description: [
-      "혜택쓸거임",
-      "10 users included",
-      "2 GB of storage",
-      "Help center access",
-      "Email support",
+      "무제한 듣기 ",
+      "오프라인 재생",
     ],
     buttonText: "구매하기",
     buttonVariant: "contained",
@@ -62,14 +59,12 @@ const tiers = [
   {
     id: 1,
     title: "2달권",
-    subheader: "제일 많이 찾는",
+    subheader: "❤️‍🔥제일 많이 찾는",
     price: "0.2eth",
     description: [
-      "혜택쓸거임",
-      "20 users included",
-      "10 GB of storage",
-      "Help center access",
-      "Priority email support",
+      "무제한 듣기 ",
+      "오프라인 재생",
+      "Const 스트리밍 데이터 무제한"
     ],
     buttonText: "구매하기",
     buttonVariant: "contained",
@@ -78,12 +73,12 @@ const tiers = [
     id: 2,
     title: "3달권",
     price: "0.3eth",
+    subheader: "❤️‍🔥❤️‍🔥혜택 많은",
     description: [
-      "혜택쓸거임",
-      "50 users included",
-      "30 GB of storage",
-      "Help center access",
-      "Phone & email support",
+      "무제한 듣기 ",
+      "오프라인 재생",
+      "오프라인 저장가능",
+      "Const 스트리밍 데이터 무제한"
     ],
     buttonText: "구매하기",
     buttonVariant: "contained",
@@ -193,9 +188,9 @@ const Ticket = () => {
         >
           이용권
         </Typography>
-        <Boldtext>
+        {/* <Boldtext>
           <Img src="/img/music.jpeg" />
-        </Boldtext>
+        </Boldtext> */}
 
         <Typography
           variant="h5"
