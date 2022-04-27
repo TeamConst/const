@@ -782,9 +782,9 @@ app.prepare().then(() => {
         {
           model: Music,
         },
-        {
-          model: User,
-        },
+        // {
+        //   model: User,
+        // },
       ],
     });
 
@@ -799,9 +799,9 @@ app.prepare().then(() => {
         {
           model: Music,
         },
-        {
-          model: User,
-        },
+        // {
+        //   model: User,
+        // },
       ],
     });
     res.json(abc);

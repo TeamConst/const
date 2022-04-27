@@ -7,7 +7,7 @@ import { fetchNowNFT } from "../../hooks";
 
 import Link from "next/link";
 import axios from "axios";
-
+import {useState} from "react"
 import styled from "styled-components";
 const IconsReact = styled.div`
   height: 20px;
@@ -38,6 +38,7 @@ const ProfileImg = styled.img`
 const theme = createTheme();
 
 const GetNowNFT = () => {
+  // const [limit, setLimit] = useState(50);
   const { data, isLoading, isFetching } = useQuery(["getNowNFT"], () => fetchNowNFT());
 
   let a = 0;
@@ -53,7 +54,7 @@ const GetNowNFT = () => {
       }
     }
   }
-
+  
   const linkto = async (data) => {
     console.log(data);
     const abcd = await axios.post("http://localhost:8080/api/getNFTLocation", {
@@ -121,6 +122,7 @@ const GetNowNFT = () => {
               </div>
             )}
           </Grid>
+          <button>상품개수제한</button>
         </Container>
       </ThemeProvider>
     </div>
