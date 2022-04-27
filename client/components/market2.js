@@ -465,7 +465,7 @@ const Market2 = (props) => {
                </Grid>      
                  
                   <Grid item xs={12}>   <hr/>
-                  <img src="https://cdn-icons.flaticon.com/png/128/707/premium/707680.png?token=exp=1650962417~hmac=5888605f65010fcce3e8c317ede949c9" width={"20px"}/>
+                  <img src={"/img/heart.png"} width={"100px"}/>
                       조회수{auctionDB.view}   좋아요{auctionDB.LikeMusic}
                       {/* <Button
                         // onClick={likeHandler}

@@ -30,7 +30,10 @@ import {
 
 // styled-components
 import styled from "styled-components";
-
+const Img2 = styled.img`
+  text-align: center;
+  width: 100%;
+`;
 const Img = styled.img`
   text-align: center;
   width: 80%;
@@ -172,7 +175,7 @@ const Ticket = () => {
         styles={{ ul: { margin: 0, padding: 0, listStyle: "none" } }}
       />
       <CssBaseline />
-
+    
       {/* Hero unit */}
       <Container
         disableGutters
@@ -180,6 +183,7 @@ const Ticket = () => {
         component="main"
         sx={{ pt: 8, pb: 6, py: 22 }}
       >
+          <Img2 src="/img/다운로드.jpeg" />
         <Typography
           component="h1"
           variant="h2"

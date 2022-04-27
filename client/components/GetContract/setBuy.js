@@ -1202,7 +1202,7 @@ const id2 = id
                     </Grid>
                     <Grid item xs={12}>
                     <hr/>
-                    <img src="https://cdn-icons.flaticon.com/png/128/707/premium/707680.png?token=exp=1650962417~hmac=5888605f65010fcce3e8c317ede949c9" width={"20px"}   onClick={likeHandler}/>
+                    <img src={"/img/heart.png"} width={"100px"}/>
                     {`좋아요${buyDB.LikeMusic}    👁${buyDB.view} `  }
                     </Grid>
                     <Grid item xs={12}>
