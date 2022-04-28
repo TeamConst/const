@@ -203,6 +203,7 @@ app.prepare().then(() => {
     server.post("/api/mint", isCorrectMetamask, async (req, res) => {
         const parse = JSON.parse(req.body.db);
 
+        console.log(parse);
         console.log("hihi", req.body);
         console.log(req.body.address);
         console.log(req.user);
@@ -450,6 +451,22 @@ app.prepare().then(() => {
     });
 
     // 좋아요 수 처리
+    server.post("/api/upLike2", async (req, res) => {
+        const a = req.body.CID;
+        const read = await Music.findOne({ where: { CID: a } });
+        await Music.update(
+            { LikeMusic: read.LikeMusic + 1 },
+            { where: { CID: a } }
+        );
+        res.send("좋아요 올리기 성공");
+
+        await LikeMusic.create({
+            address: req.user.address,
+            CID: req.body.CID,
+            like: true,
+        });
+    });
+
     server.post("/api/upLike", async (req, res) => {
         const a = req.body.CID;
         const read = await Music.findOne({ where: { CID: a } });
@@ -764,6 +781,14 @@ app.prepare().then(() => {
         res.json(req.user);
     });
 
+    server.get("/api/getUserSessionAll", isLoggedIn, async (req, res) => {
+        const abc = await User.findAll({
+            where: { address: req.user.address },
+            include: [{ all: true }],
+        });
+        res.json(abc);
+    });
+
     server.get("/api/logout", isLoggedIn, (req, res) => {
         console.log("뜸?");
         req.logout();
@@ -838,31 +863,7 @@ app.prepare().then(() => {
     // 현재 진행중인 데이터 로컬 db 간략화
     server.get("/api/getNowNFT", async (req, res) => {
         const abc = await Music.findAll({
-            include: [
-                {
-                    model: BuyMusic,
-                },
-                {
-                    model: AuctionMusic,
-                },
-                {
-                    model: User,
-                },
-                {
-                    model: BookmarkMusic,
-                },
-                {
-                    model: LikeMusic,
-                },
-                // {
-                //   model: User,
-                //   include: [
-                //     { model: LikeArtist },
-                //     { model: LikeMusic },
-                //     { model: BookmarkMusic },
-                //   ],
-                // },
-            ],
+            include: [{ all: true }],
         });
         res.json(abc);
     });
@@ -873,10 +874,8 @@ app.prepare().then(() => {
             include: [
                 {
                     model: Music,
+                    as: "BuyMusic_CID",
                 },
-                // {
-                //   model: User,
-                // },
             ],
         });
 
@@ -890,10 +889,8 @@ app.prepare().then(() => {
             include: [
                 {
                     model: Music,
+                    as: "AuctionMusic_CID",
                 },
-                // {
-                //   model: User,
-                // },
             ],
         });
         res.json(abc);
@@ -902,6 +899,20 @@ app.prepare().then(() => {
     server.get("/api/getMyNFTDB", async (req, res) => {
         const abc = await Music.findAll({
             where: { address: req.user.address },
+            // { all: true, required: true }
+            include: [
+                {
+                    model: BuyMusic,
+                    as: "BuyMusic_CID",
+                    // where: { currentOwner: req.user.address },
+                },
+                {
+                    model: AuctionMusic,
+                    as: "AuctionMusic_CID",
+
+                    // where: { currentOwner: req.user.address },
+                },
+            ],
         });
         res.json(abc);
     });
@@ -1126,7 +1137,6 @@ app.prepare().then(() => {
                 await BuyMusic.update(
                     {
                         sellComplete: false,
-                        sellCount: foundItem.sellCount + 1,
                         currentOwner: req.body.address,
                         price: req.body.price,
                     },
@@ -1186,13 +1196,43 @@ app.prepare().then(() => {
 
     server.post("/api/setAuctionStart", async (req, res) => {
         // CID로 검색을 해야되니까
-        await AuctionMusic.create({
-            auctionComplete: false,
-            CID: req.body.CID,
-            currentPrice: req.body.currentPrice,
-            currentOwner: req.user.address,
-            currentWinner: req.user.address,
-        });
+
+        // CID로 검색을 해야되니까
+        async function updateOrCreate() {
+            // First try to find the record
+            const foundItem = await AuctionMusic.findOne({
+                where: { CID: req.body.CID },
+            });
+            if (!foundItem) {
+                // Item not found, create a new one
+                await AuctionMusic.create(
+                    {
+                        auctionComplete: false,
+                        currentPrice: req.body.currentPrice,
+                        currentOwner: req.user.address,
+                        currentWinner: req.user.address,
+                        CID: req.body.CID,
+                    },
+                    {
+                        include: [{ model: Music, as: "AuctionMusic_CID" }],
+                    }
+                    // { include: [{ model: Music }] }
+                );
+            } else {
+                console.log("업데이트");
+                await AuctionMusic.update(
+                    {
+                        auctionComplete: false,
+                        currentPrice: req.body.currentPrice,
+                        currentOwner: req.user.address,
+                        currentWinner: req.user.address,
+                        lastWinner: "NotYet",
+                    },
+                    { where: { CID: req.body.CID } }
+                );
+            }
+        }
+        updateOrCreate();
 
         const date = new Date();
         await TransactionDetail.create({

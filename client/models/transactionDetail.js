@@ -4,10 +4,6 @@ module.exports = class TransactionDetail extends Sequelize.Model {
     static init(sequelize) {
         return super.init(
             {
-                CID: {
-                    type: Sequelize.STRING(200),
-                    allowNull: false,
-                },
                 Method: {
                     type: Sequelize.STRING(200),
                     allowNull: true,
@@ -48,7 +44,7 @@ module.exports = class TransactionDetail extends Sequelize.Model {
             },
             {
                 sequelize,
-                modelName: "TransactionDetail",
+                modelName: "Transactiondetail",
                 tableName: "transactiondetail",
                 timestamps: true,
                 charset: "utf8mb4",
@@ -59,7 +55,7 @@ module.exports = class TransactionDetail extends Sequelize.Model {
     static associate(db) {
         db.TransactionDetail.belongsTo(db.Music, {
             foreignKey: "CID",
-            targetKey: "CID",
+            as: "TransactionDetail_CID",
         });
     }
 };

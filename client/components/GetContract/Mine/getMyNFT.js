@@ -82,15 +82,39 @@ const GetMyNFT = () => {
         nftMyData = data.data;
     }
 
+    if (nftMyData) {
+        for (let i = 0; i < nftMyData.length; i++) {
+            nftMyData[i].auau = false;
+            nftMyData[i].bubu = false;
+
+            if (!nftMyData[i].AuctionMusic_CID[0]) {
+                nftMyData[i].auau = true;
+            } else if (
+                nftMyData[i].AuctionMusic_CID[0].auctionComplete === true
+            ) {
+                nftMyData[i].auau = true;
+            }
+            if (!nftMyData[i].BuyMusic_CID[0]) {
+                nftMyData[i].bubu = true;
+            } else if (nftMyData[i].BuyMusic_CID[0].buyComplete === true) {
+                nftMyData[i].auau = true;
+            }
+        }
+    }
+    console.log(nftMyData);
+
     //  클라이언트에서 그대로 불러오기
     const [이미지, 이미지변경] = useState([]);
 
     const [open, setOpen] = useState(false);
     const [모달데이터, 모달데이터변경] = useState();
+
     const handleOpen = (data) => {
         모달데이터변경(data);
         setOpen(true);
     };
+
+    console.log(nftMyData);
     const handleClose = () => setOpen(false);
 
     return (
@@ -155,11 +179,30 @@ const GetMyNFT = () => {
                                             align="center"
                                             sx={{ justifyContent: "flex-end" }}
                                         >
-                                            <Button
-                                                onClick={() => handleOpen(a)}
-                                            >
-                                                판매 & 경매 시작하기
-                                            </Button>
+                                            {a.auau === true &&
+                                            a.bubu === true ? (
+                                                <Button
+                                                    onClick={() =>
+                                                        handleOpen(a)
+                                                    }
+                                                >
+                                                    판매 & 경매 시작하기
+                                                </Button>
+                                            ) : (
+                                                <div>
+                                                    {a.auau === false ? (
+                                                        <div>
+                                                            현재 경매 중인
+                                                            상품입니다.
+                                                        </div>
+                                                    ) : (
+                                                        <div>
+                                                            현재 판매 중인
+                                                            상품입니다.
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            )}
                                         </CardActions>
                                     </Card>
                                 </Grid>
