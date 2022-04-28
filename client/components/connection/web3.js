@@ -13,10 +13,10 @@ if (typeof window !== "undefined" && typeof window.ethereum !== "undefined") {
   // We are on the nextjs server *OR* the user is not running metamask
   console.log("2번");
 
-  // const provider = new Web3.providers.HttpProvider("http://127.0.0.1:7545");
-  const provider = new Web3.providers.WebsocketProvider(
-    "http://127.0.0.1:7545"
-  );
+  const provider = new Web3.providers.HttpProvider("http://127.0.0.1:7545");
+  // const provider = new Web3.providers.WebsocketProvider(
+  //   "http://127.0.0.1:7545"
+  // );
   web3 = new Web3(provider);
 }
 
