@@ -111,7 +111,7 @@ const SetAuction = () => {
 
   console.log(accountAddress);
   console.log(Images);
-  const myImages = Images.filter((image) => image.currentOwner === accountAddress && image.tokenURI === `https://ipfs.io/ipfs/${str}`);
+  const myImages = Images.filter((image) => image.currentOwner ===  accountAddress && image.tokenURI === `https://ipfs.io/ipfs/${str}`);
   const allImages = Images.filter((image) => image.status != 0 && accountAddress && image.tokenURI === `https://ipfs.io/ipfs/${str}`);
 
   const Item = styled(Paper)(({ theme }) => ({
@@ -122,7 +122,7 @@ const SetAuction = () => {
 
   console.log(ImagesId);
   console.log(myImages);
-  if (accountAddress === ImagesId) {
+  if (accountAddress === ImagesId ) {
     return (
       <div>
         <ThemeProvider theme={theme}>
@@ -160,5 +160,5 @@ const SetAuction = () => {
   }
 };
 
-export default withRouter(SetAuction);
+export default SetAuction;
 // export default SetAuction;

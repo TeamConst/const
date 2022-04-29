@@ -231,7 +231,7 @@ const Market2 = (props) => {
         f = 1;
         userSessionAll = data6.data.data;
     }
-
+  
     const [음원좋아요, 음원좋아요변경] = useState(false);
     const [가수좋아요, 가수좋아요변경] = useState(false);
     const [음원즐겨찾기, 음원즐겨찾기변경] = useState(false);
@@ -502,6 +502,11 @@ const Market2 = (props) => {
 
     console.log(props);
     console.log(auctionMusicDB);
+console.log(a)
+console.log(c)
+console.log(d)
+console.log(e)
+console.log(g,"gggggggggg")
 
     return (
         <div>

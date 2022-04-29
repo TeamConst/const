@@ -1,5 +1,5 @@
 // React
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 
 // React-hook-form
 import { useForm } from "react-hook-form";
@@ -87,10 +87,16 @@ const ListenMusic = () => {
 
     const [음악, 음악변경] = useState();
     const [str, str변경] = useState();
+    const [title, title변경] = useState();
+    const [artist, artist변경] = useState();
+    const [, updateState] = useState();
+    const forceUpdate = useCallback(()=>updateState({}),[])
     const changeMusic = async (data) => {
         console.log(data);
-        음악변경(`https://ipfs.io/ipfs/${data}`);
-        str변경(data);
+        음악변경(`https://ipfs.infura.io/ipfs/${data.CID}`);
+        str변경(data.CID);
+        title변경(data.title);
+        artist변경(data.artist);
         console.log(음악);
     };
 
@@ -109,9 +115,12 @@ const ListenMusic = () => {
             <Box sx={{ m: 15 }}></Box>
             <ThemeProvider theme={theme}>
                 <Container maxWidth="md">
+                    <button onClick={forceUpdate}>dd</button>
                     <Grid container spacing={2} sx={{ mt: 5 }}>
                         <Grid item xs={6} sx={{ pr: 10 }}>
-                            <MusicPlayer str={str}></MusicPlayer>
+                            <MusicPlayer str={str}
+                            artist={artist}
+                            title={title}></MusicPlayer>
                         </Grid>
                         <Grid item xs={6} textAlign="center">
                             <Box sx={{ display: "flex" }}>
@@ -140,7 +149,7 @@ const ListenMusic = () => {
 
                                                     <TableCell
                                                         onClick={() => {
-                                                            changeMusic(a.CID);
+                                                            changeMusic(a);
                                                         }}
                                                     >
                                                         {a.title}

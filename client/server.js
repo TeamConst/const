@@ -883,7 +883,7 @@ app.prepare().then(() => {
                     ticketTime: req.body.ticketTime,
                 },
                 {
-                    where: { id: req.body.id },
+                    where: { address: req.user.address },
                 }
             );
 
@@ -949,6 +949,12 @@ app.prepare().then(() => {
                 {
                     model: Music,
                     as: "BuyMusic_CID",
+                    include: [
+                        {model: User, 
+                            as: "Music_address"
+                        }
+                      ]
+                  
                 },
             ],
         });
@@ -956,7 +962,7 @@ app.prepare().then(() => {
         console.log("여기", abc);
         res.json(abc);
     });
-
+  
     server.get("/api/getNowAuction", async (req, res) => {
         const abc = await AuctionMusic.findAll({
             where: { auctionComplete: false },
@@ -964,6 +970,12 @@ app.prepare().then(() => {
                 {
                     model: Music,
                     as: "AuctionMusic_CID",
+                    include: [
+                        {model: User, 
+                            as: "Music_address"
+                        }
+                      ]
+                  
                 },
             ],
         });
@@ -997,6 +1009,7 @@ app.prepare().then(() => {
             include: [
                 {
                     model: Music,
+                  as: "BookmarkMusic_address",
                 },
             ],
         });

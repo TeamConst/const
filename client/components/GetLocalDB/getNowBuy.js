@@ -106,11 +106,11 @@ const GetNowBuy = () => {
                                                         {" "}
                                                         <ProfileImg
                                                             src={
-                                                                "https://img.marieclairekorea.com/2022/02/mck_620f69c1deca3-scaled.jpg"
+                                                                a.BuyMusic_CID.Music_address.profileImg
                                                             }
                                                             alt="하트"
                                                         />{" "}
-                                                        {a.BuyMusic_CID.artist}
+                                                        {a.BuyMusic_CID.Music_address.id2}
                                                     </Typography>
                                                 </CardContent>
                                             </IconLeft>
