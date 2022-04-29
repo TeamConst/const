@@ -61,7 +61,7 @@ const GetNowNFT = () => {
     if (data) {
         if (data.data.length > 0) {
             a = 1;
-            for (let i = 0; i < data.data.length; i++) {
+            for (let i = data.data.length-8; i < data.data.length; i++) {
                 nftNowData[i] = data.data[i];
                 nftNowData[
                     i
@@ -81,6 +81,19 @@ const GetNowNFT = () => {
         window.location.href = `http://localhost:8080/${abcd.data}/${data.CID}`;
     };
 
+    const loadMoreHandler = () => {
+        let skip = Skip + Limit;
+    
+        let variables = {
+          skip: skip,
+          limit: Limit,
+          loadMore: true,
+    
+        };
+    
+        nftNowData(variables);
+        setSkip(skip);
+      }; 
     console.log(nftNowData);
     return (
         <div>
@@ -90,8 +103,8 @@ const GetNowNFT = () => {
                         All NFT
                     </Typography>
                     <Grid container spacing={5} textAlign="center">
-                        {a === 1 ? (
-                            nftNowData.map((a) => (
+                        {a === 1   ? (
+                            nftNowData.map((a,idx) => (
                                 <Grid
                                     item
                                     key={a.CID}
@@ -141,6 +154,7 @@ const GetNowNFT = () => {
                                                         alt="하트"
                                                     />
                                                     <div>{a.LikeMusic}</div>
+                                                  
                                                     <IconReact
                                                         src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/comment.png"
                                                         alt="말풍선"
@@ -154,6 +168,7 @@ const GetNowNFT = () => {
                                             </IconsReact>
                                         </CardContent>
                                     </Card>
+                
                                 </Grid>
                             ))
                         ) : (
@@ -162,7 +177,14 @@ const GetNowNFT = () => {
                             </div>
                         )}
                     </Grid>
-                    <button>상품개수제한</button>
+                    {/* <Link href={`/indexNFT`}>
+                    상품더보기{nftNowData.length}
+                  </Link> */}
+            {
+        nftNowData.length > 8
+        ? <p><Link href={`/indexNFT`}>시발</Link></p>
+        : null
+      }
                 </Container>
             </ThemeProvider>
         </div>

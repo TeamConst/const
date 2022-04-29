@@ -64,7 +64,7 @@ const GetNowBuy = () => {
     if (data) {
         if (data.data.length > 0) {
             a = 1;
-            for (let i = 0; i < data.data.length; i++) {
+            for (let i =  data.data.length-8; i < data.data.length; i++) {
                 buyNowData[i] = data.data[i];
                 buyNowData[
                     i
@@ -164,6 +164,12 @@ const GetNowBuy = () => {
                             </div>
                         )}
                     </Grid>
+
+                    {
+        buyNowData.length > 8
+        ? <p><Link href={`/indexNFT`}>시발</Link></p>
+        : null
+      }
                 </Container>
             </ThemeProvider>
         </div>
