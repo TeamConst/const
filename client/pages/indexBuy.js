@@ -3,7 +3,7 @@ import { fetchNowBuy } from "../hooks";
 
 import Header from "../components/Layout/header";
 import Footer from "../components/Layout/footer";
-import GetNowBuy from "../components/GetLocalDB/getNowBuy";
+import AllNft from "../components/GetLocalDB/List/Allbuy/AllBuy"
 
 const IndexBuy = () => {
   const { data, isLoading, isFetching } = useQuery(["getNowBuy"], () => fetchNowBuy());
@@ -11,7 +11,7 @@ const IndexBuy = () => {
   return (
     <div>
       <Header></Header>
-      <GetNowBuy></GetNowBuy>
+      <AllNft></AllNft>
       <Footer></Footer>
     </div>
   );

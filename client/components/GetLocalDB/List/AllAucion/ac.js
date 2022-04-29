@@ -1,3 +1,5 @@
+
+import React from 'react';
 import {
     Button,
     Typography,
@@ -14,7 +16,8 @@ import {
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import { useQuery } from "react-query";
-import { fetchNowNFT } from "../../hooks";
+
+const theme = createTheme();
 
 import Link from "next/link";
 import axios from "axios";
@@ -46,30 +49,7 @@ const ProfileImg = styled.img`
     border-radius: 70%;
     float: left;
 `;
-const theme = createTheme();
-
-const GetNowNFT = () => {
-    // const [limit, setLimit] = useState(50);
-    const { data, isLoading, isFetching } = useQuery(["getNowNFT"], () =>
-        fetchNowNFT()
-    );
-
-    let a = 0;
-    let nftNowData = [];
-    console.log(data);
-
-    if (data) {
-        if (data.data.length > 0) {
-            a = 1;
-            for (let i = 0; i < data.data.length; i++) {
-                nftNowData[i] = data.data[i];
-                nftNowData[
-                    i
-                ].s3 = `https://const123.s3.ap-northeast-2.amazonaws.com/image/${data.data[i].CID}.jpg`;
-            }
-        }
-    }
-
+const Posts = ({ auctionNowData, Loading}) => {
     const linkto = async (data) => {
         console.log(data);
         const abcd = await axios.post(
@@ -80,37 +60,21 @@ const GetNowNFT = () => {
         );
         window.location.href = `http://localhost:8080/${abcd.data}/${data.CID}`;
     };
+  return (
+    <div>
 
-    const loadMoreHandler = () => {
-        let skip = Skip + Limit;
-    
-        let variables = {
-          skip: skip,
-          limit: Limit,
-          loadMore: true,
-    
-        };
-    
-        nftNowData(variables);
-        setSkip(skip);
-      }; 
-    console.log(nftNowData);
-    return (
-        <div>
-            <ThemeProvider theme={theme}>
-                <Container sx={{ py: 2 }} maxWidth="lg">
-                    <Typography variant="h4" component="h4" sx={{ m: 3 }}>
-                        All NFT
+<Container sx={{ py: 2 }} maxWidth="lg">
+<Typography variant="h4" component="h4" sx={{ m: 3 }}>
+                        All Auction
                     </Typography>
                     <Grid container spacing={5} textAlign="center">
-                        {a === 1   ? (
-                            nftNowData.map((a,idx) => (
-                                <Grid
-                                    item
-                                    key={a.CID}
-                                    xs={3}
-                                    onClick={() => linkto(a)}
-                                >
+                    { auctionNowData.map((a) => (
+                             <Grid
+                             item
+                             key={a.CID}
+                             xs={3}
+                             onClick={() => linkto(a)}
+                         >
                                     <Card
                                         sx={{
                                             height: "100%",
@@ -126,12 +90,12 @@ const GetNowNFT = () => {
                                                     {" "}
                                                     <ProfileImg
                                                         src={
-                                                            a.Music_address
+                                                            a.AuctionMusic_CID.Music_address
                                                                 .profileImg
                                                         }
                                                         alt="하트"
                                                     />{" "}
-                                                    {a.Music_address.id2}
+                                                    {a.AuctionMusic_CID.Music_address.id2}
                                                 </Typography>
                                             </CardContent>
                                         </IconLeft>
@@ -153,13 +117,13 @@ const GetNowNFT = () => {
                                                         src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/heart.png"
                                                         alt="하트"
                                                     />
-                                                    <div>{a.LikeMusic}</div>
+                                                    <div>{a.AuctionMusic_CID.LikeMusic}</div>
                                                   
                                                     <IconReact
                                                         src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/comment.png"
                                                         alt="말풍선"
                                                     />
-                                                    <div>{a.view}</div>
+                                                    <div>{a.AuctionMusic_CID.view}</div>
                                                 </IconLeft>
                                                 <IconReact2
                                                     src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/bearu/bookmark.png"
@@ -171,24 +135,19 @@ const GetNowNFT = () => {
                 
                                 </Grid>
                             ))
-                        ) : (
-                            <div>
-                                <h1>아직 나와있는 상품이 없어용</h1>
-                            </div>
-                        )}
-                    </Grid>
-                    {/* <Link href={`/indexNFT`}>
-                    상품더보기{nftNowData.length}
-                  </Link> */}
-            {
-        nftNowData.length > 8
-        ? <p><Link href={`/aa`}>시발</Link></p>
-        : null
-      }
-                </Container>
-            </ThemeProvider>
-        </div>
-    );
-};
+           
+                        }
 
-export default GetNowNFT;
+
+                    </Grid>
+
+
+</Container>
+  
+ 
+    
+        </div>
+  );
+};
+export default Posts;
+
