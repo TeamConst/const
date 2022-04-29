@@ -64,7 +64,7 @@ const GetNowBuy = () => {
     if (data) {
         if (data.data.length > 0) {
             a = 1;
-            for (let i =  data.data.length-8; i < data.data.length; i++) {
+            for (let i = 0; i < data.data.length; i++) {
                 buyNowData[i] = data.data[i];
                 buyNowData[
                     i

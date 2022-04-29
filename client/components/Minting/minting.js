@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 // MUI - Component
-import { Box, Button, Container, TextField, Grid } from "@mui/material";
+import { Box, Button, Container, TextField, Grid, MenuItem,} from "@mui/material";
 
 // MUI - Style
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -26,6 +26,20 @@ import axios from "axios";
 
 // socket.io
 import io from "socket.io-client";
+const Genres = [
+  {
+    value: "POP",
+  },
+  {
+    value: "BALLAD",
+  },
+  {
+    value: "EDM",
+  },
+  {
+    value: "EXTRA",
+  },
+];
 
 const Boldtext = styled.div`
   font-weight: bold;
@@ -164,7 +178,7 @@ const Minting = () => {
     gg.albumName = data.albumName;
     gg.release = data.albumYear;
     gg.artist = data.artist;
-    gg.genre = data.genre;
+    gg.genre = 장르;
     gg.title = data.title;
 
     const qq = await web3.eth.getAccounts();
@@ -252,7 +266,12 @@ const Minting = () => {
     };
     reader.readAsDataURL(file[0]);
   };
+  //장르변경
+  const [장르, 장르변경] = useState("POP");
 
+  const handleGenre = (event) => {
+    장르변경(event.target.value);
+  };
   return (
     <div>
       <ThemeProvider theme={theme}>
@@ -345,19 +364,23 @@ const Minting = () => {
                           })}
                         />
                       </Grid>
-                      <Grid item xs={12}>
-                        <TextField
-                          variant="outlined"
-                          required
-                          fullWidth
-                          label="장르"
-                          autoFocus
-                          {...register("genre", {
-                            required: true,
-                            maxLength: 80,
-                          })}
-                        />
-                      </Grid>
+
+                  <Grid item xs={12}>
+                    <TextField
+                      select
+                      label="genre"
+                      fullWidth
+                      value={장르}
+                      onChange={handleGenre}
+                    >
+                      {Genres.map((option) => (
+                        <MenuItem key={option.value} value={option.value}>
+                          {option.value}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+
+                  </Grid>
                       <Grid item xs={12}>
                         <TextField
                           variant="outlined"

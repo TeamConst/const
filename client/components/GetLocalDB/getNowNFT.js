@@ -61,7 +61,7 @@ const GetNowNFT = () => {
     if (data) {
         if (data.data.length > 0) {
             a = 1;
-            for (let i = data.data.length-8; i < data.data.length; i++) {
+            for (let i = 0; i < data.data.length; i++) {
                 nftNowData[i] = data.data[i];
                 nftNowData[
                     i
