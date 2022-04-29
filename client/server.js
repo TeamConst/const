@@ -203,6 +203,8 @@ app.prepare().then(() => {
     server.post("/api/mint", isCorrectMetamask, async (req, res) => {
         const parse = JSON.parse(req.body.db);
 
+        const aaaaa = await Music.findAll();
+        parse.idCount = aaaaa.length + 1;
         console.log(parse);
         console.log("hihi", req.body);
         console.log(req.body.address);
@@ -226,9 +228,9 @@ app.prepare().then(() => {
             host: "ipfs.infura.io",
             port: 5001,
             protocol: "https",
-            headers: {
-                authorization: auth,
-            },
+            // headers: {
+            //     authorization: auth,
+            // },
         });
 
         // console.log(req.files);
@@ -451,39 +453,42 @@ app.prepare().then(() => {
     });
 
     // 좋아요 수 처리
-    server.post("/api/upLike2", async (req, res) => {
+    server.post("/api/upLikeMusic", async (req, res) => {
         const a = req.body.CID;
         const read = await Music.findOne({ where: { CID: a } });
         await Music.update(
             { LikeMusic: read.LikeMusic + 1 },
             { where: { CID: a } }
         );
-        res.send("좋아요 올리기 성공");
 
-        await LikeMusic.create({
-            address: req.user.address,
-            CID: req.body.CID,
-            like: true,
-        });
+        async function updateOrCreate() {
+            // First try to find the record
+            const foundItem = await LikeMusic.findOne({
+                where: { CID: req.body.CID, address: req.user.address },
+            });
+            if (!foundItem) {
+                // Item not found, create a new one
+                await LikeMusic.create({
+                    address: req.user.address,
+                    CID: req.body.CID,
+                    like: true,
+                });
+            } else {
+                console.log("업데이트");
+                await LikeMusic.update(
+                    {
+                        like: true,
+                    },
+                    { where: { CID: req.body.CID, address: req.user.address } }
+                );
+            }
+        }
+        updateOrCreate();
+
+        res.send("좋아요 올리기 성공");
     });
 
-    server.post("/api/upLike", async (req, res) => {
-        const a = req.body.CID;
-        const read = await Music.findOne({ where: { CID: a } });
-        await Music.update(
-            { LikeMusic: read.LikeMusic + 1 },
-            { where: { CID: a } }
-        );
-        res.send("좋아요 올리기 성공");
-
-        await LikeMusic.create({
-            address: req.user.address,
-            CID: req.body.CID,
-            like: true,
-        });
-    });
-
-    server.post("/api/cancelLike", async (req, res) => {
+    server.post("/api/cancelLikeMusic", async (req, res) => {
         const a = req.body.CID;
         const read = await Music.findOne({ where: { CID: a } });
         await Music.update(
@@ -500,30 +505,98 @@ app.prepare().then(() => {
         res.send("좋아요 취소하기 성공");
     });
 
-    // 북마크
-    server.post("/api/bookMark", async (req, res) => {
+    server.post("/api/upLikeArtist", async (req, res) => {
         const a = req.body.CID;
         const read = await Music.findOne({ where: { CID: a } });
         await Music.update(
-            {
-                bookMark: read.bookMark + 1,
-            },
+            { LikeArtist: read.LikeArtist + 1 },
             { where: { CID: a } }
         );
 
-        await BookmarkMusic.create({
-            address: req.user.address,
-            CID: req.body.CID,
-            bookmark: true,
-        });
-        res.send("북마크 추가하기 성공");
+        async function updateOrCreate() {
+            // First try to find the record
+            const foundItem = await LikeArtist.findOne({
+                where: { id2: read.artist, address: req.user.address },
+            });
+            if (!foundItem) {
+                // Item not found, create a new one
+                await LikeMusic.create({
+                    address: req.user.address,
+                    id2: read.artist,
+                    like: true,
+                });
+            } else {
+                console.log("업데이트");
+                await LikeMusic.update(
+                    {
+                        like: true,
+                    },
+                    { where: { CID: req.body.CID, address: req.user.address } }
+                );
+            }
+        }
+        updateOrCreate();
+
+        res.send("좋아요 올리기 성공");
     });
 
-    server.post("/api/cancelBookMark", async (req, res) => {
+    server.post("/api/cancelLikeArtist", async (req, res) => {
         const a = req.body.CID;
         const read = await Music.findOne({ where: { CID: a } });
         await Music.update(
-            { bookMark: read.bookMarkMusic - 1 },
+            { LikeArtist: read.LikeArtist - 1 },
+            { where: { CID: a } }
+        );
+
+        await LikeArtist.update(
+            { like: false },
+            {
+                where: { address: req.user.address, id2: read.artist },
+            }
+        );
+        res.send("좋아요 취소하기 성공");
+    });
+
+    server.post("/api/upBookmarkMusic", async (req, res) => {
+        const a = req.body.CID;
+        const read = await Music.findOne({ where: { CID: a } });
+        await Music.update(
+            { BookmarkMusic: read.BookmarkMusic + 1 },
+            { where: { CID: a } }
+        );
+
+        async function updateOrCreate() {
+            // First try to find the record
+            const foundItem = await BookmarkMusic.findOne({
+                where: { CID: req.body.CID, address: req.user.address },
+            });
+            if (!foundItem) {
+                // Item not found, create a new one
+                await BookmarkMusic.create({
+                    address: req.user.address,
+                    CID: req.body.CID,
+                    bookmark: true,
+                });
+            } else {
+                console.log("업데이트");
+                await Bookmark.update(
+                    {
+                        bookmark: true,
+                    },
+                    { where: { CID: req.body.CID, address: req.user.address } }
+                );
+            }
+        }
+        updateOrCreate();
+
+        res.send("즐겨찾기 성공");
+    });
+
+    server.post("/api/cancelBookmarkMusic", async (req, res) => {
+        const a = req.body.CID;
+        const read = await Music.findOne({ where: { CID: a } });
+        await Music.update(
+            { BookmarkMusic: read.BookmarkMusic - 1 },
             { where: { CID: a } }
         );
 
@@ -533,8 +606,9 @@ app.prepare().then(() => {
                 where: { address: req.user.address, CID: req.body.CID },
             }
         );
-        res.send("북마크 취소하기 성공");
+        res.send("즐겨찾기 취소하기 성공");
     });
+    // 좋아요 처리 끝
 
     server.post("/api/upView", async (req, res) => {
         const a = req.body.CID;
@@ -936,6 +1010,7 @@ app.prepare().then(() => {
             include: [
                 {
                     model: Music,
+                    as: "BuyMusic_CID",
                 },
             ],
         });
@@ -949,6 +1024,7 @@ app.prepare().then(() => {
             include: [
                 {
                     model: Music,
+                    as: "AuctionMusic_CID",
                 },
             ],
         });
@@ -958,9 +1034,11 @@ app.prepare().then(() => {
 
     // 음악 컴포넌트 음악 정보 불러오기
     server.get("/api/getMusicTop100", async (req, res) => {
+        console.log("뜨니?");
         const getMusicLikeAsec = await Music.findAll({
             limit: 100,
             order: [["LikeMusic"]],
+            include: [{ all: true }],
         });
         res.json(getMusicLikeAsec);
     });
@@ -1055,7 +1133,7 @@ app.prepare().then(() => {
         } else if (b.length == 1) {
             res.json("auction");
         } else {
-            res.json("아직 시작한 상품이 없습니다");
+            res.json("notyet");
         }
     });
     // 현재 진행중인 데이터 로컬 db 간략화 끝

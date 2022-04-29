@@ -10,6 +10,10 @@ module.exports = class Music extends Sequelize.Model {
                     defaultValue: "NotYetUpdate",
                     primaryKey: true,
                 },
+                idCount: {
+                    type: Sequelize.INTEGER,
+                    defaultValue: 0,
+                },
                 s3: {
                     type: Sequelize.STRING(200),
                     allowNull: true,
@@ -57,7 +61,12 @@ module.exports = class Music extends Sequelize.Model {
                     allowNull: true,
                     defaultValue: 0,
                 },
-                bookmarkMusic: {
+                LikeArtist: {
+                    type: Sequelize.INTEGER,
+                    allowNull: true,
+                    defaultValue: 0,
+                },
+                BookmarkMusic: {
                     type: Sequelize.INTEGER,
                     allowNull: true,
                     defaultValue: 0,

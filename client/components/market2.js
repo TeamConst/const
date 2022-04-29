@@ -4,6 +4,8 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
+import CircularProgress from "@mui/material/CircularProgress";
+
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import { useRouter } from "next/router";
@@ -230,7 +232,75 @@ const Market2 = (props) => {
         userSessionAll = data6.data.data;
     }
 
-    console.log(userSessionAll);
+    const [음원좋아요, 음원좋아요변경] = useState(false);
+    const [가수좋아요, 가수좋아요변경] = useState(false);
+    const [음원즐겨찾기, 음원즐겨찾기변경] = useState(false);
+
+    let g = 0;
+
+    if (userSessionAll) {
+        // 음원좋아요변경(false);
+        // 가수좋아요변경(false);
+        // 음원즐겨찾기변경(false);
+
+        userSessionAll[0].likeMusic = false;
+        userSessionAll[0].bookmarkMusic = false;
+        userSessionAll[0].likeArtist = false;
+
+        if (!userSessionAll[0].LikeMusic_address[0]) {
+            userSessionAll[0].likeMusic = true;
+            // 음원좋아요변경(true);
+        } else if (userSessionAll[0].LikeMusic_address[0].like === false) {
+            userSessionAll[0].likeMusic = true;
+            // 음원좋아요변경(true);
+        }
+        if (!userSessionAll[0].LikeArtist_address[0]) {
+            userSessionAll[0].likeArtist = true;
+            // 가수좋아요변경(true);
+        } else if (userSessionAll[0].LikeArtist_address[0].like === false) {
+            userSessionAll[0].likeArtist = true;
+            // 가수좋아요변경(true);
+        }
+        if (!userSessionAll[0].BookmarkMusic_address[0]) {
+            userSessionAll[0].bookmarkMusic = true;
+            console.log("이거뜨나요?");
+            // 음원즐겨찾기변경(true);
+        } else if (userSessionAll[0].BookmarkMusic_address[0].like === false) {
+            userSessionAll[0].bookmarkMusic = true;
+            // 음원즐겨찾기변경(true);
+        }
+
+        g = 1;
+        // console.log(userSessionAll.BookmarkMusic_address);
+    }
+
+    const upLikeMusic = async () => {
+        await axios.post("http://localhost:8080/api/upLikeMusic", { CID: id });
+    };
+    const cancelLikeMusic = async () => {
+        await axios.post("http://localhost:8080/api/cancelLikeMusic", {
+            CID: id,
+        });
+    };
+    const upLikeArtist = async () => {
+        await axios.post("http://localhost:8080/api/upLikeArtist", { CID: id });
+    };
+    const cancelLikeArtist = async () => {
+        await axios.post("http://localhost:8080/api/cancelLikeArtist", {
+            CID: id,
+        });
+    };
+    const upBookmarkMusic = async () => {
+        await axios.post("http://localhost:8080/api/upBookmarkMusic", {
+            CID: id,
+        });
+    };
+    const cancelBookmarkMusic = async () => {
+        await axios.post("http://localhost:8080/api/cancelBookmarkMusic", {
+            CID: id,
+        });
+    };
+
     // 클라이언트 처리
     const [계정, 계정변경] = useState();
 
@@ -327,7 +397,7 @@ const Market2 = (props) => {
 
     function calcDateDiff(data) {
         restHour = parseInt(data / 3600);
-        restMin = parseInt(data / 60);
+        restMin = parseInt((data - restHour * 3600) / 60);
         restSec = data % 60;
     }
 
@@ -433,16 +503,13 @@ const Market2 = (props) => {
     console.log(props);
     console.log(auctionMusicDB);
 
-    const upLike = async () => {
-        await axios.post("http://localhost:8080/api/upLike", { CID: id });
-    };
-
     return (
         <div>
             <ThemeProvider theme={theme}>
                 <CssBaseline />
+
                 <Container maxWidth="lg" sx={{ py: 15 }}>
-                    {a === 1 && c === 1 && d === 1 && e === 1 ? (
+                    {a === 1 && c === 1 && d === 1 && e === 1 && g === 1 ? (
                         <Grid container spacing={5}>
                             <Grid item xs={6}>
                                 <div>
@@ -470,7 +537,6 @@ const Market2 = (props) => {
                                     </Smart>
                                 </div>
                             </Grid>
-
                             <Grid item xs={6}>
                                 <Grid container spacing={2}>
                                     <Grid item xs={12}>
@@ -488,26 +554,15 @@ const Market2 = (props) => {
                                         </Smalltext>
                                     </Grid>
 
+                                    {/* <Grid item xs={6}>
+                                        조회수{auctionDB.view}
+                                    </Grid> */}
+
                                     <Grid item xs={12}>
-                                        {" "}
-                                        <hr />
-                                        <img
-                                            src={"/img/heart.png"}
-                                            width={"100px"}
-                                        />
-                                        <Button onClick={() => upLike()}>
-                                            좋아요
-                                        </Button>
-                                        조회수{auctionDB.view} 좋아요
+                                        좋아요
                                         {auctionDB.LikeMusic}
-                                        {/* <Button
-                        // onClick={likeHandler}
-                        fullWidth
-                        variant="contained"
-                      >
-                        좋아요 누르기
-                      </Button> */}
                                     </Grid>
+
                                     <Grid item xs={12}>
                                         <hr />
                                         <Smalltext>
@@ -523,7 +578,88 @@ const Market2 = (props) => {
                                         </Boldtext>
                                         <hr />
                                     </Grid>
+
                                     <Grid item xs={12}>
+                                        {userSessionAll[0].likeMusic ===
+                                        true ? (
+                                            <button
+                                                onClick={() => upLikeMusic()}
+                                            >
+                                                <img
+                                                    src={"/img/heart.png"}
+                                                    width={"30px"}
+                                                ></img>
+                                            </button>
+                                        ) : (
+                                            <button
+                                                onClick={() =>
+                                                    cancelLikeMusic()
+                                                }
+                                            >
+                                                <img
+                                                    src={"/img/fullheart.png"}
+                                                    width={"30px"}
+                                                ></img>
+                                            </button>
+                                        )}
+                                    </Grid>
+
+                                    <Grid item xs={12}>
+                                        {userSessionAll[0].likeArtist ===
+                                        true ? (
+                                            <button
+                                                onClick={() => upLikeArtist()}
+                                            >
+                                                <img
+                                                    src={"/img/artist.png"}
+                                                    width={"30px"}
+                                                ></img>
+                                            </button>
+                                        ) : (
+                                            <button
+                                                onClick={() =>
+                                                    cancelLikeArtist()
+                                                }
+                                            >
+                                                <img
+                                                    src={"/img/fullartist.png"}
+                                                    width={"30px"}
+                                                ></img>
+                                            </button>
+                                        )}
+                                    </Grid>
+
+                                    <Grid item xs={12}>
+                                        {userSessionAll[0].bookmarkMusic ===
+                                        true ? (
+                                            <button
+                                                onClick={() =>
+                                                    upBookmarkMusic()
+                                                }
+                                            >
+                                                <img
+                                                    src={"/img/bookmark.png"}
+                                                    width={"30px"}
+                                                ></img>
+                                            </button>
+                                        ) : (
+                                            <button
+                                                onClick={() =>
+                                                    cancelBookmarkMusic()
+                                                }
+                                            >
+                                                <img
+                                                    src={
+                                                        "/img/fullbookmark.png"
+                                                    }
+                                                    width={"30px"}
+                                                ></img>
+                                            </button>
+                                        )}
+                                    </Grid>
+
+                                    <Grid item xs={12}>
+                                        <hr />
                                         <Boldtext>
                                             {" "}
                                             {status === "경매종료"
@@ -712,7 +848,9 @@ const Market2 = (props) => {
                             </Grid>
                         </Grid>
                     ) : (
-                        <h1>아님</h1>
+                        <div>
+                            <CircularProgress />
+                        </div>
                     )}
                 </Container>
             </ThemeProvider>

@@ -268,14 +268,14 @@ const ConfigBuy = (props) => {
             console.log(pra2.options.address);
 
             await pra.methods
-                .approve(pra2.options.address, props.props.id)
+                .approve(pra2.options.address, props.props.idCount)
                 .send({ from: praaccounts[0] })
                 .on("transactionHash", (hash) => {
                     console.log("해시해시", hash);
                 })
                 .on("receipt", (receipt) => {
                     pra2.methods
-                        .makeOffer(props.props.id, enteredPrice)
+                        .makeOffer(props.props.idCount, enteredPrice)
                         .send({ from: praaccounts[0] })
                         .on("transactionHash", (hash) => {
                             console.log("해시해시", hash);
