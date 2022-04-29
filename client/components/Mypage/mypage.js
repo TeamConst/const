@@ -134,15 +134,6 @@ const Mypage1 = () => {
         userSession = data1.data.data;
     }
 
-    let c = 0;
-    let myNFTData;
-    let count = 0;
-    if (data2.data) {
-        c = 1;
-        myNFTData = data2.data.data;
-        count = data2.data.data.length;
-    }
-
     const claimFundsHandler = async () => {
         let pra2;
         let praaccounts;
@@ -181,18 +172,20 @@ const Mypage1 = () => {
         lastTime = 0;
     }
 
-    console.log(lastTime);
     if (userSession) {
         let today = new Date().getTime();
         let dday = new Date(`${userSession.ticketTime}`).getTime();
 
         if (dday - today <= 0 && userSession.ticket !== "이용권 없음") {
             console.log(dday - today);
-            const rere = axios.post("http://localhost:8080/api/updateuser", {
-                ticket: `이용권 없음`,
-                ticketTime: "0",
-                id: userSession.id,
-            });
+            const rere = axios.post(
+                "http://localhost:8080/api/updateUserTicket",
+                {
+                    ticket: `이용권 없음`,
+                    ticketTime: "0",
+                    id: userSession.id,
+                }
+            );
         }
     }
 
@@ -206,13 +199,16 @@ const Mypage1 = () => {
             imageFormData.append("id2", userSession.id2);
 
             const resultImage = await axios.post(
-                "http://localhost:8080/api/signup/updateImage",
+                "http://localhost:8080/api/updateImage",
                 imageFormData
             );
-            const rere = axios.post("http://localhost:8080/api/updateUser2", {
-                profileImg: `https://const123.s3.ap-northeast-2.amazonaws.com/profile/${userSession.id2}.jpg`,
-                id2: userSession.id2,
-            });
+            const rere = axios.post(
+                "http://localhost:8080/api/updateUserProfileImg",
+                {
+                    profileImg: `https://const123.s3.ap-northeast-2.amazonaws.com/profile/${userSession.id2}.jpg`,
+                    id2: userSession.id2,
+                }
+            );
         }
 
         //화면에 프로필 사진 표시
@@ -229,9 +225,8 @@ const Mypage1 = () => {
         <div>
             <ThemeProvider theme={theme}>
                 <CssBaseline />
-
                 <Container maxWidth="lg" sx={{ py: 24 }}>
-                    {a === 1 && c === 1 ? (
+                    {a === 1 ? (
                         <Grid container spacing={5}>
                             <Grid item xs={12}>
                                 <Cardcontainer>
@@ -302,9 +297,7 @@ const Mypage1 = () => {
                                         </Followers>
                                     </Socialcontainer>
                                     <Grid item xs={12}>
-                                        <Sidebar
-                                            userSession={userSession.address}
-                                        />
+                                        <Sidebar />
                                     </Grid>
                                 </Cardcontainer>
                             </Grid>

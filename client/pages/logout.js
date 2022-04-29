@@ -2,22 +2,16 @@ import axios from "axios";
 import { useEffect } from "react";
 
 const Logout = () => {
-  useEffect(() => {
-    async function log() {
-      const logout = await axios.get("http://localhost:8080/api/logout");
-      console.log(logout);
+    useEffect(() => {
+        async function log() {
+            const logout = await axios.get("http://localhost:8080/api/logout");
 
-      window.location.href = "http://localhost:8080/";
-      // window.location.reload(true);
-    }
-    log();
-  }, []);
-  return (
-    <div>
-      {/* 전체 css 이걸로 설정해 줄 것임 */}
-      안녕~
-    </div>
-  );
+            alert("로그아웃을 성공하였습니다.");
+            window.location.href = "http://localhost:8080/";
+        }
+        log();
+    }, []);
+    return <div></div>;
 };
 
 export default Logout;

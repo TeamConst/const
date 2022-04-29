@@ -674,6 +674,15 @@ app.prepare().then(() => {
     // 회원가입 일단, 어드레스만 트러플에 넣고 나머지는 Mysql에 넣도록 하겠다
     // 그리고 블록체인이니까 계정 중복 등의 고려는 우선 하지 않도록 하겠다
 
+    server.post("/api/validAddress", isNotLoggedIn, async (req, res, next) => {
+        const a = await User.findAll({ where: { address: req.body.address } });
+        if (a.length == 0) {
+            res.json("어드레스 없어용");
+        } else {
+            res.json("어드레스가 있습니다");
+        }
+    });
+
     server.post("/api/validId", isNotLoggedIn, async (req, res, next) => {
         console.log(req.body);
         const id2 = req.body.id2;
@@ -694,7 +703,7 @@ app.prepare().then(() => {
             const data = await User.create(body);
             res.send("회원가입 완료");
         } catch (error) {
-            // res.send(err);
+            res.send("회원가입 중 오류 발생");
             console.error(error);
             next(error);
         }
@@ -751,77 +760,72 @@ app.prepare().then(() => {
                     console.log("Upload Success", data.Location);
                 }
             });
-
             res.send("프로필 이미지 등록 완료");
+        } catch (error) {
+            res.send("프로밀 이미지 등록 중 오류 발생");
+            console.error(error);
+            next(error);
+        }
+    });
+
+    server.post("/api/updateImage", isLoggedIn, async (req, res, next) => {
+        try {
+            // multer, s3
+            const AWS = require("aws-sdk");
+            const multer = require("multer");
+            const multerS3 = require("multer-s3");
+
+            // Set the AWS Region
+            const REGION = "ap-northeast-2"; //REGION
+            const IDENTITY_POOL_ID =
+                "ap-northeast-2:ee62d023-c180-46bf-9e24-935ff2fa2b5a";
+            const BucketName = "const123";
+
+            AWS.config.update({
+                region: REGION,
+                accessKeyId: process.env.S3_ACCESS_KEY_ID,
+                secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+            });
+
+            // credentials: new AWS.CognitoIdentityCredentials({
+            //   IdentityPoolId: IDENTITY_POOL_ID,
+            // }),
+
+            const s3 = new AWS.S3({
+                apiVersion: "2006-03-01",
+                params: { Bucket: BucketName },
+            });
+
+            s3.getBucketAcl(function (err, data) {
+                if (err) {
+                    console.log("Error", err);
+                } else if (data) {
+                    console.log("Success", data.Grants);
+                }
+            });
+
+            let uploadParams = {
+                Body: req.files.image.data,
+                Key: "profile/" + req.body.id2 + ".jpg",
+                ACL: "public-read",
+            };
+
+            await s3.upload(uploadParams, function (err, data) {
+                if (err) {
+                    console.log("Error", err);
+                }
+                if (data) {
+                    console.log("Upload Success", data.Location);
+                }
+            });
+
+            res.send("프로필 이미지 수정 완료");
         } catch (error) {
             // res.send(err);
             console.error(error);
             next(error);
         }
     });
-
-    server.post(
-        "/api/signup/updateImage",
-        isLoggedIn,
-        async (req, res, next) => {
-            try {
-                // multer, s3
-                const AWS = require("aws-sdk");
-                const multer = require("multer");
-                const multerS3 = require("multer-s3");
-
-                // Set the AWS Region
-                const REGION = "ap-northeast-2"; //REGION
-                const IDENTITY_POOL_ID =
-                    "ap-northeast-2:ee62d023-c180-46bf-9e24-935ff2fa2b5a";
-                const BucketName = "const123";
-
-                AWS.config.update({
-                    region: REGION,
-                    accessKeyId: process.env.S3_ACCESS_KEY_ID,
-                    secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
-                });
-
-                // credentials: new AWS.CognitoIdentityCredentials({
-                //   IdentityPoolId: IDENTITY_POOL_ID,
-                // }),
-
-                const s3 = new AWS.S3({
-                    apiVersion: "2006-03-01",
-                    params: { Bucket: BucketName },
-                });
-
-                s3.getBucketAcl(function (err, data) {
-                    if (err) {
-                        console.log("Error", err);
-                    } else if (data) {
-                        console.log("Success", data.Grants);
-                    }
-                });
-
-                let uploadParams = {
-                    Body: req.files.image.data,
-                    Key: "profile/" + req.body.id2 + ".jpg",
-                    ACL: "public-read",
-                };
-
-                await s3.upload(uploadParams, function (err, data) {
-                    if (err) {
-                        console.log("Error", err);
-                    }
-                    if (data) {
-                        console.log("Upload Success", data.Location);
-                    }
-                });
-
-                res.send("프로필 이미지 수정 완료");
-            } catch (error) {
-                // res.send(err);
-                console.error(error);
-                next(error);
-            }
-        }
-    );
 
     server.post("/api/login", isNotLoggedIn, async (req, res, next) => {
         try {
@@ -847,7 +851,7 @@ app.prepare().then(() => {
                 });
             })(req, res, next); // 미들웨어 내의 미들웨어에는 (req, res, next)를 붙입니다.
         } catch {
-            console.log("얘도 확인");
+            console.log("콘솔 확인");
         }
     });
 
@@ -871,8 +875,8 @@ app.prepare().then(() => {
         res.send("로그아웃 완료");
     });
 
-    // 이용권
-    server.post("/api/updateuser", async (req, res) => {
+    // 이용권 업데이트
+    server.post("/api/updateUserTicket", async (req, res) => {
         console.log(req.body.id);
         console.log(req.body.ticket);
         console.log(req.body.ticketTime);
@@ -893,9 +897,10 @@ app.prepare().then(() => {
             return res.status(400).send(err);
         }
     });
+    // 이용권 업데이트 끝
 
     //프로필 사진변경
-    server.post("/api/updateUser2", async (req, res) => {
+    server.post("/api/updateUserProfileImg", async (req, res) => {
         console.log(req.body.profileImg);
         try {
             const updateCondition2 = await User.update(
@@ -906,15 +911,16 @@ app.prepare().then(() => {
                     where: { id2: req.body.id2 },
                 }
             );
-
             res.status(200).json({ success: true, updateCondition2 });
         } catch (error) {
             console.error(error);
             return res.status(400).send(err);
         }
     });
-    //프로필 사진변경
-    server.post("/api/updateuser3", async (req, res) => {
+    //프로필 사진변경 끝
+
+    //유저 정보 변경
+    server.post("/api/updateUserInfo", async (req, res) => {
         try {
             const updateCondition3 = await User.update(
                 {
@@ -926,13 +932,13 @@ app.prepare().then(() => {
                     where: { id: req.body.id },
                 }
             );
-
             res.status(200).json({ success: true, updateCondition3 });
         } catch (error) {
             console.error(error);
             return res.status(400).send(err);
         }
     });
+    //유저 정보 변경 끝
 
     // 현재 진행중인 데이터 로컬 db 간략화
     server.get("/api/getNowNFT", async (req, res) => {
@@ -949,12 +955,7 @@ app.prepare().then(() => {
                 {
                     model: Music,
                     as: "BuyMusic_CID",
-                    include: [
-                        {model: User, 
-                            as: "Music_address"
-                        }
-                      ]
-                  
+                    include: [{ model: User, as: "Music_address" }],
                 },
             ],
         });
@@ -962,7 +963,7 @@ app.prepare().then(() => {
         console.log("여기", abc);
         res.json(abc);
     });
-  
+
     server.get("/api/getNowAuction", async (req, res) => {
         const abc = await AuctionMusic.findAll({
             where: { auctionComplete: false },
@@ -970,12 +971,7 @@ app.prepare().then(() => {
                 {
                     model: Music,
                     as: "AuctionMusic_CID",
-                    include: [
-                        {model: User, 
-                            as: "Music_address"
-                        }
-                      ]
-                  
+                    include: [{ model: User, as: "Music_address" }],
                 },
             ],
         });
@@ -1009,7 +1005,7 @@ app.prepare().then(() => {
             include: [
                 {
                     model: Music,
-                  as: "BookmarkMusic_address",
+                    as: "BookmarkMusic_address",
                 },
             ],
         });

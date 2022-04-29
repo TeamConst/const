@@ -108,13 +108,17 @@ const GetNowAuction = () => {
                                                         {" "}
                                                         <ProfileImg
                                                             src={
-                                                                a.AuctionMusic_CID.Music_address.profileImg
+                                                                a
+                                                                    .AuctionMusic_CID
+                                                                    .Music_address
+                                                                    .profileImg
                                                             }
                                                             alt="하트"
                                                         />{" "}
                                                         {
                                                             a.AuctionMusic_CID
-                                                                .Music_address.id2
+                                                                .Music_address
+                                                                .id2
                                                         }
                                                     </Typography>
                                                 </CardContent>
@@ -171,11 +175,11 @@ const GetNowAuction = () => {
                             </div>
                         )}
                     </Grid>
-                    {
-        auctionNowData.length > 8
-        ? <p><Link href={`/indexNFT`}>시발</Link></p>
-        : null
-      }
+                    {auctionNowData.length > 8 ? (
+                        <p>
+                            <Link href={`/indexNFT`}>시발</Link>
+                        </p>
+                    ) : null}
                 </Container>
             </ThemeProvider>
         </div>
