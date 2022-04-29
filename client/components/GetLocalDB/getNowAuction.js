@@ -64,7 +64,7 @@ const GetNowAuction = () => {
     if (data) {
         if (data.data.length > 0) {
             a = 1;
-            for (let i = 0; i < data.data.length; i++) {
+            for (let i = data.data.length-8; i < data.data.length; i++) {
                 auctionNowData[i] = data.data[i];
                 auctionNowData[
                     i
@@ -171,6 +171,11 @@ const GetNowAuction = () => {
                             </div>
                         )}
                     </Grid>
+                    {
+        auctionNowData.length > 8
+        ? <p><Link href={`/indexNFT`}>시발</Link></p>
+        : null
+      }
                 </Container>
             </ThemeProvider>
         </div>
