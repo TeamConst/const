@@ -21,7 +21,7 @@ import CardMedia from "@mui/material/CardMedia";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import { useQuery } from "react-query";
-import { fetchNowBuy } from "../../hooks";
+import { fetchNowBuyAll } from "../../hooks";
 import styled from "styled-components";
 import Link from "next/link";
 const IconsReact = styled.div`
@@ -53,8 +53,8 @@ const ProfileImg = styled.img`
 const theme = createTheme();
 
 const GetNowBuy = () => {
-    const { data, isLoading, isFetching } = useQuery(["getNowBuy"], () =>
-        fetchNowBuy()
+    const { data, isLoading, isFetching } = useQuery(["getNowBuyAll"], () =>
+        fetchNowBuyAll()
     );
 
     let a = 0;

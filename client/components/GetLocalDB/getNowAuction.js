@@ -21,7 +21,7 @@ import CardMedia from "@mui/material/CardMedia";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import { useQuery } from "react-query";
-import { fetchNowAuction } from "../../hooks";
+import { fetchNowAuctionAll } from "../../hooks";
 import styled from "styled-components";
 import Link from "next/link";
 const IconsReact = styled.div`
@@ -53,8 +53,8 @@ const ProfileImg = styled.img`
 const theme = createTheme();
 
 const GetNowAuction = () => {
-    const { data, isLoading, isFetching } = useQuery(["getNowAuction"], () =>
-        fetchNowAuction()
+    const { data, isLoading, isFetching } = useQuery(["getNowAuctionAll"], () =>
+        fetchNowAuctionAll()
     );
 
     let a = 0;

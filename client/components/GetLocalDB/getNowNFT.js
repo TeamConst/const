@@ -14,7 +14,7 @@ import {
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import { useQuery } from "react-query";
-import { fetchNowNFT } from "../../hooks";
+import { fetchNowNFTAll } from "../../hooks";
 
 import Link from "next/link";
 import axios from "axios";
@@ -50,8 +50,8 @@ const theme = createTheme();
 
 const GetNowNFT = () => {
     // const [limit, setLimit] = useState(50);
-    const { data, isLoading, isFetching } = useQuery(["getNowNFT"], () =>
-        fetchNowNFT()
+    const { data, isLoading, isFetching } = useQuery(["getNowNFTAll"], () =>
+    fetchNowNFTAll()
     );
 
     let a = 0;
