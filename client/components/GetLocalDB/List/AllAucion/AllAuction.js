@@ -52,7 +52,7 @@ console.log(auctionNowData);
 useEffect(() => {
     async function fetchData() {
       setLoading(true);
-      setPosts(auctionNowData);
+      // setPosts(auctionNowData);
       setLoading(false);
     }
     fetchData();
