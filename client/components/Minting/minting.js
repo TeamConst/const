@@ -252,6 +252,7 @@ const Minting = () => {
       mintby: mintby,
       CID: bu.path,
     });
+    window.location = '/mypage';
   };
 
   // 이미지 변경에 대한 처리
