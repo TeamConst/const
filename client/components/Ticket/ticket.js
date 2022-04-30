@@ -132,6 +132,7 @@ const Ticket = () => {
         ticketTime: oneMonthLater,
         id: userSession.id,
       });
+      window.location = '/buyticket';
     } else {
       window.alert("구매할수 없습니다");
     }
