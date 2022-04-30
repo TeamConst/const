@@ -11,9 +11,9 @@
             ) : (
                 <div>
                     {a.AuctionMusic_CID[0].auctionComplete === false ? (
-                        <div>현재 경매 중인 상품입니다.</div>
+                        <div>현재 경매 중인 상품입니다.❤️‍🔥</div>
                     ) : (
-                        <div>현재 판매 중인 상품입니다.</div>
+                        <div>현재 판매 중인 상품입니다.🫶</div>
                     )}
                 </div>
             )}

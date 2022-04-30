@@ -189,6 +189,7 @@ const SignupForm = () => {
     );
 
     console.log(result);
+    window.location = '/login';
   };
 
   return (

@@ -51,6 +51,7 @@ const ListenMusic = () => {
     if (data1.data) {
         a = 1;
         musics = data1.data.data;
+        
     }
 
     let b = 0;
@@ -139,6 +140,7 @@ const ListenMusic = () => {
                                                 <TableRow key={a.title}>
                                                     <TableCell>
                                                         {a.rank}
+                                                     
                                                     </TableCell>
                                                     <TableCell>
                                                         <img
