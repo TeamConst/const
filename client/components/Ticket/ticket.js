@@ -134,7 +134,7 @@ const Ticket = () => {
       });
       window.location = '/buyticket';
     } else {
-      window.alert("구매할수 없습니다");
+      window.alert("이미 이용권 사용중 입니다");
     }
   };
   const main = async () => {
