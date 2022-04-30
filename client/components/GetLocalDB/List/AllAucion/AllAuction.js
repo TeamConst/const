@@ -76,9 +76,11 @@ useEffect(() => {
     <Container maxWidth="lg" sx={{ py: 15 }}>
 
    
-  
+    <Grid item xs={12}>
+       <Posts auctionNowData={currentPosts(auctionNowData)} loading={loading}></Posts>
+    </Grid>
                                 
-    <Posts auctionNowData={currentPosts(auctionNowData)} loading={loading}></Posts>
+   
                       
 
       

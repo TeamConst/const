@@ -76,9 +76,11 @@ useEffect(() => {
    
   
                                 
-    <Posts nftNowData={currentPosts(nftNowData)} loading={loading}></Posts>
+ 
                       
-
+    <Grid item xs={12}>    <Posts nftNowData={currentPosts(nftNowData)} loading={loading}></Posts></Grid>
+      
+      
       
            
     <Pagination postsPerPage={postsPerPage} totalPosts={nftNowData.length} paginate={setCurrentPage}></Pagination>
