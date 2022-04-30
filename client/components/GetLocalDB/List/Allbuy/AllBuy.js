@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { fetchNowNFT } from "../../../../hooks";
+import { fetchNowBuy } from "../../../../hooks";
 import { useQuery } from "react-query";
 import React, { useState, useEffect } from "react";
 
