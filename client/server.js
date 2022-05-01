@@ -1290,11 +1290,7 @@ app.prepare().then(() => {
             currentOwner: req.user.address,
             currentWinner: req.user.address,
             CID: req.body.CID,
-          },
-          {
-            include: [{ model: Music, as: "AuctionMusic_CID" }],
           }
-          // { include: [{ model: Music }] }
         );
       } else {
         console.log("업데이트");
