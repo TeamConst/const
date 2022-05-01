@@ -16,6 +16,8 @@ import { fetchUserSessionAll, fetchMusicDetailDB } from "../../hooks";
 
 import { useState, useEffect } from "react";
 
+import web3 from "../connection/web3";
+
 import axios from "axios";
 import styled from "styled-components";
 
@@ -152,21 +154,35 @@ const ProfileImg = styled.img`
   border-radius: 50%;
 `;
 //
+
 const theme = createTheme();
 
 const NFTView = () => {
+  // 클라이언트 처리
+  const [계정, 계정변경] = useState();
+
+  async function getGlobalAccounts() {
+    const accounts2 = await web3.eth.getAccounts();
+    계정변경(accounts2[0]);
+  }
+
+  useEffect(() => {
+    getGlobalAccounts();
+  }, []);
+
   const router = useRouter();
   const { id } = router.query;
 
   console.log(id);
   // 가격 변동 그래프 만드려고
+
   const useUser1 = () => {
-    const result = useQuery(["getMusicDetailDB"], () => fetchMusicDetailDB(id));
+    const result = useQuery(["getUserSessionAll"], () => fetchUserSessionAll());
     return result;
   };
 
   const useUser2 = () => {
-    const result = useQuery(["getUserSessionAll"], () => fetchUserSessionAll());
+    const result = useQuery(["getMusicDetailDB"], () => fetchMusicDetailDB(id));
     return result;
   };
 
@@ -188,12 +204,21 @@ const NFTView = () => {
     upView();
   }, [id]);
 
+  let a = 0;
+  let musicDetailDB;
+  if (data2.data) {
+    a = 1;
+    musicDetailDB = data2.data.data;
+  }
+
   let z = 0;
   let userSessionAll;
-  if (data2.data) {
+  if (data1.data) {
     z = 1;
-    userSessionAll = data2.data.data;
+    userSessionAll = data1.data.data;
   }
+
+  console.log(musicDetailDB);
 
   let g = 0;
   if (userSessionAll) {
@@ -221,7 +246,6 @@ const NFTView = () => {
     }
     if (!userSessionAll[0].BookmarkMusic_address[0]) {
       userSessionAll[0].bookmarkMusic = true;
-      console.log("이거뜨나요?");
       // 음원즐겨찾기변경(true);
     } else if (userSessionAll[0].BookmarkMusic_address[0].like === false) {
       userSessionAll[0].bookmarkMusic = true;
@@ -259,12 +283,149 @@ const NFTView = () => {
     });
   };
 
+  console.log(a, g);
   return (
     <div>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Container maxWidth="lg" sx={{ py: 15 }}>
-          111
+          {a === 1 && g === 1 ? (
+            <Grid container spacing={5} textAlign="center">
+              <Grid item xs={6}>
+                <div>
+                  <Smart>
+                    <Dettaglio>
+                      <Sensore></Sensore>
+                      <Microfono></Microfono>
+                    </Dettaglio>
+                    <AcenzioneButton></AcenzioneButton>
+                    <VolumeSu></VolumeSu>
+                    <VolumeGiu></VolumeGiu>
+                    <Schermo>
+                      <MusicPlayer
+                        str={musicDetailDB.Music_address.CID}
+                        title={musicDetailDB.Music_address.title}
+                        artist={musicDetailDB.Music_address.artist}
+                      />
+                      <FramePosizione>
+                        <Header>
+                          <Wrap></Wrap>
+                        </Header>
+                      </FramePosizione>
+                    </Schermo>
+                    <Bottone></Bottone>
+                  </Smart>
+                </div>
+              </Grid>
+              <Grid item xs={6}>
+                <Grid container spacing={5}>
+                  <Grid item xs={12}>
+                    <Boldtext>
+                      {" "}
+                      {`${musicDetailDB.Music_address.artist}  -  ${musicDetailDB.Music_address.title}`}
+                    </Boldtext>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <hr />
+                    <Smalltext>
+                      <ProfileImg
+                        src={musicDetailDB.Music_address.profileImg}
+                      />
+                      {musicDetailDB.Music_address.id2}
+                    </Smalltext>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <hr />
+                    👁 {musicDetailDB.view}{" "}
+                  </Grid>
+                  <Grid item xs={6}>
+                    <hr />
+                    좋아요 {musicDetailDB.LikeMusic}
+                  </Grid>
+
+                  <Grid item xs={12}>
+                    <hr />
+                    <Boldtext>판매 & 경매 준비중인 상품입니다. </Boldtext>
+                    <hr />
+                  </Grid>
+
+                  <Grid item xs={12}>
+                    {userSessionAll[0].likeMusic === true ? (
+                      <button onClick={() => upLikeMusic()}>
+                        <img src={"/img/heart.png"} width={"30px"}></img>
+                      </button>
+                    ) : (
+                      <button onClick={() => cancelLikeMusic()}>
+                        <img src={"/img/fullheart.png"} width={"30px"}></img>
+                      </button>
+                    )}
+                  </Grid>
+
+                  <Grid item xs={12}>
+                    {userSessionAll[0].likeArtist === true ? (
+                      <button onClick={() => upLikeArtist()}>
+                        <img src={"/img/artist.png"} width={"30px"}></img>
+                      </button>
+                    ) : (
+                      <button onClick={() => cancelLikeArtist()}>
+                        <img src={"/img/fullartist.png"} width={"30px"}></img>
+                      </button>
+                    )}
+                  </Grid>
+
+                  <Grid item xs={12}>
+                    {userSessionAll[0].bookmarkMusic === true ? (
+                      <button onClick={() => upBookmarkMusic()}>
+                        <img src={"/img/bookmark.png"} width={"30px"}></img>
+                      </button>
+                    ) : (
+                      <button onClick={() => cancelBookmarkMusic()}>
+                        <img src={"/img/fullbookmark.png"} width={"30px"}></img>
+                      </button>
+                    )}
+                  </Grid>
+
+                  {계정 === userSessionAll[0].address ? (
+                    <Grid item xs={12}>
+                      <hr></hr>
+                      <Box p={2}>
+                        <Typography>본인의 상품입니다</Typography>
+                      </Box>
+                      <hr></hr>
+                    </Grid>
+                  ) : (
+                    <Grid item xs={12}>
+                      <hr></hr>
+                      <Box p={2}>
+                        <Boldtext>판매 & 경매 준비중인 상품입니다. </Boldtext>
+                      </Box>
+                      <hr></hr>
+                    </Grid>
+                  )}
+                </Grid>
+              </Grid>
+
+              <Grid item xs={4}>
+                <Box p={2}>디테일 정보</Box>
+              </Grid>
+              <Grid item xs={4}>
+                <Box p={2}>저장 정보</Box>
+              </Grid>
+              <Grid item xs={4}>
+                <Box p={2}>
+                  <Typography>가격 그래프</Typography>
+                </Box>
+              </Grid>
+
+              <Grid item xs={12}>
+                <Box p={2}>연관상품</Box>
+              </Grid>
+            </Grid>
+          ) : (
+            <div>
+              <CircularProgress />
+            </div>
+          )}
         </Container>
       </ThemeProvider>
     </div>

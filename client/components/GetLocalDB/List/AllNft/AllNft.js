@@ -1,14 +1,14 @@
 import {
-    Button,
-    Typography,
-    Grid,
-    Box,
-    TextField,
-    Container,
-    Card,
-    CardActions,
-    CardContent,
-    CardMedia,
+  Button,
+  Typography,
+  Grid,
+  Box,
+  TextField,
+  Container,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
 } from "@mui/material";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -25,29 +25,27 @@ function AllNft() {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(8);
 
-
-
   const { data, isLoading, isFetching } = useQuery(["getNowNFT"], () =>
-  fetchNowNFT()
-);
+    fetchNowNFT()
+  );
 
-let a = 0;
-let nftNowData = [];
-console.log(data);
+  let a = 0;
+  let nftNowData = [];
+  console.log(data);
 
-if (data) {
-  if (data.data.length > 0) {
+  if (data) {
+    if (data.data.length > 0) {
       a = 1;
       for (let i = 0; i < data.data.length; i++) {
-          nftNowData[i] = data.data[i];
-          nftNowData[
-              i
-          ].s3 = `https://const123.s3.ap-northeast-2.amazonaws.com/image/${data.data[i].CID}.jpg`;
+        nftNowData[i] = data.data[i];
+        nftNowData[
+          i
+        ].s3 = `https://const123.s3.ap-northeast-2.amazonaws.com/image/${data.data[i].CID}.jpg`;
       }
+    }
   }
-}
-console.log(nftNowData)
-useEffect(() => {
+  console.log(nftNowData);
+  useEffect(() => {
     async function fetchData() {
       setLoading(true);
       setPosts(nftNowData);
@@ -64,31 +62,27 @@ useEffect(() => {
     return currentPosts;
   }
 
-    const theme = createTheme();
+  const theme = createTheme();
   return (
     <div>
-    
-    <ThemeProvider theme={theme}>
+      <ThemeProvider theme={theme}>
+        <Container maxWidth="lg" sx={{ py: 15 }}>
+          <Grid item xs={12}>
+            {" "}
+            <Posts
+              nftNowData={currentPosts(nftNowData)}
+              loading={loading}
+            ></Posts>
+          </Grid>
 
-
-    <Container maxWidth="lg" sx={{ py: 15 }}>
-
-   
-  
-                                
- 
-                      
-    <Grid item xs={12}>    <Posts nftNowData={currentPosts(nftNowData)} loading={loading}></Posts></Grid>
-      
-      
-      
-           
-    <Pagination postsPerPage={postsPerPage} totalPosts={nftNowData.length} paginate={setCurrentPage}></Pagination>
-    </Container>
-  
-    </ThemeProvider>
- 
-</div>
+          <Pagination
+            postsPerPage={postsPerPage}
+            totalPosts={nftNowData.length}
+            paginate={setCurrentPage}
+          ></Pagination>
+        </Container>
+      </ThemeProvider>
+    </div>
   );
 }
 

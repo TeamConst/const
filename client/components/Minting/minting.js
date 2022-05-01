@@ -254,16 +254,6 @@ const Minting = () => {
 
     // const metadataAdded = await ipfs.add(JSON.stringify(metadata));
 
-    pra.methods
-      .safeMint(metadataAdded.path)
-      .send({ from: praaccounts[0] })
-      .on("transactionHash", (hash) => {
-        console.log(hash);
-      })
-      .on("error", (e) => {
-        window.alert("Something went wrong when pushing to the blockchain");
-      });
-
     // 옥션 로컬 db 저장
     const mintby = accounts[0];
     const rere2 = await axios.post("http://localhost:8080/api/auction", {
@@ -280,13 +270,26 @@ const Minting = () => {
     // form.append("CID", bu.path);
     const allMinting = await axios.post("http://localhost:8080/api/mint", form);
 
-    if (allMinting.data !== "민트 최종 성공") {
-      alert("민팅을 실패하였습니다.");
-      window.location.reload(true);
-    } else {
-      alert("민팅을 성공하였습니다.");
-      window.location.href = "http://localhost:8080/";
-    }
+    // if (allMinting.data !== "민트 최종 성공") {
+    //   alert("민팅을 실패하였습니다.");
+    //   window.location.reload(true);
+    // } else {
+    //   alert("민팅을 성공하였습니다.");
+    //   window.location.href = "http://localhost:8080/";
+    // }
+
+    pra.methods
+      .safeMint(metadataAdded.path)
+      .send({ from: praaccounts[0] })
+      .on("transactionHash", (hash) => {
+        console.log(hash);
+        alert("민팅을 성공하였습니다.");
+        window.location.href = "http://localhost:8080/";
+      })
+      .on("error", (e) => {
+        alert("Something went wrong when pushing to the blockchain");
+        window.location.reload(true);
+      });
   };
 
   // 이미지 변경에 대한 처리

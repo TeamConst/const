@@ -40,7 +40,7 @@ const Sidebar = () => {
     0: <MyNFT />,
     1: <MyBuy />,
     2: <MyAuction />,
-    3: <div>{userSession2}</div>,
+    3: <div>음원정보</div>,
     4: <div>음원정보</div>,
   };
 
@@ -105,3 +105,5 @@ const Sidebar = () => {
     </div>
   );
 };
+
+export default Sidebar;

@@ -415,7 +415,7 @@ app.prepare().then(() => {
     const a = req.body.CID;
     const read = await Music.findOne({ where: { CID: a } });
     await Music.update(
-      { LikeMusic: read.LikeMusic + 1 },
+      { LikeMusicCount: read.LikeMusicCount + 1 },
       { where: { CID: a } }
     );
 
@@ -450,7 +450,7 @@ app.prepare().then(() => {
     const a = req.body.CID;
     const read = await Music.findOne({ where: { CID: a } });
     await Music.update(
-      { LikeMusic: read.LikeMusic - 1 },
+      { LikeMusicCount: read.LikeMusicCount - 1 },
       { where: { CID: a } }
     );
 
@@ -466,26 +466,29 @@ app.prepare().then(() => {
   server.post("/api/upLikeArtist", async (req, res) => {
     const a = req.body.CID;
     const read = await Music.findOne({ where: { CID: a } });
+
+    console.log(req.body);
     await Music.update(
-      { LikeArtist: read.LikeArtist + 1 },
+      { LikeArtistCount: read.LikeArtistCount + 1 },
       { where: { CID: a } }
     );
 
     async function updateOrCreate() {
       // First try to find the record
       const foundItem = await LikeArtist.findOne({
-        where: { id2: read.artist, address: req.user.address },
+        where: { artist: read.artist, address: req.user.address },
       });
       if (!foundItem) {
+        console.log("이게 들어와야한다");
         // Item not found, create a new one
-        await LikeMusic.create({
+        await LikeArtist.create({
           address: req.user.address,
-          id2: read.artist,
+          artist: read.artist,
           like: true,
         });
       } else {
         console.log("업데이트");
-        await LikeMusic.update(
+        await LikeArtist.update(
           {
             like: true,
           },
@@ -502,14 +505,14 @@ app.prepare().then(() => {
     const a = req.body.CID;
     const read = await Music.findOne({ where: { CID: a } });
     await Music.update(
-      { LikeArtist: read.LikeArtist - 1 },
+      { LikeArtistCount: read.LikeArtistCount - 1 },
       { where: { CID: a } }
     );
 
     await LikeArtist.update(
       { like: false },
       {
-        where: { address: req.user.address, id2: read.artist },
+        where: { address: req.user.address, artist: read.artist },
       }
     );
     res.send("좋아요 취소하기 성공");
@@ -519,7 +522,7 @@ app.prepare().then(() => {
     const a = req.body.CID;
     const read = await Music.findOne({ where: { CID: a } });
     await Music.update(
-      { BookmarkMusic: read.BookmarkMusic + 1 },
+      { BookmarkMusicCount: read.BookmarkMusicCount + 1 },
       { where: { CID: a } }
     );
 
@@ -554,7 +557,7 @@ app.prepare().then(() => {
     const a = req.body.CID;
     const read = await Music.findOne({ where: { CID: a } });
     await Music.update(
-      { BookmarkMusic: read.BookmarkMusic - 1 },
+      { BookmarkMusicCount: read.BookmarkMusicCount - 1 },
       { where: { CID: a } }
     );
 
@@ -797,7 +800,8 @@ app.prepare().then(() => {
           return next(authError);
         }
         if (!user) {
-          return res.redirect(`/?loginError=${info.message}`);
+          return res.json(`아이디가 존재하지 않습니다`);
+          // return res.redirect(`/?loginError=${info.message}`);
         }
         //req.login이 serializeUser 실행
         return req.login(user, (loginError) => {
@@ -805,12 +809,12 @@ app.prepare().then(() => {
             console.error(loginError);
             return next(loginError);
           }
-          res.json(req.user);
+          res.json("로그인 성공");
           // return res.redirect("/");
         });
       })(req, res, next); // 미들웨어 내의 미들웨어에는 (req, res, next)를 붙입니다.
-    } catch {
-      console.log("콘솔 확인");
+    } catch (error) {
+      console.log(error);
     }
   });
 
@@ -901,8 +905,6 @@ app.prepare().then(() => {
 
   // 현재 진행중인 데이터 로컬 db 간략화
   server.post("/api/getMusicDetailDB", async (req, res) => {
-    console.log("안녕~~~~");
-    console.log(req.body.CID);
     const abc = await Music.findOne({
       where: { CID: req.body.CID },
       include: [{ all: true }],
@@ -1060,7 +1062,7 @@ app.prepare().then(() => {
     console.log("뜨니?");
     const getMusicLikeAsec = await Music.findAll({
       limit: 100,
-      order: [["LikeMusic"]],
+      order: [["LikeMusicCount"]],
       include: [{ all: true }],
     });
     res.json(getMusicLikeAsec);
@@ -1072,7 +1074,7 @@ app.prepare().then(() => {
     const getMusicLikeAsecSortedByGenre = await Music.findAll({
       where: { genre: genre },
       limit: 100,
-      order: [["LikeMusic"]],
+      order: [["LikeMusicCount"]],
       include: [{ all: true }],
     });
 
@@ -1191,10 +1193,6 @@ app.prepare().then(() => {
 
   // 오퍼 처리
   server.post("/api/setBuyOffer", async (req, res) => {
-    const a = req.body;
-
-    console.log(a);
-
     // CID로 검색을 해야되니까
     async function updateOrCreate() {
       // First try to find the record
@@ -1230,8 +1228,6 @@ app.prepare().then(() => {
   server.post("/api/getSelectedAuction", async (req, res) => {
     const a = req.body.name;
 
-    console.log("이거요", a);
-
     const Instance = await getAuctionDataContract();
 
     if (Instance) {
@@ -1256,7 +1252,6 @@ app.prepare().then(() => {
         }
       }
 
-      console.log("이거여", imagesArray);
       res.json(imagesArray);
     }
 

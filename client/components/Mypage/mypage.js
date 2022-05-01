@@ -4,7 +4,8 @@ import { useForm } from "react-hook-form";
 
 import { useQuery } from "react-query";
 import { fetchUserSession, fetchMyNFTDB } from "../../hooks";
-import Sidebar from "./Sidebar";
+import Sidebar from "./sidebar";
+
 import {
   Typography,
   Button,

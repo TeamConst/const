@@ -13,19 +13,21 @@ import GetNowNFT from "../components/GetLocalDB/getNowNFT";
 import GetMyFavoriteNFTDB from "../components/GetLocalDB/Mine/getMyFavoriteNFTDB";
 
 const Page = () => {
-    return (
-        <div>
-            <Header></Header>
-            <Container>
-                <GetVideo></GetVideo>
-                <GetNowNFT></GetNowNFT>
-                <GetNowBuy></GetNowBuy>
-                <GetNowAuction></GetNowAuction>
-                <GetMyFavoriteNFTDB></GetMyFavoriteNFTDB>
-            </Container>
-            <Footer></Footer>
-        </div>
-    );
+  return (
+    <div>
+      <Header></Header>
+      <Container>
+        <GetVideo></GetVideo>
+        <GetNowNFT></GetNowNFT>
+        <GetNowBuy></GetNowBuy>
+        <GetNowAuction></GetNowAuction>
+      </Container>
+      <Footer></Footer>
+    </div>
+  );
 };
 
+const MyData = () => {
+  return <GetMyFavoriteNFTDB></GetMyFavoriteNFTDB>;
+};
 export default Page;

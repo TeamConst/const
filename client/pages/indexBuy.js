@@ -21,16 +21,16 @@ const IndexBuy = () => {
   );
 };
 
-export async function getServerSideProps() {
-  const queryClient = new QueryClient();
-  await queryClient.prefetchQuery(["getNowBuy"], () => fetchNowBuy());
+// export async function getServerSideProps() {
+//   const queryClient = new QueryClient();
+//   await queryClient.prefetchQuery(["getNowBuy"], () => fetchNowBuy());
 
-  return {
-    props: {
-      // dehydratedState: dehydrate(queryClient),
-      // dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-    },
-  };
-}
+//   return {
+//     props: {
+//       dehydratedState: dehydrate(queryClient),
+//       dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+//     },
+//   };
+// }
 
 export default IndexBuy;

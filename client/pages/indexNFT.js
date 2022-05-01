@@ -21,17 +21,17 @@ const IndexNFT = () => {
   );
 };
 
-export async function getServerSideProps() {
-  const queryClient = new QueryClient();
+// export async function getServerSideProps() {
+//   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery(["getNowNFT"], () => fetchNowNFT());
+//   await queryClient.prefetchQuery(["getNowNFT"], () => fetchNowNFT());
 
-  return {
-    props: {
-      // dehydratedState: dehydrate(queryClient),
-      // dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-    },
-  };
-}
+//   return {
+//     props: {
+//       dehydratedState: dehydrate(queryClient),
+//       dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+//     },
+//   };
+// }
 
 export default IndexNFT;

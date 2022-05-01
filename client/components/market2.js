@@ -261,7 +261,6 @@ const Market2 = (props) => {
     }
     if (!userSessionAll[0].BookmarkMusic_address[0]) {
       userSessionAll[0].bookmarkMusic = true;
-      console.log("이거뜨나요?");
       // 음원즐겨찾기변경(true);
     } else if (userSessionAll[0].BookmarkMusic_address[0].like === false) {
       userSessionAll[0].bookmarkMusic = true;

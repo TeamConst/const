@@ -7,7 +7,6 @@ import axios from "axios";
 // import contractJSON from "../../../build/contracts/NFTCollection.json";
 
 const fetchSelectedAuction = async (param) => {
-  console.log("그럼 이건", param);
   // const parsed = await ky("http://localhost:3000/api/collections").json();
   const data = await axios.post(
     "http://localhost:8080/api/getSelectedAuction",
@@ -15,8 +14,7 @@ const fetchSelectedAuction = async (param) => {
       name: param,
     }
   );
-  console.log("이게떠야하는데");
-  console.log(data);
+
   // const data = await axios.get("http://localhost:8080/api/bestCollection");
   // const parsed = await ky("https://jsonplaceholder.typicode.com/posts").json();
 
