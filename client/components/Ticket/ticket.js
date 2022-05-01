@@ -124,7 +124,7 @@ const Ticket = () => {
       console.log(dday);
 
       setTime(`${i + 1}달 회원권`);
-      const rere = await axios.post("http://localhost:8080/api/updateuser", {
+      const rere = await axios.post("http//54.227.126.254:8080/api/updateuser", {
         ticket: `${i + 1}달 회원권`,
         ticketTime: oneMonthLater,
         id: userSession.id,
@@ -157,7 +157,7 @@ const Ticket = () => {
 
     if (dday - today <= 0 && userSession.ticket !== "이용권 없음") {
       console.log(dday - today);
-      const rere = axios.post("http://localhost:8080/api/updateuser", {
+      const rere = axios.post("http//54.227.126.254:8080/api/updateuser", {
         ticket: `이용권 없음`,
         ticketTime: "0",
         id: userSession.id,

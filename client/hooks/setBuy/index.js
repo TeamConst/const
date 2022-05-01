@@ -8,11 +8,11 @@ import axios from "axios";
 
 const fetchSetBuy = async (param) => {
   // const parsed = await ky("http://localhost:3000/api/collections").json();
-  const data = await axios.post("http://localhost:8080/api/setBuy", {
+  const data = await axios.post("http//54.227.126.254:8080/api/setBuy", {
     name: param,
   });
 
-  // const data = await axios.get("http://localhost:8080/api/bestCollection");
+  // const data = await axios.get("http//54.227.126.254:8080/api/bestCollection");
   // const parsed = await ky("https://jsonplaceholder.typicode.com/posts").json();
 
   // const result = parsed.filter((x) => x.id <= limit);

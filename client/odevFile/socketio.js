@@ -28,7 +28,7 @@
 //   "repoData",
 //   () =>
 //     // axios.get('http')
-//     fetch("http://localhost:8080/api/getDate")
+//     fetch("http//54.227.126.254:8080/api/getDate")
 //       .then((res) => {
 //         console.log(res);
 //         return res.json();

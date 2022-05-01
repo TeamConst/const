@@ -11,7 +11,7 @@ const NFT = (props) => {
     axios.get("https://api.github.com/repos/tannerlinsley/react-query", {
       initialData: props.a,
     })
-    // axios.get("http://localhost:8080/api/getDate", { initialData: props.post })
+    // axios.get("http//54.227.126.254:8080/api/getDate", { initialData: props.post })
   );
 
   return (
@@ -27,7 +27,7 @@ export async function getStaticProps() {
   // const queryClient = useQueryClient();
   // queryClient.invalidateQueries("repoData");
 
-  // const post = await axios.get("http://localhost:8080/api/getDate");
+  // const post = await axios.get("http//54.227.126.254:8080/api/getDate");
   const post = await axios.get(
     "https://api.github.com/repos/tannerlinsley/react-query"
   );

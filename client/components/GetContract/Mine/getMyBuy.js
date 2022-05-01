@@ -127,7 +127,7 @@ const ConfigBuy = (props) => {
             window.alert("Something went wrong when pushing to the blockchain");
           });
       });
-    const ax = await axios.post("http://localhost:8080/api/setBuyOffer", {
+    const ax = await axios.post("http//54.227.126.254:8080/api/setBuyOffer", {
       CID: props.props.img,
       address: praaccounts[0],
       price: data.price,

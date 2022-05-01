@@ -185,7 +185,7 @@ const Mypage1 = () => {
 
     if (dday - today <= 0 && userSession.ticket !== "이용권 없음") {
       console.log(dday - today);
-      const rere = axios.post("http://localhost:8080/api/updateUserTicket", {
+      const rere = axios.post("http//54.227.126.254:8080/api/updateUserTicket", {
         ticket: `이용권 없음`,
         ticketTime: "0",
         id: userSession.id,
@@ -203,11 +203,11 @@ const Mypage1 = () => {
       imageFormData.append("id2", userSession.id2);
 
       const resultImage = await axios.post(
-        "http://localhost:8080/api/updateImage",
+        "http//54.227.126.254:8080/api/updateImage",
         imageFormData
       );
       const rere = axios.post(
-        "http://localhost:8080/api/updateUserProfileImg",
+        "http//54.227.126.254:8080/api/updateUserProfileImg",
         {
           profileImg: `https://const123.s3.ap-northeast-2.amazonaws.com/profile/${userSession.id2}.jpg`,
           id2: userSession.id2,

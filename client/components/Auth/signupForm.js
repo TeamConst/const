@@ -102,7 +102,7 @@ const SignupForm = () => {
   };
 
   const validAddress = async () => {
-    const a = await axios.post("http://localhost:8080/api/validAddress", {
+    const a = await axios.post("http//54.227.126.254:8080/api/validAddress", {
       address: 초기메타마스크아이디,
     });
     if (a.data == "어드레스가 있습니다") {
@@ -116,7 +116,7 @@ const SignupForm = () => {
   };
 
   const validId = async () => {
-    const a = await axios.post("http://localhost:8080/api/validId", {
+    const a = await axios.post("http//54.227.126.254:8080/api/validId", {
       id2: 아이디,
     });
     if (a.data == "아이디가있습니다") {
@@ -204,7 +204,7 @@ const SignupForm = () => {
           profileImg: `https://const123.s3.ap-northeast-2.amazonaws.com/profile/${아이디}.jpg`,
         };
 
-        const result = await axios.post("http://localhost:8080/api/signup", d1);
+        const result = await axios.post("http//54.227.126.254:8080/api/signup", d1);
 
         console.log(result.data);
         if (result.data !== "회원가입 완료") {
@@ -220,7 +220,7 @@ const SignupForm = () => {
         imageFormData.append("id2", 아이디);
 
         const resultImage = await axios.post(
-          "http://localhost:8080/api/signup/image",
+          "http//54.227.126.254:8080/api/signup/image",
           imageFormData
         );
 
@@ -231,7 +231,7 @@ const SignupForm = () => {
       }
 
       alert("회원가입이 완료되었습니다.");
-      window.location.href = "http://localhost:8080/";
+      window.location.href = "http//54.227.126.254:8080/";
     } catch (err) {
       alert(err);
       window.location.reload(true);

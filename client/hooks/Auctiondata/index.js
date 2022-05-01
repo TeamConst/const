@@ -8,7 +8,7 @@ import axios from "axios";
 const fetchAuctiondata = async () => {
   // const parsed = await ky("http://localhost:3000/api/collections").json();
 
-  const data = await axios.get("http://localhost:8080/api/getAuction");
+  const data = await axios.get("http//54.227.126.254:8080/api/getAuction");
 
   return data;
 };
