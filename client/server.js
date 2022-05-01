@@ -1193,13 +1193,17 @@ app.prepare().then(() => {
 
   // 오퍼 처리
   server.post("/api/setBuyOffer", async (req, res) => {
+    console.log("제발0");
     // CID로 검색을 해야되니까
     async function updateOrCreate() {
+      console.log("제발-1");
       // First try to find the record
       const foundItem = await BuyMusic.findOne({
         where: { CID: req.body.CID },
       });
+
       if (!foundItem) {
+        console.log("여기는 안뜸?");
         // Item not found, create a new one
         await BuyMusic.create({
           sellComplete: false,
@@ -1217,10 +1221,12 @@ app.prepare().then(() => {
           },
           { where: { CID: req.body.CID } }
         );
-        res.send("setBuyOffer success");
+        console.log("제발1");
       }
     }
     updateOrCreate();
+
+    res.send("setBuyOffer success");
   });
   // 오퍼 처리 끝
 

@@ -237,8 +237,9 @@ const ConfigBuy = (props) => {
       address: praaccounts[0],
       price: data.price,
     });
-
     console.log(ax);
+
+    console.log("제발2");
 
     let pra2;
     const deployedAddress2 = marketContractJSON.networks[networkId1].address;
@@ -252,6 +253,8 @@ const ConfigBuy = (props) => {
     const enteredPrice = web3.utils.toWei(data.price, "ether");
     // 바이데이터아이디는 내 작품의 전체 순번
     // console.log(buyData[0].id);
+
+    console.log("제발3");
 
     await pra.methods
       .approve(pra2.options.address, props.props.idCount)
@@ -274,6 +277,8 @@ const ConfigBuy = (props) => {
             window.alert("Something went wrong when pushing to the blockchain");
           });
       });
+
+    console.log("제발4");
 
     // 캔슬
   };

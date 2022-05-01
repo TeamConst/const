@@ -450,7 +450,13 @@ const Market2 = (props) => {
 
     await props.Contract.methods
       .bid(tokenID, newBid2)
-      .send({ from: props.accountAddress });
+      .send({ from: props.accountAddress })
+      .on("transactionHash", (hash) => {
+        console.log("해시해시", hash);
+        alert("입찰에 성공하셨습니다! 경매의 우승자가 되길 희망합니다!");
+        window.location.reload(true);
+      });
+
     // window.location.reload(true);
   };
 
@@ -468,6 +474,7 @@ const Market2 = (props) => {
       .send({ from: props.accountAddress, value: auction.highestBid });
     // window.location.reload(true);
   };
+
   console.log(image.status);
   //   let onBid = (image.status == 1);
   //   let toBeClaim = (image.status == 2);

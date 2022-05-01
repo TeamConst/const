@@ -360,7 +360,7 @@ const SignupForm = () => {
                       autoFocus
                     />
                     <Button
-                      onClick={() => validAddreumgss()}
+                      onClick={() => validAddress()}
                       variant="contained"
                       sx={{ mt: 3, mb: 2 }}
                     >
