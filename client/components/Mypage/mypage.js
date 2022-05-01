@@ -292,6 +292,9 @@ const Mypage1 = () => {
                                             <Boldtext>{`${Math.floor(
                                                 accountBalance
                                             )}/eth`}</Boldtext>
+                                                 <Boldtext>
+                                              {  accountBalance}
+                                            </Boldtext>
                                             <Smallertext>잔액</Smallertext>
                                         </Followers>
                                         <Followers className="photos">

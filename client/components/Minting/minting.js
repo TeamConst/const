@@ -90,8 +90,12 @@ const setupBlockchain = async () => {
 
     const networkId = await web3.eth.net.getId();
     console.log("networkId", networkId);
-
+  console.log("3131")
     const deployedAddress = ImageNFTMarketplace.networks[networkId].address;
+
+    console.log(ImageNFTMarketplace.networks[networkId])
+    console.log(ImageNFTMarketplace)
+    console.log(deployedAddress)
     const NFTMarketplaceInstance = new web3.eth.Contract(
       ImageNFTMarketplace.abi,
       deployedAddress
@@ -189,6 +193,7 @@ const Minting = () => {
     // imageNFT로 변경 처리
     const Contract = await setupBlockchain();
     const accounts = await web3.eth.getAccounts();
+    
     // // 일단 cid 들어가는데 cid를 만드는 방법을 자세히 알고 쓰자 지금 업로드가 제대로 안되잖아
     await Contract.methods
       .mintImageNFT(data.title, bu.path)

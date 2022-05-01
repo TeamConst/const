@@ -38,7 +38,7 @@ contract ConstContract is ImageMarketplace{
     emit Offer(offerCount, _id, msg.sender, _price, false, false);
   }
 
-  function fillOffer(address to, uint _offerId) public payable {
+  function fillOffer( uint _offerId) public payable {
     _Offer storage _offer = offers[_offerId];
     require(_offer.offerId == _offerId, 'The offer must exist');
     require(_offer.user != msg.sender, 'The owner of the offer cannot fill it');
