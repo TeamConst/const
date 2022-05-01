@@ -46,7 +46,7 @@ async function setupWeb3() {
     window.web3 = new Web3(window.web3.currentProvider);
     console.log("주입된 web3가 감지되었습니다.");
   }
-  // Fallback to localhost; use dev console port by default...
+  // Fallback to 54.227.126.254; use dev console port by default...
   else {
     console.alert(
       "Infura/Local web3를 사용하여 주입된 web3 인스턴스가 없습니다."

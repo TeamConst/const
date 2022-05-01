@@ -234,7 +234,7 @@ const GetMyBuy = () => {
     fetchMyBuy(param)
   );
 
-  // const socketClient = io("http://localhost:3000");
+  // const socketClient = io("http://54.227.126.254:3000");
 
   console.log("param2", param);
   // 서버에서 받기

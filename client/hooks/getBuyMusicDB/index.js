@@ -8,7 +8,7 @@ import axios from "axios";
 
 const fetchBuyMusicDB = async (param) => {
   console.log(param);
-  // const parsed = await ky("http://localhost:3000/api/collections").json();
+  // const parsed = await ky("http://54.227.126.254:3000/api/collections").json();
   const data = await axios.post("http//54.227.126.254:8080/api/getBuyMusicDB", {
     name: param,
   });

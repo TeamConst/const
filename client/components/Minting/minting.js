@@ -134,7 +134,7 @@ const Minting = () => {
   } = useForm();
   const onSubmit = async (data) => {
     // 소켓 처리
-    // const socketClient = io("http://localhost:3000");
+    // const socketClient = io("http://54.227.126.254:3000");
 
     // socketClient.on("connect", () => {
     //   console.log("쎾쓰");

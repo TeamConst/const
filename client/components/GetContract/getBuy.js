@@ -35,7 +35,7 @@ const GetBuy = () => {
     fetchBuy()
   );
 
-  // const socketClient = io("http://localhost:3000");
+  // const socketClient = io("http://54.227.126.254:3000");
 
   // 서버에서 받기
   // socketClient.on("refreshAuction", (req) => {
