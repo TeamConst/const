@@ -1249,7 +1249,7 @@ app.prepare().then(() => {
 
         if (
           image.currentOwner == req.user.address &&
-          image.tokenURI == `https://ipfs.infura.io/ipfs/${a}`
+          image.tokenURI == `https://ipfs.io/ipfs/${a}`
         ) {
           imagesArray = [...imagesArray, image];
           // setImages((Images) => [...Images, image]);
@@ -1763,7 +1763,7 @@ async function getMyBuy(data) {
       try {
         // 오류 핸들러니까 잠시 주석 처리
         const response = await fetch(
-          `https://ipfs.infura.io/ipfs/${hash}?clear`
+          `https://ipfs.io/ipfs/${hash}?clear`
         );
         if (!response.ok) {
           throw new Error("Something went wrong");
@@ -1858,7 +1858,7 @@ async function getBuy() {
       try {
         // 오류 핸들러니까 잠시 주석 처리
         const response = await fetch(
-          `https://ipfs.infura.io/ipfs/${hash}?clear`
+          `https://ipfs.io/ipfs/${hash}?clear`
         );
         if (!response.ok) {
           throw new Error("Something went wrong");
@@ -1950,7 +1950,7 @@ async function setBuy(param) {
       try {
         // 오류 핸들러니까 잠시 주석 처리
         const response = await fetch(
-          `https://ipfs.infura.io/ipfs/${hash}?clear`
+          `https://ipfs.io/ipfs/${hash}?clear`
         );
         if (!response.ok) {
           throw new Error("Something went wrong");

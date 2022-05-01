@@ -181,9 +181,9 @@ function AuctionMint() {
     setIpfsHash(result.path);
     console.log();
     console.log("ipfsHash", result.path);
-    console.log(`https://ipfs.infura.io/ipfs/${result.path}`);
+    console.log(`https://ipfs.io/ipfs/${result.path}`);
 
-    const tokenURI = `https://ipfs.infura.io/ipfs/${result.path}`;
+    const tokenURI = `https://ipfs.io/ipfs/${result.path}`;
     setTokenURI(tokenURI);
     console.log("=== tokenURI ===", tokenURI);
 

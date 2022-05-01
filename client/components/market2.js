@@ -334,8 +334,8 @@ const Market2 = (props) => {
   const [음악, 음악변경] = useState();
   const changeMusic = async (str) => {
     console.log(str);
-    음악변경(`https://ipfs.infura.io/ipfs/${str}`);
-    console.log(`https://ipfs.infura.io/ipfs/${str}`);
+    음악변경(`https://ipfs.io/ipfs/${str}`);
+    console.log(`https://ipfs.io/ipfs/${str}`);
   };
 
   let a = 1;

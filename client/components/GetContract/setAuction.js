@@ -136,8 +136,8 @@ const SetAuction = () => {
   const [음악, 음악변경] = useState();
   const changeMusic = async (str) => {
     console.log(str);
-    음악변경(`https://ipfs.infura.io/ipfs/${str}`);
-    console.log(`https://ipfs.infura.io/ipfs/${str}`);
+    음악변경(`https://ipfs.io/ipfs/${str}`);
+    console.log(`https://ipfs.io/ipfs/${str}`);
   };
 
   console.log(accountAddress);
@@ -145,13 +145,13 @@ const SetAuction = () => {
   const myImages = Images.filter(
     (image) =>
       image.currentOwner === accountAddress &&
-      image.tokenURI === `https://ipfs.infura.io/ipfs/${str}`
+      image.tokenURI === `https://ipfs.io/ipfs/${str}`
   );
   const allImages = Images.filter(
     (image) =>
       image.status != 0 &&
       accountAddress &&
-      image.tokenURI === `https://ipfs.infura.io/ipfs/${str}`
+      image.tokenURI === `https://ipfs.io/ipfs/${str}`
   );
 
   const Item = styled(Paper)(({ theme }) => ({

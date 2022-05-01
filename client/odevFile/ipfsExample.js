@@ -34,7 +34,7 @@ async function A(req, res) {
         name: "--",
         key: imageKey,
         description: "---",
-        image: "https://ipfs.infura.io/ipfs/" + imageFile.hash,
+        image: "https://ipfs.io/ipfs/" + imageFile.hash,
         external_url: S3_URI + "nft-files/" + imageKey,
       };
 

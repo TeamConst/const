@@ -180,21 +180,21 @@ const AuctionImageCard = (props) => {
   const [음악, 음악변경] = useState();
   const changeMusic = async (str) => {
     console.log(str);
-    음악변경(`https://ipfs.infura.io/ipfs/${str}`);
-    console.log(`https://ipfs.infura.io/ipfs/${str}`);
+    음악변경(`https://ipfs.io/ipfs/${str}`);
+    console.log(`https://ipfs.io/ipfs/${str}`);
   };
 
   const allImages = Images.filter(
     (image) =>
       image.currentOwner !== accountAddress &&
       accountAddress &&
-      image.tokenURI === `https://ipfs.infura.io/ipfs/${str}`
+      image.tokenURI === `https://ipfs.io/ipfs/${str}`
   );
 
   const myImages = Images.filter(
     (image) =>
       image.currentOwner === accountAddress &&
-      image.tokenURI === `https://ipfs.infura.io/ipfs/${str}`
+      image.tokenURI === `https://ipfs.io/ipfs/${str}`
   );
 
   {
@@ -332,7 +332,7 @@ const AuctionImageCard = (props) => {
                   </Box>
                   <AudioPlayer
                     autoPlay
-                    src={`https://ipfs.infura.io/ipfs/${str}`}
+                    src={`https://ipfs.io/ipfs/${str}`}
                     onPlay={(e) => console.log("onPlay")}
                     // other props here
                   />
@@ -466,7 +466,7 @@ const AuctionImageCard = (props) => {
                 </Box>
                 <AudioPlayer
                   autoPlay
-                  src={`https://ipfs.infura.io/ipfs/${str}`}
+                  src={`https://ipfs.io/ipfs/${str}`}
                   onPlay={(e) => console.log("onPlay")}
                   // other props here
                 />
