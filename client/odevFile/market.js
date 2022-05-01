@@ -14,7 +14,18 @@ import MintedImages from "../components/MintedImages";
 import { withRouter } from "next/router";
 import DetailInfo from "../components/ImageCard/DetailInfo";
 import { Typography, Stack, Paper, styled } from "@mui/material";
-import { Button, TextField, MenuItem, Select, InputLabel, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
+import {
+  Button,
+  TextField,
+  MenuItem,
+  Select,
+  InputLabel,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from "@mui/material";
 import AuctionMint from "./Auction/AuctionMint";
 import Market2 from "../components/market2";
 import ImageCard from "../components/ImageCard/ImageCard";
@@ -155,7 +166,9 @@ const Market = (props) => {
   str = str.slice(6, 52);
   console.log(str);
 
-  const { data, isLoading, isFetching } = useQuery(["Auctiondata"], () => fetchAuctiondata());
+  const { data, isLoading, isFetching } = useQuery(["Auctiondata"], () =>
+    fetchAuctiondata()
+  );
 
   useEffect(() => {
     이미지변경(`https://const123.s3.ap-northeast-2.amazonaws.com/${id}`);
@@ -167,19 +180,29 @@ const Market = (props) => {
 
       const accounts = await web3.eth.getAccounts();
       const networkId = await web3.eth.net.getId();
-      let balance = accounts.length > 0 ? await web3.eth.getBalance(accounts[0]) : await web3.utils.toWei("0");
+      let balance =
+        accounts.length > 0
+          ? await web3.eth.getBalance(accounts[0])
+          : await web3.utils.toWei("0");
       balance = await web3.utils.fromWei(balance, "ether");
 
       let deployedNetwork = ImageNFTMarketplace.networks[networkId];
 
-      let NFTMarketplaceInstance = new web3.eth.Contract(ImageNFTMarketplace.abi, deployedNetwork.address);
+      let NFTMarketplaceInstance = new web3.eth.Contract(
+        ImageNFTMarketplace.abi,
+        deployedNetwork.address
+      );
 
       if (NFTMarketplaceInstance) {
-        const ImageCount = await NFTMarketplaceInstance.methods.currentImageCount().call();
+        const ImageCount = await NFTMarketplaceInstance.methods
+          .currentImageCount()
+          .call();
 
         console.log(ImageCount);
         for (let i = 1; i <= ImageCount; i++) {
-          let image = await NFTMarketplaceInstance.methods.imageStorage(i).call();
+          let image = await NFTMarketplaceInstance.methods
+            .imageStorage(i)
+            .call();
           console.log(image);
           console.log(image.mintedBy);
           setImages((Images) => [...Images, image]);
@@ -190,7 +213,9 @@ const Market = (props) => {
 
           console.log(auction.endTime);
         }
-        let ImageNumOfAccount = await NFTMarketplaceInstance.methods.getOwnedNumber(accounts[0]).call();
+        let ImageNumOfAccount = await NFTMarketplaceInstance.methods
+          .getOwnedNumber(accounts[0])
+          .call();
         setContract(NFTMarketplaceInstance);
         setAccountAddress(accounts[0]);
         setAccountBalance(balance);
@@ -213,8 +238,8 @@ const Market = (props) => {
   const [음악, 음악변경] = useState();
   const changeMusic = async (str) => {
     console.log(str);
-    음악변경(`https://ipfs.io/ipfs/${str}`);
-    console.log(`https://ipfs.io/ipfs/${str}`);
+    음악변경(`https://ipfs.infura.io/ipfs/${str}`);
+    console.log(`https://ipfs.infura.io/ipfs/${str}`);
   };
   // let musics;
   // let a = 0;
@@ -232,8 +257,17 @@ const Market = (props) => {
   // }
 
   console.log(Images);
-  const myImages = Images.filter((image) => image.currentOwner === accountAddress && image.tokenURI === `https://ipfs.io/ipfs/${str}`);
-  const allImages = Images.filter((image) => image.status != 0 && accountAddress && image.tokenURI === `https://ipfs.io/ipfs/${str}`);
+  const myImages = Images.filter(
+    (image) =>
+      image.currentOwner === accountAddress &&
+      image.tokenURI === `https://ipfs.infura.io/ipfs/${str}`
+  );
+  const allImages = Images.filter(
+    (image) =>
+      image.status != 0 &&
+      accountAddress &&
+      image.tokenURI === `https://ipfs.infura.io/ipfs/${str}`
+  );
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -251,7 +285,14 @@ const Market = (props) => {
             {myImages.map((image) => {
               return (
                 <Item key={image.tokenID}>
-                  <Market2 tokenID={image.tokenID} image={image} accountAddress={accountAddress} Contract={Contract} Auction={Auctions[parseInt(image.tokenID) - 1]} currentTime={currentTime} />
+                  <Market2
+                    tokenID={image.tokenID}
+                    image={image}
+                    accountAddress={accountAddress}
+                    Contract={Contract}
+                    Auction={Auctions[parseInt(image.tokenID) - 1]}
+                    currentTime={currentTime}
+                  />
                 </Item>
               );
             })}
@@ -270,7 +311,14 @@ const Market = (props) => {
             {allImages.map((image) => {
               return (
                 <Item key={image.tokenID}>
-                  <Market2 tokenID={image.tokenID} image={image} accountAddress={accountAddress} Contract={Contract} Auction={Auctions[parseInt(image.tokenID) - 1]} currentTime={currentTime} />
+                  <Market2
+                    tokenID={image.tokenID}
+                    image={image}
+                    accountAddress={accountAddress}
+                    Contract={Contract}
+                    Auction={Auctions[parseInt(image.tokenID) - 1]}
+                    currentTime={currentTime}
+                  />
                 </Item>
               );
             })}

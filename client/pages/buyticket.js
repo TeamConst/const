@@ -6,9 +6,9 @@ import Footer from "../components/Layout/footer";
 import Ticket from "../components/Ticket/ticket";
 
 const Buyticket = () => {
-  const { data, isLoading, isFetching } = useQuery(["getUserSession"], () =>
-    fetchUserSession()
-  );
+  // const { data, isLoading, isFetching } = useQuery(["getUserSession"], () =>
+  //   fetchUserSession()
+  // );
 
   return (
     <div>
@@ -23,12 +23,12 @@ const Buyticket = () => {
 export async function getServerSideProps() {
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery(["getUserSession"], () => fetchUserSession());
+  // await queryClient.prefetchQuery(["getUserSession"], () => fetchUserSession());
 
   return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
-    },
+    // props: {
+    // dehydratedState: dehydrate(queryClient),
+    // },
   };
 }
 

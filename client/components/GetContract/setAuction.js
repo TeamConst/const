@@ -1,4 +1,21 @@
-import { Button, Typography, Grid, Box, TextField, MenuItem, Select, InputLabel, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, styled, Stack, Paper } from "@mui/material";
+import {
+  Button,
+  Typography,
+  Grid,
+  Box,
+  TextField,
+  MenuItem,
+  Select,
+  InputLabel,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  styled,
+  Stack,
+  Paper,
+} from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 import Container from "@mui/material/Container";
 import Card from "@mui/material/Card";
@@ -56,7 +73,9 @@ const SetAuction = () => {
   str = str.slice(0, 52);
   console.log(str);
 
-  const { data, isLoading, isFetching } = useQuery(["Auctiondata"], () => fetchAuctiondata());
+  const { data, isLoading, isFetching } = useQuery(["Auctiondata"], () =>
+    fetchAuctiondata()
+  );
 
   useEffect(() => {
     이미지변경(`https://const123.s3.ap-northeast-2.amazonaws.com/${id}`);
@@ -68,19 +87,29 @@ const SetAuction = () => {
 
       const accounts = await web3.eth.getAccounts();
       const networkId = await web3.eth.net.getId();
-      let balance = accounts.length > 0 ? await web3.eth.getBalance(accounts[0]) : await web3.utils.toWei("0");
+      let balance =
+        accounts.length > 0
+          ? await web3.eth.getBalance(accounts[0])
+          : await web3.utils.toWei("0");
       balance = await web3.utils.fromWei(balance, "ether");
 
       let deployedNetwork = ImageNFTMarketplace.networks[networkId];
 
-      let NFTMarketplaceInstance = new web3.eth.Contract(ImageNFTMarketplace.abi, deployedNetwork.address);
+      let NFTMarketplaceInstance = new web3.eth.Contract(
+        ImageNFTMarketplace.abi,
+        deployedNetwork.address
+      );
 
       if (NFTMarketplaceInstance) {
-        const ImageCount = await NFTMarketplaceInstance.methods.currentImageCount().call();
+        const ImageCount = await NFTMarketplaceInstance.methods
+          .currentImageCount()
+          .call();
 
         console.log(ImageCount);
         for (let i = 1; i <= ImageCount; i++) {
-          let image = await NFTMarketplaceInstance.methods.imageStorage(i).call();
+          let image = await NFTMarketplaceInstance.methods
+            .imageStorage(i)
+            .call();
           console.log(image);
           console.log(image.mintedBy);
           setImages((Images) => [...Images, image]);
@@ -91,7 +120,9 @@ const SetAuction = () => {
 
           console.log(auction.endTime);
         }
-        let ImageNumOfAccount = await NFTMarketplaceInstance.methods.getOwnedNumber(accounts[0]).call();
+        let ImageNumOfAccount = await NFTMarketplaceInstance.methods
+          .getOwnedNumber(accounts[0])
+          .call();
         setContract(NFTMarketplaceInstance);
         setAccountAddress(accounts[0]);
         setAccountBalance(balance);
@@ -105,14 +136,23 @@ const SetAuction = () => {
   const [음악, 음악변경] = useState();
   const changeMusic = async (str) => {
     console.log(str);
-    음악변경(`https://ipfs.io/ipfs/${str}`);
-    console.log(`https://ipfs.io/ipfs/${str}`);
+    음악변경(`https://ipfs.infura.io/ipfs/${str}`);
+    console.log(`https://ipfs.infura.io/ipfs/${str}`);
   };
 
   console.log(accountAddress);
   console.log(Images);
-  const myImages = Images.filter((image) => image.currentOwner ===  accountAddress && image.tokenURI === `https://ipfs.io/ipfs/${str}`);
-  const allImages = Images.filter((image) => image.status != 0 && accountAddress && image.tokenURI === `https://ipfs.io/ipfs/${str}`);
+  const myImages = Images.filter(
+    (image) =>
+      image.currentOwner === accountAddress &&
+      image.tokenURI === `https://ipfs.infura.io/ipfs/${str}`
+  );
+  const allImages = Images.filter(
+    (image) =>
+      image.status != 0 &&
+      accountAddress &&
+      image.tokenURI === `https://ipfs.infura.io/ipfs/${str}`
+  );
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -122,7 +162,7 @@ const SetAuction = () => {
 
   console.log(ImagesId);
   console.log(myImages);
-  if (accountAddress === ImagesId ) {
+  if (accountAddress === ImagesId) {
     return (
       <div>
         <ThemeProvider theme={theme}>
@@ -130,7 +170,14 @@ const SetAuction = () => {
             {myImages.map((image) => {
               return (
                 <Item key={image.tokenID}>
-                  <Market2 tokenID={image.tokenID} image={image} accountAddress={accountAddress} Contract={Contract} Auction={Auctions[parseInt(image.tokenID) - 1]} currentTime={currentTime} />
+                  <Market2
+                    tokenID={image.tokenID}
+                    image={image}
+                    accountAddress={accountAddress}
+                    Contract={Contract}
+                    Auction={Auctions[parseInt(image.tokenID) - 1]}
+                    currentTime={currentTime}
+                  />
                 </Item>
               );
             })}
@@ -148,7 +195,14 @@ const SetAuction = () => {
             {allImages.map((image) => {
               return (
                 <Item key={image.tokenID}>
-                  <Market2 tokenID={image.tokenID} image={image} accountAddress={accountAddress} Contract={Contract} Auction={Auctions[parseInt(image.tokenID) - 1]} currentTime={currentTime} />
+                  <Market2
+                    tokenID={image.tokenID}
+                    image={image}
+                    accountAddress={accountAddress}
+                    Contract={Contract}
+                    Auction={Auctions[parseInt(image.tokenID) - 1]}
+                    currentTime={currentTime}
+                  />
                 </Item>
               );
             })}

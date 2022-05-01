@@ -21,7 +21,7 @@ contract ImageMarketplace is ImageAuction {
     }
 
     function baseTokenURI() internal pure returns (string memory) {
-        return "https://ipfs.io/ipfs/";
+        return "https://ipfs.infura.io/ipfs/";
     }
 
     function getTokenURI(string memory _ipfsHashOfPhoto)

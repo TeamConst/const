@@ -1,7 +1,6 @@
 export * from "./collections";
 export * from "./buyDetail";
 export * from "./bestCollections";
-export * from "./music";
 
 export * from "./getMyNFT";
 export * from "./getMyBuy";
@@ -37,6 +36,7 @@ export * from "./getTransactionDetailDB";
 export * from "./getSelectedAuction";
 
 export * from "./getMusicTop100";
+export * from "./getMusic";
 
 export * from "./Auctiondata";
 export * from "./UdateAuc";

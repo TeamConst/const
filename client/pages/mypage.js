@@ -6,9 +6,9 @@ import { dehydrate, QueryClient, useQuery } from "react-query";
 import { fetchUserSession } from "../hooks";
 
 const Mypage = () => {
-  const { data, isLoading, isFetching } = useQuery(["getUserSession"], () =>
-    fetchUserSession()
-  );
+  // const { data, isLoading, isFetching } = useQuery(["getUserSession"], () =>
+  //   fetchUserSession()
+  // );
 
   return (
     <div>
@@ -23,12 +23,12 @@ const Mypage = () => {
 export async function getServerSideProps() {
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery(["getUserSession"], () => fetchUserSession());
+  // await queryClient.prefetchQuery(["getUserSession"], () => fetchUserSession());
 
   return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
-    },
+    // props: {
+    // dehydratedState: dehydrate(queryClient),
+    // },
   };
 }
 

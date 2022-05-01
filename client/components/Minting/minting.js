@@ -5,7 +5,14 @@ import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 // MUI - Component
-import { Box, Button, Container, TextField, Grid, MenuItem,} from "@mui/material";
+import {
+  Box,
+  Button,
+  Container,
+  TextField,
+  Grid,
+  MenuItem,
+} from "@mui/material";
 
 // MUI - Style
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -26,6 +33,7 @@ import axios from "axios";
 
 // socket.io
 import io from "socket.io-client";
+import { R } from "core-js/modules/_export";
 const Genres = [
   {
     value: "POP",
@@ -161,6 +169,11 @@ const Minting = () => {
     );
     console.log(resultImage);
 
+    if (resultImage.data !== "민트 S3 성공") {
+      alert("이미지 업로드를 실패하였습니다.");
+      window.location.reload(true);
+    }
+
     // ipfs 처리부분
     const musics = data.musics[0];
     const musicsFormData = new FormData();
@@ -180,6 +193,8 @@ const Minting = () => {
     gg.artist = data.artist;
     gg.genre = 장르;
     gg.title = data.title;
+    gg.CID = bu.path;
+    gg.s3 = `https://const123.s3.ap-northeast-2.amazonaws.com/image/${bu.path}.jpg`;
 
     const qq = await web3.eth.getAccounts();
     gg.address = qq[0];
@@ -227,6 +242,18 @@ const Minting = () => {
     };
     const metadataAdded = await ipfs.add(JSON.stringify(metadata));
 
+    // const metadata = {
+    //   name: req.files.musics.name,
+    //   mimetype: req.files.musics.mimetype,
+    //   size: req.files.musics.size,
+    //   encoding: req.files.musics.encoding,
+    // };
+
+    // const { Readable } = require("stream");
+    // const src = Readable.from(JSON.stringify(metadata));
+
+    // const metadataAdded = await ipfs.add(JSON.stringify(metadata));
+
     pra.methods
       .safeMint(metadataAdded.path)
       .send({ from: praaccounts[0] })
@@ -237,6 +264,13 @@ const Minting = () => {
         window.alert("Something went wrong when pushing to the blockchain");
       });
 
+    // 옥션 로컬 db 저장
+    const mintby = accounts[0];
+    const rere2 = await axios.post("http://localhost:8080/api/auction", {
+      mintby: mintby,
+      CID: bu.path,
+    });
+
     // 한번에
     const form = new FormData();
     form.append("image", image);
@@ -246,12 +280,13 @@ const Minting = () => {
     // form.append("CID", bu.path);
     const allMinting = await axios.post("http://localhost:8080/api/mint", form);
 
-    // 옥션 로컬 db 저장
-    const mintby = accounts[0];
-    const rere2 = await axios.post("http://localhost:8080/api/auction", {
-      mintby: mintby,
-      CID: bu.path,
-    });
+    if (allMinting.data !== "민트 최종 성공") {
+      alert("민팅을 실패하였습니다.");
+      window.location.reload(true);
+    } else {
+      alert("민팅을 성공하였습니다.");
+      window.location.href = "http://localhost:8080/";
+    }
   };
 
   // 이미지 변경에 대한 처리
@@ -266,12 +301,14 @@ const Minting = () => {
     };
     reader.readAsDataURL(file[0]);
   };
+
   //장르변경
   const [장르, 장르변경] = useState("POP");
 
   const handleGenre = (event) => {
     장르변경(event.target.value);
   };
+
   return (
     <div>
       <ThemeProvider theme={theme}>
@@ -365,22 +402,21 @@ const Minting = () => {
                         />
                       </Grid>
 
-                  <Grid item xs={12}>
-                    <TextField
-                      select
-                      label="genre"
-                      fullWidth
-                      value={장르}
-                      onChange={handleGenre}
-                    >
-                      {Genres.map((option) => (
-                        <MenuItem key={option.value} value={option.value}>
-                          {option.value}
-                        </MenuItem>
-                      ))}
-                    </TextField>
-
-                  </Grid>
+                      <Grid item xs={12}>
+                        <TextField
+                          select
+                          label="genre"
+                          fullWidth
+                          value={장르}
+                          onChange={handleGenre}
+                        >
+                          {Genres.map((option) => (
+                            <MenuItem key={option.value} value={option.value}>
+                              {option.value}
+                            </MenuItem>
+                          ))}
+                        </TextField>
+                      </Grid>
                       <Grid item xs={12}>
                         <TextField
                           variant="outlined"
