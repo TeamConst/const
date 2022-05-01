@@ -900,6 +900,16 @@ app.prepare().then(() => {
   //유저 정보 변경 끝
 
   // 현재 진행중인 데이터 로컬 db 간략화
+  server.post("/api/getMusicDetailDB", async (req, res) => {
+    console.log("안녕~~~~");
+    console.log(req.body.CID);
+    const abc = await Music.findOne({
+      where: { CID: req.body.CID },
+      include: [{ all: true }],
+    });
+    res.json(abc);
+  });
+
   server.get("/api/getNowNFT", async (req, res) => {
     const abc = await Music.findAll({
       include: [{ all: true }],
@@ -936,6 +946,51 @@ app.prepare().then(() => {
     });
     res.json(abc);
   });
+
+  //메인페이지용
+  //메인페이지 전체 nft 개수제한
+  server.get("/api/getNowNFTAll", async (req, res) => {
+    const abc = await Music.findAll({
+      limit: 8,
+      include: [{ all: true }],
+    });
+    res.json(abc);
+  });
+
+  //메인페이지 전체 구매 개수제한용
+  server.get("/api/getNowBuyAll", async (req, res) => {
+    const abc = await BuyMusic.findAll({
+      where: { sellComplete: false },
+      limit: 8,
+      include: [
+        {
+          model: Music,
+          as: "BuyMusic_CID",
+          include: [{ model: User, as: "Music_address" }],
+        },
+      ],
+    });
+
+    console.log("여기", abc);
+    res.json(abc);
+  });
+
+  //경매 개수제한
+  server.get("/api/getNowAuctionAll", async (req, res) => {
+    const abc = await AuctionMusic.findAll({
+      where: { auctionComplete: false },
+      limit: 8,
+      include: [
+        {
+          model: Music,
+          as: "AuctionMusic_CID",
+          include: [{ model: User, as: "Music_address" }],
+        },
+      ],
+    });
+    res.json(abc);
+  });
+  //메인페이지용 끝
 
   server.get("/api/getMyNFTDB", async (req, res) => {
     const abc = await Music.findAll({

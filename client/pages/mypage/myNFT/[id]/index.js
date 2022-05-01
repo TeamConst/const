@@ -2,15 +2,15 @@ import { useRouter } from "next/router";
 
 import GetMyNFT from "../../../../components/GetContract/Mine/getMyNFT";
 
-import { useQuery, dehydrate, QueryClient } from "react-query";
-import { fetchMyNFTDB } from "../../../../hooks";
+// import { useQuery, dehydrate, QueryClient } from "react-query";
+// import { fetchMyNFTDB } from "../../../../hooks";
 
 const MyNFT = () => {
-    // const { data, isLoading, isFetching } = useQuery(["getMyNFTDB"], () =>
-    //   fetchMyNFTDB()
-    // );
+  // const { data, isLoading, isFetching } = useQuery(["getMyNFTDB"], () =>
+  //   fetchMyNFTDB()
+  // );
 
-    return <GetMyNFT></GetMyNFT>;
+  return <GetMyNFT></GetMyNFT>;
 };
 
 // export async function getServerSideProps() {
@@ -25,4 +25,4 @@ const MyNFT = () => {
 //   };
 // }
 
-export default Buy;
+export default MyNFT;

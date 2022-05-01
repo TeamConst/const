@@ -49,10 +49,7 @@ const tiers = [
     id: 0,
     title: "1달권",
     price: "0.1eth",
-    description: [
-      "무제한 듣기 ",
-      "오프라인 재생",
-    ],
+    description: ["무제한 듣기 ", "오프라인 재생"],
     buttonText: "구매하기",
     buttonVariant: "contained",
   },
@@ -64,7 +61,7 @@ const tiers = [
     description: [
       "무제한 듣기 ",
       "오프라인 재생",
-      "Const 스트리밍 데이터 무제한"
+      "Const 스트리밍 데이터 무제한",
     ],
     buttonText: "구매하기",
     buttonVariant: "contained",
@@ -78,7 +75,7 @@ const tiers = [
       "무제한 듣기 ",
       "오프라인 재생",
       "오프라인 저장가능",
-      "Const 스트리밍 데이터 무제한"
+      "Const 스트리밍 데이터 무제한",
     ],
     buttonText: "구매하기",
     buttonVariant: "contained",
@@ -132,8 +129,11 @@ const Ticket = () => {
         ticketTime: oneMonthLater,
         id: userSession.id,
       });
+
+      alert("이용권 구매 성공");
+      window.location = "/mypage";
     } else {
-      window.alert("구매할수 없습니다");
+      window.alert("이미 이용권 사용중 입니다");
     }
   };
   const main = async () => {
@@ -170,7 +170,7 @@ const Ticket = () => {
         styles={{ ul: { margin: 0, padding: 0, listStyle: "none" } }}
       />
       <CssBaseline />
-    
+
       {/* Hero unit */}
       <Container
         disableGutters
@@ -178,7 +178,7 @@ const Ticket = () => {
         component="main"
         sx={{ pt: 8, pb: 6, py: 22 }}
       >
-          <Img2 src="/img/다운로드.jpeg" />
+        <Img2 src="/img/다운로드.jpeg" />
         <Typography
           component="h1"
           variant="h2"

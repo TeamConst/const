@@ -23,11 +23,11 @@ const Signup = () => {
 export async function getServerSideProps() {
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery(["getUserSession"], () => fetchUserSession());
+  // await queryClient.prefetchQuery(["getUserSession"], () => fetchUserSession());
 
   return {
     props: {
-      dehydratedState: dehydrate(queryClient),
+      // dehydratedState: dehydrate(queryClient),
     },
   };
 }

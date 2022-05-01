@@ -4,14 +4,18 @@ import { fetchNowNFT } from "../hooks";
 import Header from "../components/Layout/header";
 import Footer from "../components/Layout/footer";
 import GetNowNFT from "../components/GetLocalDB/getNowNFT";
+import AllNft from "../components/GetLocalDB/List/AllNft/AllNft";
 
 const IndexNFT = () => {
-  const { data, isLoading, isFetching } = useQuery(["getNowNFT"], () => fetchNowNFT());
+  const { data, isLoading, isFetching } = useQuery(["getNowNFT"], () =>
+    fetchNowNFT()
+  );
 
   return (
     <div>
       <Header></Header>
-      <GetNowNFT></GetNowNFT>
+      {/* <GetNowNFT></GetNowNFT> */}
+      <AllNft></AllNft>
       <Footer></Footer>
     </div>
   );

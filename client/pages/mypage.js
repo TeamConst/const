@@ -20,16 +20,16 @@ const Mypage = () => {
   );
 };
 
-export async function getServerSideProps() {
-  const queryClient = new QueryClient();
+// export async function getServerSideProps() {
+//   const queryClient = new QueryClient();
 
-  // await queryClient.prefetchQuery(["getUserSession"], () => fetchUserSession());
+//   // await queryClient.prefetchQuery(["getUserSession"], () => fetchUserSession());
 
-  return {
-    // props: {
-    // dehydratedState: dehydrate(queryClient),
-    // },
-  };
-}
+//   return {
+//     // props: {
+//     // dehydratedState: dehydrate(queryClient),
+//     // },
+//   };
+// }
 
 export default Mypage;
