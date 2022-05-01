@@ -230,7 +230,7 @@ const SetBuy = () => {
     );
 
     async function upView() {
-      const view = await axios.post("http://localhost:8080/api/upView", {
+      const view = await axios.post("http://54.227.126.254:8080/api/upView", {
         CID: id,
       });
     }
@@ -323,28 +323,28 @@ const SetBuy = () => {
   }
 
   const upLikeMusic = async () => {
-    await axios.post("http://localhost:8080/api/upLikeMusic", { CID: id });
+    await axios.post("http://54.227.126.254:8080/api/upLikeMusic", { CID: id });
   };
   const cancelLikeMusic = async () => {
-    await axios.post("http://localhost:8080/api/cancelLikeMusic", {
+    await axios.post("http://54.227.126.254:8080/api/cancelLikeMusic", {
       CID: id,
     });
   };
   const upLikeArtist = async () => {
-    await axios.post("http://localhost:8080/api/upLikeArtist", { CID: id });
+    await axios.post("http://54.227.126.254:8080/api/upLikeArtist", { CID: id });
   };
   const cancelLikeArtist = async () => {
-    await axios.post("http://localhost:8080/api/cancelLikeArtist", {
+    await axios.post("http://54.227.126.254:8080/api/cancelLikeArtist", {
       CID: id,
     });
   };
   const upBookmarkMusic = async () => {
-    await axios.post("http://localhost:8080/api/upBookmarkMusic", {
+    await axios.post("http://54.227.126.254:8080/api/upBookmarkMusic", {
       CID: id,
     });
   };
   const cancelBookmarkMusic = async () => {
-    await axios.post("http://localhost:8080/api/cancelBookmarkMusic", {
+    await axios.post("http://54.227.126.254:8080/api/cancelBookmarkMusic", {
       CID: id,
     });
   };
@@ -510,7 +510,7 @@ const SetBuy = () => {
     );
     pra2 = contract2;
 
-    const setbuydb = await axios.post("http://localhost:8080/api/setBuyDB", {
+    const setbuydb = await axios.post("http://54.227.126.254:8080/api/setBuyDB", {
       address: praaccounts[0],
       CID: buyData[0].img,
     });
@@ -535,7 +535,7 @@ const SetBuy = () => {
           .on("transactionHash", (hash) => {
             console.log("해시해시", hash);
             alert("구매를 성공하셨습니다! 마이페이지에서 확인해주세요");
-            window.location.href = "http://localhost:8080/mypage";
+            window.location.href = "http://54.227.126.254:8080/mypage";
           })
           .on("error", (error) => {
             window.alert("Something went wrong when pushing to the blockchain");

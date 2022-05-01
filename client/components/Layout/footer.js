@@ -7,7 +7,7 @@ function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
       {"Copyright © "}
-      <Link color="inherit" href="http://localhost:8080">
+      <Link color="inherit" href="http://54.227.126.254:8080">
         CONST
       </Link>{" "}
       {new Date().getFullYear()}

@@ -31,7 +31,7 @@ const LoginForm = () => {
 
   const onSubmit = async (data) => {
     try {
-      const result = await axios.post("http://localhost:8080/api/login", data);
+      const result = await axios.post("http://54.227.126.254:8080/api/login", data);
 
       console.log(result);
       if (result.data !== "로그인 성공") {
@@ -39,7 +39,7 @@ const LoginForm = () => {
         window.location.reload(true);
       } else {
         alert("로그인을 성공하였습니다.");
-        window.location.href = "http://localhost:8080/";
+        window.location.href = "http://54.227.126.254:8080/";
       }
     } catch (err) {
       alert("로그인을 실패하였습니다.");

@@ -60,7 +60,7 @@ const GetMyNFT = () => {
   console.log(data);
 
   // 여기에 이제 실시간 처리를 해야겠다
-  // const socketClient = io("http://localhost:3000");
+  // const socketClient = io("http://54.227.126.254:3000");
   // socketClient.on("connect", (req) => {
   //   console.log(req);
   //   console.log("connection server");
@@ -89,7 +89,7 @@ const GetMyNFT = () => {
   //   "repoData",
   //   () =>
   //     // axios.get('http')
-  //     fetch("http://localhost:8080/api/getDate")
+  //     fetch("http://54.227.126.254:8080/api/getDate")
   //       .then((res) => {
   //         console.log(res);
   //         return res.json();
@@ -270,7 +270,7 @@ const ConfigBuy = (props) => {
             window.alert("Something went wrong when pushing to the blockchain");
           });
       });
-    const ax = await axios.post("http://localhost:8080/api/setBuyOffer", {
+    const ax = await axios.post("http://54.227.126.254:8080/api/setBuyOffer", {
       CID: props.props.img,
       address: praaccounts[0],
       price: data.price,

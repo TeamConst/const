@@ -272,28 +272,28 @@ const Market2 = (props) => {
   }
 
   const upLikeMusic = async () => {
-    await axios.post("http://localhost:8080/api/upLikeMusic", { CID: id });
+    await axios.post("http://54.227.126.254:8080/api/upLikeMusic", { CID: id });
   };
   const cancelLikeMusic = async () => {
-    await axios.post("http://localhost:8080/api/cancelLikeMusic", {
+    await axios.post("http://54.227.126.254:8080/api/cancelLikeMusic", {
       CID: id,
     });
   };
   const upLikeArtist = async () => {
-    await axios.post("http://localhost:8080/api/upLikeArtist", { CID: id });
+    await axios.post("http://54.227.126.254:8080/api/upLikeArtist", { CID: id });
   };
   const cancelLikeArtist = async () => {
-    await axios.post("http://localhost:8080/api/cancelLikeArtist", {
+    await axios.post("http://54.227.126.254:8080/api/cancelLikeArtist", {
       CID: id,
     });
   };
   const upBookmarkMusic = async () => {
-    await axios.post("http://localhost:8080/api/upBookmarkMusic", {
+    await axios.post("http://54.227.126.254:8080/api/upBookmarkMusic", {
       CID: id,
     });
   };
   const cancelBookmarkMusic = async () => {
-    await axios.post("http://localhost:8080/api/cancelBookmarkMusic", {
+    await axios.post("http://54.227.126.254:8080/api/cancelBookmarkMusic", {
       CID: id,
     });
   };
@@ -413,7 +413,7 @@ const Market2 = (props) => {
     let tokenID = props.tokenID;
     console.log("=== tokenID ===", tokenID);
 
-    const abcd = await axios.post("http://localhost:8080/api/endAuction", {
+    const abcd = await axios.post("http://54.227.126.254:8080/api/endAuction", {
       CID: auctionMusicDB.CID,
       lastWinner: props.accountAddress,
     });
@@ -442,7 +442,7 @@ const Market2 = (props) => {
       return;
     }
 
-    const abcd = await axios.post("http://localhost:8080/api/updateAuction", {
+    const abcd = await axios.post("http://54.227.126.254:8080/api/updateAuction", {
       CID: auctionMusicDB.CID,
       currentPrice: newBid2,
       currentWinner: props.accountAddress,
@@ -490,7 +490,7 @@ const Market2 = (props) => {
     const mintby = image.currentOwner;
     console.log(str);
     const str2 = str;
-    const rere = await axios.post("http://localhost:8080/api/updateauction", {
+    const rere = await axios.post("http://54.227.126.254:8080/api/updateauction", {
       mintby: mintby,
       CID: str2,
     });

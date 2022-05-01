@@ -106,12 +106,12 @@ const GetNowNFT = () => {
   // 좋아요
   const upLike = async (data) => {
     if (하트 == false) {
-      const like = await axios.post("http://localhost:8080/api/upLike", {
+      const like = await axios.post("http://54.227.126.254:8080/api/upLike", {
         CID: data,
       });
       하트변경(true);
     } else {
-      const like = await axios.post("http://localhost:8080/api/cancelLike2", {
+      const like = await axios.post("http://54.227.126.254:8080/api/cancelLike2", {
         CID: data,
       });
       하트변경(false);
@@ -122,10 +122,10 @@ const GetNowNFT = () => {
 
   const linkto = async (data) => {
     console.log(data);
-    const abcd = await axios.post("http://localhost:8080/api/getNFTLocation", {
+    const abcd = await axios.post("http://54.227.126.254:8080/api/getNFTLocation", {
       CID: data.CID,
     });
-    window.location.href = `http://localhost:8080/${abcd.data}/${data.CID}`;
+    window.location.href = `http://54.227.126.254:8080/${abcd.data}/${data.CID}`;
   };
 
   console.log(nftNowData);

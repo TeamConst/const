@@ -62,11 +62,11 @@ const ListenMusic = () => {
   const sorting = async (data) => {
     if (data == "TOP100") {
       const result = await axios.get(
-        "http://localhost:8080/api/getMusicTop100"
+        "http://54.227.126.254:8080/api/getMusicTop100"
       );
       차트변경(result.data);
     } else {
-      const result = await axios.post("http://localhost:8080/api/getMusic", {
+      const result = await axios.post("http://54.227.126.254:8080/api/getMusic", {
         name: data,
       });
 

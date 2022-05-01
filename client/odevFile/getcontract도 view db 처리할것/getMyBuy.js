@@ -127,7 +127,7 @@ const ConfigBuy = (props) => {
             window.alert("Something went wrong when pushing to the blockchain");
           });
       });
-    const ax = await axios.post("http://localhost:8080/api/setBuyOffer", {
+    const ax = await axios.post("http://54.227.126.254:8080/api/setBuyOffer", {
       CID: props.props.img,
       address: praaccounts[0],
       price: data.price,
@@ -312,7 +312,7 @@ const GetMyBuy = () => {
     fetchMyBuy(param)
   );
 
-  // const socketClient = io("http://localhost:3000");
+  // const socketClient = io("http://54.227.126.254:3000");
 
   console.log("param2", param);
   // 서버에서 받기

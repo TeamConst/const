@@ -8,12 +8,12 @@ import axios from "axios";
 
 const fetchAuctionMusicDB = async (param) => {
   console.log(param);
-  // const parsed = await ky("http://localhost:3000/api/collections").json();
-  const data = await axios.post("http://localhost:8080/api/getAuctionMusicDB", {
+  // const parsed = await ky("http://54.227.126.254:3000/api/collections").json();
+  const data = await axios.post("http://54.227.126.254:8080/api/getAuctionMusicDB", {
     name: param,
   });
 
-  // const data = await axios.get("http://localhost:8080/api/bestCollection");
+  // const data = await axios.get("http://54.227.126.254:8080/api/bestCollection");
   // const parsed = await ky("https://jsonplaceholder.typicode.com/posts").json();
 
   // const result = parsed.filter((x) => x.id <= limit);
