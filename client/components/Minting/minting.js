@@ -134,7 +134,7 @@ const Minting = () => {
   } = useForm();
   const onSubmit = async (data) => {
     // 소켓 처리
-    // const socketClient = io("http://54.227.126.254:3000");
+    // const socketClient = io("http://local:3000");
 
     // socketClient.on("connect", () => {
     //   console.log("쎾쓰");
@@ -164,7 +164,7 @@ const Minting = () => {
     imageFormData.append("CID", bu.path);
 
     const resultImage = await axios.post(
-      "http//54.227.126.254:8080/api/mint/image",
+      "http://54.227.126.254:8080/api/mint/image",
       imageFormData
     );
     console.log(resultImage);
@@ -179,7 +179,7 @@ const Minting = () => {
     const musicsFormData = new FormData();
     musicsFormData.append("musics", musics);
     // const resultMusics = await axios.post(
-    //   "http//54.227.126.254:8080/api/mint/musics",
+    //   "http://54.227.126.254:8080/api/mint/musics",
     //   musicsFormData
     // );
     // console.log(resultMusics);
@@ -198,7 +198,7 @@ const Minting = () => {
 
     const qq = await web3.eth.getAccounts();
     gg.address = qq[0];
-    // const resultGG = await axios.post("http//54.227.126.254:8080/api/mint/gg", gg);
+    // const resultGG = await axios.post("http://54.227.126.254:8080/api/mint/gg", gg);
 
     // 컨트랙트 처리부분
     // imageNFT로 변경 처리
@@ -256,7 +256,7 @@ const Minting = () => {
 
     // 옥션 로컬 db 저장
     const mintby = accounts[0];
-    const rere2 = await axios.post("http//54.227.126.254:8080/api/auction", {
+    const rere2 = await axios.post("http://54.227.126.254:8080/api/auction", {
       mintby: mintby,
       CID: bu.path,
     });
@@ -268,14 +268,14 @@ const Minting = () => {
     form.append("db", JSON.stringify(gg));
     form.append("address", JSON.stringify(현재메타마스크아이디));
     // form.append("CID", bu.path);
-    const allMinting = await axios.post("http//54.227.126.254:8080/api/mint", form);
+    const allMinting = await axios.post("http://54.227.126.254:8080/api/mint", form);
 
     // if (allMinting.data !== "민트 최종 성공") {
     //   alert("민팅을 실패하였습니다.");
     //   window.location.reload(true);
     // } else {
     //   alert("민팅을 성공하였습니다.");
-    //   window.location.href = "http//54.227.126.254:8080/";
+    //   window.location.href = "http://54.227.126.254:8080/";
     // }
 
     pra.methods
@@ -284,7 +284,7 @@ const Minting = () => {
       .on("transactionHash", (hash) => {
         console.log(hash);
         alert("민팅을 성공하였습니다.");
-        window.location.href = "http//54.227.126.254:8080/";
+        window.location.href = "http://54.227.126.254:8080/";
       })
       .on("error", (e) => {
         alert("Something went wrong when pushing to the blockchain");

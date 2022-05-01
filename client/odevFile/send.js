@@ -14,7 +14,7 @@ const Send = () => {
     const formData = new FormData();
     formData.append("picture", file);
 
-    const result = await axios.post("http//54.227.126.254:8080/upload", formData);
+    const result = await axios.post("http://54.227.126.254:8080/upload", formData);
     console.log(result);
   };
 

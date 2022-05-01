@@ -8,15 +8,15 @@ import axios from "axios";
 
 const fetchTransactionDetailDB = async (param) => {
   console.log(param);
-  // const parsed = await ky("http://54.227.126.254:3000/api/collections").json();
+  // const parsed = await ky("http://local:3000/api/collections").json();
   const data = await axios.post(
-    "http//54.227.126.254:8080/api/getTransactionDetailDB",
+    "http://54.227.126.254:8080/api/getTransactionDetailDB",
     {
       name: param,
     }
   );
 
-  // const data = await axios.get("http//54.227.126.254:8080/api/bestCollection");
+  // const data = await axios.get("http://54.227.126.254:8080/api/bestCollection");
   // const parsed = await ky("https://jsonplaceholder.typicode.com/posts").json();
 
   // const result = parsed.filter((x) => x.id <= limit);

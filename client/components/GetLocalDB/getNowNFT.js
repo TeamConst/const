@@ -72,10 +72,10 @@ const GetNowNFT = () => {
 
   const linkto = async (data) => {
     console.log(data);
-    const abcd = await axios.post("http//54.227.126.254:8080/api/getNFTLocation", {
+    const abcd = await axios.post("http://54.227.126.254:8080/api/getNFTLocation", {
       CID: data.CID,
     });
-    window.location.href = `http//54.227.126.254:8080/${abcd.data}/${data.CID}`;
+    window.location.href = `http://54.227.126.254:8080/${abcd.data}/${data.CID}`;
   };
 
   const loadMoreHandler = () => {

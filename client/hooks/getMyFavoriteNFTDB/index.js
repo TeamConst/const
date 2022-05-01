@@ -4,7 +4,7 @@ import axios from "axios";
 
 const fetchMyFavoriteNFTDB = async () => {
   const data = await axios.get(
-    "http//54.227.126.254:8080/api/getMyFavoriteNFTDB",
+    "http://54.227.126.254:8080/api/getMyFavoriteNFTDB",
     {}
   );
 

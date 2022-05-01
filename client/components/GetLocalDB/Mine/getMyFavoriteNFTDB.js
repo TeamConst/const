@@ -92,14 +92,14 @@ const GetMyFavoriteNFTDB = () => {
 
     // 좋아요
     const upLike = async (data) => {
-        const like = await axios.post("http//54.227.126.254:8080/api/upLike", {
+        const like = await axios.post("http://54.227.126.254:8080/api/upLike", {
             CID: data,
         });
         하트변경[i] = true;
     };
 
     const cancelLike = async (data) => {
-        const like = await axios.post("http//54.227.126.254:8080/api/cancelLike", {
+        const like = await axios.post("http://54.227.126.254:8080/api/cancelLike", {
             CID: data,
         });
         하트변경[i] = false;
@@ -110,12 +110,12 @@ const GetMyFavoriteNFTDB = () => {
     const linkto = async (data) => {
         console.log(data);
         const abcd = await axios.post(
-            "http//54.227.126.254:8080/api/getNFTLocation",
+            "http://54.227.126.254:8080/api/getNFTLocation",
             {
                 CID: data.CID,
             }
         );
-        window.location.href = `http//54.227.126.254:8080/${abcd.data}/${data.CID}`;
+        window.location.href = `http://54.227.126.254:8080/${abcd.data}/${data.CID}`;
     };
 
     console.log(userSession);

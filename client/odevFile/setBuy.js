@@ -76,7 +76,7 @@ const SetBuy = () => {
     );
 
     async function upView() {
-      const view = await axios.post("http//54.227.126.254:8080/api/upView", {
+      const view = await axios.post("http://54.227.126.254:8080/api/upView", {
         CID: id,
       });
     }
@@ -120,7 +120,7 @@ const SetBuy = () => {
   }
 
   const likeHandler = async () => {
-    const like = await axios.post("http//54.227.126.254:8080/api/upLike", {
+    const like = await axios.post("http://54.227.126.254:8080/api/upLike", {
       CID: id,
     });
   };
@@ -192,14 +192,14 @@ const SetBuy = () => {
       }
     }
 
-    const setbuydb = await axios.post("http//54.227.126.254:8080/api/setBuyDB", {
+    const setbuydb = await axios.post("http://54.227.126.254:8080/api/setBuyDB", {
       address: praaccounts[0],
       CID: buyData[0].img,
     });
 
     if (setbuydb) {
       console.log(setbuydb);
-      // window.reload.href = "http//54.227.126.254:8080/constbuy";
+      // window.reload.href = "http://54.227.126.254:8080/constbuy";
     }
   };
 
