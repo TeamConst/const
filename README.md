@@ -10,7 +10,6 @@
 
 
 - 한경현(kyunghyun Han):[깃허브](https://github.com/kyunghyunHan).     
-- 이소윤():[깃허브](https://github.com/jsoyun). 
 - 박정호():[깃허브](https://github.com/pjh94). 
 ---
 
