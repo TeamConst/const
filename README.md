@@ -86,3 +86,8 @@ IPFS관련참조
 ## 프로젝트
 
 <img width="1436" alt="스크린샷 2022-05-02 오후 12 34 05" src="https://user-images.githubusercontent.com/88940298/166181415-62e68140-a732-45d3-b7c2-ae2cf411edac.png">
+
+
+## PPT
+
+https://docs.google.com/presentation/d/1rMsa5SDoZl3wBaWUvloLyD0PgQDY7giy4BF2MBP883s/edit#slide=id.p
