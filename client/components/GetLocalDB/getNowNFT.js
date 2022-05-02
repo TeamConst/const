@@ -169,7 +169,7 @@ const GetNowNFT = () => {
                   </Link> */}
           {nftNowData.length === 8 ? (
             <p>
-              <Link href={`/indexNFT`}>더보기</Link>
+              <Link href={`/indexNFT`}><Button>더보기</Button></Link>
             </p>
           ) : null}
         </Container>
