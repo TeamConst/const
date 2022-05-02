@@ -1233,7 +1233,7 @@ app.prepare().then(() => {
   // 옥션 스타트 처리
   server.post("/api/getSelectedAuction", async (req, res) => {
     const a = req.body.name;
-
+   
     const Instance = await getAuctionDataContract();
 
     if (Instance) {
