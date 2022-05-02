@@ -92,7 +92,8 @@ IPFS관련참조
 
 ## 경매
 ![ezgif com-gif-maker](https://user-images.githubusercontent.com/88940298/166187608-6eef5a49-8f66-4dba-84fd-75bdf2387412.gif)
-
+## 판매 
+![ezgif com-gif-maker](https://user-images.githubusercontent.com/88940298/166188971-64e425ad-9d43-4f0f-8aa8-d8cb80ac9789.gif)
 
 ## PPT
 
