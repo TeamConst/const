@@ -87,6 +87,9 @@ IPFS관련참조
 
 <img width="1436" alt="스크린샷 2022-05-02 오후 12 34 05" src="https://user-images.githubusercontent.com/88940298/166181415-62e68140-a732-45d3-b7c2-ae2cf411edac.png">
 
+## Minting
+![ezgif com-gif-maker](https://user-images.githubusercontent.com/88940298/166186497-dee581c8-c5fa-45a8-b428-5eed8fb3303a.gif)
+
 
 ## PPT
 
