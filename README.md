@@ -90,6 +90,9 @@ IPFS관련참조
 ## Minting
 ![ezgif com-gif-maker](https://user-images.githubusercontent.com/88940298/166186497-dee581c8-c5fa-45a8-b428-5eed8fb3303a.gif)
 
+## 경매
+![ezgif com-gif-maker](https://user-images.githubusercontent.com/88940298/166187608-6eef5a49-8f66-4dba-84fd-75bdf2387412.gif)
+
 
 ## PPT
 
