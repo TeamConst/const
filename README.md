@@ -80,6 +80,9 @@ IPFS관련참조
 |청취시|  이용권을 가진 유저가 어떤 곡을 클릭하면 해당 곡의 음원을 포함한 metadata를 불러와 재생하고 좋아요를 클릭해 MY favorite에 담을 수 있다 곡이 종료(디음 곡으로 넘어 가는 것 포함)될 떄의 재생시간을 곡의 총 재생시간과 사용자의 총 재생시간 기록에 합산하여 DB에 저장|
 
 ## 기타자료
-- [IPFS란](https<img width="1436" alt="스크린샷 2022-05-02 오후 12 34 05" src="https://user-images.githubusercontent.com/88940298/166181415-62e68140-a732-45d3-b7c2-ae2cf411edac.png">
-://kadensungbincho.tistory.com/66)
+- [IPFS란](https://kadensungbincho.tistory.com/66)
 - [NFT_Market_Dapp 예시](https://github.com/kyunghyunHan/NFT_Market_Dapp)
+
+## 프로젝트
+
+<img width="1436" alt="스크린샷 2022-05-02 오후 12 34 05" src="https://user-images.githubusercontent.com/88940298/166181415-62e68140-a732-45d3-b7c2-ae2cf411edac.png">
