@@ -232,7 +232,7 @@ const ConfigBuy = (props) => {
     pra = contract1;
     praaccounts = accounts1;
 
-    const ax = await axios.post("http://54.227.126.254:8080/api/setBuyOffer", {
+    const ax = await axios.post("http://localhost:8080/api/setBuyOffer", {
       CID: props.props.CID,
       address: praaccounts[0],
       price: data.price,
@@ -269,7 +269,7 @@ const ConfigBuy = (props) => {
           .on("transactionHash", (hash) => {
             console.log("해시해시", hash);
             alert("판매 등록 성공. 지금부터 판매를 시작합니다.");
-            window.location.href = `http://54.227.126.254:8080/buy/${props.props.CID}`;
+            window.location.href = `http://localhost:8080/buy/${props.props.CID}`;
 
             // 일단 여기에 비동기로 하나 넣자
           })
@@ -358,7 +358,7 @@ const ConfigAuction = (props) => {
     pra = contract1;
     praaccounts = accounts1;
 
-    const ax = await axios.post("http://54.227.126.254:8080/api/setAuctionStart", {
+    const ax = await axios.post("http://localhost:8080/api/setAuctionStart", {
       CID: props.props.CID,
       currentPrice: minBid2,
       duration: duration2,
@@ -371,7 +371,7 @@ const ConfigAuction = (props) => {
       .on("transactionHash", (hash) => {
         console.log("해시해시", hash);
         alert("경매 등록 성공. 지금부터 경매를 시작합니다.");
-        window.location.href = `http://54.227.126.254:8080/auction/${props.props.CID}`;
+        window.location.href = `http://localhost:8080/auction/${props.props.CID}`;
       })
       .on("error", (error) => {
         window.alert("Something went wrong when pushing to the blockchain");

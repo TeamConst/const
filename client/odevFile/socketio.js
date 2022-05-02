@@ -1,5 +1,5 @@
 // 여기에 이제 실시간 처리를 해야겠다
-// const socketClient = io("http://54.227.126.254:3000");
+// const socketClient = io("http://localhost:3000");
 // socketClient.on("connect", (req) => {
 //   console.log(req);
 //   console.log("connection server");
@@ -28,7 +28,7 @@
 //   "repoData",
 //   () =>
 //     // axios.get('http')
-//     fetch("http://54.227.126.254:8080/api/getDate")
+//     fetch("http://localhost:8080/api/getDate")
 //       .then((res) => {
 //         console.log(res);
 //         return res.json();

@@ -5,7 +5,7 @@ const fetchMusicDetailDB = async (param) => {
     return;
   } else {
     const data = await axios.post(
-      "http://54.227.126.254:8080/api/getMusicDetailDB",
+      "http://localhost:8080/api/getMusicDetailDB",
       {
         CID: param,
       }

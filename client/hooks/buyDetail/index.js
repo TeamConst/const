@@ -7,8 +7,8 @@ import axios from "axios";
 // import contractJSON from "../../../build/contracts/NFTCollection.json";
 
 const fetchBuySell = async (param) => {
-  // const parsed = await ky("http://54.227.126.254:3000/api/collections").json();
-  const data = await axios.post("http://54.227.126.254:8080/api/buydetail", {
+  // const parsed = await ky("http://localhost:3000/api/collections").json();
+  const data = await axios.post("http://localhost:8080/api/buydetail", {
     name: param,
   });
 

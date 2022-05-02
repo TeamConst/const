@@ -66,7 +66,7 @@ const UpdateForm = () => {
             //  const address = await web3.eth.getAccounts();
             // data.address = address[0]
             const result = await axios.post(
-                "http://54.227.126.254:8080/api/updateUserInfo",
+                "http://localhost:8080/api/updateUserInfo",
                 {
                     name: data.name,
                     favor_genre: data.favor_genre,
@@ -77,11 +77,11 @@ const UpdateForm = () => {
 
             if (result.data !== "회원정보 수정 완료") {
                 alert("회원정보 수정을 실패하였습니다.");
-                window.location.href = "http://54.227.126.254:8080/mypage";
+                window.location.href = "http://localhost:8080/mypage";
             }
 
             alert("회원정보 수정을 성공하였습니다.");
-            window.location.href = "http://54.227.126.254:8080/mypage";
+            window.location.href = "http://localhost:8080/mypage";
         } catch (err) {
             alert(err);
             window.location.reload(true);
