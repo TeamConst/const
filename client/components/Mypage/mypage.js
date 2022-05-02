@@ -164,6 +164,8 @@ const Mypage1 = () => {
       .send({ from: praaccounts[0] })
       .on("transactionHash", (hash) => {
         console.log("해쉬해쉬", hash);
+        alert("이더받기성공")
+        window.location.reload(true);
       })
       .on("error", (error) => {
         window.alert("Something went wrong when pushing to the blockchain");
@@ -253,7 +255,7 @@ const Mypage1 = () => {
                     />
                   </Header>
 
-                  <Link href={`/userUpdate2`}>
+                  <Link href={`/userUpdate`}>
                     <Followers>
                       <Smallertext>회원 정보 수정하기</Smallertext>
                     </Followers>

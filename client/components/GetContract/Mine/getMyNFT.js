@@ -92,12 +92,12 @@ const GetMyNFT = () => {
       }
       if (!nftMyData[i].BuyMusic_CID[0]) {
         nftMyData[i].bubu = true;
-      } else if (nftMyData[i].BuyMusic_CID[0].buyComplete === true) {
-        nftMyData[i].auau = true;
+      } else if (nftMyData[i].BuyMusic_CID[0].sellComplete === true) {
+        nftMyData[i].bubu = true;
       }
     }
   }
-
+console.log(nftMyData,"nftMyData")
   //  클라이언트에서 그대로 불러오기
   const [이미지, 이미지변경] = useState([]);
 

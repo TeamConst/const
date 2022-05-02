@@ -166,8 +166,8 @@ const GetNowBuy = () => {
                     </Grid>
 
                     {
-        buyNowData.length > 8
-        ? <p><Link href={`/indexNFT`}>시발</Link></p>
+        buyNowData.length === 8
+        ? <p><Link href={`/indexBuy`}>더보기</Link></p>
         : null
       }
                 </Container>
