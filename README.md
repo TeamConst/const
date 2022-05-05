@@ -38,7 +38,11 @@
 - Ipts.io(data uploads)
 - Metamask
 - AWS EC2
-- Rinkeby 
+- Rinkeby
+-  <img width="1011" alt="스크린샷 2022-05-05 오후 3 04 57" src="https://user-images.githubusercontent.com/88940298/166870442-e12e8aae-3747-409e-b5d9-66c47c7f0ebb.png">
+
+
+
 
 ## 개발환경
 |개발환경||
@@ -131,6 +135,8 @@ Next는 자체 CSS-In-JS인 styled-jsx를 지원합니다. 기본으로 제공�
 
 <img width="1013" alt="스크린샷 2022-05-05 오후 3 02 17" src="https://user-images.githubusercontent.com/88940298/166870155-fe140dc0-04a8-4536-9e3c-00d773c0793c.png">
 
+
+- truffle migrate --network rinkeby --reset --skip-dry-run
 
 ## Minting
 ![ezgif com-gif-maker](https://user-images.githubusercontent.com/88940298/166186497-dee581c8-c5fa-45a8-b428-5eed8fb3303a.gif)
