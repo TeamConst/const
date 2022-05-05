@@ -38,6 +38,7 @@
 - Ipts.io(data uploads)
 - Metamask
 - AWS EC2
+- Rinkeby 
 
 ## 개발환경
 |개발환경||
@@ -125,6 +126,12 @@ Next는 자체 CSS-In-JS인 styled-jsx를 지원합니다. 기본으로 제공�
 - 무한 스크롤 (Infinite Queries (opens new window))
 - 비동기 과정을 선언적으로 관리할 수 있다.
 - react hook과 사용하는 구조가 비슷하다.
+
+## 테스트넷 배포
+
+<img width="1013" alt="스크린샷 2022-05-05 오후 3 02 17" src="https://user-images.githubusercontent.com/88940298/166870155-fe140dc0-04a8-4536-9e3c-00d773c0793c.png">
+
+
 ## Minting
 ![ezgif com-gif-maker](https://user-images.githubusercontent.com/88940298/166186497-dee581c8-c5fa-45a8-b428-5eed8fb3303a.gif)
 
