@@ -17,8 +17,6 @@
 ---
 
 ---
-# 과제 
-[링크](https://github.com/m1guelpf/nft-token-drop)
 ## 번외
 - [NFT](https://www.inflearn.com/courses?s=nft)
 
