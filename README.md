@@ -13,7 +13,7 @@
 
 
 - 한경현(kyunghyun Han):[깃허브](https://github.com/kyunghyunHan).     
-- 박정호():[깃허브](https://github.com/pjh94). 
+- 박정호(jungho Park):[깃허브](https://github.com/pjh94). 
 ---
 
 ---
